@@ -33,8 +33,11 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
+import { useNavigate } from "react-router";
 
-const Mainpagedash = (percentage) => {
+const Admindashboard = (percentage) => {
+  const navigate = useNavigate();
+
   const chart = [
     { name: "Jan", uv: 400, pv: 2400, amt: 2400 },
     { name: "Feb", uv: 300, pv: 1398, amt: 2210 },
@@ -117,6 +120,10 @@ const Mainpagedash = (percentage) => {
     },
   ];
 
+  const SignClick = () => {
+    navigate("/signup");
+  };
+
   return (
     <>
       <Row>
@@ -124,6 +131,7 @@ const Mainpagedash = (percentage) => {
           <Row className="admin_toppadding ">
             <Col className="Admin_dashboard margin_bottom" md={12} lg={12}>
               <h3> Admin Dashboard</h3>
+              <Button onClick={() => SignClick()}>sigin</Button>
               <div>
                 <Button className="Admin_lbutton" variant="secondary">
                   {" "}
@@ -489,4 +497,4 @@ const Mainpagedash = (percentage) => {
   );
 };
 
-export default Mainpagedash;
+export default Admindashboard;

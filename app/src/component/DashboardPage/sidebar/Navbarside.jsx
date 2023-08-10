@@ -14,10 +14,10 @@ import { GoDatabase } from "react-icons/go";
 import { FaShoppingCart, FaUserCheck } from "react-icons/fa";
 import { SiPowerpages } from "react-icons/si";
 import { BiCut, BiSolidReport } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const SidebarFun = () => {
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const AllProductClick = () => {
         //   navigate("/allproductlist");
@@ -26,13 +26,17 @@ const SidebarFun = () => {
         //   navigate("/productform");
     };
 
+    const dashClick = () => {
+        navigate("/")
+    }
+
     return (
         <div className="admin_sidebar col_hide">
             <Sidenav defaultOpenKeys={["3", "4"]}>
                 <Sidenav.Body>
                     <div className="sidebar_deco">
                         <Nav activeKey="1">
-                            <Nav.Item eventKey="1">
+                            <Nav.Item eventKey="1" onClick={() => dashClick()} >
                                 {" "}
                                 <AiOutlineDashboard />
                                 Dashboard
