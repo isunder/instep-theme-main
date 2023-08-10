@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import Mainheader from "../component/header/Mainheader";
+import Mainheader from "../component/admin/header/Mainheader";
 import { Outlet } from "react-router-dom";
 import SidebarFun from "../component/DashboardPage/sidebar/Navbarside";
 import { Col, Container, Row } from "react-bootstrap";

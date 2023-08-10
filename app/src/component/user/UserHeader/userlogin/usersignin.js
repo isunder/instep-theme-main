@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Field } from "react-final-form";
 
-const LoginPage = () => {
+const UserSignin = () => {
   const validates = (values) => {
     const errors = {};
     if (!values.username) {
@@ -9,11 +9,6 @@ const LoginPage = () => {
     }
     if (!values.password) {
       errors.password = "Required";
-    }
-    if (!values.confirm) {
-      errors.confirm = "Required";
-    } else if (values.confirm !== values.password) {
-      errors.confirm = "Password must be";
     }
     return errors;
   };
@@ -46,15 +41,6 @@ const LoginPage = () => {
               </div>
             )}
           </Field>
-          <Field name="confirm">
-            {({ input, meta }) => (
-              <div>
-                <label>Confirm</label>
-                <input {...input} type="password" placeholder="Confirm" />
-                {meta.error && meta.touched && <span>{meta.error}</span>}
-              </div>
-            )}
-          </Field>
           <div className="buttons">
             <button type="submit" disabled={submitting}>
               Submit
@@ -66,5 +52,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
-// render(<App />, document.getElementById("root"));
+export default UserSignin;
