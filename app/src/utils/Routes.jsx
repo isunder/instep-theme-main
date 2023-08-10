@@ -12,11 +12,23 @@ import Allunit from "../component/DashboardPage/sideNavOption/Products/Allunit";
 import Alltaxes from "../component/DashboardPage/sideNavOption/Products/Alltaxes";
 import LoginPage from "../component/Loginpage/login";
 import Admindashboard from "../component/DashboardPage/sideNavOption/Dashboard";
+import SignIn from "../component/admin/signin/sign";
+import CustomerLayout from "./CustomerLayout";
+import Homepage from "../component/user/UserHeader/home/homepage";
 
 const role = getUserId() ? getUserId()?.userRole : null;
 const isLoggedIn = getToken();
 const protects = {
     default: [
+        {
+            path: "/",
+            element: <CustomerLayout />,
+            children: [
+                { path: "/", element: <Homepage /> }
+            ]
+        },
+    ],
+    admin: [
         {
             path: "/",
             element: <AdminLayout />,
@@ -36,7 +48,16 @@ const protects = {
                 { path: "*", element: "NO PAGE FOUND" },
             ],
         },
-    ],
+    ],  
+    user: [
+        {
+            path: "/",
+            element: <CustomerLayout />,
+            children: [
+                { path: "/", element: <Homepage /> }
+            ]
+        }
+    ]
 };
 
 export const protect =
