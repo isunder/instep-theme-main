@@ -60,7 +60,7 @@ const SidebarFun = () => {
                             ></Nav.Menu>
                             <Nav.Menu eventKey="4" title="Order" icon={<HiDocument />} />{" "}
                             <Nav.Menu eventKey="5" title="Stock" icon={<GoDatabase />}>
-                                <Nav.Item eventKey="5-1"><Link to={"/Addstock"} /> Add Stock  </Nav.Item>
+                                <Nav.Item eventKey="5-1"><Link to={"/Addstock"} > Add Stock </Link> </Nav.Item>
                                 <Nav.Item eventKey="5-2"><Link to={"/Allloation"}> All Location</Link></Nav.Item>
                             </Nav.Menu>{" "}
                             <Nav.Menu eventKey="6" title="Refunds" icon={<BsArrow90DegLeft />}>
@@ -104,7 +104,7 @@ const SidebarFun = () => {
                             //  icon={<BsAwardFill />}
                             >
                                 {" "}
-                                <Nav.Item eventKey="13-1">Bulk Email</Nav.Item>
+                                <Nav.Item eventKey="13-1"><Link to={"/Bulkemails"}>Bulk Email </Link> </Nav.Item>
                                 <Nav.Item eventKey="13-2"><Link to={"/Subscriber"}> Subscribers</Link></Nav.Item>
                             </Nav.Menu>
                             <Nav.Menu eventKey="14" title="Coupons" icon={<BiCut />} />
@@ -117,10 +117,10 @@ const SidebarFun = () => {
                             />
                             <Nav.Menu eventKey="18" title="Reports" icon={<BiSolidReport />}>
                                 {" "}
-                                <Nav.Item eventKey="18-1"> Order Report</Nav.Item>
-                                <Nav.Item eventKey="18-2">Products Sales</Nav.Item>
-                                <Nav.Item eventKey="18-3">Category Wise Sales</Nav.Item>
-                                <Nav.Item eventKey="18-4">Sales Amount Report</Nav.Item>
+                                <Nav.Item eventKey="18-1"><Link to={"/Orderreport"}>Order Report</Link></Nav.Item>
+                                <Nav.Item eventKey="18-2"> <Link to={"/Productsale"}>Products Sales</Link></Nav.Item>
+                                <Nav.Item eventKey="18-3"> <Link to={"/Categorywise"}>Category Wise Sales</Link></Nav.Item>
+                                <Nav.Item eventKey="18-4"><Link to={"/Salesamountreport"}>Sales Amount Report</Link></Nav.Item>
                                 <Nav.Item eventKey="18-5">Delivery Status Report</Nav.Item>
                             </Nav.Menu>
                             <Nav.Menu

@@ -120,9 +120,7 @@ const Admindashboard = (percentage) => {
     },
   ];
 
-  const SignClick = () => {
-    navigate("/signup");
-  };
+ 
 
   return (
     <>
@@ -131,7 +129,7 @@ const Admindashboard = (percentage) => {
           <Row className="admin_toppadding ">
             <Col className="Admin_dashboard margin_bottom" md={12} lg={12}>
               <h3> Admin Dashboard</h3>
-              <Button onClick={() => SignClick()}>sigin</Button>
+              {/* <Button onClick={() => SignClick()}>sigin</Button> */}
               <div>
                 <Button className="Admin_lbutton" variant="secondary">
                   {" "}
