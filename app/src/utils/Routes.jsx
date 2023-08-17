@@ -17,6 +17,9 @@ import Orderreport from "../component/DashboardPage/sideNavOption/Reports/Orderr
 import Categorywise from "../component/DashboardPage/sideNavOption/Reports/Categorieswisesales";
 import SignIn from "../component/admin/signin/sign";
 import Salesamount from "../component/DashboardPage/sideNavOption/Reports/Salesamountreport";
+import DeliveryStatus from "../component/DashboardPage/sideNavOption/Reports/Deliverystatusreport";
+import ProductForm from "../component/admin/addProductDetails/addProductFrom";
+import PosSystem from "../component/DashboardPage/sideNavOption/possystem";
 
 const role = getUserId() ? getUserId()?.userRole : null;
 const isLoggedIn = getToken();
@@ -38,19 +41,22 @@ const protects = {
                 { path: "/", element: <Admindashboard /> },
                 { path: "/signin", element: <SignIn /> },
                 { path: "/allproduct", element: <Allproducts /> },
-                { path: "/Addstock", element: <StockFile /> },
-                { path: "/Allloation", element: <Alllocation /> },
-                { path: "/Subscriber", element: <Subscribeuser /> },
-                { path: "/Allcategories", element: <Allcategories /> },
-                { path: "/Allvariations", element: <Allvariations /> },
-                { path: "/Allbrands", element: <Allbrands /> },
-                { path: "/Allunit", element: <Allunit /> },
-                { path: "/Alltaxes", element: <Alltaxes /> },
-                { path: "/Orderreport", element: <Orderreport /> },
-                { path: "/Categorywise", element: <Categorywise /> },
-                { path: "/Bulkemails", element: <Bulkemails /> },
-                { path: "/Productsale", element: <Productsale /> }, 
-                { path: "/Salesamountreport", element: <Salesamount /> }, 
+                { path: "/addstock", element: <StockFile /> },
+                { path: "/allloation", element: <Alllocation /> },
+                { path: "/subscriber", element: <Subscribeuser /> },
+                { path: "/allcategories", element: <Allcategories /> },
+                { path: "/allvariations", element: <Allvariations /> },
+                { path: "/allbrands", element: <Allbrands /> },
+                { path: "/allunit", element: <Allunit /> },
+                { path: "/alltaxes", element: <Alltaxes /> },
+                { path: "/orderreport", element: <Orderreport /> },
+                { path: "/categorywise", element: <Categorywise /> },
+                { path: "/bulkemails", element: <Bulkemails /> },
+                { path: "/productsale", element: <Productsale /> },
+                { path: "/salesamountreport", element: <Salesamount /> },
+                { path: "/deliverystatusreport", element: <DeliveryStatus /> },
+                { path: "/product", element: <ProductForm /> }, 
+                { path: "/possystem", element: <PosSystem /> }, 
                 { path: "*", element: "NO PAGE FOUND" },
             ],
         },

@@ -2,7 +2,6 @@
 import React from "react";
 import {
   Button,
-  Card,
   Col,
   Form,
   Navbar,
@@ -11,6 +10,7 @@ import {
   Table,
 } from "react-bootstrap";
 import { AiOutlineSearch } from "react-icons/ai";
+import { FiSearch } from "react-icons/fi";
 
 function Categorywise() {
   let items = [];
@@ -19,90 +19,83 @@ function Categorywise() {
   }
   return (
     <>
-      <Row>
-        <Col>
-          <Card>
-            <Card.Body>Category Wise Sales Report</Card.Body>
-          </Card>
-        </Col>
-      </Row>
-      <Row>
-        <Col lg={12}>
-          <Navbar className="bg-body-tertiary justify-content-between">
-            <Form inline>
+      <div className="admin_toppadding ">
+        <Row>
+          <Col className="Admin_dashboard margin_bottom" lg={12}>
+            <h3> Category Wise Sales Report</h3>
+          </Col>
+        </Row>
+        <Row className="searchbutton">
+          <Col lg={12}>
+            <div className="margin_bottom">
               <Row>
                 <Col xs="auto">
-                  {" "}
-                  <Form.Control
-                    type="text"
-                    placeholder="Search"
-                    className=" mr-sm-2"
-                    style={{ width: "80rem" }}
-                  />
+                  <div
+                    className="all_product_search category_search"
+                  >
+                    <FiSearch className="allproduct_searchicon " />{" "}
+                    <Form.Control
+                      type="text"
+                      placeholder="Search"
+                      className=" mr-sm-2 search_bar"
+                    />
+                  </div>
                 </Col>
                 <Col>
                   {" "}
-                  <Form.Select>
+                  <Form.Select className="price_filter order_date">
                     <option>High - Low</option>
                     <option>Low -High </option>
                   </Form.Select>{" "}
                 </Col>
                 <Col xs="auto">
                   <div className="d-flex ">
-                    <Button type="submit">
+                    <Button className="select_button m-0" type="submit">
                       {" "}
                       <AiOutlineSearch /> search
                     </Button>
                   </div>
                 </Col>
               </Row>
-            </Form>
-          </Navbar>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          {" "}
+            </div>
+          </Col>{" "}
           <Table>
             <thead>
               <tr>
                 <th>S/L</th>
                 <th>Category Name </th>
-                <th>Total Sales</th>
+                <th className="table_colmn">Total Sales</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>1</td>
                 <td>Fresh organic</td>
-                <td>80</td>
+                <td className="table_colmn num_bers">80</td>
               </tr>
               <tr>
                 <td>2</td>
                 <td>Fresh fruit</td>
-                <td>67</td>
+                <td className="table_colmn num_bers">67</td>
               </tr>
               <tr>
                 <td>3</td>
                 <td>vegetable </td>
-                <td>70</td>
+                <td className="table_colmn num_bers">70</td>
               </tr>
               <tr>
                 <td>4</td>
                 <td>Breakfast </td>
-                <td>60</td>
-              </tr>
-
-              <tr>
-                <td>Showing 1-15 of 15 results</td>
-                <td>
-                  <Pagination>{items}</Pagination>
-                </td>
+                <td className="table_colmn num_bers">60</td>
               </tr>
             </tbody>
           </Table>
-        </Col>
-      </Row>
+          Showing 1-15 of 15 results
+          <div className="table_pageination">
+            <Pagination>{items}</Pagination>
+          </div>
+        </Row>
+      </div>
     </>
   );
 }

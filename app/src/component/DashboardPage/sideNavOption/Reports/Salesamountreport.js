@@ -2,10 +2,8 @@
 import React, { useRef } from "react";
 import {
   Button,
-  Card,
   Col,
   Form,
-  Navbar,
   Pagination,
   Row,
   Table,
@@ -23,121 +21,109 @@ function Salesamount() {
 
   return (
     <>
-      <Row>
-        <Col>
-          <Card>
-            <Card.Body>Category Wise Sales Report</Card.Body>
-          </Card>
-        </Col>
-      </Row>
-      <Row>
-        <Col lg={12}>
-          <Navbar className="bg-body-tertiary justify-content-between">
-            <Form inline>
-              <Row>
-                <Col xs="auto">
-                  {" "}
-                  <Flatpickr
-                    ref={startDateRef}
-                    options={{
-                      dateFormat: "m/d/Y",
-                      onClose: (_, selectedDates) => {
-                        // Set the minimum date for the end date calendar
-                        if (selectedDates.length > 0) {
-                          endDateRef.current.flatpickr.set(
-                            "minDate",
-                            selectedDates[0]
-                          );
-                        }
-                      },
-                    }}
-                    placeholder="Start Date"
-                  />
-                  <span className="date-range-separator">to</span>
-                  <Flatpickr
-                    ref={endDateRef}
-                    options={{
-                      dateFormat: "m/d/Y",
-                      onClose: (_, selectedDates) => {
-                        // Set the maximum date for the start date calendar
-                        if (selectedDates.length > 0) {
-                          startDateRef.current.flatpickr.set(
-                            "maxDate",
-                            selectedDates[0]
-                          );
-                        }
-                      },
-                    }}
-                    placeholder="End Date"
-                  />
-                </Col>
-                <Col>
-                  {" "}
-                  <Form.Select>
-                    <option>High - Low</option>
-                    <option>Low -High </option>
-                  </Form.Select>{" "}
-                </Col>
-                <Col xs="auto">
-                  <div className="d-flex ">
-                    <Button type="submit">
-                      {" "}
-                      <AiOutlineSearch /> search
-                    </Button>
-                  </div>
-                </Col>
-                <Col xs="auto">
-                  <div className="d-flex ">Total Amount</div>
-                  <div> ₹398,939.30</div>
-                </Col>
-              </Row>
-            </Form>
-          </Navbar>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          {" "}
-          <Table>
-            <thead>
-              <tr>
-                <th>S/L</th>
-                <th>Date</th>
-                <th>Total Sales</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td> 06 Aug, 2023</td>
-                <td>₹75,200.00</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td> 05 Aug, 2023</td>
-                <td>₹40,200.00</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td> 06 Aug, 2023 </td>
-                <td>₹85,200.00</td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td> 06 Aug, 2023 </td>
-                <td>34,200.00</td>
-              </tr>
+      <div className="admin_toppadding ">
+        <Row>
+          <Col className="Admin_dashboard margin_bottom" lg={12}>
+            <h3> Sales Amount Report</h3>
+          </Col>
+        </Row>
+        <Row className="searchbutton">
+          <Col className="order_report margin_bottom" lg={12}>
+            <div className="date-range-picker">
+              <Flatpickr
+                className="order_date"
+                ref={startDateRef}
+                options={{
+                  dateFormat: "m/d/Y",
+                  onClose: (_, selectedDates) => {
+                    // Set the minimum date for the end date calendar
+                    if (selectedDates.length > 0) {
+                      endDateRef.current.flatpickr.set(
+                        "minDate",
+                        selectedDates[0]
+                      );
+                    }
+                  },
+                }}
+                placeholder="Start Date"
+              />
+              <span className="date-range-separator  m-3">to</span>
+              <Flatpickr
+                className="order_date"
+                ref={endDateRef}
+                options={{
+                  dateFormat: "m/d/Y",
+                  onClose: (_, selectedDates) => {
+                    // Set the maximum date for the start date calendar
+                    if (selectedDates.length > 0) {
+                      startDateRef.current.flatpickr.set(
+                        "maxDate",
+                        selectedDates[0]
+                      );
+                    }
+                  },
+                }}
+                placeholder="End Date"
+              />
+            </div>
+            <div>
+              {" "}
+              <Form.Select className="price_filter order_date order_div">
+                <option>High - Low</option>
+                <option>Low -High </option>
+              </Form.Select>{" "}
+            </div>
+            <div className="btngroup  alllocation_button">
+              <Button className="select_button  m-0" type="submit">
+                {" "}
+                <AiOutlineSearch /> search
+              </Button>
+            </div>
 
-              <tr>
-                <td>Showing 1-30 of 32 results</td>
-                <td>
-                  <Pagination>{items}</Pagination>
-                </td>
-              </tr>
-            </tbody>
-          </Table>
-        </Col>
-      </Row>
+            <div>
+              <div className="d-flex ">Total Amount</div>
+              <div> ₹398,939.30</div>
+            </div>
+          </Col>
+          <Col>
+            <Table>
+              <thead>
+                <tr>
+                  <th>S/L</th>
+                  <th>Date</th>
+                  <th className="table_colmn table_value">Total Sales</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td> 06 Aug, 2023</td>
+                  <td className="table_colmn table_value">₹75,200.00</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td> 05 Aug, 2023</td>
+                  <td className="table_colmn table_value">₹40,200.00</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td> 06 Aug, 2023 </td>
+                  <td className="table_colmn table_value">₹85,200.00</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td> 06 Aug, 2023 </td>
+                  <td className="table_colmn table_value">34,200.00</td>
+                </tr>
+              </tbody>
+            </Table>
+            Showing 1-30 of 32 results
+            <div className="table_pageination">
+              <Pagination>{items}</Pagination>
+            </div>
+          </Col>
+        </Row>
+      </div>
     </>
   );
 }
