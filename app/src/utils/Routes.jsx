@@ -1,4 +1,3 @@
-
 import { getToken, getUserId } from "./auth";
 import AdminLayout from "./AdminLayout";
 import Allproducts from "../component/DashboardPage/sideNavOption/Products/Allproducts";
@@ -17,26 +16,35 @@ import Orderreport from "../component/DashboardPage/sideNavOption/Reports/Orderr
 import Categorywise from "../component/DashboardPage/sideNavOption/Reports/Categorieswisesales";
 import SignIn from "../component/admin/signin/sign";
 import Salesamount from "../component/DashboardPage/sideNavOption/Reports/Salesamountreport";
+import SignUp from "../component/user/Signup/signup";
+import Homepage from "../component/user/UserHeader/home/homepage";
+import { Navigate } from "react-router-dom";
+import Userheader from "../component/header/Mainheader";
+import Layout from "./Layout";
+import CustomerLayout from "./CustomerLayout";
 
 const role = getUserId() ? getUserId()?.userRole : null;
 const isLoggedIn = getToken();
 const protects = {
-    // default: [
-    //     {
-    //         path: "/",
-    //         element: <CustomerLayout />,
-    //         children: [
-    //             { path: "/", element: <Homepage /> }
-    //         ]
-    //     },
-    // ],
-    default: [
+
+    user: [
         {
             path: "/",
-            element: <AdminLayout />,
+            element: isLoggedIn ? <CustomerLayout /> : <Navigate to="/" />,
+            children: [
+                { path: "/", element: <Homepage /> },
+                { path: "/userheader", element: <Userheader /> },
+                { path: "*", element: "NO PAGE FOUND" }
+            ]
+        }
+    ],
+
+    admin: [
+        {
+            path: "/",
+            element: isLoggedIn ? <AdminLayout /> : <Navigate to="/" />,
             children: [
                 { path: "/", element: <Admindashboard /> },
-                { path: "/signin", element: <SignIn /> },
                 { path: "/allproduct", element: <Allproducts /> },
                 { path: "/Addstock", element: <StockFile /> },
                 { path: "/Allloation", element: <Alllocation /> },
@@ -49,21 +57,24 @@ const protects = {
                 { path: "/Orderreport", element: <Orderreport /> },
                 { path: "/Categorywise", element: <Categorywise /> },
                 { path: "/Bulkemails", element: <Bulkemails /> },
-                { path: "/Productsale", element: <Productsale /> }, 
-                { path: "/Salesamountreport", element: <Salesamount /> }, 
+                { path: "/Productsale", element: <Productsale /> },
+                { path: "/Salesamountreport", element: <Salesamount /> },
                 { path: "*", element: "NO PAGE FOUND" },
             ],
         },
     ],
-    // user: [
-    //     {
-    //         path: "/",
-    //         element: <CustomerLayout />,
-    //         children: [
-    //             { path: "/", element: <Homepage /> }
-    //         ]
-    //     }
-    // ]
+    default: [
+        {
+            path: "/",
+            element: <Layout />,
+            children: [
+                { path: "/", element: <Homepage /> },
+                { path: "/signup", element: <SignUp /> },
+                { path: "/signin", element: <SignIn /> },
+            ]
+        },
+    ],
+
 };
 
 export const protect =

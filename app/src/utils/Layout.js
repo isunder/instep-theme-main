@@ -1,19 +1,17 @@
-import { memo } from "react";
 import React from "react";
+import { Outlet, Navigate } from "react-router";
 import Usernavbar from "../component/user/UserHeader/usernavbar/usernavbar";
-import { Navigate, Outlet } from "react-router-dom";
 
-function CustomerLayout() {
+function Layout() {
   const token = localStorage.getItem("token");
-
   return !token ? (
     <>
       <Usernavbar />
       <Outlet />
     </>
   ) : (
-    <Navigate to="/" />
+    <Navigate to="/signin" />
   );
 }
 
-export default memo(CustomerLayout);
+export default Layout;

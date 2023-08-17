@@ -7,7 +7,7 @@ const initialState = {
   error: "",
 };
 
-const liginData = createSlice({
+const loginData = createSlice({
   name: "joblisting",
   initialState,
 
@@ -28,4 +28,4 @@ const liginData = createSlice({
   },
 });
 
-export default liginData.reducer;
+export default loginData.reducer;

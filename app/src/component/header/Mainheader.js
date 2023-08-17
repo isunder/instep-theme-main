@@ -4,7 +4,7 @@ import { BsGlobe2 } from "react-icons/bs";
 import { FiSearch } from "react-icons/fi";
 import { MdOutlineNotificationsActive } from "react-icons/md";
 
-function Mainheader() {
+function Userheader() {
   return (
     <>
       <div className="sticky-top bg-white ">
@@ -49,4 +49,4 @@ function Mainheader() {
   );
 }
 
-export default Mainheader;
+export default Userheader;

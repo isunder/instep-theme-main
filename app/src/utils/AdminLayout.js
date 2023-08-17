@@ -1,11 +1,12 @@
 import React, { memo } from "react";
 import Mainheader from "../component/admin/header/Mainheader";
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import SidebarFun from "../component/DashboardPage/sidebar/Navbarside";
 import { Col, Container, Row } from "react-bootstrap";
 
 const AdminLayout = () => {
-  return (
+  const token = localStorage.getItem("token");
+  return token ? (
     <>
       <Mainheader />
       <Container fluid>
@@ -19,6 +20,8 @@ const AdminLayout = () => {
         </Row>
       </Container>
     </>
+  ) : (
+    <Navigate to="/signin" />
   );
 };
 
