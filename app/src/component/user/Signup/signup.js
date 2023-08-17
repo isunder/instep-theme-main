@@ -1,25 +1,36 @@
 import React from "react";
 import { Form, Field } from "react-final-form";
+import { useDispatch } from "react-redux";
+import { registerAction } from "../../../Redux/action/registerAction";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const validates = (values) => {
     const errors = {};
     if (!values.username) {
       errors.username = "Required";
     }
+    if (!values.email) {
+      errors.email = "Required";
+    }
     if (!values.password) {
       errors.password = "Required";
     }
-    if (!values.confirm) {
-      errors.confirm = "Required";
-    } else if (values.confirm !== values.password) {
-      errors.confirm = "Password must be";
+    if (!values.confirmpassword) {
+      errors.confirmpassword = "Required";
+    } else if (values.confirmpassword !== values.password) {
+      errors.confirmpassword = "must match";
     }
     return errors;
   };
 
   const onSubmit = async (values) => {
-    console.log(values, "values");
+    dispatch(registerAction(values));
+
+    navigate("/signin");
   };
 
   return (
@@ -37,6 +48,15 @@ const SignUp = () => {
               </div>
             )}
           </Field>
+          <Field name="email">
+            {({ input, meta }) => (
+              <div>
+                <label>Email</label>
+                <input {...input} type="text" placeholder="Email" />
+                {meta.error && meta.touched && <span>{meta.error}</span>}
+              </div>
+            )}
+          </Field>
           <Field name="password">
             {({ input, meta }) => (
               <div>
@@ -46,11 +66,15 @@ const SignUp = () => {
               </div>
             )}
           </Field>
-          <Field name="confirm">
+          <Field name="confirmpassword">
             {({ input, meta }) => (
               <div>
-                <label>Confirm</label>
-                <input {...input} type="password" placeholder="Confirm" />
+                <label>Confirm Password</label>
+                <input
+                  {...input}
+                  type="password"
+                  placeholder="Confirm Password"
+                />
                 {meta.error && meta.touched && <span>{meta.error}</span>}
               </div>
             )}
