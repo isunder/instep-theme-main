@@ -1,10 +1,20 @@
-import React from "react";
-import { Col, Container, Form, Navbar, Row } from "react-bootstrap";
+import React, { useState } from "react";
+import {
+  Col,
+  Container,
+  Form,
+  Nav,
+  NavDropdown,
+  Navbar,
+  Offcanvas,
+  Row,
+} from "react-bootstrap";
 import { BsGlobe2 } from "react-icons/bs";
 import { FiSearch } from "react-icons/fi";
 import { MdOutlineNotificationsActive } from "react-icons/md";
 import { useNavigate } from "react-router";
 import { Button } from "rsuite";
+import SidebarFun from "../../DashboardPage/sidebar/Navbarside";
 
 function Mainheader() {
   const navigate = useNavigate();
@@ -12,35 +22,47 @@ function Mainheader() {
   const SignClick = () => {
     navigate("/signin");
   };
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   return (
     <>
-      <div className="sticky-top bg-white ">
-        <Container fluid>
-          <Row>
-            <div className="adminnavbar">
-              <Col lg={2}>
-                <Navbar className="bg-body-tertiary">
-                  <Navbar.Brand href="#">INSTEPCART</Navbar.Brand>
-                </Navbar>
-              </Col>
-              <Col lg={7}>
+      {["lg"].map((expand) => (
+        <div className="sticky-top bg-white ">
+          <Navbar
+            key={expand}
+            expand={expand}
+            className="bg-body-tertiary mb-3"
+          >
+            <Container fluid>
+              <div className="adminnavbar">
                 {" "}
-                <div className="Navsearch_bar">
+                <Navbar.Brand className="d-block" href="#">
+                  INSTEPCART{" "}
+                </Navbar.Brand>
+                <Form className="d-flex Navsearch_bar">
                   <FiSearch className="allproduct_searchicon " />{" "}
                   <Form.Control
                     type="text"
                     placeholder="Search..."
                     className=" mr-sm-2 navsearch"
                   />
-                </div>
-              </Col>
-              <Col lg={3}>
-                <div className="Navbarcons">
+                  {/* <Button variant="outline-success">Search</Button> */}
+                </Form>
+                <Button
+                  variant="primary"
+                  className="offcanvas_toggole_btn for_mobile"
+                  onClick={handleShow}
+                >
+                  <span className="navbar-toggler-icon"></span>
+                </Button>
+                <div className="Navbaricons hide_for_mobile">
                   <div>
                     <Button onClick={() => SignClick()}>sigin</Button>
                   </div>
-                  <div>
+                  <div className="navicon_heading">
                     <BsGlobe2 className="navicons" /> visit store
                   </div>
 
@@ -50,12 +72,51 @@ function Mainheader() {
                     src="https://grostore.themetags.com/public/uploads/media/65bad2tYppDLFCZ2JzveKJtJX7NiX6sznq5VmUS1.jpg"
                     alt=""
                   />
+                  <Button
+                    variant="primary"
+                    className="offcanvas_toggole_btn for_tablet "
+                    onClick={handleShow}
+                  >
+                    <span className="navbar-toggler-icon"></span>
+                  </Button>
                 </div>
-              </Col>
-            </div>
-          </Row>
-        </Container>
-      </div>
+                <div className="navbar_toogle_item">
+                  <Offcanvas show={show} onHide={handleClose}>
+                    <Offcanvas.Header closeButton>
+                      <Offcanvas.Title>INSTEPCART</Offcanvas.Title>
+                    </Offcanvas.Header>
+                    <Offcanvas.Body className="offcanvas_inner_body">
+                      <div className="Navbaricons for_only_mobile">
+                        <div>
+                          <Button onClick={() => SignClick()}>sigin</Button>
+                        </div>
+                        <div className="navicon_heading">
+                          <BsGlobe2 className="navicons" /> visit store
+                        </div>
+
+                        <MdOutlineNotificationsActive className="navicons" />
+                        <img
+                          className="profile_img"
+                          src="https://grostore.themetags.com/public/uploads/media/65bad2tYppDLFCZ2JzveKJtJX7NiX6sznq5VmUS1.jpg"
+                          alt=""
+                        />
+                        <Button
+                          variant="primary"
+                          className="offcanvas_toggole_btn for_tablet "
+                          onClick={handleShow}
+                        >
+                          <span className="navbar-toggler-icon"></span>
+                        </Button>
+                      </div>
+                      <SidebarFun />
+                    </Offcanvas.Body>
+                  </Offcanvas>
+                </div>
+              </div>
+            </Container>
+          </Navbar>
+        </div>
+      ))}
     </>
   );
 }

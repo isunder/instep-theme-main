@@ -120,8 +120,6 @@ const Admindashboard = (percentage) => {
     },
   ];
 
- 
-
   return (
     <>
       <Row>
@@ -262,7 +260,7 @@ const Admindashboard = (percentage) => {
                   <h3>Recent Orders</h3>
                   <p>Your 10 Most Recent Orders</p>
                 </div>
-                <Table responsive className="main">
+                <Table responsive="md" className="main">
                   <thead>
                     <tr>
                       <th>Order Code</th>

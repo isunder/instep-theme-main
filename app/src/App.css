@@ -6,11 +6,9 @@
 /* navbar */
 
 .Navsearch_bar{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  margin-left: 30px;
+  max-width: 100%;
+ width: 40%;
+ 
 }
 
 .navsearch{
@@ -18,13 +16,12 @@
 }
 
 .adminnavbar{
-  display: flex;
+  display: flex !important;
   flex-direction: row;
   padding: 30px 0px;
   border-bottom: 1px inset ;
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
+ justify-content: space-between;
+ width: 100%;
 }
 
 .profile_img{
@@ -34,11 +31,11 @@
 
 }
 
-.Navbarcons{
+.Navbaricons{
   display: flex;
-  justify-content: center;
   gap: 40px;
   margin-left: 30px;
+  justify-content: flex-end;
 }
 
 .navicons{
@@ -46,6 +43,74 @@
   height: 40px;
 
 }
+.navicon_heading{
+  white-space: nowrap;
+}
+.offcanvas_toggole_btn{
+  display: none !important;
+}
+.for_only_mobile{
+  visibility: hidden;
+}
+@media (max-width:992px) {
+  .offcanvas_toggole_btn.for_tablet{
+    display: block !important;
+  }
+  .offcanvas_toggole_btn.for_mobile{
+    display: none;
+  }
+
+  .col_hide{
+    display: none;
+  }
+  .offcanvas_inner_body .col_hide{
+    display: block !important;
+  }
+  
+}
+@media (max-width:747px) {
+  .adminnavbar{
+flex-wrap: wrap;
+
+  }.navicon_heading{
+    margin: 0 10px;
+  }
+  .for_only_mobile{
+    visibility: visible;
+  }
+  .offcanvas_toggole_btn.for_tablet{
+    display: none !important;
+  }
+  .hide_for_mobile{
+    display: none;
+    width: 100%;
+    margin-top: 15px;
+    gap: 0 !important;
+    justify-content: space-between;
+    margin: 0;
+  }
+  .offcanvas_toggole_btn{
+    display: block !important;
+  }
+  .profile_img{
+    margin-left: 10px;
+  }
+  .Navbaricons{
+    gap: 20px !important;
+    margin: 0;
+    justify-content: unset;
+  }
+  
+}
+@media (max-width:380px) {
+  .Navbaricons{
+    margin: 0;
+    gap: 10px !important;
+    justify-content: unset;
+  }
+  
+}
+
 /* navbar */
 /* ----------------------------------------------------admin sidebar------------------------------------------------------------------ */
 
@@ -125,6 +190,12 @@ svg.recharts-surface{
 /* ------------------------------------------------------------Admin graphs-------------------------------------------------------- */
 /* ------------------------------------------------------------Top selling products------------------------------------------------- */
 
+
+.main{
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  padding: 20px;
+
+}
 .top_selling_products{
   max-height: 600px;
   overflow: auto;
@@ -287,7 +358,7 @@ div p{
     width: 60%;
   }
   
-}
+} 
 @media (max-width:814px) {
   .form_control_or_btngroup{
     display: block;
@@ -302,6 +373,191 @@ div p{
   }
   
 }
+/* product_selectbrand */
+
+
+.sku_stok_price{
+  display: flex;
+  justify-content: space-between;
+}
+
+span{
+  font-weight: 700px;
+  color: #4EB529;
+}
+
+.productbrand_unit{
+  display: flex;
+  padding: 20px;
+  width: 100%;
+  gap: 20px;
+}
+
+.product_brand{
+  width: 50%;
+}
+
+.Pricesku_stock{
+  padding: 10px 0px 10px 20px;
+  border: 1px solid #94A9BB;
+  border-radius: 5px;
+}
+/* product_selectbrand */
+/* pos system */
+
+
+.pos_buttons{
+  display: flex;
+}
+.pos_catbutton{
+  background-color: #4EB529 !important;
+  padding: 10px 20px !important;
+  border: none !important;
+  font-size: 18px !important;
+}
+
+.pos_brabutton{
+  border-color:  #4EB529 !important;
+  padding: 10px 30px !important;
+  font-size: 18px !important;
+  background-color: #fff !important;
+  color: #4EB529 !important;
+  margin-left: 10px ;
+}
+
+.pos_locbutton{
+  color: #000 !important;
+  background-color: #fff !important ;
+  border: 1px solid #4EB529 !important;
+  padding: 10px 20px !important;
+}
+
+.swiper-slide {
+  width: 181.2px !important;
+}
+.cat_div{
+  display: flex;
+  gap: 20px;
+}
+
+.pos_detail{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0px !important;
+  border-radius: 10px;
+  margin-top: 20px;
+  border: 1px solid #4EB529;
+}
+
+.pos_detail:hover{
+  border: none !important;
+  background-color: #4EB529 !important;
+  color: #fff !important;
+}
+
+.pos_catimage{
+  border-radius: 100%;
+  border: 1px dashed;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+}
+
+/* .pos_catimage div{
+  background-color: #fff;
+  border-radius: 100%;
+  width: 70px !important;
+  height: 40px;
+} */  
+.pos_content{
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items:  center;
+  justify-content: center;
+}
+
+@media(max-width: 320) and (min-width:1024) {
+  .pos_content{
+    /* text-overflow: ellipsis !important;
+    overflow: hidden !important;
+    white-space: nowrap !important; */
+  }
+}
+
+.alllisted_product{
+  display: flex !important;
+  justify-content: center !important;
+  margin-top: 20px !important;
+  padding: 20px;
+}
+
+.pos_submit{
+  padding:  10px 20px!important;
+  background-color: #94A9BB !important;
+  margin-left: 10px;
+  border: none !important;
+}
+
+.add_code{
+  background-color: #E5F4DF !important;
+  border: none !important;
+  color: #4EB529 !important;
+  padding:  10px 20px !important;
+}
+
+.add_code:hover{
+  background-color: #4EB529 !important;
+  color: #fff !important;
+}
+
+.billin_secction{
+  display: flex;
+}
+
+.add_customer{
+  margin-left: 30px;
+  margin-right: 10px;
+}
+
+.new_order_billing{
+  background-color: #FFEBDA ;
+  color: #FFB54B;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.new_order_billing:hover{
+  color: #FFEBDA ;
+  background-color: #FFB54B;
+}
+
+.new_billicon{
+  width: 20px;
+  height: 20px;
+}
+
+.billing_section{
+  background-color: #E5F4DF;
+  padding: 10px;
+  display: flex;
+  border-radius: 10px;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.boxshadow{
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px
+}
+
+
+/* pos system */
 /* -----------------------------------------------------------------------------all procducts-------------------------------------------------------------------------------- */
 /* -----------------------------------------------------------------------------side bar-------------------------------------------------------------------------------- */
 
@@ -446,6 +702,7 @@ margin-left: 20px;
   justify-content: center;
   padding: 120px;
   flex-direction: column;
+  border-radius: 10px;
 }
 
 .brand_img_icon{
@@ -455,9 +712,9 @@ margin-left: 20px;
 }
 
 .Addnewpeoduct{
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px !important;
   border-radius: 5px;
   padding: 15px;
+box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px !important;
 }
 
 .Brandsave_button{
@@ -467,3 +724,71 @@ margin-left: 20px;
   font-size: 19px !important;
 }
 /* -------------------------------------------------------------------------brand------------------------------------------------------------------------------- */
+
+/* ---------------------------------------------------------------------order_report---------------------------------------------------------------------------- */
+.order_report{
+  display: flex ;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.order_date{
+  padding: 15px 30px !important;
+  font-size: 15px !important;
+  line-height: 22px !important;
+  color: #000 !important;
+  background-color: #F4F6F8 !important;
+  border: none !important;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px !important;
+  
+}
+
+.order_payment_status{
+  padding: 15px 40px !important;
+  font-size: 15px !important;
+  line-height: 22px !important;
+  color: #000 !important;
+  background-color: #F4F6F8 !important;
+  border: none !important;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px !important;
+  margin-left: 35px !important;
+}
+
+.date-range-picker{
+  display: flex !important;
+}
+
+.order_div{
+  margin-left: 20px;
+  margin-right: 30px;
+}
+
+/* ---------------------------------------------------------------------order_report---------------------------------------------------------------------------- */
+
+/* --------------------------------------------------------------------table_colmn----------------------------------------------------------------------------- */
+
+.table_colmn{
+  display: flex;
+  justify-content: end;
+ 
+}
+
+/* --------------------------------------------------------------------table_colmn----------------------------------------------------------------------------- */
+
+.category_search{
+  max-width: 100%;
+  width: 1190px;
+}
+
+._totaldelivery_order{
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+}
+
+p{
+  display: flex;
+  justify-content: end;
+}
+
