@@ -142,7 +142,7 @@ const Home = () => {
                       return (
                         <>
                           <Col md={4} lg={2}>
-                            <Link to={`/productdetail/${e?.id}`} key={e.id}>
+                            <Link className="card_deco" to={`/productdetail/${e?.id}`} key={e.id}>
                               <Card className="shopping_card">
                                 <div className="img_div">
                                   <Card.Img
