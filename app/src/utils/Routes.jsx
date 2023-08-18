@@ -25,6 +25,7 @@ import ProductForm from "../component/admin/addProductDetails/addProductFrom";
 import PosSystem from "../component/DashboardPage/sideNavOption/possystem";
 import Usernavbar from "../component/user/UserHeader/usernavbar/usernavbar";
 import SignIn from "../component/user/signin/sign";
+import Orders from "../component/DashboardPage/Orders";
 
 const role = getUserId() ? getUserId()?.userRole : null;
 const isLoggedIn = getToken();
@@ -65,6 +66,7 @@ const protects = {
                 { path: "/deliverystatusreport", element: <DeliveryStatus /> },
                 { path: "/product", element: <ProductForm /> },
                 { path: "/possystem", element: <PosSystem /> },
+                { path: "/orders", element: <Orders /> },
                 { path: "*", element: "NO PAGE FOUND" },
             ],
         },
