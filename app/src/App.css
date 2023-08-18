@@ -1,3 +1,5 @@
+css
+
 *{
   margin: 0px;
   padding: 0px;
@@ -398,9 +400,15 @@ span{
 }
 
 .Pricesku_stock{
+  width: 100%;
   padding: 10px 0px 10px 20px;
   border: 1px solid #94A9BB;
   border-radius: 5px;
+  opacity: 0.5;
+}
+
+.Pricesku_stock:hover{
+  border: 1px solid #4EB529;
 }
 /* product_selectbrand */
 /* pos system */
@@ -408,6 +416,7 @@ span{
 
 .pos_buttons{
   display: flex;
+  justify-content: space-between;
 }
 .pos_catbutton{
   background-color: #4EB529 !important;
@@ -480,14 +489,6 @@ span{
   flex-direction: column;
   align-items:  center;
   justify-content: center;
-}
-
-@media(max-width: 320) and (min-width:1024) {
-  .pos_content{
-    /* text-overflow: ellipsis !important;
-    overflow: hidden !important;
-    white-space: nowrap !important; */
-  }
 }
 
 .alllisted_product{
@@ -659,9 +660,9 @@ margin-left: 20px;
   left: -28px;
   width: 15px;
   height: 15px;
-  background-color: gray;
- outline: 2px solid green;
- outline-offset: 5px;
+  background-color: #DFE3E8;
+ /* outline: 2px solid green; */
+ /* outline-offset: 5px; */
   border-radius: 100%;  
   top: 6px;
 }
@@ -674,10 +675,10 @@ margin-left: 20px;
 .var_edit::before{
   content: "";
   position: absolute;
-  left: 20px;
-  top: 62px;
+  left: 5px;
+  top: 8px;
   width: 2px;
-  height: 40%;
+  height: 100%;
   background: #dfe3e8;
 }
 
@@ -688,7 +689,7 @@ margin-left: 20px;
 
 .right_variation{
   position: sticky !important;
-  z-index: index 9 !important;
+  z-index: 1 !important;
   top: 0 !important;
 }
 
@@ -769,8 +770,8 @@ box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px !important;
 /* --------------------------------------------------------------------table_colmn----------------------------------------------------------------------------- */
 
 .table_colmn{
-  display: flex;
-  justify-content: end;
+  display: flex ;
+  justify-content: end ;
  
 }
 
@@ -787,8 +788,31 @@ box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px !important;
   justify-content: end;
 }
 
-p{
+._totaldelivery_order p{
   display: flex;
   justify-content: end;
 }
 
+.email_box{
+  padding: 10px !important;
+  border-radius: 5px;
+  border: 1px solid #94A9BB;
+  opacity: 0.5;
+}
+
+.email_button{
+  background-color: #4EB529 !important;
+  border: none !important;
+  margin-top: 20px !important;
+  padding: 10px 30px !important;
+}
+
+.pos_search {
+  padding: 10px !important;
+}
+
+.pos_image{
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+}
