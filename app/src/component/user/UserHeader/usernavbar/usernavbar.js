@@ -37,13 +37,13 @@ const Usernavbar = () => {
   const hideMessage = () => {
     setShowMessage(true);
   };
-  const heartClick = () => {
-    navigate("/likeitem");
-  };
+  // const heartClick = () => {
+  //   navigate("/likeitem");
+  // };
 
   const SignClick = (e) => {
     navigate("/signin");
-    console.log(e, "SignClick");
+    // console.log(e, "SignClick");
   };
 
   const cartClick = () => {
@@ -122,12 +122,52 @@ const Usernavbar = () => {
                   {/* <p onClick={SignClick} className="sign_hover">
                     Sign In
                   </p> */}
+                  {/* {userLogin && userData ? (
+                    <DropdownButton
+                      id="dropdown-basic-button"
+                      title={userData?.username}
+                    >
+                      <Dropdown.Item href="#/action-1">Profiless</Dropdown.Item>
+                      <Dropdown.Item href="#/action-2">
+                        <span onClick={() => notificationClick()}>
+                          <img
+                            src="/Image/notification.png"
+                            alt="notification"
+                          />
+                          Notificationn
+                        </span>
+                      </Dropdown.Item>
+                      <Dropdown.Item
+                        href="#/action-3"
+                        onClick={() => logoutClick()}
+                      >
+                        Logoutt
+                      </Dropdown.Item>
+                    </DropdownButton>
+                  ) : (
+                    <DropdownButton id="dropdown-basic-button" title="LOGIN">
+                      <Dropdown.Item href="#/action-1">
+                        <span onClick={() => notificationClick()}>
+                          <img
+                            src="/Image/notification.png"
+                            alt="notification"
+                          />
+                          Notification
+                        </span>
+                      </Dropdown.Item>
+                      <Dropdown.Item href="#/action-2">
+                        <p onClick={() => SignClick()} className="sign_hover">
+                          Sign Inn
+                        </p>
+                      </Dropdown.Item>
+                    </DropdownButton>
+                  )} */}
                   {userLogin && userData ? (
                     <DropdownButton
                       id="dropdown-basic-button"
                       title={userData?.username}
                     >
-                      <Dropdown.Item href="#/action-1">Profile</Dropdown.Item>
+                      <Dropdown.Item href="#/action-1">Profiless</Dropdown.Item>
                       <Dropdown.Item href="#/action-2">
                         <span onClick={() => notificationClick()}>
                           <img
@@ -160,7 +200,6 @@ const Usernavbar = () => {
                           Sign In
                         </p>
                       </Dropdown.Item>
-                      {/* <Dropdown.Item href="#/action-3">Logout</Dropdown.Item> */}
                     </DropdownButton>
                   )}
                 </div>
@@ -203,7 +242,7 @@ const Usernavbar = () => {
               console.log(e, "category");
               return (
                 <>
-                  <div class="Nav_link">
+                  <div className="Nav_link">
                     {e.category}
                     <div className="nav_Filter">
                       <ul>

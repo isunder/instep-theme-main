@@ -14,17 +14,17 @@ import Bulkemails from "../component/DashboardPage/sideNavOption/Newsletter/Bulk
 import Productsale from "../component/DashboardPage/sideNavOption/Reports/Productsale";
 import Orderreport from "../component/DashboardPage/sideNavOption/Reports/Orderreport";
 import Categorywise from "../component/DashboardPage/sideNavOption/Reports/Categorieswisesales";
-import SignIn from "../component/admin/signin/sign";
 import Salesamount from "../component/DashboardPage/sideNavOption/Reports/Salesamountreport";
 import SignUp from "../component/user/Signup/signup";
 import Homepage from "../component/user/UserHeader/home/homepage";
 import { Navigate } from "react-router-dom";
-import Userheader from "../component/header/Mainheader";
 import Layout from "./Layout";
 import CustomerLayout from "./CustomerLayout";
 import DeliveryStatus from "../component/DashboardPage/sideNavOption/Reports/Deliverystatusreport";
 import ProductForm from "../component/admin/addProductDetails/addProductFrom";
 import PosSystem from "../component/DashboardPage/sideNavOption/possystem";
+import Usernavbar from "../component/user/UserHeader/usernavbar/usernavbar";
+import SignIn from "../component/user/signin/sign";
 
 const role = getUserId() ? getUserId()?.userRole : null;
 const isLoggedIn = getToken();
@@ -36,7 +36,7 @@ const protects = {
             element: isLoggedIn ? <CustomerLayout /> : <Navigate to="/" />,
             children: [
                 { path: "/", element: <Homepage /> },
-                { path: "/userheader", element: <Userheader /> },
+                { path: "/userheader", element: <Usernavbar /> },
                 { path: "*", element: "NO PAGE FOUND" }
             ]
         }
@@ -63,8 +63,8 @@ const protects = {
                 { path: "/productsale", element: <Productsale /> },
                 { path: "/salesamountreport", element: <Salesamount /> },
                 { path: "/deliverystatusreport", element: <DeliveryStatus /> },
-                { path: "/product", element: <ProductForm /> }, 
-                { path: "/possystem", element: <PosSystem /> }, 
+                { path: "/product", element: <ProductForm /> },
+                { path: "/possystem", element: <PosSystem /> },
                 { path: "*", element: "NO PAGE FOUND" },
             ],
         },
@@ -77,6 +77,7 @@ const protects = {
                 { path: "/", element: <Homepage /> },
                 { path: "/signup", element: <SignUp /> },
                 { path: "/signin", element: <SignIn /> },
+                { path: "*", element: "NO PAGE FOUND" },
             ]
         },
     ],
