@@ -30,7 +30,7 @@ function Productsale() {
                       <Form.Control
                         type="text"
                         placeholder="Search"
-                        className=" mr-sm-2 search_bar"
+                        className=" mr-sm-2 adminsearch_bar"
                       />
                     </div>
                   </Col>

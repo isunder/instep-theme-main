@@ -210,7 +210,7 @@ const Admindashboard = (percentage) => {
           </Row>
           <div className="paddin_bot">
             <Row>
-              <Col className="margin_bottom" lg={3}>
+              <Col className="margin_bottom" lg={3} md={6}>
                 <Card className="card_border">
                   <div className="order_flex">
                     <div className="orders_icon">
@@ -220,7 +220,7 @@ const Admindashboard = (percentage) => {
                   </div>
                 </Card>
               </Col>
-              <Col className="margin_bottom" lg={3}>
+              <Col className="margin_bottom" lg={3} md={6}>
                 {" "}
                 <Card className="card_border">
                   <div className="order_flex">
@@ -231,7 +231,7 @@ const Admindashboard = (percentage) => {
                   </div>
                 </Card>
               </Col>
-              <Col className="margin_bottom" lg={3}>
+              <Col className="margin_bottom" lg={3} md={6}>
                 {" "}
                 <Card className="card_border">
                   <div className="order_flex">
@@ -242,7 +242,7 @@ const Admindashboard = (percentage) => {
                   </div>
                 </Card>
               </Col>
-              <Col className="margin_bottom" lg={3}>
+              <Col className="margin_bottom" lg={3} md={6}>
                 {" "}
                 <Card className="card_border">
                   <div className="order_flex">
@@ -307,7 +307,7 @@ const Admindashboard = (percentage) => {
               </Col>
             </Row>
             <Row>
-              <Col className="margin_bottom" lg={3}>
+              <Col className="margin_bottom" lg={3} md={6}>
                 <Card className="card_border">
                   <div className="order_flex">
                     <div className="orders_icon">
@@ -317,7 +317,7 @@ const Admindashboard = (percentage) => {
                   </div>
                 </Card>
               </Col>
-              <Col className="margin_bottom" lg={3}>
+              <Col className="margin_bottom" lg={3} md={6}>
                 {" "}
                 <Card className="card_border">
                   <div className="order_flex">
@@ -328,7 +328,7 @@ const Admindashboard = (percentage) => {
                   </div>
                 </Card>
               </Col>
-              <Col className="margin_bottom" lg={3}>
+              <Col className="margin_bottom" lg={3} md={6}>
                 {" "}
                 <Card className="card_border">
                   <div className="order_flex">
@@ -339,7 +339,7 @@ const Admindashboard = (percentage) => {
                   </div>
                 </Card>
               </Col>
-              <Col className="margin_bottom" lg={3}>
+              <Col className="margin_bottom" lg={3} md={6}>
                 {" "}
                 <Card className="card_border">
                   <div className="order_flex">
@@ -352,7 +352,7 @@ const Admindashboard = (percentage) => {
               </Col>
             </Row>
             <Row>
-              <Col className="margin_bottom" lg={3}>
+              <Col className="margin_bottom" lg={3} md={6}>
                 <Card className="card_border">
                   <div className="order_flex">
                     <div className="orders_icon">
@@ -362,7 +362,7 @@ const Admindashboard = (percentage) => {
                   </div>
                 </Card>
               </Col>
-              <Col className="margin_bottom" lg={3}>
+              <Col className="margin_bottom" lg={3} md={6}>
                 {" "}
                 <Card className="card_border">
                   <div className="order_flex">
@@ -373,7 +373,7 @@ const Admindashboard = (percentage) => {
                   </div>
                 </Card>
               </Col>
-              <Col className="margin_bottom" lg={3}>
+              <Col className="margin_bottom" lg={3} md={6}>
                 {" "}
                 <Card className="card_border">
                   <div className="order_flex">
@@ -384,7 +384,7 @@ const Admindashboard = (percentage) => {
                   </div>
                 </Card>
               </Col>
-              <Col className="margin_bottom" lg={3}>
+              <Col className="margin_bottom" lg={3} md={6}>
                 {" "}
                 <Card className="card_border">
                   <div className="order_flex">
@@ -397,7 +397,7 @@ const Admindashboard = (percentage) => {
               </Col>
             </Row>
             <Row>
-              <Col className="margin_bottom" lg={3}>
+              <Col className="margin_bottom" lg={3} md={6}>
                 <Card className="card_border">
                   <div className="order_flex">
                     <div className="orders_icon">
@@ -407,7 +407,7 @@ const Admindashboard = (percentage) => {
                   </div>
                 </Card>
               </Col>
-              <Col className="margin_bottom" lg={3}>
+              <Col className="margin_bottom" lg={3} md={6}>
                 {" "}
                 <Card className="card_border">
                   <div className="order_flex">
@@ -418,7 +418,7 @@ const Admindashboard = (percentage) => {
                   </div>
                 </Card>
               </Col>
-              <Col className="margin_bottom" lg={3}>
+              <Col className="margin_bottom" lg={3} md={6}>
                 {" "}
                 <Card className="card_border">
                   <div className="order_flex">
@@ -429,7 +429,7 @@ const Admindashboard = (percentage) => {
                   </div>
                 </Card>
               </Col>
-              <Col className="margin_bottom" lg={3}>
+              <Col className="margin_bottom" lg={3} md={6}>
                 {" "}
                 <Card className="card_border">
                   <div className="order_flex">
@@ -442,7 +442,7 @@ const Admindashboard = (percentage) => {
               </Col>
             </Row>
             <Row>
-              <Col className="margin_bottom" lg={3}>
+              <Col className="margin_bottom" lg={3} md={6}>
                 <Card className="card_border">
                   <div className="order_flex">
                     <div className="orders_icon">
@@ -452,7 +452,7 @@ const Admindashboard = (percentage) => {
                   </div>
                 </Card>
               </Col>
-              <Col className="margin_bottom" lg={3}>
+              <Col className="margin_bottom" lg={3} md={6}>
                 {" "}
                 <Card className="card_border">
                   <div className="order_flex">
@@ -463,7 +463,7 @@ const Admindashboard = (percentage) => {
                   </div>
                 </Card>
               </Col>
-              <Col className="margin_bottom" lg={3}>
+              <Col className="margin_bottom" lg={3} md={6}>
                 {" "}
                 <Card className="card_border">
                   <div className="order_flex">
@@ -474,7 +474,7 @@ const Admindashboard = (percentage) => {
                   </div>
                 </Card>
               </Col>
-              <Col className="margin_bottom" lg={3}>
+              <Col className="margin_bottom" lg={3} md={6}>
                 {" "}
                 <Card className="card_border">
                   <div className="order_flex">

@@ -95,11 +95,11 @@ const Orders = () => {
         <Col lg={12} className="searchbutton">
           <div className="form_control_or_btngroup">
             <div className="all_product_search">
-              <FiSearch className="allproduct_searchicon" />{" "}
+              <div className="oders_store"><h5>#I-Store</h5> </div>
               <Form.Control
                 type="text"
                 placeholder="Search"
-                className=" mr-sm-2 search_bar"
+                className=" mr-sm-2 adminsearch_bar"
               />
             </div>
             <div className="btngroup">
