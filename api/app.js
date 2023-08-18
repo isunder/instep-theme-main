@@ -73,7 +73,7 @@ server.post("/api/login", async (req, res) => {
         {
           userEmail: UserEmail[0]?.email,
           userRole: UserEmail[0]?.role,
-          username: UserEmail[0].username,
+          username: UserEmail[0]?.username,
         },
 
         secretkey,

@@ -1,6 +1,6 @@
 import React from "react";
 import { Form, Field } from "react-final-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginAction } from "../../../Redux/action/loginAction";
 
 const SignIn = () => {
@@ -30,7 +30,11 @@ const SignIn = () => {
     });
   };
 
+  const res = useSelector((state) => state?.logindatacheck?.listdata);
   let Token;
+  console.log(res, "fghjkjhgfghjkjhgfd");
+  const isLoading = useSelector((state) => state?.logindatacheck);
+  console.log(isLoading, "qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqaaa");
 
   return (
     <>

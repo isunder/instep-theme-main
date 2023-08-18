@@ -9,7 +9,7 @@ export const axiosInstance = axios.create({
   },
 });
 
-  export const signUpAction = createAsyncThunk("signUpaction", async () => {
+export const signUpAction = createAsyncThunk("signUpaction", async () => {
   const data1 = await axiosInstance.get(`products`);
   return data1.data;
 });
@@ -19,4 +19,3 @@ export const addcartapi = createAsyncThunk("addcartapi", async (payload) => {
   const response = await axiosInstance.get(`products/${payload}`);
   return response.data;
 });
-

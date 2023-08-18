@@ -28,13 +28,14 @@ import SignIn from "../component/user/signin/sign";
 import Orders from "../component/DashboardPage/Orders";
 
 const role = getUserId() ? getUserId()?.userRole : null;
+// console.log(role, "aaasdfgfds");
 const isLoggedIn = getToken();
 const protects = {
 
     user: [
         {
             path: "/",
-            element: isLoggedIn ? <CustomerLayout /> : <Navigate to="/" />,
+            element: isLoggedIn ? <Layout /> : <Navigate to="/" />,
             children: [
                 { path: "/", element: <Homepage /> },
                 { path: "/userheader", element: <Usernavbar /> },
@@ -74,7 +75,7 @@ const protects = {
     default: [
         {
             path: "/",
-            element: <Layout />,
+            element: <CustomerLayout />,
             children: [
                 { path: "/", element: <Homepage /> },
                 { path: "/signup", element: <SignUp /> },
