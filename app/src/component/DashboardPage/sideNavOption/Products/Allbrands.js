@@ -21,7 +21,7 @@ export default function Allbrands() {
                                     <FiSearch className="allproduct_searchicon" />  <Form.Control
                                         type="text"
                                         placeholder="Search"
-                                        className=" mr-sm-2 search_bar"
+                                        className=" mr-sm-2 adminsearch_bar"
                                     />
                                 </div>
                                 <div className='btngroup variation_button '>
@@ -111,7 +111,7 @@ export default function Allbrands() {
                                     <Form.Control
                                         type="text"
                                         placeholder="Type Brand Name"
-                                        className=" mr-sm-2 search_bar"
+                                        className=" mr-sm-2 adminsearch_bar"
                                     />
                                 </div>
                                 <div>
@@ -134,7 +134,7 @@ export default function Allbrands() {
                                     <Form.Control
                                         type="text"
                                         placeholder="Type Meta Title"
-                                        className=" mr-sm-2 search_bar"
+                                        className=" mr-sm-2 adminsearch_bar"
                                     />
                                 </div>
                                 <div className='margin_bottom'>

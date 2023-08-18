@@ -32,7 +32,7 @@ function Alllocation(params) {
                                 <FiSearch className="allproduct_searchicon" />  <Form.Control
                                     type="text"
                                     placeholder="Search"
-                                    className=" mr-sm-2 search_bar"
+                                    className=" mr-sm-2 adminsearch_bar"
                                 />
                             </div>
                             <div className='btngroup location_button'>

@@ -20,7 +20,7 @@ export default function Alltaxes() {
                                     <FiSearch className="allproduct_searchicon" />  <Form.Control
                                         type="text"
                                         placeholder="Search"
-                                        className=" mr-sm-2 search_bar"
+                                        className=" mr-sm-2 adminsearch_bar"
                                     />
                                 </div>
                                 <div className='btngroup variation_button '>
@@ -110,7 +110,7 @@ export default function Alltaxes() {
                                         <Form.Control
                                             type="text"
                                             placeholder="Type Tax Name"
-                                            className=" mr-sm-2 search_bar"
+                                            className=" mr-sm-2 adminsearch_bar"
                                         />
                                     </div>
                                 </div>
