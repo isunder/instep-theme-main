@@ -7,7 +7,8 @@ import { Form, Field } from "react-final-form";
 import { useDispatch, useSelector } from "react-redux";
 import { allAdminProductList } from "../../../Redux/action/getAllProductListing";
 import { updateProduct } from "../../../Redux/action/updateProductAction";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function MydModalWithGrid(props) {
   const dispatch = useDispatch();
@@ -18,12 +19,14 @@ function MydModalWithGrid(props) {
 
   const handleSubmit = (values) => {
     console.log(values, "goapl");
-    // dispatch(updateProduct(values));
-
+    
+    toast.success("Update Successfully !", {
+      position: toast.POSITION.TOP_RIGHT,
+    });
     dispatch(updateProduct(values)).then((res) => {
       console.log(res?.meta?.requestStatus);
       if (res?.meta?.requestStatus === "fulfilled") {
-        // alert("ok");
+       
         dispatch(allAdminProductList());
       }
     });
@@ -173,6 +176,7 @@ function MydModalWithGrid(props) {
               </div>
 
               <button type="submit">Update Product</button>
+              <ToastContainer />
             </form>
           )}
         </Form>
