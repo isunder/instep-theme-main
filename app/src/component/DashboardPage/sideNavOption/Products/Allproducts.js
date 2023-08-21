@@ -29,6 +29,7 @@ import MydModalWithGrid from "../../../admin/addProductDetails/updateProductForm
 import ConfirmationModal from "../../../admin/confirmModel";
 import { allAdminProductList } from "../../../../Redux/action/getAllProductListing";
 import { updateProduct } from "../../../../Redux/action/updateProductAction";
+import { toast, ToastContainer } from "react-toastify";
 
 function Allproducts(params) {
   const navigate = useNavigate();
@@ -55,6 +56,10 @@ function Allproducts(params) {
 
   const handleDeleteConfirmation = () => {
     setShowModal(false);
+    toast.error("Delete Successfully !", {
+      position: toast.POSITION.TOP_RIGHT,
+    });
+
     dispatch(deleteProduct({ _id: selectedProductId })).then((res) => {
       console.log(res?.meta?.requestStatus);
       if (res?.meta?.requestStatus === "fulfilled") {
@@ -193,7 +198,6 @@ function Allproducts(params) {
                                 </Dropdown.Item>
                               </Dropdown.Menu>
                             </Dropdown>
-                           
                           </td>
                         </tr>
                       </>
@@ -222,6 +226,7 @@ function Allproducts(params) {
           onHide={() => setShowModal(false)}
           onConfirm={handleDeleteConfirmation}
         />
+        <ToastContainer />
       </div>
     </>
   );

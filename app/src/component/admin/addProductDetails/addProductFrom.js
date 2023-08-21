@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { BsPlusCircleDotted } from "react-icons/bs";
 import { Field, Form as FinalForm } from "react-final-form";
-import Select from "react-select";
 
 import { adminPostProduct } from "../../../Redux/action/adminPostProductAction";
 import { useDispatch, useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const options = [
   { value: "", label: "" },
@@ -25,11 +26,13 @@ const ProductForm = () => {
   const onSubmit = async (values) => {
     dispatch(adminPostProduct(values));
     console.log(values, "sasasasasasasa");
+    toast.success("Successfully !", {
+      position: toast.POSITION.TOP_RIGHT,
+    });
   };
   const initialValues = {
-    // productname: "",
     description: "",
-    // producttags: "",
+
     brand: "",
     discountpercentage: "",
     stock: "",
@@ -231,6 +234,7 @@ const ProductForm = () => {
                 </Row>
               </Col>
               <Button type="submit">Add product</Button>
+              <ToastContainer />
             </Row>
           </form>
         )}
