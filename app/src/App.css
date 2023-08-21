@@ -306,7 +306,7 @@ div p{
 .btngroup{
   display: flex;
   justify-content: end;
-  width: 47%;
+  /* width: 47%; */
 }
 .form_control_or_btngroup{
   display: flex;
@@ -820,8 +820,16 @@ box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px !important;
 
 /* ---------------------------------------------------orders-------------------------------------------------- */
 
-.oders_store{
-  padding: ;
+.order_Search{
+  /* width: 45%; */
+}
+
+.orders_fivebutton{
+  display: flex;
+}
+
+.orders_Search{
+  width: 100%;
 }
 /* ---------------------------------------------------orders-------------------------------------------------- */
 /*---------------  navbar-firstweb-page-footer ----------- */
@@ -1287,9 +1295,11 @@ h5{
 }
 
 /* ------------------------------------signup-------------------------------------------- */
-
+.signin_main{
+  padding-top: 40px;
+}
 .signup {
-  background-color: #2874f0;
+  background-color: #6EB356;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
 }
@@ -1322,7 +1332,7 @@ h5{
   color: rgb(218, 49, 49);
   margin: 0;
   display: flex;
-  margin-left: 80px;
+  margin-left: 10px;
 }
 
 .main_page {
@@ -1331,6 +1341,9 @@ h5{
     rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+
 }
 
 .right_content {
@@ -1346,6 +1359,7 @@ h5{
   font-size: 20px;
   border-color: grey;
   padding: 0px 10px;
+  margin-bottom: 10px;
 }
 .login_input:focus-visible {
   outline: 0 !important;
@@ -1355,7 +1369,7 @@ h5{
 .des-but {
   padding: 8px 30px;
   border-radius: 10px;
-  background-color: #2874f0;
+  background-color: #6EB356;
   color: #fff;
   font-size: 20px;
   border: none;
@@ -1366,12 +1380,12 @@ h5{
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 60px;
+  margin-top: 70px;
 }
 
-.des-but:hover {
+/* .des-but:hover {
   background-color: #115ed8;
-}
+} */
 .reset_button {
   padding: 8px 30px;
   width: 100%;
@@ -1383,17 +1397,25 @@ h5{
   font-weight: 500;
 }
 
+.signin_formcontent{
+  display: flex;
+  justify-content: flex-start;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
 /* -----------------------------------------login page------------------------------------------------ */
 
 .create_accnt {
   max-width: 100%;
-  margin-top: 180px;
-  padding-left: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .create_accnt a {
   text-decoration: none;
-  color: #2874f0;
+  color: #6EB356;
 }
 
 /*   footer css  */
