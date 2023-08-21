@@ -33,10 +33,8 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
-import { useNavigate } from "react-router";
 
 const Admindashboard = (percentage) => {
-  const navigate = useNavigate();
 
   const chart = [
     { name: "Jan", uv: 400, pv: 2400, amt: 2400 },

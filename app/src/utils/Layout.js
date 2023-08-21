@@ -10,7 +10,7 @@ function Layout() {
       <Outlet />
     </>
   ) : (
-    <Navigate to="/signin" />
+    <Navigate to="/" />
   );
 }
 

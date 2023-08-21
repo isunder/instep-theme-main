@@ -14,8 +14,6 @@ import {
 } from "react-icons/bs";
 import { getProductAction } from "../../../../Redux/action/getProductDetailAction";
 
-// import { productDetails } from "../../Redux/action/registerAction";
-
 // const cardData = [
 //   {
 //     cardImg: "image/pexels-pixabay-267320 (1).jpg",
@@ -60,14 +58,14 @@ const Home = () => {
     //   .then((data) => setApiData(data));
   }, []);
 
-  const handelChange = (e, value) => {
-    console.log(e, "fghjkjhghjklkjhghjk");
-    if (e === true) {
-      fetch(`https://fakestoreapi.com/products/category/${value}`)
-        .then((res) => res.json())
-        .then((data) => setApiData(data));
-    }
-  };
+  // const handelChange = (e, value) => {
+  //   console.log(e, "fghjkjhghjklkjhghjk");
+  //   if (e === true) {
+  //     fetch(`https://fakestoreapi.com/products/category/${value}`)
+  //       .then((res) => res.json())
+  //       .then((data) => setApiData(data));
+  //   }
+  // };
 
   console.log(category, "json");
   const handleClick = () => {
@@ -142,12 +140,16 @@ const Home = () => {
                       return (
                         <>
                           <Col md={4} lg={2}>
-                            <Link className="card_deco" to={`/productdetail/${e?.id}`} key={e.id}>
+                            <Link
+                              className="card_deco"
+                              to={`/productdetail/${e?.id}`}
+                              key={e?.id}
+                            >
                               <Card className="shopping_card">
                                 <div className="img_div">
                                   <Card.Img
                                     variant="top"
-                                    src={e.image || e.thumbnail}
+                                    src={e?.image || e?.thumbnail}
                                   />
                                 </div>
 
@@ -156,24 +158,24 @@ const Home = () => {
                                     <p>
                                       {" "}
                                       <Badge className="badge" bg="danger">
-                                        {e.rating}
+                                        {e?.rating}
                                       </Badge>
                                     </p>
                                     <p>
                                       {" "}
                                       <Badge className="badge" bg="primary">
-                                        {e.category}
+                                        {e?.category}
                                       </Badge>
                                     </p>
                                   </div>
                                   <Card.Title className="crad_text">
-                                    {e.title}
+                                    {e?.title}
                                   </Card.Title>
                                   <Card.Text className="crad_text">
-                                    {e.description}
+                                    {e?.description}
                                   </Card.Text>
                                   <Card.Text className="crad_text">
-                                    <h5> ₹ {e.price}</h5>
+                                    <h5> ₹ {e?.price}</h5>
                                   </Card.Text>
                                 </Card.Body>
                               </Card>
