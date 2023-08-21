@@ -9,14 +9,12 @@ import Allvariations from "../component/DashboardPage/sideNavOption/Products/All
 import Allbrands from "../component/DashboardPage/sideNavOption/Products/Allbrands";
 import Allunit from "../component/DashboardPage/sideNavOption/Products/Allunit";
 import Alltaxes from "../component/DashboardPage/sideNavOption/Products/Alltaxes";
-import Admindashboard from "../component/DashboardPage/sideNavOption/Dashboard";
 import Bulkemails from "../component/DashboardPage/sideNavOption/Newsletter/Bulkemail";
 import Productsale from "../component/DashboardPage/sideNavOption/Reports/Productsale";
 import Orderreport from "../component/DashboardPage/sideNavOption/Reports/Orderreport";
 import Categorywise from "../component/DashboardPage/sideNavOption/Reports/Categorieswisesales";
 import Salesamount from "../component/DashboardPage/sideNavOption/Reports/Salesamountreport";
 import SignUp from "../component/user/Signup/signup";
-import Homepage from "../component/user/UserHeader/home/homepage";
 import { Navigate } from "react-router-dom";
 import Layout from "./Layout";
 import CustomerLayout from "./CustomerLayout";
@@ -26,6 +24,8 @@ import PosSystem from "../component/DashboardPage/sideNavOption/possystem";
 import Usernavbar from "../component/user/UserHeader/usernavbar/usernavbar";
 import SignIn from "../component/user/signin/sign";
 import Orders from "../component/DashboardPage/Orders";
+import Home from "../component/user/UserHeader/home/homepage";
+import Admindashboard from "../component/DashboardPage/sideNavOption/Dashboard";
 
 const role = getUserId() ? getUserId()?.userRole : null;
 // console.log(role, "aaasdfgfds");
@@ -37,7 +37,7 @@ const protects = {
             path: "/",
             element: isLoggedIn ? <Layout /> : <Navigate to="/" />,
             children: [
-                { path: "/", element: <Homepage /> },
+                { path: "/", element: <Home /> },
                 { path: "/userheader", element: <Usernavbar /> },
                 { path: "*", element: "NO PAGE FOUND" }
             ]
@@ -77,7 +77,7 @@ const protects = {
             path: "/",
             element: <CustomerLayout />,
             children: [
-                { path: "/", element: <Homepage /> },
+                { path: "/", element: <Home /> },
                 { path: "/signup", element: <SignUp /> },
                 { path: "/signin", element: <SignIn /> },
                 { path: "*", element: "NO PAGE FOUND" },
