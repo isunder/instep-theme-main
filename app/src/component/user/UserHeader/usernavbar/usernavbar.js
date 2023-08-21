@@ -4,13 +4,17 @@ import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import { Dropdown, DropdownButton } from "react-bootstrap";
+import { Col, Dropdown, DropdownButton, Row } from "react-bootstrap";
 import { React, useEffect, useState } from "react";
 import { filterByCategory } from "../../../../Redux/action/getFilterCategoryAction";
 import { getProductAction } from "../../../../Redux/action/getProductDetailAction";
 import { getUserId } from "../../../../utils/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { AiOutlineMail, AiTwotoneHeart } from "react-icons/ai";
+import { BiSearch, BiSolidPurchaseTag } from "react-icons/bi";
+import { MdAccountCircle, MdOutlineAccountCircle } from "react-icons/md";
+import { HiOutlineShoppingBag } from "react-icons/hi";
 
 const Usernavbar = () => {
   const navigate = useNavigate();
@@ -78,13 +82,77 @@ const Usernavbar = () => {
   return (
     <>
       <div className="nav_header">
-        {/* <div className="top-right">
-          <p className="vr-border">Sell with us</p>
-          <p className="vr-border">call us</p>
-          <p>download App</p>
-          <img src="/Image/windows.png" alt="" />
-        </div> */}
-        {["xl"].map((expand) => (
+        <div className="navbaenew_top">
+          <div className="container">
+            <Row>
+              <Col lg={12}>
+                <div className="subnewbar_nav">
+                  <div>
+                    <p>Welcome to our Instep Store</p>
+                  </div>
+                  <div>
+                    <AiOutlineMail />
+                    instepcart@mail.com
+                    <p></p>
+                  </div>
+                  <div className="subnewbar_content">
+                    <div>
+                      <div>
+                        <Navbar.Brand href="#">INSTEPCART</Navbar.Brand>
+                      </div>
+                    </div>
+
+                    <div className="subnewbar_rightcont">
+                      <div className="mid_navnewconent">
+                        <div className="Nav_link">
+                          Category
+                          <div className="nav_Filter">
+                            <ul>
+                              <li>ef</li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div className="Nav_link">Home</div>
+                        <div className="Nav_link">Products</div>
+                        <div className="Nav_link">Pages</div>
+                      </div>
+                      <div className="Nav_link">
+                        <BiSearch className="navbar_new_icon" />
+                      </div>
+                      <div className="Nav_link">
+                        <MdAccountCircle className="navbar_new_icon" />
+                        <div className="nav_Filter">
+                          <ul>
+                            <li>
+                              <MdOutlineAccountCircle /> My Account
+                            </li>
+                            <li>
+                              <BiSolidPurchaseTag /> My Orders
+                            </li>
+                            <li>
+                              <AiTwotoneHeart /> My Wishlist
+                            </li>
+                            <li
+                              onClick={() => SignClick()}
+                              className="sign_hover"
+                            >
+                              <AiTwotoneHeart />
+                              Sign In
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div className="Nav_link">
+                        <HiOutlineShoppingBag className="navbar_new_icon" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Col>
+            </Row>
+          </div>
+        </div>
+        {/* {["xl"].map((expand) => (
           <Navbar
             key={expand}
             expand={expand}
@@ -103,65 +171,8 @@ const Usernavbar = () => {
                   <Button className="search_button">Search</Button>
                 </Form>
                 <div className="nav-icons sub_header_hide">
-                  {/* <p className="share ">
-                    share
-                    <span>location</span>
-                  </p> */}
-                  {/* <img src="/Image/location.png" alt="location" /> */}
-                  {/* <span>
-                    <img
-                      onClick={notificationClick}
-                      src="/Image/notification.png"
-                      alt="notification"
-                    />
-                  </span> */}
-                  {/* <span onClick={heartClick}>
-                    <BsHeart />
-                  </span> */}
                   <img onClick={cartClick} src="/Image/cart.png" alt="cart" />
-                  {/* <p onClick={SignClick} className="sign_hover">
-                    Sign In
-                  </p> */}
-                  {/* {userLogin && userData ? (
-                    <DropdownButton
-                      id="dropdown-basic-button"
-                      title={userData?.username}
-                    >
-                      <Dropdown.Item href="#/action-1">Profiless</Dropdown.Item>
-                      <Dropdown.Item href="#/action-2">
-                        <span onClick={() => notificationClick()}>
-                          <img
-                            src="/Image/notification.png"
-                            alt="notification"
-                          />
-                          Notificationn
-                        </span>
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        href="#/action-3"
-                        onClick={() => logoutClick()}
-                      >
-                        Logoutt
-                      </Dropdown.Item>
-                    </DropdownButton>
-                  ) : (
-                    <DropdownButton id="dropdown-basic-button" title="LOGIN">
-                      <Dropdown.Item href="#/action-1">
-                        <span onClick={() => notificationClick()}>
-                          <img
-                            src="/Image/notification.png"
-                            alt="notification"
-                          />
-                          Notification
-                        </span>
-                      </Dropdown.Item>
-                      <Dropdown.Item href="#/action-2">
-                        <p onClick={() => SignClick()} className="sign_hover">
-                          Sign Inn
-                        </p>
-                      </Dropdown.Item>
-                    </DropdownButton>
-                  )} */}
+
                   {userLogin && userData ? (
                     <DropdownButton
                       id="dropdown-basic-button"
@@ -234,8 +245,7 @@ const Usernavbar = () => {
               </Navbar.Offcanvas>
             </Container>
           </Navbar>
-        ))}
-
+        ))} 
         <div className="sales-navbar sub_header_hide">
           {filterdata &&
             filterdata?.map((e) => {
@@ -256,7 +266,7 @@ const Usernavbar = () => {
                 </>
               );
             })}
-        </div>
+        </div> */}
       </div>
     </>
   );

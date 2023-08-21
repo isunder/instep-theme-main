@@ -833,7 +833,79 @@ box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px !important;
 }
 /* ---------------------------------------------------orders-------------------------------------------------- */
 /*---------------  navbar-firstweb-page-footer ----------- */
+.navbaenew_top{
+  background-color: #4EB529;
+  }
 
+.subnewbar_nav{
+  padding: 30px 20px;
+  display: flex;
+  color: #fff;
+  justify-content: space-between;
+  position: relative;
+}
+
+.subnewbar_content{
+  position: absolute;
+  background-color: #fff;
+  color: #000;
+  width: 100%;
+  padding: 20px;
+  top: 70%;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+}
+
+.mid_navnewconent{
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+}
+.subnewbar_rightcont{
+  display: flex;
+  gap: 30px;
+  padding-right: 40px;
+}
+
+.navbar_new_icon{
+  width: 30px ;
+  height: 30px;
+  color: #4EB529;
+}
+
+.categories_items{
+  display: none;
+  left: 40%;
+  top: 50px;
+   position: absolute;
+  max-width: 100%;
+  background-color: #fff;
+  padding: 20px;
+}
+.categories_section{
+  /* position: relative; */
+}
+.categories_section:hover .categories_items{
+  display: block;
+}
+/* .categories_section:hover .icon_items{
+  display: block;
+} */
+
+/* .icon_items{
+  display: none;
+  left: 80%;
+  top: 70px;
+   position: absolute;
+  max-width: 100%;
+  background-color: #fff;
+  padding: 20px;
+}  */
 .top-right {
   display: flex;
   justify-content: flex-end;
@@ -1046,14 +1118,14 @@ p{
 /* ----------------------------------------Nav_link css--------------------------------------------- */
 
 .Nav_link {
-  padding: 10px;
-  color: white;
-  margin-right: 20px;
+  /* padding: 10px; */
+  color: #000;
+  /* margin-right: 20px; */
   position: relative;
 }
 .Nav_link:hover {
   background-color: white;
-  color: #0f336d;
+  color: #4EB529;
   white-space: nowrap;
 }
 .nav_Filter {
@@ -1099,7 +1171,7 @@ h5{
   color: #000;
 }
 
-.Nav_link:hover .nav_Filter {
+.subnewbar_nav  :hover.Nav_link .nav_Filter {
   display: block;
 }
 .Electric_positon{
