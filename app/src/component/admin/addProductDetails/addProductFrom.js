@@ -58,14 +58,15 @@ const ProductForm = () => {
                 <div className=" Addnewpeoduct margin_bottom">
                   <h2 className="margin_bottom"> Basic Information</h2>
                   <div className="margin_bottom">
-                    <h5>Product Name</h5>
-                    <Form.Control
-                      name="productname"
+                    <label htmlFor="subcategory">subcategory:</label>
+                    <Field
+                      className="descirption_box"
+                      name="subcategory"
+                      component="input"
                       type="text"
-                      placeholder="Type your product name"
-                      className=" mr-sm-2 search_bar"
+                      placeholder="subcategory"
+                      required
                     />
-                    Product name is required and recommended to be unique.
                   </div>
                   <div className="margin_bottom">
                     <h4>Short Description</h4>
@@ -154,8 +155,8 @@ const ProductForm = () => {
                     </div>
                   </div>
                   {/* <div className="product_brand "> */}
-                    {/* <h5>Product Unit</h5> */}
-                    {/* <div className="">
+                  {/* <h5>Product Unit</h5> */}
+                  {/* <div className="">
                       <Select
                         name="unit"
                         defaultValue={selectedOption}
