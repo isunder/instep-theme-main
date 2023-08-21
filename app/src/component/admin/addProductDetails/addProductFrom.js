@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import { Button, Col, FloatingLabel, Form, Row } from "react-bootstrap";
-// import { Col, FloatingLabel, Form, Row } from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
 import { BsPlusCircleDotted } from "react-icons/bs";
+import { Field, Form as FinalForm } from "react-final-form";
 import Select from "react-select";
+
+import { adminPostProduct } from "../../../Redux/action/adminPostProductAction";
+import { useDispatch, useSelector } from "react-redux";
 
 const options = [
   { value: "", label: "" },
@@ -10,362 +13,227 @@ const options = [
   { value: "", label: "" },
 ];
 const ProductForm = () => {
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state);
+
+  // const handelSubmit = async (values) => {
+  //   dispatch(adminPostProduct(values));
+  //   console.log(values, "sasasasasasasa");
+  // };
   const [selectedOption, setSelectedOption] = useState(null);
+
+  const onSubmit = async (values) => {
+    dispatch(adminPostProduct(values));
+    console.log(values, "sasasasasasasa");
+  };
+  const initialValues = {
+    // productname: "",
+    description: "",
+    // producttags: "",
+    brand: "",
+    discountpercentage: "",
+    stock: "",
+    code: "",
+    title: "",
+    price: "",
+    rating: "",
+  };
+  // const validate = () => {};
+
   return (
     <>
-      <Row>
-        <Col className="Admin_dashboard margin_bottom" lg={12}>
-          <h3> Add Product</h3>
-        </Col>
-      </Row>
-      <Row>
-        <Col lg={9}>
-          <div className=" Addnewpeoduct margin_bottom">
-            <h2 className="margin_bottom"> Basic Information</h2>
-            <div className="margin_bottom">
-              <h5>Product Name</h5>
-              <Form.Control
-                type="text"
-                placeholder="Type your product name"
-                className=" mr-sm-2 search_bar"
-              />
-              Product name is required and recommended to be unique.
-            </div>
-            <div className="margin_bottom">
-              <h4>Short Description</h4>
-              <FloatingLabel
-                controlId="floatingTextarea2"
-                label="Type your product short descritption"
-              >
-                <Form.Control
-                  as="textarea"
-                  placeholder="Leave a comment here"
-                  style={{ height: "100px" }}
-                />
-              </FloatingLabel>
-            </div>
-          </div>
-          {/* <Button className="Brandsave_button" variant="success">
+      <FinalForm
+        onSubmit={onSubmit}
+        // validate={validate}
+        initialValues={initialValues}
+        render={({ handleSubmit }) => (
+          <form onSubmit={handleSubmit}>
+            <Row>
+              <Col className="Admin_dashboard margin_bottom" lg={12}>
+                <h3> Add Product</h3>
+              </Col>
+            </Row>
+            <Row>
+              <Col lg={9}>
+                <div className=" Addnewpeoduct margin_bottom">
+                  <h2 className="margin_bottom"> Basic Information</h2>
+                  <div className="margin_bottom">
+                    <h5>Product Name</h5>
+                    <Form.Control
+                      name="productname"
+                      type="text"
+                      placeholder="Type your product name"
+                      className=" mr-sm-2 search_bar"
+                    />
+                    Product name is required and recommended to be unique.
+                  </div>
+                  <div className="margin_bottom">
+                    <h4>Short Description</h4>
+                    <Field
+                      name="description"
+                      component="input"
+                      type="text"
+                      placeholder="description"
+                      required
+                    />
+                  </div>
+                </div>
+                {/* <Button className="Brandsave_button" variant="success">
             Save Brand
           </Button>{" "} */}
-
-          <Row>
-            <Col lg={12}>
-              <div className=" Addnewpeoduct margin_bottom py-4">
-                <div>
-                  <h5 className="margin_bottom"> Images</h5>
-                  <p>Thumbnail (592x592)</p>
-                  <div className="brand_image margin_bottom">
-                    <h3>Choose brand Thumbnail</h3>
-                    <BsPlusCircleDotted className="brand_img_icon" />
+              </Col>
+            </Row>
+            <Row>
+              <Col lg={9}>
+                <div className=" Addnewpeoduct margin_bottom py-4">
+                  <div>
+                    <h5 className="margin_bottom"> Images</h5>
+                    <p>Thumbnail (592x592)</p>
+                    <div className="brand_image margin_bottom">
+                      <h3>Choose brand Thumbnail</h3>{" "}
+                      <BsPlusCircleDotted className="brand_img_icon" />
+                    </div>
+                  </div>
+                  <div>
+                    <h5>Gallery</h5>
+                    <div className="brand_image">
+                      <h3>Choose brand Thumbnail</h3>
+                      <BsPlusCircleDotted className="brand_img_icon" />
+                    </div>
                   </div>
                 </div>
-                <div>
-                  <h5>Gallery</h5>
-                  <div className="brand_image">
-                    <h3>Choose brand Thumbnail</h3>
-                    <BsPlusCircleDotted className="brand_img_icon" />
+                <div className="Addnewpeoduct margin_bottom py-4">
+                  <div className="margin_bottom">
+                    <h5>Product Categories</h5>
+                    <Field
+                      className="descirption_box"
+                      name="category"
+                      component="select"
+                      required
+                    >
+                      <option>Select Category</option>
+                      <option>Electronics</option>
+                      <option>Men</option>
+                      <option>Women</option>
+                      <option>Home & Kitchen</option>
+                      <option>Appliances</option>
+                      <option>Sports & More</option>
+                      {/* {categories.map((category) => (
+                          <option key={category.value} value={category.value}>
+                            {category.label}
+                          </option>
+                        ))} */}
+                    </Field>
                   </div>
                 </div>
-              </div>
-              <div className="Addnewpeoduct margin_bottom py-4">
-                <div className="margin_bottom">
-                  <h5>Product Categories</h5>
-                  <Form.Control
-                    type="text"
-                    placeholder="Select Categories"
-                    className=" mr-sm-2 search_bar"
-                  />
-                </div>
-              </div>
-              <div className="Addnewpeoduct margin_bottom py-4">
-                <div className="margin_bottom">
-                  <h5>Product Tags</h5>
-                  <Form.Control
-                    type="text"
-                    placeholder="Select Tags"
-                    className=" mr-sm-2 search_bar"
-                  />
-                </div>
-              </div>
-              <div className="productbrand_unit boxshadow margin_bottom">
-                <div className="product_brand margin_bottom">
-                  <h5>Product Brand</h5>
-                  <div className="">
-                    <Select
-                      defaultValue={selectedOption}
-                      onChange={setSelectedOption}
-                      options={options}
+                <div className="Addnewpeoduct margin_bottom py-4">
+                  <div className="margin_bottom">
+                    <h5>Title </h5>
+                    <Field
+                      className="descirption_box"
+                      name="title"
+                      component="input"
+                      type="text"
+                      placeholder="Title"
+                      required
                     />
                   </div>
                 </div>
-                <div className="product_brand margin_bottom">
-                  <h5>Product Unit</h5>
-                  <div className="">
-                    <Select
-                      defaultValue={selectedOption}
-                      onChange={setSelectedOption}
-                      options={options}
-                    />
+                <div className="productbrand_unit boxshadow margin_bottom">
+                  <div className="product_brand">
+                    <h5>Product Brand</h5>
+                    <div className="">
+                      <Field
+                        className="descirption_box"
+                        name="brand"
+                        component="input"
+                        type="text"
+                        placeholder="Brand Name"
+                        required
+                      />
+                    </div>
                   </div>
+                  {/* <div className="product_brand "> */}
+                    {/* <h5>Product Unit</h5> */}
+                    {/* <div className="">
+                      <Select
+                        name="unit"
+                        defaultValue={selectedOption}
+                        onChange={setSelectedOption}
+                        options={options}
+                      />
+                    </div> */}
+                  {/* </div> */}
                 </div>
-              </div>
-              <div className=" Addnewpeoduct margin_bottom">
                 <Row>
                   <div className="sku_stok_price">
-                    <div className="margin_bottom">
+                    <div>
                       <h3>Price, Sku & Stock</h3>
                     </div>
                     <div className="sku_stok_price">
-                      <Form>
-                        <Form.Check // prettier-ignore
-                          type="switch"
-                          id="custom-switch"
-                        />
-                      </Form>
+                      {/* <Field
+                        className="descirption_box"
+                        name="stock"
+                        component="input"
+                        type="text"
+                        placeholder="Avalaible stocks"
+                        required
+                      /> */}
+
                       <span>Has Variations?</span>
                     </div>
                   </div>
                   <Col lg={3}>
                     <h6>Price</h6>
-                    <input
-                      className="Pricesku_stock"
+                    <Field
+                      className="descirption_box"
+                      name="price"
+                      component="input"
                       type="number"
-                      id="fname"
-                      name="fname"
-                      placeholder="Product price"
+                      step="0.01"
+                      placeholder="$"
+                      required
                     />
                   </Col>
                   <Col lg={3}>
                     <h6>Stock</h6>
-                    <input
-                      className="Pricesku_stock"
-                      type="number"
-                      id="fname"
-                      name="fname"
-                      placeholder="Stock qty"
+                    <Field
+                      className="descirption_box"
+                      name="stock"
+                      component="input"
+                      type="text"
+                      placeholder="Avalaible stocks"
+                      required
                     />
                   </Col>
                   <Col lg={3}>
-                    <h6>SKU</h6>
-                    <input
-                      className="Pricesku_stock"
+                    <label htmlFor="rating">Rating:</label>
+                    <Field
+                      className="descirption_box"
+                      name="rating"
+                      component="input"
                       type="text"
-                      id="fname"
-                      name="fname"
-                      placeholder="Product sku"
+                      placeholder="Rating:"
+                      required
                     />
                   </Col>
                   <Col lg={3}>
                     <h6>Code</h6>
-                    <input
-                      className="Pricesku_stock"
-                      type="number"
-                      id="fname"
-                      name="fname"
-                      placeholder="Product code"
-                    />
-                  </Col>
-                </Row>
-              </div>
-              <div className=" Addnewpeoduct margin_bottom">
-                <Row>
-                  <div className="sku_stok_price">
-                    <div className="margin_bottom">
-                      <h3> Product Discount</h3>
-                    </div>
-                  </div>
-                  <Col lg={6}>
-                    <h6>Date Range</h6>
-                    <input
-                      className="Pricesku_stock"
-                      type="calendar"
-                      id="fname"
-                      name="fname"
-                      placeholder="Start date - End date"
-                    />
-                  </Col>
-                  <Col lg={3}>
-                    <h6>Discount Amount</h6>
-                    <input
-                      className="Pricesku_stock"
-                      type="number"
-                      id="fname"
-                      name="fname"
-                      placeholder="0"
-                    />
-                  </Col>
-                  <Col lg={3}>
-                    <h6>Percent or Fixed</h6>
-                    <input
-                      className="Pricesku_stock"
+                    <Field
+                      name="discountpercentage"
+                      component="input"
                       type="text"
-                      id="fname"
-                      name="fname"
-                      placeholder="Percent %"
+                      placeholder="discount percentage"
+                      required
                     />
                   </Col>
                 </Row>
-              </div>
-              <div className=" Addnewpeoduct margin_bottom">
-                <Row className="margin_bottom">
-                  <div className="sku_stok_price">
-                    <div className="margin_bottom">
-                      <h3> Product Taxes (Default 0%)</h3>
-                    </div>
-                  </div>
-                  <Col lg={6}>
-                    <h6> CGST</h6>
-                    <input
-                      className="Pricesku_stock"
-                      type="number"
-                      id="fname"
-                      name="fname"
-                      placeholder="Tax"
-                    />
-                  </Col>
-                  <Col lg={6}>
-                    <h6>Percent or Fixed</h6>
-                    <input
-                      className="Pricesku_stock"
-                      type="text"
-                      id="fname"
-                      name="fname"
-                      placeholder="Percent %"
-                    />
-                  </Col>
-                </Row>
-                <Row className="margin_bottom">
-                  <Col lg={6}>
-                    <h6> IGST</h6>
-                    <input
-                      className="Pricesku_stock"
-                      type="number"
-                      id="fname"
-                      name="fname"
-                      placeholder="Tax"
-                    />
-                  </Col>
-                  <Col lg={6}>
-                    <h6>Percent or Fixed</h6>
-                    <input
-                      className="Pricesku_stock"
-                      type="text"
-                      id="fname"
-                      name="fname"
-                      placeholder="Percent %"
-                    />
-                  </Col>
-                </Row>
-              </div>
-              <div className="productbrand_unit boxshadow margin_bottom">
-                <div className="product_brand margin_bottom">
-                  <h5>Sell Target </h5>
-                  <div className="">
-                    <input
-                      className="Pricesku_stock"
-                      type="number"
-                      id="fname"
-                      name="fname"
-                      placeholder="Type your sell target"
-                    />
-                  </div>
-                </div>
-                <div className="product_brand margin_bottom">
-                  <h5> Product Status</h5>
-                  <div className="">
-                    <input
-                      className="Pricesku_stock"
-                      type="number"
-                      id="fname"
-                      name="fname"
-                      placeholder="Published"
-                    />
-                  </div>
-                </div>
-              </div>
-            </Col>
-          </Row>
-          <Row>
-            <Col lg={12}>
-              <div className=" Addnewpeoduct margin_bottom">
-                <h2 className="margin_bottom"> SEO Meta Configuration </h2>
-                <div className="margin_bottom">
-                  <h5>Meta Title</h5>
-                  <Form.Control
-                    type="text"
-                    placeholder="Type Meta Title"
-                    className=" mr-sm-2 search_bar"
-                  />
-                </div>
-                <div className="margin_bottom">
-                  <h4>Meta Description</h4>
-                  <FloatingLabel
-                    controlId="floatingTextarea2"
-                    label="Type your meta descritption"
-                  >
-                    <Form.Control
-                      as="textarea"
-                      placeholder="Leave a comment here"
-                      style={{ height: "100px" }}
-                    />
-                  </FloatingLabel>
-                </div>
-                <div>
-                  <h5>Meta Image</h5>
-                  <div className="brand_image">
-                    <h3>Choose brand Thumbnail</h3>
-                    <BsPlusCircleDotted className="brand_img_icon" />
-                  </div>
-                </div>
-              </div>
-              <Button className="Brandsave_button" variant="success">
-                Save Product
-              </Button>{" "}
-            </Col>
-          </Row>
-        </Col>
-        <Col lg={3}>
-          <div className=" Addnewpeoduct margin_bottom ">
-            <h2> Product Information</h2>
-            <div className="right_variation">
-              <div className="mb-2 text-muted"></div>
-              <div className="var_edit">
-                <div className="variation_text">
-                  <h5> Basic Information</h5>
-                </div>
-                <div className="variation_text">
-                  <h5> Product Images</h5>
-                </div>
-                <div  className="variation_text">
-                  <h5> Category</h5>
-                </div>
-                <div  className="variation_text">
-                  <h5>Product tags</h5>
-                </div>
-                <div  className="variation_text">
-                  <h5> Product Brand & Unit</h5>
-                </div>
-                <div  className="variation_text">
-                  <h5> Price, Sku & Stock</h5>
-                </div>
-                <div  className="variation_text">
-                  <h5>Product Discount </h5>
-                </div>
-                <div  className="variation_text">
-                  <h5> Product Taxes </h5>
-                </div>
-                <div  className="variation_text">
-                  <h5> Sell Target and Status</h5>
-                </div>
-                <div  className="variation_text">
-                  <h5> SEO Meta Configuration</h5>
-                </div>
-              </div>
-            </div>
-          </div>
-        </Col>
-      </Row>
+              </Col>
+              <Button type="submit">Add product</Button>
+            </Row>
+          </form>
+        )}
+      />
     </>
   );
 };
