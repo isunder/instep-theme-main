@@ -15,6 +15,7 @@ import {
 import { FiArrowUpRight } from "react-icons/fi";
 import { getProductAction } from "../../../../Redux/action/getProductDetailAction";
 import { HiDesktopComputer } from "react-icons/hi";
+import { updateProduct } from "../../../../Redux/action/updateProductAction";
 
 // const cardData = [
 //   {
@@ -41,6 +42,7 @@ import { HiDesktopComputer } from "react-icons/hi";
 
 const Home = () => {
   const navigate = useNavigate();
+
   const [apiData, setApiData] = useState();
   const [category, setCategory] = useState();
   const dispatch = useDispatch();
@@ -72,6 +74,11 @@ const Home = () => {
   console.log(category, "json");
   const handleClick = () => {
     navigate("/addcart");
+  };
+
+  const productClick = (_id) => {
+    console.log(_id, "hh/ddhhjjjjjjjjjjj");
+    dispatch(updateProduct({ _id }));
   };
 
   return (
@@ -330,53 +337,50 @@ const Home = () => {
                 );
               })} */}
                   {data &&
-                    data?.map((e) => {
-                      return (
-                        <>
-                          <Col md={4} lg={3}>
-                            <Link
-                              className="card_deco"
-                              to={`/productdetail/${e?.id}`}
-                              key={e?.id}
-                            >
-                              <Card className="shopping_card">
-                                <div className="img_div">
-                                  <Card.Img
-                                    variant="top"
-                                    src={e?.image || e?.thumbnail}
-                                  />
-                                </div>
-                                <Card.Body>
-                                  <div className="item_rating">
-                                    <p>
-                                      {" "}
-                                      <Badge className="badge" bg="danger">
-                                        {e?.rating}
-                                      </Badge>
-                                    </p>
-                                    <p>
-                                      {" "}
-                                      <Badge className="badge" bg="primary">
-                                        {e?.category}
-                                      </Badge>
-                                    </p>
-                                  </div>
-                                  <Card.Title className="crad_text">
-                                    {e?.title}
-                                  </Card.Title>
-                                  <Card.Text className="crad_text">
-                                    {e?.description}
-                                  </Card.Text>
-                                  <Card.Text className="crad_text">
-                                    <h5> ₹ {e?.price}</h5>
-                                  </Card.Text>
-                                </Card.Body>
-                              </Card>
-                            </Link>
-                          </Col>
-                        </>
-                      );
-                    })}
+                    data.map((e) => (
+                      <Col md={4} lg={2} key={e?.id}>
+                        <Link
+                          className="card_deco"
+                          to={`/productdetail`}
+                          onClick={() => productClick(e?._id)}
+                        >
+                          <Card className="shopping_card">
+                            <div className="img_div">
+                              <Card.Img
+                                variant="top"
+                                src={e?.image || e?.thumbnail}
+                              />
+                            </div>
+
+                            <Card.Body>
+                              <div className="item_rating">
+                                <p>
+                                  {" "}
+                                  <Badge className="badge" bg="danger">
+                                    {e?.rating}
+                                  </Badge>
+                                </p>
+                                <p>
+                                  {" "}
+                                  <Badge className="badge" bg="primary">
+                                    {e?.category}
+                                  </Badge>
+                                </p>
+                              </div>
+                              <Card.Title className="crad_text">
+                                {e?.title}
+                              </Card.Title>
+                              <Card.Text className="crad_text">
+                                {e?.description}
+                              </Card.Text>
+                              <Card.Text className="crad_text">
+                                <h5> ₹ {e?.price}</h5>
+                              </Card.Text>
+                            </Card.Body>
+                          </Card>
+                        </Link>
+                      </Col>
+                    ))}
                 </Row>
               </Col>
             </Row>

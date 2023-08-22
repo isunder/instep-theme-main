@@ -19,7 +19,8 @@ import { HiOutlineShoppingBag } from "react-icons/hi";
 const Usernavbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const [usename, setUsername] = useState();
+  const [data, setData] = useState();
+  const [filterValue, setFilterValue] = useState();
 
   // console.log(userData.role ? userData.username : null, "userData");
 
@@ -116,7 +117,7 @@ const Usernavbar = () => {
                         <div className="Nav_link">Products</div>
                         <div className="Nav_link">Pages</div>
                       </div>
-                      <div className="Nav_link">
+                      <div className="Nav_link-search">
                         <BiSearch className="navbar_new_icon" />
                         <div className="nav_Filter navsearch_alignnew">
                           <ul>
@@ -132,6 +133,7 @@ const Usernavbar = () => {
                               </div>
                             </div>
                           </ul>
+
                         </div>
                       </div>
                       <div className="Nav_link">
