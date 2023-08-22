@@ -12,7 +12,9 @@ import {
   BsQuestionCircleFill,
   BsStarHalf,
 } from "react-icons/bs";
+import { FiArrowUpRight } from "react-icons/fi";
 import { getProductAction } from "../../../../Redux/action/getProductDetailAction";
+import { HiDesktopComputer } from "react-icons/hi";
 import { updateProduct } from "../../../../Redux/action/updateProductAction";
 
 // const cardData = [
@@ -81,8 +83,8 @@ const Home = () => {
 
   return (
     <>
-      <div>
-        <div className=" slider_col">
+      <div className="container ">
+        <div className=" slider_col margin_bottom">
           <div className="slider">
             <Carousel className="">
               <Carousel.Item interval={1000}>
@@ -166,7 +168,144 @@ const Home = () => {
               </Carousel.Item>
             </Carousel>
           </div>
-          <div className="px-5">
+          <div>
+            <Row>
+              <Col lg={12}>
+                <h2 className="ourtopcategories_home margin_bottom">
+                  Our Top Categories
+                </h2>
+                <div className="category_borderdiv">
+                  <Row>
+                    <Col lg={2} md={4}>
+                      <Card className="cat_card_homep">
+                        <div className="hoveron_arrow">
+                          <div className="top_catcard">
+                            <div className="pos_catimage">
+                              <img
+                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSuAL06ra4m2W_DXcRRcf_ai47fI6SMX2A0g&usqp=CAU"
+                                alt=""
+                              />
+                            </div>
+                            <p>Electronics</p>
+                          </div>
+                          <div className="hoverarrow_direc">
+                            <div className="right_bottomborder">
+                              <FiArrowUpRight className="arrow-icon" />
+                            </div>
+                          </div>
+                        </div>
+                      </Card>
+                    </Col>
+                    <Col lg={2}md={4}>
+                      <Card className="cat_card_homep">
+                        <div className="hoveron_arrow">
+                          <div className="top_catcard">
+                            <div className="pos_catimage">
+                              <img
+                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSuAL06ra4m2W_DXcRRcf_ai47fI6SMX2A0g&usqp=CAU"
+                                alt=""
+                              />
+                            </div>
+                            <p>Men</p>
+                          </div>
+                          <div className="hoverarrow_direc">
+                            <div className="right_bottomborder">
+                              <FiArrowUpRight className="arrow-icon" />
+                            </div>
+                          </div>
+                        </div>
+                      </Card>
+                    </Col>
+                    <Col lg={2}md={4}>
+                      <Card className="cat_card_homep">
+                        <div className="hoveron_arrow">
+                          <div className="top_catcard">
+                            <div className="pos_catimage">
+                              {" "}
+                              <img
+                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSuAL06ra4m2W_DXcRRcf_ai47fI6SMX2A0g&usqp=CAU"
+                                alt=""
+                              />
+                            </div>
+                            <p>Women</p>
+                          </div>
+                          <div className="hoverarrow_direc">
+                            <div className="right_bottomborder">
+                              <FiArrowUpRight className="arrow-icon" />
+                            </div>
+                          </div>
+                        </div>
+                      </Card>
+                    </Col>
+                    <Col lg={2}md={4}>
+                      <Card className="cat_card_homep">
+                        <div className="hoveron_arrow">
+                          <div className="top_catcard">
+                            <div className="pos_catimage">
+                              {" "}
+                              <img
+                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSuAL06ra4m2W_DXcRRcf_ai47fI6SMX2A0g&usqp=CAU"
+                                alt=""
+                              />
+                            </div>
+                            <p>Home & Kitchen</p>
+                          </div>
+                          <div className="hoverarrow_direc">
+                            <div className="right_bottomborder">
+                              <FiArrowUpRight className="arrow-icon" />
+                            </div>
+                          </div>
+                        </div>
+                      </Card>
+                    </Col>
+                    <Col lg={2} md={4}>
+                      <Card className="cat_card_homep">
+                        <div className="hoveron_arrow">
+                          <div className="top_catcard">
+                            <div className="pos_catimage">
+                              {" "}
+                              <img
+                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSuAL06ra4m2W_DXcRRcf_ai47fI6SMX2A0g&usqp=CAU"
+                                alt=""
+                              />
+                            </div>
+                            <p>Appliances</p>
+                          </div>
+                          <div className="hoverarrow_direc">
+                            <div className="right_bottomborder">
+                              <FiArrowUpRight className="arrow-icon" />
+                            </div>
+                          </div>
+                        </div>
+                      </Card>
+                    </Col>
+                    <Col lg={2} md={4}>
+                      <Card className="cat_card_homep">
+                        <div className="hoveron_arrow">
+                          <div className="top_catcard">
+                            <div className="pos_catimage">
+                              {" "}
+                              <img
+                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSuAL06ra4m2W_DXcRRcf_ai47fI6SMX2A0g&usqp=CAU"
+                                alt=""
+                              />
+                            </div>
+                            <p>Sports & More</p>
+                          </div>
+                          <div className="hoverarrow_direc">
+                            <div className="right_bottomborder">
+                              <FiArrowUpRight className="arrow-icon" />
+                            </div>
+                          </div>
+                        </div>
+                      </Card>
+                    </Col>
+                  </Row>
+                </div>
+              </Col>
+            </Row>
+          </div>
+          <div className="">
             <Row>
               <Col lg={12}>
                 <Row>
@@ -244,10 +383,102 @@ const Home = () => {
                     ))}
                 </Row>
               </Col>
-              {/* <Col lg={3}></Col> */}
             </Row>
           </div>
         </div>
+        <Row>
+          <h2 className="ourtopcategories_home"> Top Trending Products</h2>
+          <Row>
+            <Col lg={3}>
+              <Card className="shopping_card">
+                <div className="img_div">
+                  <Card.Img variant="top" src="https://global-uploads.webflow.com/6185b708a2657014268d2eaf/6204941a794503795772a4a1_combatant-gentlemen-menswear-ecommerce-site.png" />
+                </div>
+                <Card.Body>
+                  <div className="item_rating">
+                    <p>
+                      {" "}
+                      <Badge className="badge" bg="danger">
+                        4
+                      </Badge>
+                    </p>
+                    <p>
+                      {" "}
+                      <Badge className="badge" bg="primary">
+                        5
+                      </Badge>
+                    </p>
+                  </div>
+                  <Card.Title className="crad_text">Fashion</Card.Title>
+                  <Card.Text className="crad_text">Zara</Card.Text>
+                  <div className="card_texthoverdetail">
+                    <Card.Text className="crad_text">
+                      <h5> ₹ 6000</h5>
+                    </Card.Text>
+                    {/* <div className="cardhide_onhov">
+                      <Button className="slider_leftbutton" variant="light">
+                        Add to Cart{" "}
+                      </Button>
+                    </div> */}
+                  </div>
+                </Card.Body>
+              </Card>
+            </Col>
+            <Col lg={3}></Col>
+            <Col lg={3}></Col>
+          </Row>
+          <Col lg={4}>
+            <div className="banner">
+              <div>
+                {" "}
+                <Button className="banner-button" variant="light">
+                  Shop Now{" "}
+                </Button>
+              </div>
+              <div>
+                <img
+                  className="banner-img"
+                  src="https://global-uploads.webflow.com/6185b708a2657014268d2eaf/6204941a794503795772a4a1_combatant-gentlemen-menswear-ecommerce-site.png"
+                  alt=""
+                />
+              </div>
+            </div>
+          </Col>
+          <Col lg={4}>
+            <div className="banner">
+              <div>
+                {" "}
+                <Button className="banner-button" variant="light">
+                  Shop Now{" "}
+                </Button>
+              </div>
+              <div>
+                <img
+                  className="banner-img"
+                  src="https://global-uploads.webflow.com/6185b708a2657014268d2eaf/6204941a794503795772a4a1_combatant-gentlemen-menswear-ecommerce-site.png"
+                  alt=""
+                />
+              </div>
+            </div>
+          </Col>
+          <Col lg={4}>
+            <div className="banner">
+              <div>
+                {" "}
+                <Button className="banner-button" variant="light">
+                  Shop Now{" "}
+                </Button>
+              </div>
+              <div>
+                <img
+                  className="banner-img"
+                  src="https://global-uploads.webflow.com/6185b708a2657014268d2eaf/6204941a794503795772a4a1_combatant-gentlemen-menswear-ecommerce-site.png"
+                  alt=""
+                />
+              </div>
+            </div>
+          </Col>
+        </Row>
       </div>
       <div className="container-fluid">
         <Row>

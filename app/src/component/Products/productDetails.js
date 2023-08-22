@@ -54,6 +54,7 @@ export default function ProductDetails() {
               {data.images && (
                 <>
                   {" "}
+
                   <div className="d-flex justify-spacebetween align-center thumbnail-images">
                     <img className="imgdiv" src={data.images[0]} alt="" />
                     <img className="imgdiv" src={data.images[1]} alt="" />

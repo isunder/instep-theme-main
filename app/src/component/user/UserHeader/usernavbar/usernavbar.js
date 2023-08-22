@@ -119,9 +119,21 @@ const Usernavbar = () => {
                       </div>
                       <div className="Nav_link-search">
                         <BiSearch className="navbar_new_icon" />
-                        <div className="search-navbar">
-                          <input placeholder="search" />
-                          <BiSearch className="navbar_new_icon" />
+                        <div className="nav_Filter navsearch_alignnew">
+                          <ul>
+                            <div className="alignsearchbar_icon">
+                              <li>
+                                <input
+                                  className="navsearch_input"
+                                  placeholder="search"
+                                />
+                              </li>
+                              <div>
+                                <BiSearch className="seachunder_search_icon" />
+                              </div>
+                            </div>
+                          </ul>
+
                         </div>
                       </div>
                       <div className="Nav_link">
