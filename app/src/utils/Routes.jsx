@@ -26,6 +26,7 @@ import SignIn from "../component/user/signin/sign";
 import Orders from "../component/DashboardPage/Orders";
 import Home from "../component/user/UserHeader/home/homepage";
 import Admindashboard from "../component/DashboardPage/sideNavOption/Dashboard";
+import ProductDetails from "../component/Products/productDetails";
 
 const role = getUserId() ? getUserId()?.userRole : null;
 // console.log(role, "aaasdfgfds");
@@ -39,6 +40,7 @@ const protects = {
             children: [
                 { path: "/", element: <Home /> },
                 { path: "/userheader", element: <Usernavbar /> },
+                { path: "/productdetail/id:", element: <ProductDetails /> },
                 { path: "*", element: "NO PAGE FOUND" }
             ]
         }
@@ -79,6 +81,7 @@ const protects = {
             children: [
                 { path: "/", element: <Home /> },
                 { path: "/signup", element: <SignUp /> },
+                { path: "/productdetail", element: <ProductDetails /> },
                 { path: "/signin", element: <SignIn /> },
                 { path: "*", element: "NO PAGE FOUND" },
             ]

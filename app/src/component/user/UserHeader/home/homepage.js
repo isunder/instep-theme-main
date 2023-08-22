@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { signUpAction } from "../../Redux/action/signUpAction";
-import { Card, Row, Col, Badge } from "react-bootstrap";
+import { Card, Row, Col, Badge, Button } from "react-bootstrap";
 import { useNavigate } from "react-router";
 import { Carousel } from "react-bootstrap";
 // import { productAction } from "../../Redux/action/productAction";
@@ -13,6 +13,7 @@ import {
   BsStarHalf,
 } from "react-icons/bs";
 import { getProductAction } from "../../../../Redux/action/getProductDetailAction";
+import { updateProduct } from "../../../../Redux/action/updateProductAction";
 
 // const cardData = [
 //   {
@@ -39,6 +40,7 @@ import { getProductAction } from "../../../../Redux/action/getProductDetailActio
 
 const Home = () => {
   const navigate = useNavigate();
+
   const [apiData, setApiData] = useState();
   const [category, setCategory] = useState();
   const dispatch = useDispatch();
@@ -72,6 +74,11 @@ const Home = () => {
     navigate("/addcart");
   };
 
+  const productClick = (_id) => {
+    console.log(_id, "hh/ddhhjjjjjjjjjjj");
+    dispatch(updateProduct({ _id }));
+  };
+
   return (
     <>
       <div>
@@ -79,27 +86,82 @@ const Home = () => {
           <div className="slider">
             <Carousel className="">
               <Carousel.Item interval={1000}>
-                <img
-                  className="slide_img"
-                  src=" https://itechbahrain.com/wp-content/uploads/2020/05/eletro.jpg"
-                  alt="First slide"
-                />
+                <Row>
+                  <Col lg={6}>
+                    <div className="slider_left_cont">
+                      <div>
+                        <h5>100% genuine product</h5>
+                        <h1>Click & Collect</h1>
+                      </div>
+                      <Button className="slider_leftbutton" variant="light">
+                        Explore Now{" "}
+                      </Button>
+                      <Button className="slider_rightbutton" variant="light">
+                        About Us{" "}
+                      </Button>
+                    </div>
+                  </Col>
+                  <Col lg={6}>
+                    <img
+                      className="slide_img"
+                      src=" https://freepngimg.com/thumb/ecommerce/12-2-ecommerce-png-picture.png"
+                      alt="First slide"
+                    />
+                  </Col>
+                </Row>
                 <Carousel.Caption></Carousel.Caption>
               </Carousel.Item>
               <Carousel.Item interval={500}>
-                <img
-                  className="slide_img"
-                  src="https://www.axelaccessories.com/media/homepage/2023/Sliders/03_SALE_NEW_40_-_TOP_SLIDER_-_1920X700_SS23.jpg"
-                  alt="Second slide"
-                />
+                <Row>
+                  <Col lg={6}>
+                    <div className="slider_left_cont">
+                      <div>
+                        <p>100% genuine product</p>
+                        <h1>Click & Collect</h1>
+                      </div>
+                      <Button className="slider_leftbutton" variant="light">
+                        Explore Now{" "}
+                      </Button>
+                      <Button className="slider_rightbutton" variant="light">
+                        About Us{" "}
+                      </Button>
+                    </div>
+                  </Col>
+                  <Col lg={6}>
+                    {" "}
+                    <img
+                      className="slide_img"
+                      src="https://freepngimg.com/save/14064-ecommerce-png-pic/470x380"
+                      alt="Second slide"
+                    />
+                  </Col>
+                </Row>
                 <Carousel.Caption></Carousel.Caption>
               </Carousel.Item>
               <Carousel.Item>
-                <img
-                  className="slide_img"
-                  src="https://clotya.co.uk/wp-content/uploads/2023/02/Banner-1-1.jpg"
-                  alt="Third slide"
-                />
+                <Row>
+                  <Col lg={6}>
+                    <div className="slider_left_cont">
+                      <div>
+                        <p>100% genuine product</p>
+                        <h1>Click & Collect</h1>
+                      </div>
+                      <Button className="slider_leftbutton" variant="light">
+                        Explore Now{" "}
+                      </Button>
+                      <Button className="slider_rightbutton" variant="light">
+                        About Us{" "}
+                      </Button>
+                    </div>
+                  </Col>
+                  <Col lg={6}>
+                    <img
+                      className="slide_img"
+                      src="https://www.pngall.com/wp-content/uploads/2016/06/Ecommerce-PNG-File.png"
+                      alt="Third slide"
+                    />
+                  </Col>
+                </Row>
                 <Carousel.Caption></Carousel.Caption>
               </Carousel.Item>
             </Carousel>
@@ -136,54 +198,50 @@ const Home = () => {
                 );
               })} */}
                   {data &&
-                    data?.map((e) => {
-                      return (
-                        <>
-                          <Col md={4} lg={2}>
-                            <Link
-                              className="card_deco"
-                              to={`/productdetail/${e?.id}`}
-                              key={e?.id}
-                            >
-                              <Card className="shopping_card">
-                                <div className="img_div">
-                                  <Card.Img
-                                    variant="top"
-                                    src={e?.image || e?.thumbnail}
-                                  />
-                                </div>
+                    data.map((e) => (
+                      <Col md={4} lg={2} key={e?.id}>
+                        <Link
+                          className="card_deco"
+                          to={`/productdetail`}
+                          onClick={() => productClick(e?._id)}
+                        >
+                          <Card className="shopping_card">
+                            <div className="img_div">
+                              <Card.Img
+                                variant="top"
+                                src={e?.image || e?.thumbnail}
+                              />
+                            </div>
 
-                                <Card.Body>
-                                  <div className="item_rating">
-                                    <p>
-                                      {" "}
-                                      <Badge className="badge" bg="danger">
-                                        {e?.rating}
-                                      </Badge>
-                                    </p>
-                                    <p>
-                                      {" "}
-                                      <Badge className="badge" bg="primary">
-                                        {e?.category}
-                                      </Badge>
-                                    </p>
-                                  </div>
-                                  <Card.Title className="crad_text">
-                                    {e?.title}
-                                  </Card.Title>
-                                  <Card.Text className="crad_text">
-                                    {e?.description}
-                                  </Card.Text>
-                                  <Card.Text className="crad_text">
-                                    <h5> ₹ {e?.price}</h5>
-                                  </Card.Text>
-                                </Card.Body>
-                              </Card>
-                            </Link>
-                          </Col>
-                        </>
-                      );
-                    })}
+                            <Card.Body>
+                              <div className="item_rating">
+                                <p>
+                                  {" "}
+                                  <Badge className="badge" bg="danger">
+                                    {e?.rating}
+                                  </Badge>
+                                </p>
+                                <p>
+                                  {" "}
+                                  <Badge className="badge" bg="primary">
+                                    {e?.category}
+                                  </Badge>
+                                </p>
+                              </div>
+                              <Card.Title className="crad_text">
+                                {e?.title}
+                              </Card.Title>
+                              <Card.Text className="crad_text">
+                                {e?.description}
+                              </Card.Text>
+                              <Card.Text className="crad_text">
+                                <h5> ₹ {e?.price}</h5>
+                              </Card.Text>
+                            </Card.Body>
+                          </Card>
+                        </Link>
+                      </Col>
+                    ))}
                 </Row>
               </Col>
               {/* <Col lg={3}></Col> */}
