@@ -9,6 +9,8 @@ import { allAdminProductList } from "../../../Redux/action/getAllProductListing"
 import { updateProduct } from "../../../Redux/action/updateProductAction";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Col, Row } from "react-bootstrap";
+import { BsPlusCircleDotted } from "react-icons/bs";
 
 function MydModalWithGrid(props) {
   const dispatch = useDispatch();
@@ -19,14 +21,13 @@ function MydModalWithGrid(props) {
 
   const handleSubmit = (values) => {
     console.log(values, "goapl");
-    
+
     toast.success("Update Successfully !", {
       position: toast.POSITION.TOP_RIGHT,
     });
     dispatch(updateProduct(values)).then((res) => {
       console.log(res?.meta?.requestStatus);
       if (res?.meta?.requestStatus === "fulfilled") {
-       
         dispatch(allAdminProductList());
       }
     });
@@ -49,141 +50,192 @@ function MydModalWithGrid(props) {
   console.log(initialValues, "initialValues");
 
   return (
-    <Modal
-      show={props.show}
-      onHide={props.handleClose}
-      aria-labelledby="contained-modal-title-vcenter"
-    >
-      <div>
-        <Modal.Header closeButton></Modal.Header>
-        <Form onSubmit={handleSubmit} initialValues={initialValues}>
-          {({ handleSubmit, submitting }) => (
-            <form onSubmit={handleSubmit}>
-              <div>
-                <label htmlFor="category">Category</label>
-                <Field name="category" component="select" required>
-                  <option>Electronics</option>
-                  <option>Men</option>
-                  <option>Home & kitchen</option>
-                  <option>Appliances</option>
-                  <option>Sports & More</option>
-                  <option>Women</option>
-                </Field>
-              </div>
+    <>
+      <Modal
+        className="modal-size"
+        show={props.show}
+        onHide={props.handleClose}
+        aria-labelledby="contained-modal-title-vcenter"
+      >
+        <Modal.Header closeButton>
+          <Row>
+            <Col className="" lg={12}>
+              <h3> Update Product</h3>
+            </Col>
+          </Row>
+        </Modal.Header>
+        <div className="">
+          <Form onSubmit={handleSubmit} initialValues={initialValues}>
+            {({ handleSubmit, submitting }) => (
+              <form onSubmit={handleSubmit}>
+                <div className="d-flex modal-size">
+                  <div className="left_update_product">
+                    <div className="update_product">
+                      <label htmlFor="category">
+                        <h5>Category</h5>
+                      </label>
+                      <Field
+                        className="descirption_box"
+                        name="category"
+                        component="select"
+                        required
+                      >
+                        <option>Electronics</option>
+                        <option>Men</option>
+                        <option>Home & kitchen</option>
+                        <option>Appliances</option>
+                        <option>Sports & More</option>
+                        <option>Women</option>
+                      </Field>
+                    </div>
+                    <div className="update_product">
+                      <label htmlFor="description">
+                        <h5>description</h5>
+                      </label>
+                      <Field
+                        className="descirption_box"
+                        name="description"
+                        component="input"
+                        type="text"
+                        placeholder="description"
+                        required
+                      />
+                    </div>
 
-              <div>
-                <label htmlFor="description">description</label>
-                <Field
-                  name="description"
-                  component="input"
-                  type="text"
-                  placeholder="description"
-                  required
-                />
-              </div>
-
-              <div>
-                <label htmlFor="title">Image</label>
-                <Field
-                  name="title"
-                  component="input"
-                  type="text"
-                  placeholder="title"
-                  required
-                />
-              </div>
-
-              <div>
-                <label htmlFor="price">Price</label>
-                <Field
-                  name="price"
-                  component="input"
-                  type="number"
-                  step="0.01"
-                  placeholder="$"
-                  required
-                />
-              </div>
-              <div>
-                <label htmlFor="images">Image</label>
-                <Field
-                  name="images"
-                  component="input"
-                  type="text"
-                  placeholder="Image"
-                  required
-                />
-              </div>
-              <div>
-                <label htmlFor="brand">Brand Name:</label>
-                <Field
-                  name="brand"
-                  component="input"
-                  type="text"
-                  placeholder="Brand Name"
-                  required
-                />
-              </div>
-              <div>
-                <label htmlFor="rating">Rating:</label>
-                <Field
-                  name="rating"
-                  component="input"
-                  type="text"
-                  placeholder="Rating:"
-                  required
-                />
-              </div>
-              <div>
-                <label htmlFor="subcategory">subcategory:</label>
-                <Field
-                  name="subcategory"
-                  component="input"
-                  type="text"
-                  placeholder="subcategory"
-                  required
-                />
-              </div>
-              <div>
-                <label htmlFor="thumbnail">Thumbnail:</label>
-                <Field
-                  name="thumbnail"
-                  component="input"
-                  type="text"
-                  placeholder="Thumbnail"
-                  required
-                />
-              </div>
-              <div>
-                <label htmlFor="stock">Avalaible Stocks:</label>
-                <Field
-                  name="stock"
-                  component="input"
-                  type="text"
-                  placeholder="avalaible stocks"
-                  required
-                />
-              </div>
-              <div>
-                <label htmlFor="discountpercentage">Discount Percentage:</label>
-                <Field
-                  name="discountpercentage"
-                  component="input"
-                  type="text"
-                  placeholder="discount percentage"
-                  required
-                />
-              </div>
-
-              <button type="submit">Update Product</button>
-              <ToastContainer />
-            </form>
-          )}
-        </Form>
-      </div>
-
-      <Modal.Body className="grid-example">{props.content}</Modal.Body>
-    </Modal>
+                    <div className="update_product">
+                      <label htmlFor="brand">
+                        <h5>Brand Name:</h5>
+                      </label>
+                      <Field
+                        className="descirption_box"
+                        name="brand"
+                        component="input"
+                        type="text"
+                        placeholder="Brand Name"
+                        required
+                      />
+                    </div>
+                    <div className="update_product">
+                      <label htmlFor="price">
+                        <h5>Price</h5>
+                      </label>
+                      <Field
+                        className="descirption_box"
+                        name="price"
+                        component="input"
+                        type="number"
+                        step="0.01"
+                        placeholder="$"
+                        required
+                      />
+                    </div>
+                    <div className="update_product">
+                      <label htmlFor="images">
+                        <h5>Image</h5>
+                      </label>
+                      <Field
+                        className="descirption_box"
+                        name="images"
+                        component="input"
+                        type="text"
+                        placeholder="Image"
+                        required
+                      />
+                      <div>
+                        <h6>Gallery</h6>
+                        <div className="brand_image update_brandimage">
+                          <h6>Choose brand Thumbnail</h6>
+                          <BsPlusCircleDotted className="brand_img_icon" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="mainupdate_pro">
+                    <div className="update_product">
+                      <label htmlFor="rating">
+                        <h5>Rating:</h5>
+                      </label>
+                      <Field
+                        className="descirption_box"
+                        name="rating"
+                        component="input"
+                        type="text"
+                        placeholder="Rating:"
+                        required
+                      />
+                    </div>
+                    <div className="update_product">
+                      <label htmlFor="subcategory">
+                        <h5>subcategory:</h5>
+                      </label>
+                      <Field
+                        className="descirption_box"
+                        name="subcategory"
+                        component="input"
+                        type="text"
+                        placeholder="subcategory"
+                        required
+                      />
+                    </div>
+                    <div className="update_product">
+                      <label htmlFor="stock">
+                        <h5>Avalaible Stocks:</h5>
+                      </label>
+                      <Field
+                        className="descirption_box"
+                        name="stock"
+                        component="input"
+                        type="text"
+                        placeholder="avalaible stocks"
+                        required
+                      />
+                    </div>
+                    <div className="update_product">
+                      <label htmlFor="discountpercentage">
+                        <h5>Discount Percentage:</h5>
+                      </label>
+                      <Field
+                        className="descirption_box"
+                        name="discountpercentage"
+                        component="input"
+                        type="text"
+                        placeholder="discount percentage"
+                        required
+                      />
+                    </div>
+                    <div className="update_product">
+                      <label htmlFor="thumbnail">
+                        <h5>Thumbnail:</h5>
+                      </label>
+                      <Field
+                        className="descirption_box"
+                        name="thumbnail"
+                        component="input"
+                        type="text"
+                        placeholder="Thumbnail"
+                        required
+                      />
+                      <h6>Thumbnail (592x592)</h6>
+                      <div className="brand_image update_brandimage margin_bottom">
+                        <h6>Choose brand Thumbnail</h6>
+                        <BsPlusCircleDotted className="brand_img_icon" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="updatebutton_div">
+                      <button className="update_product_button" type="submit">
+                        Update Product
+                      </button>
+                      <ToastContainer />
+                    </div>
+              </form>
+            )}
+          </Form>
+        </div>
+        <Modal.Body className="grid-example">{props.content}</Modal.Body>
+      </Modal>
+    </>
   );
 }
 
