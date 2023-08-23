@@ -675,9 +675,14 @@ svg.rs-sidenav-item-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 120px;
   flex-direction: column;
   border-radius: 10px;
+  height: 300px;
+}
+
+.update_brandimage{
+  width: 100%;
+  height: 200px;
 }
 
 .brand_img_icon {
@@ -1821,6 +1826,12 @@ footer ul {
   font-weight: 600;
 }
 
+.left_update_product{
+  padding-right: 50px;
+  margin-right: 20px;
+  padding-left: 20px;
+}
+
 .descirption_box {
   margin-bottom: 20px;
   height: 40px;
@@ -1829,8 +1840,11 @@ footer ul {
   background-color: #f9f9f9;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   padding: 0px 10px;
+  width: 100%;
 }
+.modal-size{
 
+}
 .descirption_box:focus-visible {
   outline: 0 !important;
   box-shadow: 0 !important;
@@ -1840,6 +1854,29 @@ footer ul {
   border-color: #2d2f3d;
 }
 
+
+.modal-content{
+  width: 900px !important;
+  padding: 10px 20px ;
+
+}
+
+.update_product_button{
+  background-color: #4EB529 !important;
+  padding: 15px 30px;
+  color: #fff;
+  border-radius: 10px;
+  width: 60% ;
+}
+
+.update_product_button:hover{
+  background-color: #FFB54B !important;
+}
+
+.updatebutton_div{
+  display: flex;
+  justify-content: center;
+}
 .submit_button {
   width: 100%;
   height: 50px;
@@ -1863,7 +1900,18 @@ footer ul {
   opacity: 0.6;
 }
 
-.seachunder_search_icon {
+
+.price_flex{
+  width: 95%;
+}
+
+
+.addproduct_button{
+  background-color: #4EB529 !important;
+  border: #4EB529 !important;
+  padding: 10px 30px !important;
+}
+.seachunder_search_icon{
   width: 40px;
   height: 46px;
   color: #fff;
@@ -1883,11 +1931,30 @@ footer ul {
   left: -250px;
 }
 
-.thumbnail-images {
+
+/* ---------------------------------product detail------------------------------------------- */
+
+.mainrowdata{
+  padding-top: 90px;
+}
+
+.subphotof_main{
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+}
+
+.main_image{
   display: flex;
   justify-content: center;
-  align-items: center;
+  gap: 10px;
 }
-.thumbnail-images img {
-  width: 25%;
+
+.topmain_imageview{
+  display: block;
 }
+
+
+.navbarhead_prop{
+  padding: 20px 0px 0px 20px ;
+  }
