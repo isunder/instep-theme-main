@@ -196,7 +196,7 @@ const Home = () => {
                         </div>
                       </Card>
                     </Col>
-                    <Col lg={2}md={4}>
+                    <Col lg={2} md={4}>
                       <Card className="cat_card_homep">
                         <div className="hoveron_arrow">
                           <div className="top_catcard">
@@ -216,7 +216,7 @@ const Home = () => {
                         </div>
                       </Card>
                     </Col>
-                    <Col lg={2}md={4}>
+                    <Col lg={2} md={4}>
                       <Card className="cat_card_homep">
                         <div className="hoveron_arrow">
                           <div className="top_catcard">
@@ -237,7 +237,7 @@ const Home = () => {
                         </div>
                       </Card>
                     </Col>
-                    <Col lg={2}md={4}>
+                    <Col lg={2} md={4}>
                       <Card className="cat_card_homep">
                         <div className="hoveron_arrow">
                           <div className="top_catcard">
@@ -392,7 +392,10 @@ const Home = () => {
             <Col lg={3}>
               <Card className="shopping_card">
                 <div className="img_div">
-                  <Card.Img variant="top" src="https://global-uploads.webflow.com/6185b708a2657014268d2eaf/6204941a794503795772a4a1_combatant-gentlemen-menswear-ecommerce-site.png" />
+                  <Card.Img
+                    variant="top"
+                    src="https://global-uploads.webflow.com/6185b708a2657014268d2eaf/6204941a794503795772a4a1_combatant-gentlemen-menswear-ecommerce-site.png"
+                  />
                 </div>
                 <Card.Body>
                   <div className="item_rating">
