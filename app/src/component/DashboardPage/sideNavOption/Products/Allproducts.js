@@ -183,18 +183,19 @@ function Allproducts(params) {
                               <Dropdown.Menu>
                                 <Dropdown.Item href="#/action-1">
                                   {" "}
-                                  <LuEdit3 />{" "}
                                   <button
                                     onClick={() => editClick(product._id)}
                                   >
-                                    Edit
+                                    <LuEdit3 /> Edit
                                   </button>
                                 </Dropdown.Item>
                                 <Dropdown.Item href="#/action-2">
-                                  <AiOutlineDelete
+                                  <button
                                     onClick={() => deleteClick(product._id)}
-                                  />
-                                  delete
+                                  >
+                                    {" "}
+                                    <AiOutlineDelete /> delete
+                                  </button>
                                 </Dropdown.Item>
                               </Dropdown.Menu>
                             </Dropdown>

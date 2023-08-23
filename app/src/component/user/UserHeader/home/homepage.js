@@ -49,8 +49,12 @@ const Home = () => {
   const data = useSelector((state) => state?.getproductdata?.listdata);
   console.log(data, "aaaaaabbbbbbbbbss");
 
+  const categorydata = useSelector((state) => state?.getproductdata.listdata);
+  console.log(categorydata, "categorydata");
+
   useEffect(() => {
     dispatch(getProductAction());
+    // dispatch(getProductAction(`${categorydata?.listdat.electronics}`));
 
     // dispatch(signUpAction());
     // dispatch(productDetails());
@@ -71,6 +75,11 @@ const Home = () => {
   //   }
   // };
 
+  // categorydata.map((item) => {
+  //   if (item.category === "electronics") {
+  //     console.log(item.category, item.title,'item>>>>>>>>>>>>>>>>>>>>>>>');
+  //   }
+  // });
   console.log(category, "json");
   const handleClick = () => {
     navigate("/addcart");
@@ -309,78 +318,124 @@ const Home = () => {
             <Row>
               <Col lg={12}>
                 <Row>
-                  {/* {apiData &&
-              apiData?.map((e) => {
-                return (
-                  <>
-                    <Card style={{ width: "18rem" }}>
-                      <h3>{e.category}</h3>
-                      <Card.Img
-                        onClick={imgClick}
-                        variant="top"
-                        src={e.image}
-                      />
-
-                      <Card.Body>
-                        <Card.Title>{e.title}</Card.Title>
-                        <Card.Text>{e.description}</Card.Text>
-                        <p>price {e.price}</p>
-                        <p>count: {e.rating.count}</p>
-                        <p>Rating: {e.rating.rate}</p>
-                        <Button variant="primary" onClick={handleClick}>
-                          Add To Cart
-                        </Button>
-                        <Button variant="primary">Buy Now</Button>
-                      </Card.Body>
-                    </Card>
-                  </>
-                );
-              })} */}
-                  {data &&
-                    data.map((e) => (
-                      <Col md={4} lg={2} key={e?.id}>
-                        <Link
-                          className="card_deco"
-                          to={`/productdetail`}
-                          onClick={() => productClick(e?._id)}
-                        >
-                          <Card className="shopping_card">
-                            <div className="img_div">
-                              <Card.Img
-                                variant="top"
-                                src={e?.image || e?.thumbnail}
-                              />
-                            </div>
-
+                  {/* {categorydata &&
+                    categorydata?.map((e) => {
+                      return (
+                        <>
+                          <Card style={{ width: "18rem" }}>
+                            <h3>{e.category}</h3>
+                            <Card.Img
+                              // onClick={imgClick}
+                              variant="top"
+                              src={e.image}
+                            />
                             <Card.Body>
-                              <div className="item_rating">
-                                <p>
-                                  {" "}
-                                  <Badge className="badge" bg="danger">
-                                    {e?.rating}
-                                  </Badge>
-                                </p>
-                                <p>
-                                  {" "}
-                                  <Badge className="badge" bg="primary">
-                                    {e?.category}
-                                  </Badge>
-                                </p>
-                              </div>
-                              <Card.Title className="crad_text">
-                                {e?.title}
-                              </Card.Title>
-                              <Card.Text className="crad_text">
-                                {e?.description}
-                              </Card.Text>
-                              <Card.Text className="crad_text">
-                                <h5> ₹ {e?.price}</h5>
-                              </Card.Text>
+                              <Card.Title>{e.title}</Card.Title>
+                              <Card.Text>{e.description}</Card.Text>
+                              <p>price {e.price}</p>
+                              <p>count: {e.rating.count}</p>
+                              <p>Rating: {e.rating.rate}</p>
+                              <Button variant="primary" onClick={handleClick}>
+                                Add To Cart
+                              </Button>
+                              <Button variant="primary">Buy Now</Button>
                             </Card.Body>
                           </Card>
-                        </Link>
-                      </Col>
-                    ))}
+                        </>
+                      );
+                    })} */}
+
+                  <Col md={4} lg={2}>
+                    <Link
+                      className="card_deco"
+                      // to={`/productdetail`}
+                      // onClick={() => productClick(item?._id)}
+                    >
+                      <Card className="shopping_card">
+                        <div className="img_div">
+                          Top Category
+                          {/* <Card.Img
+                            variant="top"
+                            src={item?.image}
+                          /> */}
+                        </div>
+
+                        <Card.Body>
+                          <div className="item_rating">
+                            <p>
+                              {" "}
+                              <Badge className="badge" bg="danger">
+                                {/* {item?.rating} */}
+                              </Badge>
+                            </p>
+                            <p>
+                              {" "}
+                              <Badge className="badge" bg="primary">
+                                {/* {item.category} */}
+                              </Badge>
+                            </p>
+                          </div>
+                          <Card.Title className="crad_text">
+                            {/* {item.title} */}
+                          </Card.Title>
+                          <Card.Text className="crad_text">
+                            {/* {item?.description} */}Electronics
+                          </Card.Text>
+                          <Card.Text className="crad_text">
+                            {/* <h5> ₹ {item?.price}</h5> */}
+                          </Card.Text>
+                        </Card.Body>
+                      </Card>
+                    </Link>
+                  </Col>
+                  {categorydata.map((item) => {
+                    if (item.category === "electronics") {
+                      return (
+                        <Col md={4} lg={2} key={item.id}>
+                          <Link
+                            className="card_deco"
+                            to={`/productdetail`}
+                            onClick={() => productClick(item?._id)}
+                          >
+                            <Card className="shopping_card">
+                              <div className="img_div">
+                                <Card.Img
+                                  variant="top"
+                                  src={item?.image || item?.thumbnail}
+                                />
+                              </div>
+
+                              <Card.Body>
+                                <div className="item_rating">
+                                  <p>
+                                    {" "}
+                                    <Badge className="badge" bg="danger">
+                                      {item?.rating}
+                                    </Badge>
+                                  </p>
+                                  <p>
+                                    {" "}
+                                    <Badge className="badge" bg="primary">
+                                      {item.category}
+                                    </Badge>
+                                  </p>
+                                </div>
+                                <Card.Title className="crad_text">
+                                  {item.title}
+                                </Card.Title>
+                                <Card.Text className="crad_text">
+                                  {item?.description}
+                                </Card.Text>
+                                <Card.Text className="crad_text">
+                                  <h5> ₹ {item?.price}</h5>
+                                </Card.Text>
+                              </Card.Body>
+                            </Card>
+                          </Link>
+                        </Col>
+                      );
+                    }
+                  })}
                 </Row>
               </Col>
             </Row>
@@ -388,9 +443,10 @@ const Home = () => {
         </div>
         <Row>
           <h2 className="ourtopcategories_home"> Top Trending Products</h2>
+
           <Row>
             <Col lg={3}>
-              <Card className="shopping_card">
+              {/* <Card className="shopping_card">
                 <div className="img_div">
                   <Card.Img
                     variant="top"
@@ -422,10 +478,10 @@ const Home = () => {
                       <Button className="slider_leftbutton" variant="light">
                         Add to Cart{" "}
                       </Button>
-                    </div> */}
+                    </div> 
                   </div>
                 </Card.Body>
-              </Card>
+              </Card> */}
             </Col>
             <Col lg={3}></Col>
             <Col lg={3}></Col>
@@ -483,6 +539,103 @@ const Home = () => {
           </Col>
         </Row>
       </div>
+      <Row>
+        <Col lg={12}>
+          <Row>
+            <Col md={4} lg={2}>
+              <Link
+                className="card_deco"
+                // to={`/productdetail`}
+                // onClick={() => productClick(item?._id)}
+              >
+                <Card className="shopping_card">
+                  <div className="img_div">
+                    Top Category
+                    {/* <Card.Img
+                            variant="top"
+                            src={item?.image}
+                          /> */}
+                  </div>
+
+                  <Card.Body>
+                    <div className="item_rating">
+                      <p>
+                        {" "}
+                        <Badge className="badge" bg="danger">
+                          {/* {item?.rating} */}
+                        </Badge>
+                      </p>
+                      <p>
+                        {" "}
+                        <Badge className="badge" bg="primary">
+                          {/* {item.category} */}
+                        </Badge>
+                      </p>
+                    </div>
+                    <Card.Title className="crad_text">
+                      {/* {item.title} */}
+                    </Card.Title>
+                    <Card.Text className="crad_text">
+                      {/* {item?.description} */}Electronics
+                    </Card.Text>
+                    <Card.Text className="crad_text">
+                      {/* <h5> ₹ {item?.price}</h5> */}
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              </Link>
+            </Col>
+            {data.map((e) => {
+              if (e.subcategory === "Kitchen & Dining") {
+                return (
+                  <Col md={4} lg={2} key={e?.id}>
+                    <Link
+                      className="card_deco"
+                      to={`/productdetail`}
+                      onClick={() => productClick(e?._id)}
+                    >
+                      <Card className="shopping_card">
+                        <div className="img_div">
+                          <Card.Img
+                            variant="top"
+                            src={e?.image || e?.thumbnail}
+                          />
+                        </div>
+
+                        <Card.Body>
+                          <div className="item_rating">
+                            <p>
+                              {" "}
+                              <Badge className="badge" bg="danger">
+                                {e?.rating}
+                              </Badge>
+                            </p>
+                            <p>
+                              {" "}
+                              <Badge className="badge" bg="primary">
+                                {e?.category}
+                              </Badge>
+                            </p>
+                          </div>
+                          <Card.Title className="crad_text">
+                            {e?.title}
+                          </Card.Title>
+                          <Card.Text className="crad_text">
+                            {e?.description}
+                          </Card.Text>
+                          <Card.Text className="crad_text">
+                            <h5> ₹ {e?.price}</h5>
+                          </Card.Text>
+                        </Card.Body>
+                      </Card>
+                    </Link>
+                  </Col>
+                );
+              }
+            })}
+          </Row>
+        </Col>
+      </Row>
       <div className="container-fluid">
         <Row>
           <footer>
