@@ -11,6 +11,8 @@ import { CiLocationOn } from "react-icons/ci";
 import { PiShoppingCartFill } from "react-icons/pi";
 import { BsFillLightningFill } from "react-icons/bs";
 import Table from "react-bootstrap/Table";
+import { Carousel } from "react-bootstrap";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 export default function ProductDetails() {
   const dispatch = useDispatch();
@@ -45,21 +47,50 @@ export default function ProductDetails() {
 
   return (
     <>
-      <div className="container">
-        <Row className="mainrowdata">
+      <div className="container mainrowdata">
+        <Row className="">
           <Col>
             <Card>
-              <Card.Img className="imgme" src={data.thumbnail} />
-
+              <Card.Img className="topmain_imageview" src={data.thumbnail} />
+              {data.images && (
+              <>
+               <img className="subphotof_main" src={data.images[0]} alt="" />
+               <img className="subphotof_main" src={data.images[1]} alt="" />
+               <img className="subphotof_main" src={data.images[2]} alt="" />
+               <img className="subphotof_main" src={data.images[3]} alt="" />
+               </>
+               )}
               {data.images && (
                 <>
                   {" "}
-
-                  <div className="d-flex justify-spacebetween align-center thumbnail-images">
+                  <div className="main_image">
+                    {/* <div className="cat_div">
+                      <Swiper
+                        breakpoints={{
+                          640: {
+                            width: 640,
+                            slidesPerView: 1,
+                          },
+                          768: {
+                            width: 768,
+                            slidesPerView: 2,
+                          },
+                        }}
+                        spaceBetween={10}
+                        slidesPerView={1}
+                        onSlideChange={() => console.log("slide change")}
+                        onSwiper={(swiper) => console.log(swiper)}
+                      >
+                        <SwiperSlide>
                     <img className="imgdiv" src={data.images[0]} alt="" />
-                    <img className="imgdiv" src={data.images[1]} alt="" />
-                    <img className="imgdiv" src={data.images[2]} alt="" />
-                    <img className="imgdiv" src={data.images[3]} alt="" />
+                         
+                        </SwiperSlide>
+                      </Swiper>
+                    </div> */}
+                    <img className="subphotof_main" src={data.images[0]} alt="" />
+                    <img className="subphotof_main" src={data.images[1]} alt="" />
+                    <img className="subphotof_main" src={data.images[2]} alt="" />
+                    <img className="subphotof_main" src={data.images[3]} alt="" />
                   </div>
                 </>
               )}
