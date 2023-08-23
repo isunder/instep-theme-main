@@ -98,7 +98,7 @@ const Usernavbar = () => {
                   </div>
                   <div className="subnewbar_content">
                     <div>
-                      <div>
+                      <div className="navbarhead_prop">
                         <Navbar.Brand href="#">INSTEPCART</Navbar.Brand>
                       </div>
                     </div>
@@ -117,7 +117,7 @@ const Usernavbar = () => {
                         <div className="Nav_link">Products</div>
                         <div className="Nav_link">Pages</div>
                       </div>
-                      <div className="Nav_link-search">
+                      <div className="Nav_link">
                         <BiSearch className="navbar_new_icon" />
                         <div className="nav_Filter navsearch_alignnew">
                           <ul>
@@ -133,7 +133,6 @@ const Usernavbar = () => {
                               </div>
                             </div>
                           </ul>
-
                         </div>
                       </div>
                       <div className="Nav_link">

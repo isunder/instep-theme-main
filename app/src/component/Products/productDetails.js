@@ -62,7 +62,6 @@ export default function ProductDetails() {
                )}
               {data.images && (
                 <>
-                  {" "}
                   <div className="main_image">
                     {/* <div className="cat_div">
                       <Swiper
@@ -182,14 +181,12 @@ export default function ProductDetails() {
                     <h6> Available offers</h6>
 
                     <p>
-                      {" "}
                       <BsTags />
                       Bank Offer10% off on Axis Bank Credit Card and EMI
                       Transactions, up to ₹1000, on orders of ₹5,000 and
                       aboveT&C
                     </p>
                     <p>
-                      {" "}
                       <BsTags />
                       Bank Offer5% off on Flipkart Axis Bank Credit Card and EMI
                       Trxns, up to ₹500, on orders of ₹5,000 and aboveT&C
@@ -228,7 +225,7 @@ export default function ProductDetails() {
                     <tr>
                       <h4>Specifications</h4>
                     </tr>
-                    <p>General</p>
+                    {/* <p>General</p> */}
                   </thead>
                   <tbody>
                     <tr>
