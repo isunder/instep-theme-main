@@ -4,7 +4,9 @@ css * {
 }
 
 /* navbar */
-
+.navbarhead_prop{
+  padding: 20px 0px 0px 20px ;
+  }
 .Navsearch_bar {
   max-width: 100%;
   width: 40%;
@@ -363,7 +365,7 @@ div p {
   justify-content: space-between;
 }
 
-span {
+.sku_stok_price span{
   font-weight: 700px;
   color: #4eb529;
 }
@@ -1950,11 +1952,118 @@ footer ul {
   gap: 10px;
 }
 
+
+
 .topmain_imageview{
-  display: block;
+  /* display: none; */
+  height: 500px;
+  object-fit: contain;
 }
 
+.topmain_otherimage1{
+  width: 100%;
+  display:none;
+}
+.topmain_otherimage2{
+  width: 100%;
+  display:none;
+}
+.topmain_otherimage3{
+  width: 100%;
+  display:none;
+}
+.topmain_otherimage4{
+  width: 100%;
+  display:none;
+}
 
-.navbarhead_prop{
-  padding: 20px 0px 0px 20px ;
-  }
+.main_imagecardte{
+  display: flex !important;
+  justify-content: space-between !important;
+  /* gap: 20px; */
+}
+
+.textrating{
+ line-height: 40px;
+ /* font-size: 18px; */
+ font-weight: 700;
+}
+
+.image_ratbracat{
+  margin-left: 2px;
+  padding: 5px;
+  background-color: #4EB529 ;
+  color: #fff;
+  border-radius: 10px;
+}
+
+.image_ratbracat:hover{
+background-color: #FF7C08;
+}
+.rounded-pill{
+  background-color:none !important;
+}
+
+p{
+  margin-right: 0px ;
+  margin-left: 0px;
+}
+
+.addtocart_button{
+  background-color: #4EB529 !important;
+  border: none !important;
+padding: 10px 20px !important;
+width: 100% !important;
+}
+
+.addtocart_button:hover{
+  background-color:#FF7C08 !important;
+}
+
+.bynow_button{
+  background-color: #FF7C08 !important;
+  border: none !important;
+padding: 10px 20px !important;
+width: 100% !important;
+}
+
+.bynow_button:hover{
+  background-color:#4EB529 !important;
+}
+
+.discriptionoffers_product p{
+  line-height: 22px !important;
+  font-size: 18px !important;
+  margin-bottom: 10px !important;
+}
+
+.validpffers_icon{
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  color: #FF7C08;
+}
+
+.validpffers_icon:hover{
+  color: #4EB529;
+}
+
+.discriptionoffers_product p span{
+ font-weight: 700;
+}
+
+.delivery_code{
+  display: flex;
+  gap: 10px;
+}
+
+.deliverylocationcode{
+  width: 30px;
+  height: 30px;
+  color: #FF7C08;
+}
+
+.pincode_bar{
+  padding: 10px 30px;
+  border: none;
+}

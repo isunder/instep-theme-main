@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
-import Badge from "react-bootstrap/Badge";
+// import span from "react-bootstrap/Badge";
 import { BsTags } from "react-icons/bs";
 import { CiLocationOn } from "react-icons/ci";
 import { PiShoppingCartFill } from "react-icons/pi";
@@ -22,6 +22,7 @@ export default function ProductDetails() {
   //   const details = useSelector((state) => state.slicedetails.listdata);
 
   const data = useSelector((state) => state.updateProductData.listdata);
+  const [imageState, setImageState] = useState();
 
   //   console.log(Simgledetails, "ggg");
 
@@ -51,106 +52,83 @@ export default function ProductDetails() {
         <Row className="">
           <Col>
             <Card>
-              <Card.Img className="topmain_imageview" src={data.thumbnail} />
-              {data.images && (
-              <>
-               <img className="subphotof_main" src={data.images[0]} alt="" />
-               <img className="subphotof_main" src={data.images[1]} alt="" />
-               <img className="subphotof_main" src={data.images[2]} alt="" />
-               <img className="subphotof_main" src={data.images[3]} alt="" />
-               </>
-               )}
-              {data.images && (
+              <div>
+                <Card.Img
+                  src={
+                    imageState
+                      ? imageState
+                      : data?.images
+                      ? data?.images[0]
+                      : ""
+                  }
+                  className="topmain_imageview"
+                />
+              </div>
+              {data?.images && (
                 <>
                   <div className="main_image">
-                    {/* <div className="cat_div">
-                      <Swiper
-                        breakpoints={{
-                          640: {
-                            width: 640,
-                            slidesPerView: 1,
-                          },
-                          768: {
-                            width: 768,
-                            slidesPerView: 2,
-                          },
-                        }}
-                        spaceBetween={10}
-                        slidesPerView={1}
-                        onSlideChange={() => console.log("slide change")}
-                        onSwiper={(swiper) => console.log(swiper)}
-                      >
-                        <SwiperSlide>
-                    <img className="imgdiv" src={data.images[0]} alt="" />
-                         
-                        </SwiperSlide>
-                      </Swiper>
-                    </div> */}
-                    <img className="subphotof_main" src={data.images[0]} alt="" />
-                    <img className="subphotof_main" src={data.images[1]} alt="" />
-                    <img className="subphotof_main" src={data.images[2]} alt="" />
-                    <img className="subphotof_main" src={data.images[3]} alt="" />
+                    {data?.images?.map((item, index) => {
+                      if (item) {
+                        return (
+                          <img
+                            key={index}
+                            className="subphotof_main"
+                            src={item}
+                            onMouseEnter={() => setImageState(item)}
+                            alt=""
+                          />
+                        );
+                      }
+                    })}
                   </div>
                 </>
               )}
               <Card.Body>
-                <Card.Title>{data.title}</Card.Title>
-                <div className="d-flex justify-content-between">
-                  <Card.Text
-                    className="textrating
-"
-                  >
-                    Rating
-                    <Badge pill bg="dark">
-                      : {data.rating}
-                    </Badge>
-                  </Card.Text>
-                  <Card.Text
-                    className="textrating
-"
-                  >
-                    Brand
-                    <Badge pill bg="dark">
-                      : {data.brand}
-                    </Badge>
-                  </Card.Text>
-                  <Card.Text
-                    className="textrating
-"
-                  >
-                    Category
-                    <Badge pill bg="dark">
-                      : {data.category}
-                    </Badge>
-                  </Card.Text>
-                </div>
-                <Card.Text>{data.description}</Card.Text>
-                <div className="d-flex justify-content-between">
+                <Card.Title>
+                  <h4>{data.title}</h4>
+                </Card.Title>
+                <div className="main_imagecardte margin_bottom">
                   <Card.Text className="textrating">
-                    Price:$
-                    <Badge pill bg="dark">
-                      {data.price}
-                    </Badge>
+                    <p>
+                      Rating{" "}
+                      <span className="image_ratbracat">: {data.rating}</span>
+                    </p>
                   </Card.Text>
                   <Card.Text className="textrating">
-                    left stock:
-                    <Badge pill bg="dark">
-                      {data.stock}
-                    </Badge>
+                    <p>
+                      {" "}
+                      Brand
+                      <span className="image_ratbracat">: {data.brand}</span>
+                    </p>
+                  </Card.Text>
+                  <Card.Text className="textrating">
+                    <p>
+                      {" "}
+                      Category
+                      <span className="image_ratbracat">: {data.category}</span>
+                    </p>
+                  </Card.Text>
+                  <Card.Text className="textrating">
+                    <p>
+                      left stock:
+                      <span className="image_ratbracat">{data.stock}</span>
+                    </p>
                   </Card.Text>
                 </div>
-
+                <Card.Text className="textrating margin_bottom">
+                  <h5>{data.description}</h5>
+                </Card.Text>
                 <Row>
-                  <Col>
+                  <Col lg={6}>
                     {" "}
-                    <Button variant="warning">
+                    <Button className="addtocart_button">
                       <PiShoppingCartFill />
                       ADD TO CART
                     </Button>{" "}
                   </Col>
-                  <Col>
+                  <Col lg={6}>
                     {" "}
-                    <Button>
+                    <Button className="bynow_button">
                       <BsFillLightningFill /> BUY NOW
                     </Button>{" "}
                   </Col>
@@ -162,56 +140,59 @@ export default function ProductDetails() {
             <div>
               <Card className="Card_row">
                 <Card.Body>
-                  <Card.Title>{data.title}</Card.Title>
+                  <Card.Title>
+                    <h4>{data.title}</h4>
+                  </Card.Title>
                   <Card.Subtitle className="mb-2 text-muted">
-                    <div>
-                      <Badge pill bg="dark">
-                        {data.rating}
-                      </Badge>
-                      stock left: {data.stock}
-                    </div>
-                    Extra ₹ {data.discountPercentage}..Off
+                    <h5>Extra ₹ {data.discountPercentage}..Off</h5>
                   </Card.Subtitle>
-                  <Card.Subtitle className="mb-2 text-muted">
+                  <Card.Subtitle className="mb-2">
                     <h1>₹ {data.price}</h1>
                   </Card.Subtitle>
 
                   <Card.Text>{data.description}</Card.Text>
-                  <Card.Subtitle className="mb-2 text-muted">
+                  <Card.Subtitle className="mb-2 discriptionoffers_product text-muted">
                     <h6> Available offers</h6>
-
                     <p>
-                      <BsTags />
-                      Bank Offer10% off on Axis Bank Credit Card and EMI
-                      Transactions, up to ₹1000, on orders of ₹5,000 and
-                      aboveT&C
-                    </p>
-                    <p>
-                      <BsTags />
-                      Bank Offer5% off on Flipkart Axis Bank Credit Card and EMI
-                      Trxns, up to ₹500, on orders of ₹5,000 and aboveT&C
+                      {" "}
+                      <BsTags className="validpffers_icon" />
+                      <span>Bank Offer10%</span> off on Axis Bank Credit Card
+                      and EMI Transactions, up to ₹1000, on orders of ₹5,000 and
+                      above
+                      <span>T&C</span>
                     </p>
                     <p>
                       {" "}
-                      <BsTags />
-                      Bank Offer10% Instant Discount on Citi Credit Card and EMI
-                      Txns, up to ₹1,000 on orders of ₹5,000 and aboveT&C
+                      <BsTags className="validpffers_icon" />
+                      <span>Bank Offer5%</span> off on Flipkart Axis Bank Credit
+                      Card and EMI Trxns, up to ₹500, on orders of ₹5,000 and
+                      above<span>T&C</span>
                     </p>
                     <p>
                       {" "}
-                      <BsTags />
-                      Special PriceGet extra ₹15901 off (price inclusive of
-                      cashback/coupon)T&C
+                      <BsTags className="validpffers_icon" />
+                      <span>Bank Offer10%</span> Instant Discount on Citi Credit
+                      Card and EMI Txns, up to ₹1,000 on orders of ₹5,000 and
+                      above<span>T&C</span>
+                    </p>
+                    <p>
+                      {" "}
+                      <BsTags className="validpffers_icon" />
+                      <span>Special Price</span>Get extra ₹15901 off (price
+                      inclusive of cashback/coupon)<span>T&C</span>
                     </p>
                     <p>View 10 more offers</p>
 
-                    <div>
-                      <h5>Delivery</h5> <CiLocationOn />
-                      <input
-                        type="text"
-                        placeholder="  Enter Delivery Pincode
-"
-                      />
+                    <div className="delivery_code">
+                      <h5>Delivery</h5>
+                      <div>
+                        <CiLocationOn className="deliverylocationcode"/>
+                        <input
+                          type="text"
+                          placeholder="  Enter Delivery Pincode"
+                          className="pincode_bar"
+                        />
+                      </div>
                     </div>
                   </Card.Subtitle>
                   {/* <Card.Link href="#">Card Link</Card.Link>
