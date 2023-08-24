@@ -31,8 +31,7 @@ export default function ProductDetails() {
   return (
     <>
       <div className="container mainrowdata">
-        <h2>heloooooooooo</h2>
-
+      
         <Row className="">
           <Col>
             <Card>
