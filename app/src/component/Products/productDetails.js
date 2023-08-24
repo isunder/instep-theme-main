@@ -66,7 +66,6 @@ export default function ProductDetails() {
               </div>
               {data?.images && (
                 <>
-                  {" "}
                   <div className="main_image">
                     {data?.images?.map((item, index) => {
                       if (item) {
@@ -207,7 +206,7 @@ export default function ProductDetails() {
                     <tr>
                       <h4>Specifications</h4>
                     </tr>
-                    <p>General</p>
+                    {/* <p>General</p> */}
                   </thead>
                   <tbody>
                     <tr>
