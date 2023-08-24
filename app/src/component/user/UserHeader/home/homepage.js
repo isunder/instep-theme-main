@@ -16,7 +16,15 @@ import { FiArrowUpRight } from "react-icons/fi";
 import { getProductAction } from "../../../../Redux/action/getProductDetailAction";
 import { HiDesktopComputer } from "react-icons/hi";
 import { updateProduct } from "../../../../Redux/action/updateProductAction";
+import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
 
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
 // const cardData = [
 //   {
 //     cardImg: "image/pexels-pixabay-267320 (1).jpg",
@@ -314,84 +322,47 @@ const Home = () => {
               </Col>
             </Row>
           </div>
-          <div className="">
+          <div className="homeelectnics_carouse margin_bottom">
             <Row>
-              <Col lg={12}>
-                <Row>
-                  {/* {categorydata &&
-                    categorydata?.map((e) => {
-                      return (
-                        <>
-                          <Card style={{ width: "18rem" }}>
-                            <h3>{e.category}</h3>
-                            <Card.Img
-                              // onClick={imgClick}
-                              variant="top"
-                              src={e.image}
-                            />
-                            <Card.Body>
-                              <Card.Title>{e.title}</Card.Title>
-                              <Card.Text>{e.description}</Card.Text>
-                              <p>price {e.price}</p>
-                              <p>count: {e.rating.count}</p>
-                              <p>Rating: {e.rating.rate}</p>
-                              <Button variant="primary" onClick={handleClick}>
-                                Add To Cart
-                              </Button>
-                              <Button variant="primary">Buy Now</Button>
-                            </Card.Body>
-                          </Card>
-                        </>
-                      );
-                    })} */}
-
-                  <Col md={4} lg={2}>
-                    <Link
-                      className="card_deco"
-                      // to={`/productdetail`}
-                      // onClick={() => productClick(item?._id)}
-                    >
-                      <Card className="shopping_card">
-                        <div className="img_div">
-                          Top Category
-                          {/* <Card.Img
-                            variant="top"
-                            src={item?.image}
-                          /> */}
-                        </div>
-
-                        <Card.Body>
-                          <div className="item_rating">
-                            <p>
-                              {" "}
-                              <Badge className="badge" bg="danger">
-                                {/* {item?.rating} */}
-                              </Badge>
-                            </p>
-                            <p>
-                              {" "}
-                              <Badge className="badge" bg="primary">
-                                {/* {item.category} */}
-                              </Badge>
-                            </p>
-                          </div>
-                          <Card.Title className="crad_text">
-                            {/* {item.title} */}
-                          </Card.Title>
-                          <Card.Text className="crad_text">
-                            {/* {item?.description} */}Electronics
-                          </Card.Text>
-                          <Card.Text className="crad_text">
-                            {/* <h5> ₹ {item?.price}</h5> */}
-                          </Card.Text>
-                        </Card.Body>
-                      </Card>
-                    </Link>
-                  </Col>
-                  {categorydata.map((item) => {
+              <Col lg={3} className="fistcardof_elct">
+                <Card className="shopping_card ">
+                  <div className="fistcardof_elct">
+                    <div className="viewallcard_div">
+                      <Card.Text className="crad_text">
+                        <h5>Best Of Electronics</h5>
+                      </Card.Text>
+                      <button
+                        className="electrnicswiewall_button"
+                        type="submit"
+                      >
+                        VIEW ALL
+                      </button>
+                      <Card.Body>
+                        <img
+                          className="homedecor_image"
+                          src="https://img.freepik.com/free-vector/hand-drawn-phone-cartoon-illustration_23-2150588452.jpg?w=2000"
+                          alt=""
+                        />
+                      </Card.Body>
+                    </div>
+                  </div>
+                </Card>
+              </Col>
+              <Col lg={9}>
+                <Swiper
+                  modules={[Navigation]}
+                  x
+                  spaceBetween={90}
+                  slidesPerView={4}
+                  navigation
+                  pagination={{ clickable: true }}
+                  onSwiper={(swiper) => console.log(swiper)}
+                  onSlideChange={() => console.log("slide change")}
+                >
+                  {categorydata.map((item, index) => {
                     if (item.category === "electronics") {
                       return (
-                        <Col md={4} lg={2} key={item.id}>
+                        <SwiperSlide key={index}>
                           <Link
                             className="card_deco"
                             to={`/productdetail`}
@@ -404,7 +375,7 @@ const Home = () => {
                                   src={item?.image || item?.thumbnail}
                                 />
                               </div>
-
+                              Zara
                               <Card.Body>
                                 <div className="item_rating">
                                   <p>
@@ -432,60 +403,17 @@ const Home = () => {
                               </Card.Body>
                             </Card>
                           </Link>
-                        </Col>
+                        </SwiperSlide>
                       );
                     }
                   })}
-                </Row>
+                </Swiper>
               </Col>
             </Row>
           </div>
         </div>
         <Row>
           <h2 className="ourtopcategories_home"> Top Trending Products</h2>
-
-          <Row>
-            <Col lg={3}>
-              {/* <Card className="shopping_card">
-                <div className="img_div">
-                  <Card.Img
-                    variant="top"
-                    src="https://global-uploads.webflow.com/6185b708a2657014268d2eaf/6204941a794503795772a4a1_combatant-gentlemen-menswear-ecommerce-site.png"
-                  />
-                </div>
-                <Card.Body>
-                  <div className="item_rating">
-                    <p>
-                      {" "}
-                      <Badge className="badge" bg="danger">
-                        4
-                      </Badge>
-                    </p>
-                    <p>
-                      {" "}
-                      <Badge className="badge" bg="primary">
-                        5
-                      </Badge>
-                    </p>
-                  </div>
-                  <Card.Title className="crad_text">Fashion</Card.Title>
-                  <Card.Text className="crad_text">Zara</Card.Text>
-                  <div className="card_texthoverdetail">
-                    <Card.Text className="crad_text">
-                      <h5> ₹ 6000</h5>
-                    </Card.Text>
-                    {/* <div className="cardhide_onhov">
-                      <Button className="slider_leftbutton" variant="light">
-                        Add to Cart{" "}
-                      </Button>
-                    </div> 
-                  </div>
-                </Card.Body>
-              </Card> */}
-            </Col>
-            <Col lg={3}></Col>
-            <Col lg={3}></Col>
-          </Row>
           <Col lg={4}>
             <div className="banner">
               <div>
@@ -538,104 +466,91 @@ const Home = () => {
             </div>
           </Col>
         </Row>
-      </div>
-      <Row>
-        <Col lg={12}>
-          <Row>
-            <Col md={4} lg={2}>
-              <Link
-                className="card_deco"
-                // to={`/productdetail`}
-                // onClick={() => productClick(item?._id)}
-              >
-                <Card className="shopping_card">
-                  <div className="img_div">
-                    Top Category
-                    {/* <Card.Img
-                            variant="top"
-                            src={item?.image}
-                          /> */}
-                  </div>
-
+        <Row>
+          <Col lg={3} className="fistcardof_elct">
+            <Card className="shopping_card ">
+              <div className="fistcardof_elct">
+                <div className="viewallcard_div">
+                  <Card.Text className="crad_text">
+                    <h5>Best Of Electronics</h5>
+                  </Card.Text>
+                  <button className="electrnicswiewall_button" type="submit">
+                    VIEW ALL
+                  </button>
                   <Card.Body>
-                    <div className="item_rating">
-                      <p>
-                        {" "}
-                        <Badge className="badge" bg="danger">
-                          {/* {item?.rating} */}
-                        </Badge>
-                      </p>
-                      <p>
-                        {" "}
-                        <Badge className="badge" bg="primary">
-                          {/* {item.category} */}
-                        </Badge>
-                      </p>
-                    </div>
-                    <Card.Title className="crad_text">
-                      {/* {item.title} */}
-                    </Card.Title>
-                    <Card.Text className="crad_text">
-                      {/* {item?.description} */}Electronics
-                    </Card.Text>
-                    <Card.Text className="crad_text">
-                      {/* <h5> ₹ {item?.price}</h5> */}
-                    </Card.Text>
+                    <img
+                      className="homedecor_image"
+                      src="https://ouch-cdn2.icons8.com/rQiKaijxXLYiyqOYF9br0qlt89qoLZjE7uM8zvq2L_w/rs:fit:456:456/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvOTAy/Lzg1MzQwOTM5LTkw/Y2MtNDQzNC04MTcx/LTZlMjExMDI0OGFj/Ni5zdmc.png"
+                      alt=""
+                    />
                   </Card.Body>
-                </Card>
-              </Link>
-            </Col>
-            {data.map((e) => {
-              if (e.subcategory === "Kitchen & Dining") {
-                return (
-                  <Col md={4} lg={2} key={e?.id}>
-                    <Link
-                      className="card_deco"
-                      to={`/productdetail`}
-                      onClick={() => productClick(e?._id)}
-                    >
-                      <Card className="shopping_card">
-                        <div className="img_div">
-                          <Card.Img
-                            variant="top"
-                            src={e?.image || e?.thumbnail}
-                          />
-                        </div>
-
-                        <Card.Body>
-                          <div className="item_rating">
-                            <p>
-                              {" "}
-                              <Badge className="badge" bg="danger">
-                                {e?.rating}
-                              </Badge>
-                            </p>
-                            <p>
-                              {" "}
-                              <Badge className="badge" bg="primary">
-                                {e?.category}
-                              </Badge>
-                            </p>
+                </div>
+              </div>
+            </Card>
+          </Col>
+          <Col lg={9}>
+            <Swiper
+              modules={[Navigation]}
+              x
+              spaceBetween={90}
+              slidesPerView={4}
+              navigation
+              pagination={{ clickable: true }}
+              onSwiper={(swiper) => console.log(swiper)}
+              onSlideChange={() => console.log("slide change")}
+            >
+              {data.map((e) => {
+                if (e.category === "home&kitchen") {
+                  return (
+                    <SwiperSlide key={e?.id}>
+                      <Link
+                        className="card_deco"
+                        to={`/productdetail`}
+                        onClick={() => productClick(e?._id)}
+                      >
+                        <Card className="shopping_card">
+                          <div className="img_div">
+                            <Card.Img
+                              variant="top"
+                              src={e?.image || e?.thumbnail}
+                            />
                           </div>
-                          <Card.Title className="crad_text">
-                            {e?.title}
-                          </Card.Title>
-                          <Card.Text className="crad_text">
-                            {e?.description}
-                          </Card.Text>
-                          <Card.Text className="crad_text">
-                            <h5> ₹ {e?.price}</h5>
-                          </Card.Text>
-                        </Card.Body>
-                      </Card>
-                    </Link>
-                  </Col>
-                );
-              }
-            })}
-          </Row>
-        </Col>
-      </Row>
+
+                          <Card.Body>
+                            <div className="item_rating">
+                              <p>
+                                {" "}
+                                <Badge className="badge" bg="danger">
+                                  {e?.rating}
+                                </Badge>
+                              </p>
+                              <p>
+                                {" "}
+                                <Badge className="badge" bg="primary">
+                                  {e?.category}
+                                </Badge>
+                              </p>
+                            </div>
+                            <Card.Title className="crad_text">
+                              {e?.title}
+                            </Card.Title>
+                            <Card.Text className="crad_text">
+                              {e?.description}
+                            </Card.Text>
+                            <Card.Text className="crad_text">
+                              <h5> ₹ {e?.price}</h5>
+                            </Card.Text>
+                          </Card.Body>
+                        </Card>
+                      </Link>
+                    </SwiperSlide>
+                  );
+                }
+              })}
+            </Swiper>
+          </Col>
+        </Row>
+      </div>
       <div className="container-fluid">
         <Row>
           <footer>
