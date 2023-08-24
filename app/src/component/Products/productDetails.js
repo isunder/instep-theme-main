@@ -13,42 +13,26 @@ import { BsFillLightningFill } from "react-icons/bs";
 import Table from "react-bootstrap/Table";
 import { Carousel } from "react-bootstrap";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { updateProduct } from "../../Redux/action/updateProductAction";
 
 export default function ProductDetails() {
   const dispatch = useDispatch();
-  const { id } = useParams();
-  const [items, setItems] = useState([]);
+  const { _id } = useParams();
 
   //   const details = useSelector((state) => state.slicedetails.listdata);
 
   const data = useSelector((state) => state.updateProductData.listdata);
   const [imageState, setImageState] = useState();
 
-  //   console.log(Simgledetails, "ggg");
-
-  //   useEffect(() => {
-  //     localStorage.setItem("items", JSON.stringify(details));
-  //   }, [details]);
-
-  //   useEffect(() => {
-  //     dispatch(updateProduct({ id }));
-  //   }, [id]);
-
-  const [pinCode, setPincode] = useState("");
-  const handlePinCodeChange = (e) => {
-    setPincode(e.target.value);
-  };
-
-  const handleCheckDelivery = () => {
-    console.log("Checking delivery for pin code:", pinCode);
-  };
-  const handleBuyNow = () => {
-    console.log("Buy Now");
-  };
+  useEffect(() => {
+    dispatch(updateProduct({ _id }));
+  }, [_id]);
 
   return (
     <>
       <div className="container mainrowdata">
+        <h2>heloooooooooo</h2>
+
         <Row className="">
           <Col>
             <Card>
@@ -186,7 +170,7 @@ export default function ProductDetails() {
                     <div className="delivery_code">
                       <h5>Delivery</h5>
                       <div>
-                        <CiLocationOn className="deliverylocationcode"/>
+                        <CiLocationOn className="deliverylocationcode" />
                         <input
                           type="text"
                           placeholder="  Enter Delivery Pincode"

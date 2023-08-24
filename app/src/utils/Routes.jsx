@@ -32,64 +32,62 @@ const role = getUserId() ? getUserId()?.userRole : null;
 // console.log(role, "aaasdfgfds");
 const isLoggedIn = getToken();
 const protects = {
+  user: [
+    {
+      path: "/",
+      element: isLoggedIn ? <Layout /> : <Navigate to="/" />,
+      children: [
+        { path: "/", element: <Home /> },
+        { path: "/userheader", element: <Usernavbar /> },
+        { path: "/productdetail/:_id", element: <ProductDetails /> },
+        { path: "*", element: "NO PAGE FOUND" },
+      ],
+    },
+  ],
 
-    user: [
-        {
-            path: "/",
-            element: isLoggedIn ? <Layout /> : <Navigate to="/" />,
-            children: [
-                { path: "/", element: <Home /> },
-                { path: "/userheader", element: <Usernavbar /> },
-                { path: "/productdetail/id:", element: <ProductDetails /> },
-                { path: "*", element: "NO PAGE FOUND" }
-            ]
-        }
-    ],
-
-    admin: [
-        {
-            path: "/",
-            element: isLoggedIn ? <AdminLayout /> : <Navigate to="/" />,
-            children: [
-                { path: "/", element: <Admindashboard /> },
-                { path: "/allproduct", element: <Allproducts /> },
-                { path: "/addstock", element: <StockFile /> },
-                { path: "/allloation", element: <Alllocation /> },
-                { path: "/subscriber", element: <Subscribeuser /> },
-                { path: "/allcategories", element: <Allcategories /> },
-                { path: "/allvariations", element: <Allvariations /> },
-                { path: "/allbrands", element: <Allbrands /> },
-                { path: "/allunit", element: <Allunit /> },
-                { path: "/alltaxes", element: <Alltaxes /> },
-                { path: "/orderreport", element: <Orderreport /> },
-                { path: "/categorywise", element: <Categorywise /> },
-                { path: "/bulkemails", element: <Bulkemails /> },
-                { path: "/productsale", element: <Productsale /> },
-                { path: "/salesamountreport", element: <Salesamount /> },
-                { path: "/deliverystatusreport", element: <DeliveryStatus /> },
-                { path: "/product", element: <ProductForm /> },
-                { path: "/possystem", element: <PosSystem /> },
-                { path: "/orders", element: <Orders /> },
-                { path: "*", element: "NO PAGE FOUND" },
-            ],
-        },
-    ],
-    default: [
-        {
-            path: "/",
-            element: <CustomerLayout />,
-            children: [
-                { path: "/", element: <Home /> },
-                { path: "/signup", element: <SignUp /> },
-                { path: "/productdetail", element: <ProductDetails /> },
-                { path: "/signin", element: <SignIn /> },
-                { path: "*", element: "NO PAGE FOUND" },
-            ]
-        },
-    ],
-
+  admin: [
+    {
+      path: "/",
+      element: isLoggedIn ? <AdminLayout /> : <Navigate to="/" />,
+      children: [
+        { path: "/", element: <Admindashboard /> },
+        { path: "/allproduct", element: <Allproducts /> },
+        { path: "/addstock", element: <StockFile /> },
+        { path: "/allloation", element: <Alllocation /> },
+        { path: "/subscriber", element: <Subscribeuser /> },
+        { path: "/allcategories", element: <Allcategories /> },
+        { path: "/allvariations", element: <Allvariations /> },
+        { path: "/allbrands", element: <Allbrands /> },
+        { path: "/allunit", element: <Allunit /> },
+        { path: "/alltaxes", element: <Alltaxes /> },
+        { path: "/orderreport", element: <Orderreport /> },
+        { path: "/categorywise", element: <Categorywise /> },
+        { path: "/bulkemails", element: <Bulkemails /> },
+        { path: "/productsale", element: <Productsale /> },
+        { path: "/salesamountreport", element: <Salesamount /> },
+        { path: "/deliverystatusreport", element: <DeliveryStatus /> },
+        { path: "/product", element: <ProductForm /> },
+        { path: "/possystem", element: <PosSystem /> },
+        { path: "/orders", element: <Orders /> },
+        { path: "*", element: "NO PAGE FOUND" },
+      ],
+    },
+  ],
+  default: [
+    {
+      path: "/",
+      element: <CustomerLayout />,
+      children: [
+        { path: "/", element: <Home /> },
+        { path: "/signup", element: <SignUp /> },
+        { path: "/productdetail/:_id", element: <ProductDetails /> },
+        { path: "/signin", element: <SignIn /> },
+        { path: "*", element: "NO PAGE FOUND" },
+      ],
+    },
+  ],
 };
 
 export const protect =
-    role && isLoggedIn ? protects[role] : protects["default"];
+  role && isLoggedIn ? protects[role] : protects["default"];
 export const defaultProtect = protects["default"];
