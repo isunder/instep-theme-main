@@ -8,14 +8,13 @@ const User = require("./models/RegisterSchema");
 const jwt = require("jsonwebtoken");
 const secretkey = "secretkey";
 const dotenv = require("dotenv");
-// const userproducts = require("./models/ProductsSchema");
-// const categorytable = require("./models/categorytable");
+const categoriesRoute = require("./router/groupby");
+const multer = require("multer");
 const productsjson = require("./home");
 const Userproducts = require("./models/ProductsSchema");
 dotenv.config();
 
 const DB =
-  // "mongodb+srv://amit71instep:Amit123@cluster0.kmujczi.mongodb.net/?retryWrites=true&w=majority";
   "mongodb+srv://noutiyalgopal:MDgopal87@cluster0.mo1orsr.mongodb.net/instepcart-backend?retryWrites=true&w=majority";
 
 mongoose
@@ -73,7 +72,7 @@ server.post("/api/login", async (req, res) => {
         {
           userEmail: UserEmail[0]?.email,
           userRole: UserEmail[0]?.role,
-          username: UserEmail[0]?.username,
+          username: UserEmail[0].username,
         },
 
         secretkey,
@@ -91,43 +90,81 @@ server.post("/api/login", async (req, res) => {
 });
 
 //api of products addd only for admin
-server.post("/api/products", async (req, res) => {
-  const {
-    category,
-    description,
-    title,
-    price,
-    images,
-    brand,
-    rating,
-    subcategory,
-    thumbnail,
-    stock,
-    discountpercentage,
-  } = req.body;
 
-  const data = new Userproducts({
-    category: req.body.category,
-    description: req.body.description,
-    title: req.body.title,
-    price: req.body.price,
-    images: req.body.images,
-    brand: req.body.brand,
-    rating: req.body.rating,
-    subcategory: req.body.subcategory,
-    thumbnail: req.body.subcategory,
-    stock: req.body.stock,
-    discountpercentage: req.body.discountpercentage,
-  });
-  try {
-    const dataToSave = await data.save();
-    res.status(200).send({ success: true });
-  } catch (error) {
-    res.status(400).send({ message: error.message });
+
+//25/08
+
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./uploads")
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + "-" + file.originalname)
   }
 });
 
-//api of products all   category and subcategory,brand for admin
+
+
+const storagethumbnail = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./uploads")
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + "-" + file.originalname)
+  }
+});
+
+
+
+const upload = multer({ storage: storage });
+const uploadthumb = multer({ storage: storagethumbnail });
+
+server.post("/api/products", upload.fields([{ name: "images", maxCount: 4 }, { name: "thumbnail", maxCount: 1 }]), async (req, res) => {
+  try {
+    const imagesFilenames = req.files["images"].map(file => file.filename); // Array of image filenames
+    const thumbnailFilename = req.files["thumbnail"][0].filename;
+
+    // Log filenames to see if they are being extracted correctly
+    console.log("Images Filenames:", imagesFilenames);
+    console.log("Thumbnail Filename:", thumbnailFilename);
+
+    let pic;
+    imagesFilenames.forEach(file => {
+      pic = file
+    })
+    console.log(pic, "11111111111111111")
+
+    // Rest of your code to create and save the Userproducts document
+    // ...
+
+    const productadd = new Userproducts({
+      category: req.body.category,
+      description: req.body.description,
+      title: req.body.title,
+      price: req.body.price,
+      images: imagesFilenames,
+      brand: req.body.brand,
+      rating: req.body.rating,
+      subcategory: req.body.subcategory,
+      thumbnail: thumbnailFilename,
+      stock: req.body.stock,
+      discountpercentage: req.body.discountpercentage,
+    });
+
+
+    await productadd.save();
+    // console.log( productadd)
+    res.status(200).send('Success: Product uploaded.');
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: error.message });
+  }
+});
+
+
+
+//api of products all  
 
 server.post("/api/Getproducts", async (req, resp) => {
   const {
@@ -145,37 +182,7 @@ server.post("/api/Getproducts", async (req, resp) => {
   } = req.body;
 
   if (req.body.category) {
-    if (req.body.category) {
-      const filter = await Userproducts.find({ category: req.body.category });
 
-      console.log(filter);
-
-      try {
-        resp.send(filter);
-      } catch (error) {
-        resp.send({ result: "no category products found" });
-      }
-    } else if (req.body.subcategory) {
-      console.log("object", req.body.subcategory);
-      const filter = await Userproducts.find({
-        subcategory: "smartphones",
-      });
-
-      console.log(filter, "filter");
-      try {
-        resp.send(filter);
-      } catch (error) {
-        resp.send({ result: "no subcategory products found" });
-      }
-    } else if (req.body.brand) {
-      const filter = await Userproducts.find({ brand: req.body.brand });
-      try {
-        resp.send(filter);
-      } catch (error) {
-        resp.send({ result: "no brand products found" });
-      }
-    }
-  } else {
     console.log(req, resp, "console.log");
     let products = await Userproducts.find();
 
@@ -186,6 +193,92 @@ server.post("/api/Getproducts", async (req, resp) => {
     }
   }
 });
+
+
+
+
+// category and subcategory,brand for admin filter
+
+server.post("/api/FilterProducts", async (req, resp) => {
+  const {
+    category,
+    description,
+    title,
+    price,
+    image,
+    brand,
+    rating,
+    subcategory,
+    thumbnail,
+    stock,
+    discountpercentage,
+  } = req.body;
+
+  if (req.body) {
+    if (req.body.category) {
+      const filter = await Userproducts.find({ category: category });
+
+      console.log(filter);
+
+      try {
+        resp.send(filter);
+      } catch (error) {
+        resp.send({ result: "no category products found" });
+      }
+    } else
+      if (req.body.subcategory) {
+        console.log("sssssssssssssss",);
+        const filter = await Userproducts.find({
+          subcategory: req.body.subcategory,
+        });
+
+        console.log(filter, "filter");
+        try {
+          resp.send(filter);
+        } catch (error) {
+          resp.send({ result: "no subcategory products found" });
+        }
+      } else
+        if (req.body.brand) {
+          const filter = await Userproducts.find({ brand: req.body.brand });
+          try {
+            resp.send(filter);
+          } catch (error) {
+            resp.send({ result: "no brand products found" });
+          }
+        }
+  } else {
+
+
+
+    {
+      resp.send({ result: "no products found" });
+    }
+  }
+});
+
+
+
+// category find onlyyyyyy filter
+
+// 25/08
+
+
+server.get("/products/:category", async (req, res) => {
+
+  try {
+    console.log(req.params.category, "aaa")
+    const name = req.params.category;
+    console.log("Querying for category:", name);
+    const filter = await Userproducts.find({ category: name });
+    console.log("Filter result:", filter);
+    res.send(filter);
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ error: error.message, message: "Server error" });
+  }
+});
+
 
 //table addd api category
 
@@ -206,7 +299,7 @@ server.post("/api/Getproducts", async (req, resp) => {
 
 ///   category  api  next plain
 
-server.post("/api/category", async (req, res) => {
+server.post("/api/3", async (req, res) => {
   try {
     res.send(productsjson);
   } catch (error) {
@@ -281,6 +374,44 @@ server.post("/api/procustdlt", async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 });
+
+
+
+//search api   title,subcategry,categry,brand
+
+
+server.post("/api/Search", async (req, res) => {
+  console.log(req.body, "hhhhhhhhhhhh");
+
+  try {
+    const keyword = req.body.name; // Get the search query parameter from the request body
+
+    const searchResults = await Userproducts.find({
+      // Customize this based on how you want to search (title, description, etc.)
+      $or: [
+        { title: { $regex: keyword, $options: 'i' } }, // Case-insensitive search
+        { description: { $regex: keyword, $options: 'i' } },
+        { category: { $regex: keyword, $options: 'i' } },
+        { brand: { $regex: keyword, $options: 'i' } },
+        
+
+
+        
+      ],
+    });
+
+    res.status(200).json(searchResults);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'An error occurred while searching.' });
+  }
+});
+
+
+
+
+
+
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {

@@ -1,14 +1,14 @@
-  const mongoose = require("mongoose");
+const mongoose = require("mongoose");
 
-  const ProductSchema = new mongoose.Schema({
-    description: {
-      type: String,
-      required: true,
-    },
-    category: {
-      type: String,
-      required: true,
-    },
+const ProductSchema = new mongoose.Schema({
+  description: {
+    type: String,
+    required: true,
+  },
+  category: {
+    type: String,
+    required: true,
+  },
   subcategory: {
     type: String,
     required: true,
@@ -23,12 +23,11 @@
   },
   thumbnail: {
     type: String,
-    require: true,
+    
   },
-  images: {
-    type: Array,
-    required: true,
-  },
+  images: [{
+    type:Array,
+  }],
   brand: {
     type: String,
     required: true,
@@ -46,8 +45,8 @@
     required: true,
   },
 });
+
 ProductSchema.set("productsof", true);
+
 const Userproducts = mongoose.model("Userproducts", ProductSchema);
-
-
-  module.exports = Userproducts;
+module.exports = Userproducts;
