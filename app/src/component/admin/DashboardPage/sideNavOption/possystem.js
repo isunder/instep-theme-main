@@ -1,5 +1,6 @@
 import React from "react";
-import { Button, Col, Dropdown, Form, Row } from "react-bootstrap";
+import { Button, Card, Col, Dropdown, Form, Row } from "react-bootstrap";
+import { LuShoppingCart } from "react-icons/lu";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { BsPersonFillAdd } from "react-icons/bs";
@@ -9,7 +10,7 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 export default function PosSystem() {
   return (
     <>
-      <Row>
+      <Row >
         <Col lg={8} className="admin_toppadding boxshadow">
           <div className="pos_buttons">
             <div>
@@ -59,14 +60,10 @@ export default function PosSystem() {
                 >
                   <SwiperSlide>
                     <div className="pos_detail">
-                      <div className="pos_catimage round_dec">
+                      <div className="pos_catimage">
                         <div>
-                          <img
-                            className="pos_image"
-                            src="https://images.indianexpress.com/2020/01/sidhu-moose-wala.jpg"
-                            alt=""
-                          />
-                          {/* {/ <LuShoppingCart /> /} */}
+                          fff
+                          {/* <LuShoppingCart /> */}
                         </div>
                       </div>
                       <div className="pos_content">
@@ -79,12 +76,8 @@ export default function PosSystem() {
                     <div className="pos_detail">
                       <div className="pos_catimage">
                         <div>
-                          <img
-                            className="pos_image"
-                            src="https://images.indianexpress.com/2020/01/sidhu-moose-wala.jpg"
-                            alt=""
-                          />
-                          {/* {/ <LuShoppingCart /> /} */}
+                          fff
+                          {/* <LuShoppingCart /> */}
                         </div>
                       </div>
                       <div className="pos_content">
@@ -97,12 +90,8 @@ export default function PosSystem() {
                     <div className="pos_detail">
                       <div className="pos_catimage">
                         <div>
-                          <img
-                            className="pos_image"
-                            src="https://images.indianexpress.com/2020/01/sidhu-moose-wala.jpg"
-                            alt=""
-                          />
-                          {/* {/ <LuShoppingCart /> /} */}
+                          fff
+                          {/* <LuShoppingCart /> */}
                         </div>
                       </div>
                       <div className="pos_content">
@@ -115,12 +104,8 @@ export default function PosSystem() {
                     <div className="pos_detail">
                       <div className="pos_catimage">
                         <div>
-                          <img
-                            className="pos_image"
-                            src="https://images.indianexpress.com/2020/01/sidhu-moose-wala.jpg"
-                            alt=""
-                          />
-                          {/* {/ <LuShoppingCart /> /} */}
+                          fff
+                          {/* <LuShoppingCart /> */}
                         </div>
                       </div>
                       <div className="pos_content">
@@ -133,12 +118,8 @@ export default function PosSystem() {
                     <div className="pos_detail">
                       <div className="pos_catimage">
                         <div>
-                          <img
-                            className="pos_image"
-                            src="https://images.indianexpress.com/2020/01/sidhu-moose-wala.jpg"
-                            alt=""
-                          />
-                          {/* {/ <LuShoppingCart /> /} */}
+                          fff
+                          {/* <LuShoppingCart /> */}
                         </div>
                       </div>
                       <div className="pos_content">
@@ -152,12 +133,8 @@ export default function PosSystem() {
                     <div className="pos_detail">
                       <div className="pos_catimage">
                         <div>
-                          <img
-                            className="pos_image"
-                            src="https://images.indianexpress.com/2020/01/sidhu-moose-wala.jpg"
-                            alt=""
-                          />
-                          {/* {/ <LuShoppingCart /> /} */}
+                          fff
+                          {/* <LuShoppingCart /> */}
                         </div>
                       </div>
                       <div className="pos_content">
@@ -170,12 +147,8 @@ export default function PosSystem() {
                     <div className="pos_detail">
                       <div className="pos_catimage">
                         <div>
-                          <img
-                            className="pos_image"
-                            src="https://images.indianexpress.com/2020/01/sidhu-moose-wala.jpg"
-                            alt=""
-                          />
-                          {/* {/ <LuShoppingCart /> /} */}
+                          fff
+                          {/* <LuShoppingCart /> */}
                         </div>
                       </div>
                       <div className="pos_content">
@@ -196,7 +169,7 @@ export default function PosSystem() {
                 </div>
               </Col>
               <Col lg={4}>
-                <div>
+                <div className="pos_search">
                   <Form.Control
                     type="text"
                     placeholder="Search"
@@ -257,14 +230,7 @@ export default function PosSystem() {
           <Row>
             <Col lg={12}>
               <div className="billing_section ">
-                <div className="pos_catimage">
-                  {" "}
-                  <img
-                    className="pos_image"
-                    src="https://images.indianexpress.com/2020/01/sidhu-moose-wala.jpg"
-                    alt=""
-                  />
-                </div>
+                <div className="pos_catimage"></div>
                 <div>
                   Customer <div>+0000 000 000</div>
                 </div>

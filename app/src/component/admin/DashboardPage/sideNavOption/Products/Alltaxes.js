@@ -20,7 +20,7 @@ export default function Alltaxes() {
                                     <FiSearch className="allproduct_searchicon" />  <Form.Control
                                         type="text"
                                         placeholder="Search"
-                                        className=" mr-sm-2 search_bar"
+                                        className=" mr-sm-2 adminsearch_bar"
                                     />
                                 </div>
                                 <div className='btngroup variation_button '>
@@ -46,7 +46,7 @@ export default function Alltaxes() {
                                         <th>Active</th>
                                         <th> </th>
                                         <th> </th>
-                                        <th className='table_colmn num_bers'>Action</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -65,7 +65,7 @@ export default function Alltaxes() {
                                         <td>
 
                                         </td>
-                                        <td className='table_colmn num_bers'>
+                                        <td>
                                             <Dropdown>
                                                 <Dropdown.Toggle variant="success" id="dropdown-basic">
                                                     <BiDotsVerticalRounded />
@@ -110,7 +110,7 @@ export default function Alltaxes() {
                                         <Form.Control
                                             type="text"
                                             placeholder="Type Tax Name"
-                                            className=" mr-sm-2 search_bar"
+                                            className=" mr-sm-2 adminsearch_bar"
                                         />
                                     </div>
                                 </div>

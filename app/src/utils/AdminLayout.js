@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import Mainheader from "../component/admin/header/Mainheader";
 import { Navigate, Outlet } from "react-router-dom";
-import SidebarFun from "../component/DashboardPage/sidebar/Navbarside";
+import SidebarFun from "../component/admin/dashboardPage/sidebar/Navbarside";
 import { Col, Container, Row } from "react-bootstrap";
 
 const AdminLayout = () => {
