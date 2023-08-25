@@ -224,11 +224,11 @@ function MydModalWithGrid(props) {
                   </div>
                 </div>
                 <div className="updatebutton_div">
-                      <button className="update_product_button" type="submit">
-                        Update Product
-                      </button>
-                      <ToastContainer />
-                    </div>
+                  <button className="update_product_button" type="submit">
+                    Update Product
+                  </button>
+                  <ToastContainer />
+                </div>
               </form>
             )}
           </Form>

@@ -20,7 +20,7 @@ export default function Allunit() {
                                     <FiSearch className="allproduct_searchicon" />  <Form.Control
                                         type="text"
                                         placeholder="Search"
-                                        className=" mr-sm-2 search_bar"
+                                        className=" mr-sm-2 adminsearch_bar"
                                     />
                                 </div>
                                 <div className='btngroup variation_button '>
@@ -46,7 +46,7 @@ export default function Allunit() {
                                         <th>Active</th>
                                         <th> </th>
                                         <th> </th>
-                                        <th className='table_colmn num_bers'>Action</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -65,7 +65,7 @@ export default function Allunit() {
                                         <td>
 
                                         </td>
-                                        <td className='table_colmn num_bers'>
+                                        <td>
                                             <Dropdown>
                                                 <Dropdown.Toggle variant="success" id="dropdown-basic">
                                                     <BiDotsVerticalRounded />
@@ -111,7 +111,7 @@ export default function Allunit() {
                                         <Form.Control
                                             type="text"
                                             placeholder="Type Unit Name"
-                                            className=" mr-sm-2 search_bar"
+                                            className=" mr-sm-2 adminsearch_bar"
                                         />
                                     </div>
                                 </div>

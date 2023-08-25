@@ -14,7 +14,7 @@ import { FiSearch } from "react-icons/fi";
 import { MdOutlineNotificationsActive } from "react-icons/md";
 import { useNavigate } from "react-router";
 import { Button } from "rsuite";
-import SidebarFun from "../../DashboardPage/sidebar/Navbarside";
+import SidebarFun from "../../admin/dashboardPage/sidebar/Navbarside";
 
 function Mainheader() {
   const navigate = useNavigate();

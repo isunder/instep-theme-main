@@ -71,8 +71,7 @@ const SidebarFun = () => {
                 eventKey="3"
                 title="Pos System"
                 icon={<BsFilePostFill />}
-              >
-              </Nav.Menu>
+              ></Nav.Menu>
               <Nav.Menu eventKey="4" title="Order" icon={<HiDocument />} />{" "}
               <Nav.Menu eventKey="5" title="Stock" icon={<GoDatabase />}>
                 <Nav.Item eventKey="5-1">
