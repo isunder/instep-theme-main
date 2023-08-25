@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { AiOutlineMail, AiTwotoneHeart } from "react-icons/ai";
 import { BiSearch, BiSolidPurchaseTag } from "react-icons/bi";
 import { MdAccountCircle, MdOutlineAccountCircle } from "react-icons/md";
-import { HiOutlineShoppingBag, HiOutlineShoppingCart } from "react-icons/hi";
+import { HiOutlineShoppingBag } from "react-icons/hi";
 
 const Usernavbar = () => {
   const navigate = useNavigate();
@@ -80,11 +80,6 @@ const Usernavbar = () => {
 
   const brandClick = () => {};
 
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
   return (
     <>
       <div className="nav_header">
@@ -109,7 +104,7 @@ const Usernavbar = () => {
                     </div>
 
                     <div className="subnewbar_rightcont">
-                      <div className="mid_navnewconent desktop_mid_navnewconent">
+                      <div className="mid_navnewconent">
                         <div className="Nav_link">
                           Category
                           <div className="nav_Filter">
@@ -142,7 +137,7 @@ const Usernavbar = () => {
                       </div>
                       <div className="Nav_link">
                         <MdAccountCircle className="navbar_new_icon" />
-                        <div className="nav_Filter myprofile_align">
+                        <div className="nav_Filter">
                           <ul>
                             <li>
                               <MdOutlineAccountCircle /> My Account
@@ -164,83 +159,10 @@ const Usernavbar = () => {
                         </div>
                       </div>
                       <div className="Nav_link">
-                        <HiOutlineShoppingCart className="navbar_new_icon" />
+                        <HiOutlineShoppingBag className="navbar_new_icon" />
                       </div>
-                      <Button
-                        variant="primary"
-                        className="usernav_toggle"
-                        onClick={handleShow}
-                      >
-                        <svg
-                          class="gb_i"
-                          focusable="false"
-                          viewBox="0 0 24 24"
-                          width="50px"
-                        >
-                          <path
-                            d="M6,8c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM12,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM6,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM6,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM12,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM16,6c0,1.1 0.9,2 2,2s2,-0.9 2,-2 -0.9,-2 -2,-2 -2,0.9 -2,2zM12,8c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM18,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM18,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2z"
-                            fill="#fff"
-                          ></path>
-                        </svg>
-                      </Button>
                     </div>
                   </div>
-                </div>
-                <div className="">
-                  <Offcanvas show={show} onHide={handleClose}>
-                    <Offcanvas.Header closeButton>
-                      <Offcanvas.Title>INSTEPCART</Offcanvas.Title>
-                    </Offcanvas.Header>
-                    <Offcanvas.Body className="usernav_canvascontent">
-                      <div className="aboutus_toggle">
-                        <h4>About Us </h4>
-                        <p>
-                          At [INSTEP], we are more than just an online store -
-                          we are a destination for quality products, seamless
-                          shopping experiences, and exceptional customer
-                          service. Our journey began with a passion for bringing
-                          convenience and choice to your fingertips, and we have
-                          grown into a platform that caters to all your needs,
-                          wants, and desires.
-                        </p>
-                        <Button className="slider_rightbutton" variant="light">
-                          About Us{" "}
-                        </Button>
-                        <ul className="">
-                          <h5 className=""> Mail Us:</h5>
-                          <p>
-                            instepcart@mail.com <br />
-                          </p>
-                        </ul>
-                        <ul>
-                          <h5> Registered Office Address:</h5>
-                          <p>
-                            {" "}
-                            Tricity Plaza, Office No. 14
-                            <br />
-                            Ground, Peer Muchalla <br />
-                            Zirakpur, Punjab 140603
-                          </p>
-                          <p className="tele">
-                            Telephone: <span>000-000-0000</span>{" "}
-                          </p>
-                        </ul>
-                      </div>
-                      <div className="mid_navnewconent mid_offcanvas mobile_mid_navnewconent">
-                        <div className="Nav_link">
-                          Category
-                          <div className="nav_Filter">
-                            <ul>
-                              <li>ef</li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div className="Nav_link">Home</div>
-                        <div className="Nav_link">Products</div>
-                        <div className="Nav_link">Pages</div>
-                      </div>
-                    </Offcanvas.Body>
-                  </Offcanvas>
                 </div>
               </Col>
             </Row>
