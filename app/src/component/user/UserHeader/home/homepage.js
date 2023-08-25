@@ -381,17 +381,15 @@ const Home = () => {
                               Zara
                               <Card.Body>
                                 <div className="item_rating">
-                                  <p>
+                                  <p className="homerating_cat">
                                     {" "}
-                                    <Badge className="badge" bg="danger">
+                                    
                                       {item?.rating}
-                                    </Badge>
+                                    
                                   </p>
-                                  <p>
+                                  <p className="homerating_cat">
                                     {" "}
-                                    <Badge className="badge" bg="primary">
                                       {item.category}
-                                    </Badge>
                                   </p>
                                 </div>
                                 <Card.Title className="crad_text">
@@ -522,17 +520,15 @@ const Home = () => {
 
                           <Card.Body>
                             <div className="item_rating">
-                              <p>
+                              <p className="homerating_cat">
                                 {" "}
-                                <Badge className="badge" bg="danger">
+                               
                                   {e?.rating}
-                                </Badge>
+                                
                               </p>
-                              <p>
+                              <p className="homerating_cat">
                                 {" "}
-                                <Badge className="badge" bg="primary">
                                   {e?.category}
-                                </Badge>
                               </p>
                             </div>
                             <Card.Title className="crad_text">
