@@ -847,7 +847,7 @@ svg.rs-sidenav-item-icon {
 }
 .subnewbar_rightcont {
   display: flex;
-  padding-right: 40px;
+  /* padding-right: 40px; */
 }
 
 .navbar_new_icon {
@@ -1083,6 +1083,10 @@ p {
 .navbar-brand {
   padding-top: 20px !important;
 }
+
+.myprofile_align{
+  left: -91px;
+}
 .Nav_link {
   padding: 20px !important;
   color: #000;
@@ -1136,28 +1140,45 @@ h5 {
 .subnewbar_nav :hover.Nav_link .nav_Filter {
   display: block;
 }
-.Electric_positon {
-  right: -121%;
+
+.aboutus_toggle p{
+  line-height: 28px;
+  font-size: 18px;
 }
 
-.men_position {
-  right: -320%;
+.aboutus_toggle button{
+  margin-top: 30px;
 }
 
-.Women_Position {
-  right: -230%;
+.aboutus_toggle ul{
+  margin-top: 30px;
+  padding-left: 0px;
+}
+.usernav_toggle{
+  background-color: #FF7C08 !important;
+  border: none !important;
+  border-radius: 0px !important;
+}
+.mobile_mid_navnewconent{
+  display: none;
 }
 
-.home_position {
-  right: -50%;
+@media (max-width:1005px) {
+  .desktop_mid_navnewconent{
+    display: none;
+  }
+  .mobile_mid_navnewconent{
+    display: block;
+  }
+
+  .aboutus_toggle{
+    display: none;
+  }
 }
 
-.Appliance_position {
-  right: -120%;
-}
-.sport_position {
-  right: -110%;
-}
+
+
+
 /* -----------------------------------------------------End Nav_link Css-------------------------------------------------- */
 
 .body {
@@ -1448,7 +1469,7 @@ h5 {
 }
 
 .item_rating p {
-  font-size: 19px;
+  font-size: 14px;
 }
 
 .homedecor_image{
@@ -1482,6 +1503,30 @@ background-color:#ff7c08 ;
   
 }
 
+.swiper-button-prev:after {
+  content: 'next';
+  padding: 12px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  background-color: #fff;
+  color: #000;
+}
+.swiper-button-next:after {
+  content: 'next';
+  padding: 12px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  background-color: #fff;
+  color: #000;
+}
+
+.homerating_cat{
+  background-color: #4EB529;
+  border-radius: 10px;
+  padding: 2px 5px;
+  color: #fff;
+  font-size: 3px;
+}
 /* .homeelectnics_carouse{
   display: flex;
 } */
