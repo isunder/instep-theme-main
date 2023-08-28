@@ -90,96 +90,93 @@ server.post("/api/login", async (req, res) => {
 
 //api of products addd only for admin
 
-
 //25/08
-
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "./uploads")
+    cb(null, "./uploads");
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + "-" + file.originalname)
-  }
+    cb(null, Date.now() + "-" + file.originalname);
+  },
 });
-
-
 
 const storagethumbnail = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "./uploads")
+    cb(null, "./uploads");
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + "-" + file.originalname)
-  }
+    cb(null, Date.now() + "-" + file.originalname);
+  },
 });
-
-
 
 const upload = multer({ storage: storage });
 const uploadthumb = multer({ storage: storagethumbnail });
 
-server.post("/api/products", upload.fields([{ name: "images", maxCount: 4 }, { name: "thumbnail", maxCount: 1 }]), async (req, res) => {
-  try {
-    const imagesFilenames = req.files["images"].map(file => file.filename); // Array of image filenames
-    const thumbnailFilename = req.files["thumbnail"][0].filename;
+server.post(
+  "/api/products",
+  upload.fields([
+    { name: "images", maxCount: 4 },
+    { name: "thumbnail", maxCount: 1 },
+  ]),
+  async (req, res) => {
+    try {
+      const imagesFilenames = req.files["images"].map((file) => file.filename); // Array of image filenames
+      const thumbnailFilename = req.files["thumbnail"][0].filename;
 
-    // Log filenames to see if they are being extracted correctly
-    console.log("Images Filenames:", imagesFilenames);
-    console.log("Thumbnail Filename:", thumbnailFilename);
+      // Log filenames to see if they are being extracted correctly
+      console.log("Images Filenames:", imagesFilenames);
+      console.log("Thumbnail Filename:", thumbnailFilename);
 
-    let pic;
-    imagesFilenames.forEach(file => {
-      pic = file
-    })
-    console.log(pic, "11111111111111111")
+      let pic;
+      imagesFilenames.forEach((file) => {
+        pic = file;
+      });
+      console.log(pic, "11111111111111111");
 
-    // Rest of your code to create and save the Userproducts document
-    // ...
+      // Rest of your code to create and save the Userproducts document
+      // ...
 
-    const productadd = new Userproducts({
-      category: req.body.category,
-      description: req.body.description,
-      title: req.body.title,
-      price: req.body.price,
-      images: imagesFilenames,
-      brand: req.body.brand,
-      rating: req.body.rating,
-      subcategory: req.body.subcategory,
-      thumbnail: thumbnailFilename,
-      stock: req.body.stock,
-      discountpercentage: req.body.discountpercentage,
-    });
+      const productadd = new Userproducts({
+        category: req.body.category,
+        description: req.body.description,
+        title: req.body.title,
+        price: req.body.price,
+        images: imagesFilenames,
+        brand: req.body.brand,
+        rating: req.body.rating,
+        subcategory: req.body.subcategory,
+        thumbnail: thumbnailFilename,
+        stock: req.body.stock,
+        discountpercentage: req.body.discountpercentage,
+      });
 
-
-    await productadd.save();
-    // console.log( productadd)
-    res.status(200).send('Success: Product uploaded.');
-  } catch (error) {
-    console.error(error);
-    res.status(500).send({ error: error.message });
+      await productadd.save();
+      // console.log( productadd)
+      res.status(200).send("Success: Product uploaded.");
+    } catch (error) {
+      console.error(error);
+      res.status(500).send({ error: error.message });
+    }
   }
-});
+);
 
-
-
-//api of products all  
+//api of products all
 
 server.post("/api/Getproducts", async (req, resp) => {
- 
   try {
     const products = await Userproducts.find();
     if (products.length > 0) {
       resp.send(products);
     } else {
-      resp.send({ result: 'no products found' });
+      resp.send({ result: "no products found" });
     }
   } catch (error) {
-    resp.status(500).send({ error: 'An error occurred while fetching products' });
-  } 
+    resp
+      .status(500)
+      .send({ error: "An error occurred while fetching products" });
+  }
 });
-
-
 
 // category and subcategory,brand for admin filter
 
@@ -209,49 +206,40 @@ server.post("/api/FilterProducts", async (req, resp) => {
       } catch (error) {
         resp.send({ result: "no category products found" });
       }
-    } else
-      if (req.body.subcategory) {
-        console.log("sssssssssssssss",);
-        const filter = await Userproducts.find({
-          subcategory: req.body.subcategory,
-        });
+    } else if (req.body.subcategory) {
+      console.log("sssssssssssssss");
+      const filter = await Userproducts.find({
+        subcategory: req.body.subcategory,
+      });
 
-        console.log(filter, "filter");
-        try {
-          resp.send(filter);
-        } catch (error) {
-          resp.send({ result: "no subcategory products found" });
-        }
-      } else
-        if (req.body.brand) {
-          const filter = await Userproducts.find({ brand: req.body.brand });
-          try {
-            resp.send(filter);
-          } catch (error) {
-            resp.send({ result: "no brand products found" });
-          }
-        }
+      console.log(filter, "filter");
+      try {
+        resp.send(filter);
+      } catch (error) {
+        resp.send({ result: "no subcategory products found" });
+      }
+    } else if (req.body.brand) {
+      const filter = await Userproducts.find({ brand: req.body.brand });
+      try {
+        resp.send(filter);
+      } catch (error) {
+        resp.send({ result: "no brand products found" });
+      }
+    }
   } else {
-
-
-
     {
       resp.send({ result: "no products found" });
     }
   }
 });
 
-
-
 // category find onlyyyyyy filter
 
 // 25/08
 
-
 server.get("/api/category/:category", async (req, res) => {
-
   try {
-    console.log(req.params.category, "category")
+    console.log(req.params.category, "category");
     const name = req.params.category;
     console.log("Querying for category:", name);
     const filter = await Userproducts.find({ category: name });
@@ -263,7 +251,6 @@ server.get("/api/category/:category", async (req, res) => {
   }
 });
 
-
 // subcategory find onlyyyyyy filter
 
 // 28/08
@@ -271,9 +258,8 @@ server.get("/api/category/:category", async (req, res) => {
 // http://localhost:5000/subcategory/smartphones    how to use
 
 server.get("/api/subcategory/:subcategory", async (req, res) => {
-
   try {
-    console.log(req.params.subcategory, "aaa")
+    console.log(req.params.subcategory, "aaa");
     const name = req.params.subcategory;
     console.log("Querying for category:", name);
     const filter = await Userproducts.find({ subcategory: name });
@@ -284,7 +270,6 @@ server.get("/api/subcategory/:subcategory", async (req, res) => {
     res.status(500).json({ error: error.message, message: "Server error" });
   }
 });
-
 
 //table addd api category
 
@@ -381,10 +366,7 @@ server.post("/api/procustdlt", async (req, res) => {
   }
 });
 
-
-
 //search api   title,subcategry,categry,brand
-
 
 ////25/08
 server.post("/api/Search", async (req, res) => {
@@ -396,29 +378,19 @@ server.post("/api/Search", async (req, res) => {
     const searchResults = await Userproducts.find({
       // Customize this based on how you want to search (title, description, etc.)
       $or: [
-        { title: { $regex: keyword, $options: 'i' } }, // Case-insensitive search
-        { description: { $regex: keyword, $options: 'i' } },
-        { category: { $regex: keyword, $options: 'i' } },
-        { brand: { $regex: keyword, $options: 'i' } },
-
-
-
-
+        { title: { $regex: keyword, $options: "i" } }, // Case-insensitive search
+        { description: { $regex: keyword, $options: "i" } },
+        { category: { $regex: keyword, $options: "i" } },
+        { brand: { $regex: keyword, $options: "i" } },
       ],
     });
 
     res.status(200).json(searchResults);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'An error occurred while searching.' });
+    res.status(500).json({ error: "An error occurred while searching." });
   }
 });
-
-
-
-
-
-
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
