@@ -15,12 +15,14 @@ import { AiOutlineMail, AiTwotoneHeart } from "react-icons/ai";
 import { BiSearch, BiSolidPurchaseTag } from "react-icons/bi";
 import { MdAccountCircle, MdOutlineAccountCircle } from "react-icons/md";
 import { HiOutlineShoppingBag, HiOutlineShoppingCart } from "react-icons/hi";
+import { searchAction } from "../../../../Redux/action/searchProductAction";
 
 const Usernavbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [data, setData] = useState();
   const [filterValue, setFilterValue] = useState();
+  const [searchQuery, setSearchQuery] = useState("");
 
   // console.log(userData.role ? userData.username : null, "userData");
 
@@ -85,6 +87,12 @@ const Usernavbar = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const handleSearch = () => {
+    dispatch(searchAction({ name: searchQuery }));
+    navigate("/search");
+    setSearchQuery("");
+  };
+
   return (
     <>
       <div className="nav_header">
@@ -131,10 +139,17 @@ const Usernavbar = () => {
                                 <input
                                   className="navsearch_input"
                                   placeholder="search"
+                                  value={searchQuery}
+                                  onChange={(e) =>
+                                    setSearchQuery(e.target.value)
+                                  }
                                 />
                               </li>
                               <div>
-                                <BiSearch className="seachunder_search_icon" />
+                                <BiSearch
+                                  className="seachunder_search_icon"
+                                  onClick={handleSearch}
+                                />
                               </div>
                             </div>
                           </ul>

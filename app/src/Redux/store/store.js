@@ -10,6 +10,7 @@ import GetAdminProductListDataReducer from "../reducer/getProductAdminListReduce
 import FilterDataByCategoryReducer from "../reducer/getCategoryReducer";
 import deleteProductReducer from "../reducer/deleteProductReducer";
 import updateProductReducer from "../reducer/updateProductReducer";
+import searchProductReducer from "../reducer/searchProductReducer";
 
 export const store = configureStore({
   reducer: {
@@ -24,5 +25,6 @@ export const store = configureStore({
     filtercategoryData: FilterDataByCategoryReducer,
     deleteProduct: deleteProductReducer,
     updateProductData: updateProductReducer,
+    Searchproduct: searchProductReducer,
   },
 });
