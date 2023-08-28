@@ -327,8 +327,8 @@ const Home = () => {
           </div>
           <div className="homeelectnics_carouse margin_bottom">
             <Row>
-              <Col lg={3} className="fistcardof_elct">
-                <Card className="shopping_card ">
+              <Col lg={2} className="fistcardof_elct">
+                <Card className=" swiperfront_swiperview ">
                   <div className="fistcardof_elct">
                     <div className="viewallcard_div">
                       <Card.Text className="crad_text">
@@ -351,7 +351,7 @@ const Home = () => {
                   </div>
                 </Card>
               </Col>
-              <Col lg={9}>
+              <Col lg={10}>
                 <Swiper
                   modules={[Navigation]}
                   x
@@ -383,13 +383,11 @@ const Home = () => {
                                 <div className="item_rating">
                                   <p className="homerating_cat">
                                     {" "}
-                                    
-                                      {item?.rating}
-                                    
+                                    {item?.rating}
                                   </p>
                                   <p className="homerating_cat">
                                     {" "}
-                                      {item.category}
+                                    {item.category}
                                   </p>
                                 </div>
                                 <Card.Title className="crad_text">
@@ -467,10 +465,9 @@ const Home = () => {
             </div>
           </Col>
         </Row>
-
         <Row>
-          <Col lg={3} className="fistcardof_elct">
-            <Card className="shopping_card ">
+          <Col lg={2} className="fistcardof_elct">
+            <Card className="swiperfront_swiperview ">
               <div className="fistcardof_elct">
                 <div className="viewallcard_div">
                   <Card.Text className="crad_text">
@@ -490,12 +487,12 @@ const Home = () => {
               </div>
             </Card>
           </Col>
-          <Col lg={9}>
+          <Col lg={10}>
             <Swiper
               modules={[Navigation]}
               x
-              spaceBetween={90}
-              slidesPerView={4}
+              spaceBetween={70}
+              slidesPerView={2}
               navigation
               pagination={{ clickable: true }}
               onSwiper={(swiper) => console.log(swiper)}
@@ -517,19 +514,10 @@ const Home = () => {
                               src={e?.image || e?.thumbnail}
                             />
                           </div>
-
                           <Card.Body>
                             <div className="item_rating">
-                              <p className="homerating_cat">
-                                {" "}
-                               
-                                  {e?.rating}
-                                
-                              </p>
-                              <p className="homerating_cat">
-                                {" "}
-                                  {e?.category}
-                              </p>
+                              <p className="homerating_cat"> {e?.rating}</p>
+                              <p className="homerating_cat"> {e?.category}</p>
                             </div>
                             <Card.Title className="crad_text">
                               {e?.title}
