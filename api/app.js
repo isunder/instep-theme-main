@@ -8,7 +8,6 @@ const User = require("./models/RegisterSchema");
 const jwt = require("jsonwebtoken");
 const secretkey = "secretkey";
 const dotenv = require("dotenv");
-const categoriesRoute = require("./router/groupby");
 const multer = require("multer");
 const productsjson = require("./home");
 const Userproducts = require("./models/ProductsSchema");
@@ -167,33 +166,18 @@ server.post("/api/products", upload.fields([{ name: "images", maxCount: 4 }, { n
 //api of products all  
 
 server.post("/api/Getproducts", async (req, resp) => {
-  const {
-    category,
-    description,
-    title,
-    price,
-    image,
-    brand,
-    rating,
-    subcategory,
-    thumbnail,
-    stock,
-    discountpercentage,
-  } = req.body;
-
-  if (req.body.category) {
-
-    console.log(req, resp, "console.log");
-    let products = await Userproducts.find();
-
+ 
+  try {
+    const products = await Userproducts.find();
     if (products.length > 0) {
       resp.send(products);
     } else {
-      resp.send({ result: "no products found" });
+      resp.send({ result: 'no products found' });
     }
-  }
+  } catch (error) {
+    resp.status(500).send({ error: 'An error occurred while fetching products' });
+  } 
 });
-
 
 
 
@@ -264,13 +248,32 @@ server.post("/api/FilterProducts", async (req, resp) => {
 // 25/08
 
 
-server.get("/products/:category", async (req, res) => {
+server.get("/category/:category", async (req, res) => {
 
   try {
-    console.log(req.params.category, "aaa")
+    console.log(req.params.category, "category")
     const name = req.params.category;
     console.log("Querying for category:", name);
     const filter = await Userproducts.find({ category: name });
+    console.log("Filter result:", filter);
+    res.send(filter);
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ error: error.message, message: "Server error" });
+  }
+});
+// subcategory find onlyyyyyy filter
+
+// 28/08
+
+// http://localhost:5000/subcategory/smartphones    how to use
+server.get("/subcategory/:subcategory", async (req, res) => {
+
+  try {
+    console.log(req.params.subcategory, "aaa")
+    const name = req.params.subcategory;
+    console.log("Querying for category:", name);
+    const filter = await Userproducts.find({ subcategory: name });
     console.log("Filter result:", filter);
     res.send(filter);
   } catch (error) {
@@ -380,6 +383,7 @@ server.post("/api/procustdlt", async (req, res) => {
 //search api   title,subcategry,categry,brand
 
 
+////25/08
 server.post("/api/Search", async (req, res) => {
   console.log(req.body, "hhhhhhhhhhhh");
 
@@ -393,10 +397,10 @@ server.post("/api/Search", async (req, res) => {
         { description: { $regex: keyword, $options: 'i' } },
         { category: { $regex: keyword, $options: 'i' } },
         { brand: { $regex: keyword, $options: 'i' } },
-        
 
 
-        
+
+
       ],
     });
 
