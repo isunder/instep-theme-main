@@ -11,6 +11,7 @@ import FilterDataByCategoryReducer from "../reducer/getCategoryReducer";
 import deleteProductReducer from "../reducer/deleteProductReducer";
 import updateProductReducer from "../reducer/updateProductReducer";
 import ProductsubcategoryReducer from "../reducer/subcategoryslice"
+import searchProductReducer from "../reducer/searchProductReducer";
 
 export const store = configureStore({
   reducer: {
@@ -26,5 +27,6 @@ export const store = configureStore({
     deleteProduct: deleteProductReducer,
     updateProductData: updateProductReducer,
     homesubcategoryapi:ProductsubcategoryReducer,
+    Searchproduct: searchProductReducer,
   },
 });
