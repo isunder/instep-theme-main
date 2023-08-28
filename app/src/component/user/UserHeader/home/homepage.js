@@ -368,7 +368,7 @@ const Home = () => {
                         <SwiperSlide key={index}>
                           <Link
                             className="card_deco"
-                            to={`/productdetail/${item._id}`}
+                            to={`/subcategory/${item.subcategory}`}
                             onClick={() => productClick(item?._id)}
                           >
                             <Card className="shopping_card">
@@ -504,7 +504,8 @@ const Home = () => {
                     <SwiperSlide key={e?.id}>
                       <Link
                         className="card_deco"
-                        to={`/productdetail/${e._id}`}
+                        to={`/subcategory/${e.subcategory}`}
+                        // to={`/productdetail/${e._id}`}
                         onClick={() => productClick(e?._id)}
                       >
                         <Card className="shopping_card">

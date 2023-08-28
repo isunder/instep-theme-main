@@ -2165,3 +2165,94 @@ width: 100% !important;
   padding: 10px 30px;
   border: none;
 }
+
+/* ------------------------------------home page subcategory------------------------------------ */
+
+.home_subcatetop{
+  padding-top: 70px;
+}
+
+.subcategory_topcontent{
+  display: flex;
+  gap: 10px
+}
+
+.homesub_image{
+  height: 200px;
+}
+
+.subcat_homecard{
+  width: 350px;
+}
+
+.righthome_filter{
+  display: flex;
+  gap: 15px;
+  line-height: 10px;
+  border-bottom: 1px solid #F0F0F0;
+}
+
+.righthome_filter h4{
+  opacity: 0.4;
+}
+
+.home_link{
+  text-decoration: none !important;
+  color: #4EB529;
+}
+
+.leftfilter_bar{
+  padding: 10px 30px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+}
+
+.brands_filters{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.categorieslefftfilter{
+  border-bottom: 1px solid #F0F0F0;
+}
+
+.rightboxborder{
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+}
+
+.pricefilter_left{
+  padding: 10px 0px 10px 10px;
+  width:100%;
+  border: 1px solid #E0E0E0;
+  border-radius: 5px;
+}
+
+.pricefilter_left:focus{
+  border: unset;
+}
+
+.leftpricefilter_wid{
+  width: 100%;
+  margin-right: 10px;
+}
+
+.pricerange_filter{
+  width: 100%;
+}
+
+.pricealign{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.margin_right{
+  margin-right: 10px;
+}
+
+.fontweight{
+  font-weight: 500;
+}
+
+
+/* ------------------------------------home page subcategory------------------------------------ */
