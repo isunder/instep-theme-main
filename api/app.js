@@ -248,7 +248,7 @@ server.post("/api/FilterProducts", async (req, resp) => {
 // 25/08
 
 
-server.get("/category/:category", async (req, res) => {
+server.get("/api/category/:category", async (req, res) => {
 
   try {
     console.log(req.params.category, "category")
@@ -262,12 +262,15 @@ server.get("/category/:category", async (req, res) => {
     res.status(500).json({ error: error.message, message: "Server error" });
   }
 });
+
+
 // subcategory find onlyyyyyy filter
 
 // 28/08
 
 // http://localhost:5000/subcategory/smartphones    how to use
-server.get("/subcategory/:subcategory", async (req, res) => {
+
+server.get("/api/subcategory/:subcategory", async (req, res) => {
 
   try {
     console.log(req.params.subcategory, "aaa")
@@ -302,7 +305,7 @@ server.get("/subcategory/:subcategory", async (req, res) => {
 
 ///   category  api  next plain
 
-server.post("/api/3", async (req, res) => {
+server.post("/api/category", async (req, res) => {
   try {
     res.send(productsjson);
   } catch (error) {
@@ -371,7 +374,7 @@ server.post("/api/procustdlt", async (req, res) => {
     // Return the deleted product
 
     res.json(deletedProduct);
-    console.log("dlet ho gya");
+    console.log("delete done");
   } catch (error) {
     // Handle any errors that occurred during the delete process
     res.status(500).json({ message: "Server error" });
