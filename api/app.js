@@ -11,6 +11,7 @@ const dotenv = require("dotenv");
 const multer = require("multer");
 const productsjson = require("./home");
 const Userproducts = require("./models/ProductsSchema");
+const Usercart = require("./models/CartSchema")
 dotenv.config();
 
 const DB =
@@ -121,8 +122,13 @@ server.post(
   ]),
   async (req, res) => {
     try {
+      const userData = JSON.parse(req.body.userData);
+
+      console.log(userData.aaa, "aaaaaaaaaaaaaaaa");
       const imagesFilenames = req.files["images"].map((file) => file.filename); // Array of image filenames
-      const thumbnailFilename = req.files["thumbnail"][0].filename;
+      console.log(req.files.images[0].filename, "req.files");
+
+      const thumbnailFilename = req.files.images[0].filename;
 
       // Log filenames to see if they are being extracted correctly
       console.log("Images Filenames:", imagesFilenames);
@@ -138,17 +144,17 @@ server.post(
       // ...
 
       const productadd = new Userproducts({
-        category: req.body.category,
-        description: req.body.description,
-        title: req.body.title,
-        price: req.body.price,
+        category: userData.category,
+        description: userData.description,
+        title: userData.title,
+        price: userData.price,
         images: imagesFilenames,
-        brand: req.body.brand,
-        rating: req.body.rating,
-        subcategory: req.body.subcategory,
+        brand: userData.brand,
+        rating: userData.rating,
+        subcategory: userData.subcategory,
         thumbnail: thumbnailFilename,
-        stock: req.body.stock,
-        discountpercentage: req.body.discountpercentage,
+        stock: userData.stock,
+        discountpercentage: userData.discountpercentage,
       });
 
       await productadd.save();
@@ -160,6 +166,7 @@ server.post(
     }
   }
 );
+
 
 //api of products all
 
@@ -391,6 +398,77 @@ server.post("/api/Search", async (req, res) => {
     res.status(500).json({ error: "An error occurred while searching." });
   }
 });
+
+// add to cart for user 
+
+// server.post("/api/Add-to-cart", async (req, res) => {
+
+//   try {
+
+//     const { productid, userid, quantity } = req.body;
+    
+//     if (userid) {
+//       console.log(userid,"userid")
+//       const cart = new Usercart({
+//         productid: productid,
+//         userid: userid,
+//         quantity: quantity,
+//       })
+//       await cart.save();
+//       res.status(200).send("Success: Add in cart ");
+//     }
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send({ error: error.message });
+//   }
+// })
+
+
+server.post("/api/Add-to-cart", async (req, res) => {
+  try {
+    const { productid, userid, quantity } = req.body;
+
+    if (userid) {
+      const filter = { userid, productid }; // Match existing cart entry
+      const update = { $inc: { quantity } }; // Increment quantity by the provided value
+      const options = { upsert: true, new: true, setDefaultsOnInsert: true };
+
+      const updatedCart = await Usercart.findOneAndUpdate(filter, update, options);
+
+      res.status(200).json({ message: "Success: Added to cart", cart: updatedCart });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+
+// getting all products from cart 
+
+
+server.post('/api/get-cart', async (req, res) => {
+  try {
+    const userid = req.body.userid;
+
+    const cartItems = await Usercart.find({ userid });
+
+    const productIds = cartItems.map(item => item.productid);
+    console.log(productIds, "productIds");
+
+    const userProductDetails = await Userproducts.find({
+      _id: { $in: productIds },
+    });
+
+    res.status(200).json(userProductDetails);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+
+
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
