@@ -122,7 +122,8 @@ server.post(
   ]),
   async (req, res) => {
     try {
-      const userData = JSON.parse(req.body.userData);
+      
+      const productData = JSON.parse(req.body.userData);
 
       console.log(userData.aaa, "aaaaaaaaaaaaaaaa");
       const imagesFilenames = req.files["images"].map((file) => file.filename); // Array of image filenames
@@ -169,6 +170,8 @@ server.post(
 
 
 //api of products all
+server.use("/uploads", express.static("uploads"));
+// http://localhost:5000/uploads/1693806012738-Capture.PNG
 
 server.post("/api/Getproducts", async (req, resp) => {
   try {
@@ -406,7 +409,7 @@ server.post("/api/Search", async (req, res) => {
 //   try {
 
 //     const { productid, userid, quantity } = req.body;
-    
+
 //     if (userid) {
 //       console.log(userid,"userid")
 //       const cart = new Usercart({
@@ -446,12 +449,13 @@ server.post("/api/Add-to-cart", async (req, res) => {
 
 // getting all products from cart 
 
-
 server.post('/api/get-cart', async (req, res) => {
   try {
     const userid = req.body.userid;
 
     const cartItems = await Usercart.find({ userid });
+
+
 
     const productIds = cartItems.map(item => item.productid);
     console.log(productIds, "productIds");
@@ -459,13 +463,24 @@ server.post('/api/get-cart', async (req, res) => {
     const userProductDetails = await Userproducts.find({
       _id: { $in: productIds },
     });
+    const userdetails = await User.find({
+      _id: { $in: userid },
+    });
 
-    res.status(200).json(userProductDetails);
+
+    // Create an object to hold both results
+    const responseData = {
+      userProductDetails,
+      userdetails,
+    };
+
+    res.status(200).json(responseData);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: error.message });
   }
 });
+
 
 
 
