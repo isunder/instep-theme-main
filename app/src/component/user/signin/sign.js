@@ -120,11 +120,11 @@ const SignIn = () => {
                   />
                 </div>
                 <div className="create_accnt">
-                <p>
-                  New to Instepcart?
-                  <Link to="/signin">Create an account</Link>
-                </p>
-              </div>
+                  <p>
+                    New to Instepcart?
+                    <Link to="/signup">Create an account</Link>
+                  </p>
+                </div>
               </Col>
             </Row>
           </Col>

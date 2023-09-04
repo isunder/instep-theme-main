@@ -375,7 +375,8 @@ const Home = () => {
                               <div className="img_div">
                                 <Card.Img
                                   variant="top"
-                                  src={item?.image || item?.thumbnail}
+                                  // src={item?.image || item?.thumbnail}
+                                  src={`http://localhost:5000/uploads${item.thumbnail}`}
                                 />
                               </div>
                               Zara
@@ -466,6 +467,35 @@ const Home = () => {
           </Col>
         </Row>
         <Row>
+          {data &&
+            data.map((e) => {
+              return (
+                <Link
+                  className="card_deco"
+                  to={`/productdetail/${e._id}`}
+                  onClick={() => productClick(e?._id)}
+                >
+                  <Card className="shopping_card">
+                    <div className="img_div">
+                      <Card.Img variant="top" src={e?.image || e?.thumbnail} />
+                    </div>
+                    <Card.Body>
+                      <div className="item_rating">
+                        <p className="homerating_cat"> {e?.rating}</p>
+                        <p className="homerating_cat"> {e?.category}</p>
+                      </div>
+                      <Card.Title className="crad_text">{e?.title}</Card.Title>
+                      <Card.Text className="crad_text">
+                        {e?.description}
+                      </Card.Text>
+                      <Card.Text className="crad_text">
+                        <h5> ₹ {e?.price}</h5>
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                </Link>
+              );
+            })}
           <Col lg={2} className="fistcardof_elct">
             <Card className="swiperfront_swiperview ">
               <div className="fistcardof_elct">
