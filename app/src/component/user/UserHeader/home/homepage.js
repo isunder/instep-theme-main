@@ -328,10 +328,10 @@ const Home = () => {
           <div className="homeelectnics_carouse margin_bottom">
             <Row>
               <Col lg={2} className="fistcardof_elct">
-                <Card className=" swiperfront_swiperview ">
+                <Card className=" swiperfront_swiperview w-100 ">
                   <div className="fistcardof_elct">
                     <div className="viewallcard_div">
-                      <Card.Text className="crad_text">
+                      <Card.Text className="">
                         <h5>Best Of Electronics</h5>
                       </Card.Text>
                       <button
@@ -500,7 +500,7 @@ const Home = () => {
             <Card className="swiperfront_swiperview ">
               <div className="fistcardof_elct">
                 <div className="viewallcard_div">
-                  <Card.Text className="crad_text">
+                  <Card.Text className="text-center">
                     <h5>Best Of Home Appliances</h5>
                   </Card.Text>
                   <button className="electrnicswiewall_button" type="submit">

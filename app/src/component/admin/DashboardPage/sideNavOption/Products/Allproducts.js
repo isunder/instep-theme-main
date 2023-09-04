@@ -177,16 +177,16 @@ function Allproducts(params) {
                                 <BiDotsVerticalRounded />
                               </Dropdown.Toggle>
                               <Dropdown.Menu>
-                                <Dropdown.Item href="#/action-1">
+                                <Dropdown.Item  href="#/action-1">
                                   {" "}
-                                  <button
+                                  <button className="editdeleter_button"
                                     onClick={() => editClick(product._id)}
                                   >
                                     <LuEdit3 /> Edit
                                   </button>
                                 </Dropdown.Item>
                                 <Dropdown.Item href="#/action-2">
-                                  <button
+                                  <button className="editdeleter_button"
                                     onClick={() => deleteClick(product._id)}
                                   >
                                     {" "}

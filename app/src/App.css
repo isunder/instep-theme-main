@@ -537,7 +537,14 @@ div p {
 .boxshadow {
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
+.editdeleter_button{
+background-color: #fff !important;
+}
 
+.editdeleter_button:focus{
+  background-color: unset !important;
+  text-decoration: none !important;
+}
 /* pos system */
 /* -----------------------------------------------------------------------------all procducts-------------------------------------------------------------------------------- */
 /* -----------------------------------------------------------------------------side bar-------------------------------------------------------------------------------- */
@@ -1310,7 +1317,7 @@ h5 {
   border-color: #f7f7f7;
   /* padding: 15px 0; */
   height: 360px !important;
-  width: 250px;
+  width: 100%;
 }
 
 .shopping_card:hover {
@@ -1504,6 +1511,7 @@ h5 {
 .electrnicswiewall_button:hover{
 background-color:#ff7c08 ;
 }
+
 .viewallcard_div{
   display: flex;
   flex-direction: column;
@@ -1521,19 +1529,21 @@ background-color:#ff7c08 ;
 
 .swiper-button-prev:after {
   content: 'next';
-  padding: 12px;
+  padding: 40px 12px 40px 13px;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   background-color: #fff;
   color: #000;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 .swiper-button-next:after {
   content: 'next';
-  padding: 12px;
+  padding: 40px 12px 40px 12px;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
   background-color: #fff;
   color: #000;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
 .homerating_cat{
@@ -1546,6 +1556,10 @@ background-color:#ff7c08 ;
 /* .homeelectnics_carouse{
   display: flex;
 } */
+
+.swiper-button-disabled{
+  display:none !important;   
+}
 /* ------------------------------------signup-------------------------------------------- */
 .signin_main {
   padding-top: 90px;
@@ -1776,9 +1790,9 @@ footer .social:before {
 /* / Top - pages, email newsletter form ... / */
 
 footer .top {
-  padding: 2rem;
+  /* padding: 2rem; */
   display: flex;
-  gap: 80px;
+  /* gap: 80px; */
   justify-content: center !important;
   flex-direction: row;
 }
@@ -1927,9 +1941,14 @@ footer ul {
 }
 
 .left_update_product{
-  padding-right: 50px;
-  margin-right: 20px;
-  padding-left: 20px;
+  /* padding-right: 50px; */
+  /* margin-right: 20px; */
+  /* padding-left: 20px; */
+  width: 50%;
+}
+
+.mainupdate_pro{
+  width: 50%;
 }
 
 .descirption_box {
@@ -2202,7 +2221,7 @@ width: 100% !important;
 }
 
 .leftfilter_bar{
-  padding: 10px 30px;
+  /* padding: 10px 20px; */
   box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
 }
 
@@ -2217,6 +2236,7 @@ width: 100% !important;
 }
 
 .rightboxborder{
+  padding: 10px;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
 }
 
@@ -2228,7 +2248,7 @@ width: 100% !important;
 }
 
 .pricefilter_left:focus{
-  border: unset;
+  border: 1px solid #E0E0E0;
 }
 
 .leftpricefilter_wid{
@@ -2236,23 +2256,252 @@ width: 100% !important;
   margin-right: 10px;
 }
 
-.pricerange_filter{
-  width: 100%;
+input[type=range]::-moz-range-progress {
+  accent-color: red;
+  height: 1em;
 }
-
 .pricealign{
   display: flex;
-  justify-content: center;
-  text-align: center;
+  flex-direction: column;
+}
+
+.pricealign div{
+margin-bottom: 5px;
+font-size: 22px;
+font-weight: 500px;
 }
 
 .margin_right{
   margin-right: 10px;
+  width: 20px;
+  height: 20px;
 }
 
 .fontweight{
   font-weight: 500;
+  font-size: 18px;
 }
 
+.accordion-button:focus{
+  border-color: unset !important;
+  box-shadow: -1px 2px 10px -1px rgba(78,181,41,0.49) !important;
+}
 
+.accordion-button:not(.collapsed) {
+background-color: #fff !important;
+}
+
+.priceoption{
+  font-size: 18px;
+  margin-top: 7px;
+  margin-right: 5px;
+  font-weight: 500;
+  opacity: 0.7;
+}
 /* ------------------------------------home page subcategory------------------------------------ */
+
+/* ------------------------------------backgroundimage_aboutus----------------------------------- */
+
+.backgroundimage_aboutus{
+  /* background-image: url("https://img.freepik.com/free-vector/gradient-monochromatic-abstract-background_52683-74300.jpg"); */
+  height: 700px;
+  background-repeat: none !important;
+  background-size: cover;
+  width: 100%;
+  object-fit: contain;
+}
+
+.aboutushead{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ourmission{
+margin-top: 50px;
+color: #000;
+line-height: 26px;
+}
+
+.our_vision{
+  border: 1px solid #EBEBEB;
+  padding: 10px;
+  width: 70%;
+  border-radius: 10px;
+}
+
+.our_vision:hover{
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  border: none;  
+  background-color: #fff;
+}
+
+.our_vision img{
+  width: 20%;
+  margin: 5px 0px 5px 5px;
+}
+
+.abouthomedec{
+  text-decoration: none ;
+  color: #000;
+  font-size: 18px;
+}
+
+.aboutusimagediv{
+/* padding-top: 90px; */
+/* padding-left: 30px; */
+position: relative;
+}
+
+.aboutusright_missionimg{
+  width: 350px;
+  height: 350px;
+  border-radius: 100%;
+}
+
+/* .whitecircleimage{
+  width: 360px;
+  height: 360px;
+  border-radius: 100%;
+  background-color: #4EB529;
+} */
+
+.commentsection{
+  width: 80%;
+  height: 30%;
+  /* background-color: #46B737;/ */
+  position: absolute;
+  bottom: 7px;
+  left: 182px;
+  border-bottom-right-radius: 15px;
+  background-color: #FFF;
+   padding: 10px 0px 0px 10px;
+  
+}
+
+.commentinner_section{
+  background-color: #FF7C08;
+  color: #fff;
+  width: 100%;
+  /* height: 100%; */
+  border-bottom-right-radius: 13px;
+  /* box-shadow: inset -1px 4px 15px -2px rgba(15,23,13,0.52); */
+  padding: 5px;
+}
+
+.commentsection .commentinner_section p{
+ margin-left: 190px;
+ margin-bottom: 5px;
+}
+
+.mostpopularbrandborder{
+  border: 1px dashed red;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.poupularbrands{
+  width: 50%;
+ fill: #454d5e !important;
+}
+
+.poupularbrands:hover{
+  fill: none !important;
+}
+
+.paddingdiv_popuarcat{
+  padding: 20px 300px 20px 300px;
+}
+
+/* .bottombackgrouns_image{
+  background-image: url("https://cdn.wallpapersafari.com/34/78/X0atN5.jpg");
+  height: 300px;
+  background-repeat: none !important;
+  background-size: cover;
+  object-fit: contain;
+  padding-top: 80px;
+} */
+
+.workability{
+  background-color: #fff;
+  border: 1px solid #EBEBEB;
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.aboutustoppadding{
+  padding-top: 100px;
+}
+
+.workingability_column{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+/* .workingability_column p{
+  width: 40%;
+} */
+
+.thridrow_backgroundimage{
+  width: 90%;
+}
+
+.thirdrowpadding{
+  position: relative;
+}
+
+.semrush_upperdiv{
+  background-color: #fff;
+  position: absolute;
+  width: 40%;
+  height: 50%;
+  border-radius: 100%;
+  left: 269px;
+  padding: 8px 0px 10px 8px;
+}
+
+.expericetodiv{
+  padding: 20px 5px 5px 30px ;
+  background-color: #FF7C08;
+  border-radius: 100%;
+  height: 100%;
+  width: 90%;
+  color: #fff;
+}
+
+.trustedpartner{
+  border: 1px solid #EBEBEB;
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.trustedpartner:hover{
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  border: none;  
+  background-color: #fff;
+}
+
+.transitindiv{
+  animation-name: show;
+  animation-timing-function: linear;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+
+}
+
+@keyframes show{
+  0%{
+    padding-left: 60px;
+  }
+
+  100%{
+    padding-right: 60px;
+  }
+}
+/* ------------------------------------backgroundimage_aboutus----------------------------------- */
