@@ -113,6 +113,28 @@ const ProductForm = () => {
                 <div className=" Addnewpeoduct margin_bottom">
                   <h3 className="margin_bottom"> Basic Information</h3>
                   <div className="margin_bottom">
+                    <h5 className="margin_bottom">Product Categories</h5>
+                    <Field
+                      className="descirption_box"
+                      name="category"
+                      component="select"
+                      required
+                    >
+                      <option>Select Category</option>
+                      <option>Electronics</option>
+                      <option>Men</option>
+                      <option>Women</option>
+                      <option>Home & Kitchen</option>
+                      <option>Appliances</option>
+                      <option>Sports & More</option>
+                      {/* {categories.map((category) => (
+                          <option key={category.value} value={category.value}>
+                            {category.label}
+                          </option>
+                        ))} */}
+                    </Field>
+                  </div>
+                  <div className="margin_bottom">
                     <h5 className="margin_bottom">Subcategory</h5>
                     <Field
                       className="descirption_box"
@@ -123,21 +145,48 @@ const ProductForm = () => {
                       required
                     />
                   </div>
+                </div>
+                <div className="Addnewpeoduct margin_bottom py-4">
                   <div className="margin_bottom">
-                    <h5 className="margin_bottom">Short Description</h5>
+                    <h5>Product Brand</h5>
                     <Field
                       className="descirption_box"
-                      name="description"
+                      name="brand"
                       component="input"
                       type="text"
-                      placeholder="description"
+                      placeholder="Brand Name"
                       required
                     />
                   </div>
+                  {/* <div className="product_brand "> */}
+                  {/* <h5>Product Unit</h5> */}
+                  {/* <div className="">
+                      <Select
+                        name="unit"
+                        defaultValue={selectedOption}
+                        onChange={setSelectedOption}
+                        options={options}
+                      />
+                    </div> */}
+                  {/* </div> */}
                 </div>
                 {/* <Button className="Brandsave_button" variant="success">
             Save Brand
           </Button>{" "} */}
+
+                <div className="Addnewpeoduct margin_bottom py-4">
+                  <div className="margin_bottom">
+                    <h5 className="margin_bottom">Title </h5>
+                    <Field
+                      className="descirption_box"
+                      name="title"
+                      component="input"
+                      type="text"
+                      placeholder="Title"
+                      required
+                    />
+                  </div>
+                </div>
               </Col>
             </Row>
             <Row>
@@ -154,7 +203,6 @@ const ProductForm = () => {
                     ) : (
                       "ggggggg"
                     )}
-                    <p>Thumbnail (592x592)</p>
                     <div>
                       <h2>Upload Image</h2>
 
@@ -207,68 +255,7 @@ const ProductForm = () => {
                   </div> */}
                 </div>
                 <div className="Addnewpeoduct margin_bottom py-4">
-                  <div className="margin_bottom">
-                    <h5 className="margin_bottom">Product Categories</h5>
-                    <Field
-                      className="descirption_box"
-                      name="category"
-                      component="select"
-                      required
-                    >
-                      <option>Select Category</option>
-                      <option>Electronics</option>
-                      <option>Men</option>
-                      <option>Women</option>
-                      <option>Home & Kitchen</option>
-                      <option>Appliances</option>
-                      <option>Sports & More</option>
-                      {/* {categories.map((category) => (
-                          <option key={category.value} value={category.value}>
-                            {category.label}
-                          </option>
-                        ))} */}
-                    </Field>
-                  </div>
-                </div>
-                <div className="Addnewpeoduct margin_bottom py-4">
-                  <div className="margin_bottom">
-                    <h5 className="margin_bottom">Title </h5>
-                    <Field
-                      className="descirption_box"
-                      name="title"
-                      component="input"
-                      type="text"
-                      placeholder="Title"
-                      required
-                    />
-                  </div>
-                </div>
-                <div className="Addnewpeoduct margin_bottom py-4">
-                  <div className="margin_bottom">
-                    <h5>Product Brand</h5>
-                    <Field
-                      className="descirption_box"
-                      name="brand"
-                      component="input"
-                      type="text"
-                      placeholder="Brand Name"
-                      required
-                    />
-                  </div>
-                  {/* <div className="product_brand "> */}
-                  {/* <h5>Product Unit</h5> */}
-                  {/* <div className="">
-                      <Select
-                        name="unit"
-                        defaultValue={selectedOption}
-                        onChange={setSelectedOption}
-                        options={options}
-                      />
-                    </div> */}
-                  {/* </div> */}
-                </div>
-                <Row>
-                  <div className="Addnewpeoduct margin_bottom ">
+                  <Row>
                     <div className="sku_stok_price">
                       <div>
                         <h3>Price,Stock & Rating</h3>
@@ -331,8 +318,21 @@ const ProductForm = () => {
                         />
                       </Col>
                     </div>
+                  </Row>
+                </div>
+                <div className="Addnewpeoduct margin_bottom py-4">
+                  <div className="margin_bottom">
+                    <h5 className="margin_bottom">Short Description</h5>
+                    <Field
+                      className="descirption_box"
+                      name="description"
+                      component="input"
+                      type="text"
+                      placeholder="description"
+                      required
+                    />
                   </div>
-                </Row>
+                </div>
               </Col>
             </Row>
             <Button className="addproduct_button margin_bottom" type="submit">
