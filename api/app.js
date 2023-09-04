@@ -123,7 +123,7 @@ server.post(
   async (req, res) => {
     try {
       
-      const productData = JSON.parse(req.body.userData);
+      const userData   = JSON.parse(req.body.userData);
 
       console.log(userData.aaa, "aaaaaaaaaaaaaaaa");
       const imagesFilenames = req.files["images"].map((file) => file.filename); // Array of image filenames
