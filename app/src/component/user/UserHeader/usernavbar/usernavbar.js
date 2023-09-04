@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import { Col, Dropdown, DropdownButton, Row } from "react-bootstrap";
+import { Accordion, Col, Dropdown, DropdownButton, Row } from "react-bootstrap";
 import { React, useEffect, useState } from "react";
 import { filterByCategory } from "../../../../Redux/action/getFilterCategoryAction";
 import { getProductAction } from "../../../../Redux/action/getProductDetailAction";
@@ -248,7 +248,21 @@ const Usernavbar = () => {
                       </div>
                       <div className="mid_navnewconent mid_offcanvas mobile_mid_navnewconent">
                         <div className="Nav_link">
-                          Category
+                          <Accordion defaultActiveKey={["0"]} alwaysOpen>
+                            <Accordion.Item eventKey="0">
+                              <Accordion.Header>
+                              Category
+                              </Accordion.Header>
+                              <Accordion.Body>
+                               <p>Electronics</p>
+                               <p>Men</p>
+                               <p>Women</p>
+                               <p>Home & Kitchen</p>
+                               <p>Appliances</p>
+                               <p>Sports & More</p>
+                              </Accordion.Body>
+                            </Accordion.Item>
+                          </Accordion>
                           <div className="nav_Filter">
                             <ul>
                               <li>ef</li>

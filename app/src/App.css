@@ -1092,12 +1092,15 @@ p {
 }
 
 .myprofile_align{
-  left: -91px;
+  left: -24px;
 }
 .Nav_link {
   padding: 20px !important;
   color: #000;
   position: relative;
+}
+.search_user{
+  display: none;
 }
 .Nav_link:hover {
   background-color: white;
@@ -1117,7 +1120,7 @@ ul li {
   font-weight: 600;
   font-size: 18px;
   cursor: pointer;
-  margin-bottom: 5px;
+  /* margin-bottom: 5px; */
 }
 
 .Nav_link .nav_Filter {
@@ -1131,10 +1134,30 @@ ul li {
   box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
-  padding: 10px;
+  padding: 0px 10px 0px 10px;
   line-height: 30px;
 }
 
+.search_link{
+  padding: 20px !important;
+  color: #000;
+  position: relative;
+}
+
+.search_link.user_search{
+  display: none;
+  width: auto;
+  height: auto;
+  background-color: #fff;
+  position: absolute;
+  top: 70px;
+  /* right: -80%; */
+  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  padding: 10px;
+  line-height: 30px;
+}
 .border_right {
   border-right: 1px solid #000 !important;
   padding-right: 20px;

@@ -143,7 +143,7 @@ function Allproducts(params) {
                 </Button>
               </div>
             </div>
-            <Table responsive>
+            <Table responsive="md">
               <thead>
                 <tr>
                   <th>S/L</th>
