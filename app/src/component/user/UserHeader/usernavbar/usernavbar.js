@@ -44,21 +44,12 @@ const Usernavbar = () => {
   const hideMessage = () => {
     setShowMessage(true);
   };
-  // const heartClick = () => {
-  //   navigate("/likeitem");
-  // };
 
   const SignClick = (e) => {
     navigate("/signin");
     // console.log(e, "SignClick");
   };
 
-  const cartClick = () => {
-    // navigate("/addcart");
-  };
-  const notificationClick = () => {
-    // navigate("/notification");
-  };
   const logoutClick = () => {
     localStorage.clear();
     window.location.reload();
@@ -157,26 +148,40 @@ const Usernavbar = () => {
                       </div>
                       <div className="Nav_link">
                         <MdAccountCircle className="navbar_new_icon" />
-                        <div className="nav_Filter myprofile_align">
-                          <ul>
-                            <li>
-                              <MdOutlineAccountCircle /> My Account
-                            </li>
-                            <li>
-                              <BiSolidPurchaseTag /> My Orders
-                            </li>
-                            <li>
-                              <AiTwotoneHeart /> My Wishlist
-                            </li>
-                            <li
-                              onClick={() => SignClick()}
-                              className="sign_hover"
-                            >
-                              <AiTwotoneHeart />
-                              Sign In
-                            </li>
-                          </ul>
-                        </div>
+                        {userData && userLogin ? (
+                          <div className="nav_Filter myprofile_align">
+                            <ul>
+                              <li>
+                                <MdOutlineAccountCircle /> My Account
+                              </li>
+                              <li>
+                                <BiSolidPurchaseTag /> My Orders
+                              </li>
+                              <li>
+                                <AiTwotoneHeart /> My Wishlist
+                              </li>
+                              <li
+                                onClick={() => logoutClick()}
+                                className="sign_hover"
+                              >
+                                <AiTwotoneHeart />
+                                Logout
+                              </li>
+                            </ul>
+                          </div>
+                        ) : (
+                          <div className="nav_Filter myprofile_align">
+                            <ul>
+                              <li
+                                onClick={() => SignClick()}
+                                className="sign_hover"
+                              >
+                                <AiTwotoneHeart />
+                                Sign In
+                              </li>
+                            </ul>
+                          </div>
+                        )}
                       </div>
                       <div className="Nav_link">
                         <HiOutlineShoppingCart className="navbar_new_icon" />

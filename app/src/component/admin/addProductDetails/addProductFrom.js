@@ -17,32 +17,84 @@ const ProductForm = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state);
 
-  // const handelSubmit = async (values) => {
-  //   dispatch(adminPostProduct(values));
-  //   console.log(values, "sasasasasasasa");
-  // };
   const [selectedOption, setSelectedOption] = useState(null);
+  const [imgupload, setImgupload] = useState("");
 
-  const onSubmit = async (values) => {
-    dispatch(adminPostProduct(values));
-    console.log(values, "sasasasasasasa");
+  console.log(imgupload, "kkkkkkkkkkkkkkkkkkkkkkkk");
+
+  const [selectedFile, setSelectedFile] = useState("");
+  const [message, setMessage] = useState("");
+
+  const handleFileChange = (filesObject, name) => {
+    const uniqueId = Date.now();
+    const filename = uniqueId + "_" + filesObject[0].name;
+    let file = new File(filesObject, filename);
+    console.log(filename, "Upload IMAGE HEREEE", filesObject);
+    // file["nameType"] = name;
+    setImgupload(file);
+    console.log(file, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+  };
+  const handleImgeFile = (e) => {
+    // console.log(e?.target?.files[0], "eeee");
+    const file = e?.target?.files[0];
+    setSelectedFile(file);
+
+    if (file) {
+      // setMessage(URL.createObjectURL(selectedFile));
+    }
+  };
+  console.log(selectedFile, "selectedFile");
+  const onSubmit = (values) => {
+    console.log(values, imgupload, "dddd");
+    var formData = new FormData();
+
+    const payload = {
+      description: values?.description,
+      category: values?.category,
+      subcategory: values?.subcategory,
+      title: values?.title,
+      price: values?.price,
+      brand: values?.brand,
+      discountpercentage: values?.discountpercentage,
+      stock: values?.stock,
+      rating: values?.rating,
+      image: selectedFile,
+    };
+
+    console.log("SHIKHA", payload);
+
+    formData.append("images", selectedFile);
+    //formData.append("imgesdd", JSON.stringify("uttututu"));
+    formData.append("userData", JSON.stringify(payload));
+    console.log(payload, "ggg");
+    console.log(JSON.parse(formData.getAll("userData")), "data");
+    dispatch(adminPostProduct(formData)).then((res) =>
+      console.log(res, "Response from dispatch")
+    );
+
     toast.success("Successfully !", {
       position: toast.POSITION.TOP_RIGHT,
     });
+
+    console.log(values, "aaaaaaaaaaaaaaaa");
   };
+
   const initialValues = {
     description: "",
-
     brand: "",
     discountpercentage: "",
     stock: "",
-    code: "",
+    // code: "",
     title: "",
+    // images: "",
     price: "",
     rating: "",
   };
-  // const validate = () => {};
 
+  const [selectedImage, setSelectedImage] = useState();
+  const [uploadedImageUrl, setUploadedImageUrl] = useState();
+
+  console.log(uploadedImageUrl, "selectedImage");
   return (
     <>
       <FinalForm
@@ -50,7 +102,7 @@ const ProductForm = () => {
         // validate={validate}
         initialValues={initialValues}
         render={({ handleSubmit }) => (
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} enctype="multipart/form-data">
             <Row>
               <Col className="Admin_dashboard margin_bottom" lg={12}>
                 <h3> Add Product</h3>
@@ -93,19 +145,66 @@ const ProductForm = () => {
                 <div className=" Addnewpeoduct margin_bottom py-4">
                   <div>
                     <h5 className="margin_bottom"> Images</h5>
+                    {uploadedImageUrl ? (
+                      <img
+                        src={uploadedImageUrl}
+                        alt="image"
+                        style={{ width: "inherit", height: "150px" }}
+                      />
+                    ) : (
+                      "ggggggg"
+                    )}
                     <p>Thumbnail (592x592)</p>
-                    <div className="brand_image margin_bottom">
-                      <h3>Choose brand Thumbnail</h3>{" "}
-                      <BsPlusCircleDotted className="brand_img_icon" />
+                    <div>
+                      <h2>Upload Image</h2>
+
+                      {/* <input
+                        name="images"
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => handleImage(e)}
+                      /> */}
+
+                      <input
+                        // onChange={(e) => {
+                        //   handleFileChange(e?.target.files, `image${"1"}`);
+                        // }}
+                        name="images"
+                        type="file"
+                        className="form-control signup_form_input"
+                        onChange={handleImgeFile}
+                      />
+                      {/* <button onClick={handleImageUpload}>Upload Image</button> */}
                     </div>
+                    <div>
+                      <h2>Uploaded Image</h2>
+                      {/* {uploadedImageUrl ? (
+                        <img src={uploadedImageUrl} alt="Uploaded" />
+                      ) : (
+                        <p>No image uploaded yet</p>
+                      )} */}
+                    </div>
+                    {/* <div className="brand_image margin_bottom">
+                      <h3>Choose brand Thumbnail</h3>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                      />
+
+                       <button onClick={handleUpload}>
+                        Upload Image
+                        <BsPlusCircleDotted className="brand_img_icon" />
+                      </button>
+                    </div> */}
                   </div>
-                  <div>
+                  {/* <div>
                     <h5>Gallery</h5>
                     <div className="brand_image">
                       <h3>Choose brand Thumbnail</h3>
                       <BsPlusCircleDotted className="brand_img_icon" />
                     </div>
-                  </div>
+                  </div> */}
                 </div>
                 <div className="Addnewpeoduct margin_bottom py-4">
                   <div className="margin_bottom">
@@ -223,7 +322,7 @@ const ProductForm = () => {
                       <Col lg={3}>
                         <h6>Code</h6>
                         <Field
-                         className="descirption_box price_flex"
+                          className="descirption_box price_flex"
                           name="discountpercentage"
                           component="input"
                           type="text"
@@ -236,8 +335,10 @@ const ProductForm = () => {
                 </Row>
               </Col>
             </Row>
-            <Button className="addproduct_button margin_bottom"type="submit">Add product</Button>
-              <ToastContainer />
+            <Button className="addproduct_button margin_bottom" type="submit">
+              Add product
+            </Button>
+            <ToastContainer />
           </form>
         )}
       />

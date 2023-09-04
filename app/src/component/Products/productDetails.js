@@ -22,7 +22,13 @@ export default function ProductDetails() {
   //   const details = useSelector((state) => state.slicedetails.listdata);
 
   const data = useSelector((state) => state.updateProductData.listdata);
+  // const data = useSelector(
+  //   (state) => state?.updateProductData?.listdata?.images[0]
+  // );
   const [imageState, setImageState] = useState();
+  console.log(data, "datas");
+
+  // images
 
   useEffect(() => {
     dispatch(updateProduct({ _id }));
@@ -31,7 +37,6 @@ export default function ProductDetails() {
   return (
     <>
       <div className="container mainrowdata">
-      
         <Row className="">
           <Col>
             <Card>
