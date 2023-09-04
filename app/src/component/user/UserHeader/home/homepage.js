@@ -375,8 +375,8 @@ const Home = () => {
                               <div className="img_div">
                                 <Card.Img
                                   variant="top"
-                                  // src={item?.image || item?.thumbnail}
-                                  src={`http://localhost:5000/uploads${item.thumbnail}`}
+                                  src={item?.image || item?.thumbnail}
+                                  // src={`http://localhost:5000/uploads${item.thumbnail}`}
                                 />
                               </div>
                               Zara
@@ -467,7 +467,7 @@ const Home = () => {
           </Col>
         </Row>
         <Row>
-          {data &&
+          {/* {data &&
             data.map((e) => {
               return (
                 <Link
@@ -495,7 +495,7 @@ const Home = () => {
                   </Card>
                 </Link>
               );
-            })}
+            })} */}
           <Col lg={2} className="fistcardof_elct">
             <Card className="swiperfront_swiperview ">
               <div className="fistcardof_elct">
