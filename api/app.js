@@ -102,17 +102,9 @@ const storage = multer.diskStorage({
   },
 });
 
-const storagethumbnail = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "./uploads");
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + "-" + file.originalname);
-  },
-});
+
 
 const upload = multer({ storage: storage });
-const uploadthumb = multer({ storage: storagethumbnail });
 
 server.post(
   "/api/products",
@@ -125,15 +117,15 @@ server.post(
       
       const userData   = JSON.parse(req.body.userData);
 
-      console.log(userData.aaa, "aaaaaaaaaaaaaaaa");
+      console.log(req.files, "aaaaaaaaaaaaaaaa");
       const imagesFilenames = req.files["images"].map((file) => file.filename); // Array of image filenames
       console.log(req.files.images[0].filename, "req.files");
 
-      const thumbnailFilename = req.files.images[0].filename;
+      const thumbnailFilename = req.files.thumbnail[0].filename;
 
       // Log filenames to see if they are being extracted correctly
       console.log("Images Filenames:", imagesFilenames);
-      console.log("Thumbnail Filename:", thumbnailFilename);
+      console.log("Thumbnail  issFilename:", thumbnailFilename);
 
       let pic;
       imagesFilenames.forEach((file) => {
@@ -160,7 +152,7 @@ server.post(
 
       await productadd.save();
       // console.log( productadd)
-      res.status(200).send("Success: Product uploaded.");
+      res.status(200).send("Success: Product uploaded." + productadd.id);
     } catch (error) {
       console.error(error);
       res.status(500).send({ error: error.message });
