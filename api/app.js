@@ -12,6 +12,7 @@ const multer = require("multer");
 const productsjson = require("./home");
 const Userproducts = require("./models/ProductsSchema");
 const Usercart = require("./models/CartSchema")
+const slidertable = require("./models/slider")
 dotenv.config();
 
 const DB =
@@ -114,8 +115,8 @@ server.post(
   ]),
   async (req, res) => {
     try {
-      
-      const userData   = JSON.parse(req.body.userData);
+
+      const userData = JSON.parse(req.body.userData);
 
       console.log(req.files, "aaaaaaaaaaaaaaaa");
       const imagesFilenames = req.files["images"].map((file) => file.filename); // Array of image filenames
@@ -152,7 +153,7 @@ server.post(
 
       await productadd.save();
       // console.log( productadd)
-      res.status(200).send("Success: Product uploaded." + productadd.id);
+      res.status(200).send("Success: Product uploaded." + productadd);
     } catch (error) {
       console.error(error);
       res.status(500).send({ error: error.message });
@@ -475,6 +476,73 @@ server.post('/api/get-cart', async (req, res) => {
   }
 });
 
+
+//silder .push img
+
+
+
+// const IMGslider = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, "./uploads/slider");
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, Date.now() + "-" + file.originalname);
+//   },
+// });
+
+
+// const uploadForImages = multer({
+//   storage: IMGslider
+// })
+server.post("/api/sliderpost", upload.fields([{ name: "sliderimg", maxCount: 4 },]), async (req, res) => {
+  // console.log(req.files, "aaaaaaaaaaaaaaaa");
+ 
+  try {
+    const imagesFilenames = req.files["sliderimg"].map((file) => file.filename);
+    console.log("Images  Filenames:", imagesFilenames);
+    const sildername = JSON.parse(req.body.sildername);
+    console.log(sildername,"sildername")
+
+    const sliderphotos = new slidertable({
+      images: imagesFilenames,
+      name: sildername.name,
+    })
+    await sliderphotos.save();
+    res.status(200).send("Success: slider images uploaded." + sliderphotos);
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: error.message });
+  }
+
+
+
+})
+
+
+// get slider images
+server.use("/uploads", express.static("uploads"));
+// http://localhost:5000/uploads/1693806012738-Capture.PNG
+
+server.post("/api/Getslider", async (req, resp) => {
+  try {
+    const imgslider = await slidertable.find();
+    if (imgslider.length > 0) {
+      resp.send(imgslider);
+    } else {
+      resp.send({ result: "no products found" +imgslider});
+    }
+  } catch (error) {
+    resp
+      .status(500)
+      .send({ error: "An error occurred while fetching products" });
+  }
+});
+
+
+
+
+// Top Trending Products
 
 
 
