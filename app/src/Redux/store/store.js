@@ -12,6 +12,7 @@ import deleteProductReducer from "../reducer/deleteProductReducer";
 import updateProductReducer from "../reducer/updateProductReducer";
 import ProductsubcategoryReducer from "../reducer/subcategoryslice"
 import searchProductReducer from "../reducer/searchProductReducer";
+import cartinfouserReducer from "../reducer/usercartslice"
 
 export const store = configureStore({
   reducer: {
@@ -28,5 +29,6 @@ export const store = configureStore({
     updateProductData: updateProductReducer,
     homesubcategoryapi:ProductsubcategoryReducer,
     Searchproduct: searchProductReducer,
+    cartdetails: cartinfouserReducer,
   },
 });
