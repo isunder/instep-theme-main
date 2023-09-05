@@ -29,6 +29,7 @@ import ProductDetails from "../component/Products/productDetails";
 import Admindashboard from "../component/admin/dashboardPage/sideNavOption/Dashboard";
 import Subcategory from "../component/user/UserHeader/home/subcategory";
 import Searchproduct from "../component/SearchProducts/searchProduct";
+import Profile from "../component/user/UserHeader/home/Profile";
 
 const role = getUserId() ? getUserId()?.userRole : null;
 // console.log(role, "aaasdfgfds");
@@ -88,6 +89,8 @@ const protects = {
         { path: "/signin", element: <SignIn /> },
         { path: "/subcategory/:subcategory", element: <Subcategory /> },
         { path: "/search", element: <Searchproduct /> },
+        { path: "/Profile", element: <Profile /> },
+
         { path: "*", element: "NO PAGE FOUND" },
       ],
     },

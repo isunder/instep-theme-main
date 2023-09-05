@@ -431,6 +431,8 @@ server.post("/api/Add-to-cart", async (req, res) => {
       const updatedCart = await Usercart.findOneAndUpdate(filter, update, options);
 
       res.status(200).json({ message: "Success: Added to cart", cart: updatedCart });
+    } {
+      res.send(400).json({ error: error.message });
     }
   } catch (error) {
     console.error(error);
