@@ -144,7 +144,7 @@ const Subcategory = () => {
           <Col lg={10}>
             <div className="rightboxborder">
               <Row>
-                <Col lg={12}>
+                <Col lg={12} md={12}>
                   <div className="subcategory_topcontent">
                     <div>
                       <Link className="home_link" to="/">

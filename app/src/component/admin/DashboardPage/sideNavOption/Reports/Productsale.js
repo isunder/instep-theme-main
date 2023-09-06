@@ -21,11 +21,8 @@ function Productsale() {
             <Col lg={12}>
               <div className="margin_bottom">
                 <Row>
-                  <Col xs="auto">
-                    <div
-                      className="all_product_search location_search"
-                      style={{ width: "78rem" }}
-                    >
+                  <Col lg={8}>
+                    <div className="all_product_search category_search">
                       <FiSearch className="allproduct_searchicon " />{" "}
                       <Form.Control
                         type="text"
@@ -34,16 +31,14 @@ function Productsale() {
                       />
                     </div>
                   </Col>
-                  <Col>
-                    {" "}
-                    <Form.Select className="price_filter order_date">
-                      <option>High - Low</option>
-                      <option>Low -High </option>
-                    </Form.Select>{" "}
-                  </Col>
-                  <Col xs="auto">
-                    <div className="d-flex ">
-                      <Button className="select_button m-0" type="submit">
+                  <Col lg={4}>
+                    <div className="d-flex">
+                      {" "}
+                      <Form.Select className="order_div">
+                        <option>High - Low</option>
+                        <option>Low -High </option>
+                      </Form.Select>{" "}
+                      <Button className="select_button" type="submit">
                         {" "}
                         <AiOutlineSearch /> search
                       </Button>

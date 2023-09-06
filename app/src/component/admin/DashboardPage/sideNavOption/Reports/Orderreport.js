@@ -23,82 +23,69 @@ function Orderreport() {
         </Col>
       </Row>
       <Row className="searchbutton">
-        <Col className="order_report margin_bottom" lg={12}>
-          {" "}
-          <div className="date-range-picker">
-            <Flatpickr
-              className="order_date"
-              ref={startDateRef}
-              options={{
-                dateFormat: "m/d/Y",
-                onClose: (_, selectedDates) => {
-                  // Set the minimum date for the end date calendar
-                  if (selectedDates.length > 0) {
-                    endDateRef.current.flatpickr.set(
-                      "minDate",
-                      selectedDates[0]
-                    );
-                  }
-                },
-              }}
-              placeholder="Start Date"
-            />
-            <span className="date-range-separator  m-3">to</span>
-            <Flatpickr
-              className="order_date"
-              ref={endDateRef}
-              options={{
-                dateFormat: "m/d/Y",
-                onClose: (_, selectedDates) => {
-                  // Set the maximum date for the start date calendar
-                  if (selectedDates.length > 0) {
-                    startDateRef.current.flatpickr.set(
-                      "maxDate",
-                      selectedDates[0]
-                    );
-                  }
-                },
-              }}
-              placeholder="End Date"
-            />
-            {/* <button
+        <Col lg={12}>
+          <div className="d-flex justify-content-between">
+            <div className="delieverystatusdate_col margin_bottom">
+              <Flatpickr
                 className="order_date"
-                type="button"
-                onClick={() => {
-                  if (startDateRef.current && startDateRef.current.flatpickr) {
-                    startDateRef.current.flatpickr.clear();
-                  }
-                  if (endDateRef.current && endDateRef.current.flatpickr) {
-                    endDateRef.current.flatpickr.clear();
-                  }
+                ref={startDateRef}
+                options={{
+                  dateFormat: "m/d/Y",
+                  onClose: (_, selectedDates) => {
+                    // Set the minimum date for the end date calendar
+                    if (selectedDates.length > 0) {
+                      endDateRef.current.flatpickr.set(
+                        "minDate",
+                        selectedDates[0]
+                      );
+                    }
+                  },
                 }}
-              >
-                Clear
-              </button> */}
-          </div>
-          <div>
-            {" "}
-            <Form.Select className="order_payment_status">
-              <option>Payment Status</option>
-              <option>Paid</option>
-              <option>Unpaid</option>
-            </Form.Select>
-          </div>
-          <div className="order_div">
-            <Form.Select className="order_payment_status">
-              <option>Delivery Status</option>
-              <option>Order Placed </option>
-              <option>Pending</option>
-              <option>Processing</option>
-              <option>Delivered</option>
-              <option>Cancelled</option>
-            </Form.Select>{" "}
-          </div>
-          <div className="btngroup  alllocation_button">
-            <Button className="select_button  m-0" type="submit">
-              {" "}
-              <AiOutlineSearch /> search
-            </Button>
+                placeholder="Start Date"
+              />
+              <span className="date-range-separator  m-3">to</span>
+              <Flatpickr
+                className="order_date"
+                ref={endDateRef}
+                options={{
+                  dateFormat: "m/d/Y",
+                  onClose: (_, selectedDates) => {
+                    // Set the maximum date for the start date calendar
+                    if (selectedDates.length > 0) {
+                      startDateRef.current.flatpickr.set(
+                        "maxDate",
+                        selectedDates[0]
+                      );
+                    }
+                  },
+                }}
+                placeholder="End Date"
+              />
+              <div>
+                {" "}
+                <Form.Select className="order_payment_status">
+                  <option>Payment Status</option>
+                  <option>Paid</option>
+                  <option>Unpaid</option>
+                </Form.Select>
+              </div>
+              <div className="orderpayemnt_sec">
+                <Form.Select className="order_payment_status">
+                  <option>Delivery Status</option>
+                  <option>Order Placed </option>
+                  <option>Pending</option>
+                  <option>Processing</option>
+                  <option>Delivered</option>
+                  <option>Cancelled</option>
+                </Form.Select>{" "}
+              </div>
+              <div className="btngroup  alllocation_button">
+                <Button className="select_button" type="submit">
+                  {" "}
+                  <AiOutlineSearch /> search
+                </Button>
+              </div>
+            </div>
           </div>
         </Col>
         <Col>
