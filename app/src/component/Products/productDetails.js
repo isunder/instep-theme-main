@@ -14,25 +14,43 @@ import Table from "react-bootstrap/Table";
 import { Carousel } from "react-bootstrap";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { updateProduct } from "../../Redux/action/updateProductAction";
+import { addToCartAction } from "../../Redux/action/addToCartAction";
+import { getUserId } from "../../utils/auth";
 
-export default function ProductDetails() {
+const ProductDetails = () => {
   const dispatch = useDispatch();
   const { _id } = useParams();
+  const userData = getUserId();
+
+  console.log(userData, "useeeeeeeeeeeeeee");
 
   //   const details = useSelector((state) => state.slicedetails.listdata);
 
-  const data = useSelector((state) => state.updateProductData.listdata);
-  // const data = useSelector(
-  //   (state) => state?.updateProductData?.listdata?.images[0]
-  // );
+  const productDetail = useSelector(
+    (state) => state.updateProductData.listdata
+  );
+
+  const cartData = useSelector((state) => state?.addToCartFile);
+  console.log(cartData, "kkk");
+
   const [imageState, setImageState] = useState();
-  console.log(data, "datas");
+  console.log(productDetail, "datas");
 
   // images
 
   useEffect(() => {
     dispatch(updateProduct({ _id }));
   }, [_id]);
+  console.log(productDetail, "productDetailproductDetail");
+  const cartClick = () => {
+    let apiObject = {
+      productid: productDetail._id,
+      userid: userData.id,
+      quantity: 1,
+    };
+    dispatch(addToCartAction(apiObject));
+    console.log(cartData, "added to cart");
+  };
 
   return (
     <>
@@ -45,17 +63,17 @@ export default function ProductDetails() {
                   src={
                     imageState
                       ? imageState
-                      : data?.images
-                      ? data?.images[0]
+                      : productDetail?.images
+                      ? productDetail?.images[0]
                       : ""
                   }
                   className="topmain_imageview"
                 />
               </div>
-              {data?.images && (
+              {productDetail?.images && (
                 <>
                   <div className="main_image">
-                    {data?.images?.map((item, index) => {
+                    {productDetail?.images?.map((item, index) => {
                       if (item) {
                         return (
                           <img
@@ -73,43 +91,51 @@ export default function ProductDetails() {
               )}
               <Card.Body>
                 <Card.Title>
-                  <h4>{data.title}</h4>
+                  <h4>{productDetail.title}</h4>
                 </Card.Title>
                 <div className="main_imagecardte margin_bottom">
                   <Card.Text className="textrating">
                     <p>
                       Rating{" "}
-                      <span className="image_ratbracat">: {data.rating}</span>
+                      <span className="image_ratbracat">
+                        : {productDetail.rating}
+                      </span>
                     </p>
                   </Card.Text>
                   <Card.Text className="textrating">
                     <p>
                       {" "}
                       Brand
-                      <span className="image_ratbracat">: {data.brand}</span>
+                      <span className="image_ratbracat">
+                        : {productDetail.brand}
+                      </span>
                     </p>
                   </Card.Text>
                   <Card.Text className="textrating">
                     <p>
                       {" "}
                       Category
-                      <span className="image_ratbracat">: {data.category}</span>
+                      <span className="image_ratbracat">
+                        : {productDetail.category}
+                      </span>
                     </p>
                   </Card.Text>
                   <Card.Text className="textrating">
                     <p>
                       left stock:
-                      <span className="image_ratbracat">{data.stock}</span>
+                      <span className="image_ratbracat">
+                        {productDetail.stock}
+                      </span>
                     </p>
                   </Card.Text>
                 </div>
                 <Card.Text className="textrating margin_bottom">
-                  <h5>{data.description}</h5>
+                  <h5>{productDetail.description}</h5>
                 </Card.Text>
                 <Row>
                   <Col lg={6}>
                     {" "}
-                    <Button className="addtocart_button">
+                    <Button className="addtocart_button" onClick={cartClick}>
                       <PiShoppingCartFill />
                       ADD TO CART
                     </Button>{" "}
@@ -129,16 +155,16 @@ export default function ProductDetails() {
               <Card className="Card_row">
                 <Card.Body>
                   <Card.Title>
-                    <h4>{data.title}</h4>
+                    <h4>{productDetail.title}</h4>
                   </Card.Title>
                   <Card.Subtitle className="mb-2 text-muted">
-                    <h5>Extra ₹ {data.discountPercentage}..Off</h5>
+                    <h5>Extra ₹ {productDetail.discountPercentage}..Off</h5>
                   </Card.Subtitle>
                   <Card.Subtitle className="mb-2">
-                    <h1>₹ {data.price}</h1>
+                    <h1>₹ {productDetail.price}</h1>
                   </Card.Subtitle>
 
-                  <Card.Text>{data.description}</Card.Text>
+                  <Card.Text>{productDetail.description}</Card.Text>
                   <Card.Subtitle className="mb-2 discriptionoffers_product text-muted">
                     <h6> Available offers</h6>
                     <p>
@@ -199,15 +225,15 @@ export default function ProductDetails() {
                   <tbody>
                     <tr>
                       <td>brand</td>
-                      <td>{data.brand}</td>
+                      <td>{productDetail.brand}</td>
                     </tr>
                     <tr>
                       <td>stock</td>
-                      <td>{data.stock}</td>
+                      <td>{productDetail.stock}</td>
                     </tr>
                     <tr>
-                      <td>{data.category}</td>
-                      <td>{data.title}</td>
+                      <td>{productDetail.category}</td>
+                      <td>{productDetail.title}</td>
                     </tr>
                   </tbody>
                 </Table>
@@ -218,4 +244,6 @@ export default function ProductDetails() {
       </div>
     </>
   );
-}
+};
+
+export default ProductDetails;

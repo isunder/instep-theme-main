@@ -11,7 +11,8 @@ const dotenv = require("dotenv");
 const multer = require("multer");
 const productsjson = require("./home");
 const Userproducts = require("./models/ProductsSchema");
-const Usercart = require("./models/CartSchema")
+const Usercart = require("./models/CartSchema");
+
 const slidertable = require("./models/slider")
 dotenv.config();
 
@@ -74,6 +75,7 @@ server.post("/api/login", async (req, res) => {
           userEmail: UserEmail[0]?.email,
           userRole: UserEmail[0]?.role,
           username: UserEmail[0].username,
+          id: UserEmail[0]._id,
         },
 
         secretkey,
@@ -115,9 +117,7 @@ server.post(
   ]),
   async (req, res) => {
     try {
-
       const userData = JSON.parse(req.body.userData);
-
       console.log(req.files, "aaaaaaaaaaaaaaaa");
       const imagesFilenames = req.files["images"].map((file) => file.filename); // Array of image filenames
       console.log(req.files.images[0].filename, "req.files");
@@ -160,7 +160,6 @@ server.post(
     }
   }
 );
-
 
 //api of products all
 server.use("/uploads", express.static("uploads"));
@@ -395,7 +394,7 @@ server.post("/api/Search", async (req, res) => {
   }
 });
 
-// add to cart for user 
+// add to cart for user
 
 // server.post("/api/Add-to-cart", async (req, res) => {
 
@@ -419,7 +418,6 @@ server.post("/api/Search", async (req, res) => {
 //   }
 // })
 
-
 server.post("/api/Add-to-cart", async (req, res) => {
   try {
     const { productid, userid, quantity } = req.body;
@@ -429,8 +427,11 @@ server.post("/api/Add-to-cart", async (req, res) => {
       const update = { $inc: { quantity } }; // Increment quantity by the provided value
       const options = { upsert: true, new: true, setDefaultsOnInsert: true };
 
-      const updatedCart = await Usercart.findOneAndUpdate(filter, update, options);
-
+      const updatedCart = await Usercart.findOneAndUpdate(
+        filter,
+        update,
+        options
+      );
       res.status(200).json({ message: "Success: Added to cart", cart: updatedCart });
     } {
       res.send(400).json({ error: error.message });
@@ -441,18 +442,15 @@ server.post("/api/Add-to-cart", async (req, res) => {
   }
 });
 
+// getting all products from cart
 
-// getting all products from cart 
-
-server.post('/api/get-cart', async (req, res) => {
+server.post("/api/get-cart", async (req, res) => {
   try {
     const userid = req.body.userid;
 
     const cartItems = await Usercart.find({ userid });
 
-
-
-    const productIds = cartItems.map(item => item.productid);
+    const productIds = cartItems.map((item) => item.productid);
     console.log(productIds, "productIds");
 
     const userProductDetails = await Userproducts.find({
@@ -461,7 +459,6 @@ server.post('/api/get-cart', async (req, res) => {
     const userdetails = await User.find({
       _id: { $in: userid },
     });
-
 
     // Create an object to hold both results
     const responseData = {
@@ -476,10 +473,7 @@ server.post('/api/get-cart', async (req, res) => {
   }
 });
 
-
 //silder .push img
-
-
 
 // const IMGslider = multer.diskStorage({
 //   destination: function (req, file, cb) {
@@ -489,7 +483,6 @@ server.post('/api/get-cart', async (req, res) => {
 //     cb(null, Date.now() + "-" + file.originalname);
 //   },
 // });
-
 
 // const uploadForImages = multer({
 //   storage: IMGslider
@@ -515,10 +508,7 @@ server.post("/api/sliderpost", upload.fields([{ name: "sliderimg", maxCount: 4 }
     res.status(500).send({ error: error.message });
   }
 
-
-
 })
-
 
 // get slider images
 server.use("/uploads", express.static("uploads"));
@@ -539,13 +529,7 @@ server.post("/api/Getslider", async (req, resp) => {
   }
 });
 
-
-
-
 // Top Trending Products
-
-
-
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {

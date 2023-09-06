@@ -10,8 +10,9 @@ import GetAdminProductListDataReducer from "../reducer/getProductAdminListReduce
 import FilterDataByCategoryReducer from "../reducer/getCategoryReducer";
 import deleteProductReducer from "../reducer/deleteProductReducer";
 import updateProductReducer from "../reducer/updateProductReducer";
-import ProductsubcategoryReducer from "../reducer/subcategoryslice"
+import ProductsubcategoryReducer from "../reducer/subcategoryslice";
 import searchProductReducer from "../reducer/searchProductReducer";
+import AddToCartFileReducer from "../reducer/addToCartReducer";
 import cartinfouserReducer from "../reducer/usercartslice"
 
 export const store = configureStore({
@@ -27,8 +28,9 @@ export const store = configureStore({
     filtercategoryData: FilterDataByCategoryReducer,
     deleteProduct: deleteProductReducer,
     updateProductData: updateProductReducer,
-    homesubcategoryapi:ProductsubcategoryReducer,
+    homesubcategoryapi: ProductsubcategoryReducer,
     Searchproduct: searchProductReducer,
+    addToCartFile: AddToCartFileReducer,
     cartdetails: cartinfouserReducer,
   },
 });
