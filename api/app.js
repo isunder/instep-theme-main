@@ -13,6 +13,7 @@ const productsjson = require("./home");
 const Userproducts = require("./models/ProductsSchema");
 const Usercart = require("./models/CartSchema")
 const slidertable = require("./models/slider")
+const afterbuying = require("./models/afterbuying");
 dotenv.config();
 
 const DB =
@@ -29,6 +30,8 @@ server.use(cors());
 server.use(bodyParser.json());
 
 //register api
+
+
 server.post("/api/register", async (req, res) => {
   const { email, password, username } = req.body;
 
@@ -74,6 +77,7 @@ server.post("/api/login", async (req, res) => {
           userEmail: UserEmail[0]?.email,
           userRole: UserEmail[0]?.role,
           username: UserEmail[0].username,
+          
         },
 
         secretkey,
@@ -82,8 +86,8 @@ server.post("/api/login", async (req, res) => {
         }
       );
 
-      res.json({ loginStatus: LoginVeryfy, tokenuigiugitygtyigtyi: token });
-      console.log(token, "token huuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu");
+      res.json({ loginStatus: LoginVeryfy, token: token });
+      console.log(token, "token");
     } else if (!LoginVeryfy) {
       res.send({ loginStatus: false, err: "Password Dose not match" });
     }
@@ -481,27 +485,27 @@ server.post('/api/get-cart', async (req, res) => {
 
 
 
-// const IMGslider = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, "./uploads/slider");
-//   },
-//   filename: function (req, file, cb) {
-//     cb(null, Date.now() + "-" + file.originalname);
-//   },
-// });
+const IMGslider = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./slider");
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + "-" + file.originalname);
+  },
+});
 
 
-// const uploadForImages = multer({
-//   storage: IMGslider
-// })
-server.post("/api/sliderpost", upload.fields([{ name: "sliderimg", maxCount: 4 },]), async (req, res) => {
+const uploadForImages = multer({
+  storage: IMGslider
+})
+server.post("/api/sliderpost", uploadForImages.fields([{ name: "sliderimg", maxCount: 4 },]), async (req, res) => {
   // console.log(req.files, "aaaaaaaaaaaaaaaa");
- 
+
   try {
     const imagesFilenames = req.files["sliderimg"].map((file) => file.filename);
     console.log("Images  Filenames:", imagesFilenames);
     const sildername = JSON.parse(req.body.sildername);
-    console.log(sildername,"sildername")
+    console.log(sildername, "sildername")
 
     const sliderphotos = new slidertable({
       images: imagesFilenames,
@@ -521,7 +525,7 @@ server.post("/api/sliderpost", upload.fields([{ name: "sliderimg", maxCount: 4 }
 
 
 // get slider images
-server.use("/uploads", express.static("uploads"));
+server.use("/slider", express.static("slider"));
 // http://localhost:5000/uploads/1693806012738-Capture.PNG
 
 server.post("/api/Getslider", async (req, resp) => {
@@ -530,7 +534,7 @@ server.post("/api/Getslider", async (req, resp) => {
     if (imgslider.length > 0) {
       resp.send(imgslider);
     } else {
-      resp.send({ result: "no products found" +imgslider});
+      resp.send({ result: "no products found" });
     }
   } catch (error) {
     resp
@@ -542,10 +546,83 @@ server.post("/api/Getslider", async (req, resp) => {
 
 
 
+// after buying products  this api will     
+server.post("/api/buying", async (req, resp) => {
+  const { productid, userid } = req.body;
+  console.log(productid)
+  try {
+    if (productid) {
+
+      const bestsell = new afterbuying({
+        productid: productid,
+        userid: userid,
+
+      })
+
+      console.log(bestsell, "bestsell")
+      await bestsell.save();
+      resp.status(200).send("Success: products is upload" + bestsell);
+
+
+    } else {
+      console.log("i need productid")
+    }
+  } catch (error) {
+    resp
+      .status(500)
+      .send({ error: "An error occurred while fetching products" });
+  }
+
+})
+
+
 // Top Trending Products
 
+server.post("/api/Trending", async (req, resp) => {
+
+  try {
+    const bestproducts = await afterbuying.find();
+    // find id
+    const productIds = bestproducts.map(item => item.productid);
+    console.log(productIds, "productIds");
+
+    const userProductDetails = await Userproducts.find({
+      _id: { $in: productIds },
+    });
+    if (userProductDetails.length > 0) {
+      resp.send(userProductDetails);
+    } else {
+      resp.send({ result: "no bestproducts found" });
+    }
 
 
+  } catch (error) {
+
+    resp
+      .status(500)
+      .send({ error: "An error occurred while fetching products" });
+  }
+})
+
+// Top Trending Products delete
+
+server.post("/api/Trending/delete", async (req, res) => {
+  const { _id } = req.body;
+
+  try {
+    // Check if the product with the given _id exists and delete it
+    const deletedProduct = await afterbuying.findByIdAndDelete(_id);
+
+    if (!deletedProduct) {
+      res.status(404).json({ error: "Product not found" });
+    } else {
+      res.status(200).json({ message: "Product deleted successfully" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "An error occurred while deleting the product" });
+  }
+});
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
