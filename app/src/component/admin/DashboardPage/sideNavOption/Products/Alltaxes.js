@@ -23,7 +23,7 @@ export default function Alltaxes() {
                                         className=" mr-sm-2 adminsearch_bar"
                                     />
                                 </div>
-                                <div className='btngroup variation_button '>
+                                <div className='btngroup '>
                                     <Dropdown  >
                                         <Dropdown.Toggle className='select_button' variant="success" id="dropdown-basic">
                                             Select Status
@@ -34,7 +34,7 @@ export default function Alltaxes() {
                                             <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>
-                                    <Button className="select_button m-0" type="submit">   <AiOutlineSearch /> search</Button>
+                                    <Button className="select_button" type="submit">   <AiOutlineSearch /> search</Button>
                                 </div>
                             </div>
                             <Table responsive >

@@ -1,13 +1,6 @@
 //salesAmount  inside the Report
 import React, { useRef } from "react";
-import {
-  Button,
-  Col,
-  Form,
-  Pagination,
-  Row,
-  Table,
-} from "react-bootstrap";
+import { Button, Col, Form, Pagination, Row, Table } from "react-bootstrap";
 import Flatpickr from "react-flatpickr";
 import { AiOutlineSearch } from "react-icons/ai";
 
@@ -28,61 +21,62 @@ function Salesamount() {
           </Col>
         </Row>
         <Row className="searchbutton">
-          <Col className="order_report margin_bottom" lg={12}>
-            <div className="date-range-picker">
-              <Flatpickr
-                className="order_date"
-                ref={startDateRef}
-                options={{
-                  dateFormat: "m/d/Y",
-                  onClose: (_, selectedDates) => {
-                    // Set the minimum date for the end date calendar
-                    if (selectedDates.length > 0) {
-                      endDateRef.current.flatpickr.set(
-                        "minDate",
-                        selectedDates[0]
-                      );
-                    }
-                  },
-                }}
-                placeholder="Start Date"
-              />
-              <span className="date-range-separator  m-3">to</span>
-              <Flatpickr
-                className="order_date"
-                ref={endDateRef}
-                options={{
-                  dateFormat: "m/d/Y",
-                  onClose: (_, selectedDates) => {
-                    // Set the maximum date for the start date calendar
-                    if (selectedDates.length > 0) {
-                      startDateRef.current.flatpickr.set(
-                        "maxDate",
-                        selectedDates[0]
-                      );
-                    }
-                  },
-                }}
-                placeholder="End Date"
-              />
-            </div>
-            <div>
-              {" "}
-              <Form.Select className="price_filter order_date order_div">
-                <option>High - Low</option>
-                <option>Low -High </option>
-              </Form.Select>{" "}
-            </div>
-            <div className="btngroup  alllocation_button">
-              <Button className="select_button  m-0" type="submit">
-                {" "}
-                <AiOutlineSearch /> search
-              </Button>
-            </div>
-
-            <div>
-              <div className="d-flex ">Total Amount</div>
-              <div> ₹398,939.30</div>
+          <Col lg={12}>
+            <div className="d-flex justify-content-between">
+              <div className="delieverystatusdate_col margin_bottom">
+                <Flatpickr
+                  className="order_date"
+                  ref={startDateRef}
+                  options={{
+                    dateFormat: "m/d/Y",
+                    onClose: (_, selectedDates) => {
+                      // Set the minimum date for the end date calendar
+                      if (selectedDates.length > 0) {
+                        endDateRef.current.flatpickr.set(
+                          "minDate",
+                          selectedDates[0]
+                        );
+                      }
+                    },
+                  }}
+                  placeholder="Start Date"
+                />
+                <span className="date-range-separator  m-3">to</span>
+                <Flatpickr
+                  className="order_date"
+                  ref={endDateRef}
+                  options={{
+                    dateFormat: "m/d/Y",
+                    onClose: (_, selectedDates) => {
+                      // Set the maximum date for the start date calendar
+                      if (selectedDates.length > 0) {
+                        startDateRef.current.flatpickr.set(
+                          "maxDate",
+                          selectedDates[0]
+                        );
+                      }
+                    },
+                  }}
+                  placeholder="End Date"
+                />
+                <div className="d-flex btngroup ">
+                  {" "}
+                  <Form.Select className=" order_divchanges">
+                    <option>High - Low</option>
+                    <option>Low -High </option>
+                  </Form.Select>{" "}
+                  <div className="">
+                    <Button className="select_button" type="submit">
+                      {" "}
+                      <AiOutlineSearch /> search
+                    </Button>
+                  </div>
+                </div>
+              </div>
+              <div className="_totaldelivery_order">
+                <div>Total Amount</div>
+                <p>₹398,939.30</p>
+              </div>
             </div>
           </Col>
           <Col>
