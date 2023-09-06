@@ -467,7 +467,7 @@ const Home = () => {
           </Col>
         </Row>
         <Row>
-          {/* {data &&
+          {data &&
             data.map((e) => {
               return (
                 <Link
@@ -495,7 +495,7 @@ const Home = () => {
                   </Card>
                 </Link>
               );
-            })} */}
+            })}
           <Col lg={2} className="fistcardof_elct">
             <Card className="swiperfront_swiperview ">
               <div className="fistcardof_elct">

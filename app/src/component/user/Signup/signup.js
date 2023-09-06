@@ -136,7 +136,9 @@ const SignUp = () => {
                         )}
                       </Field>
                       <div className="button_div">
-                        <button className="des-but" type="submit">Submit</button>
+                        <button className="des-but" type="submit">
+                          Submit
+                        </button>
                         <Link className="reset_button" to="/signin">
                           Already have an Account
                         </Link>

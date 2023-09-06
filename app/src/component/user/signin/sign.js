@@ -24,11 +24,12 @@ const SignIn = () => {
 
   const onSubmit = (values, res) => {
     dispatch(loginAction(values)).then((response) => {
-      Token = response;
+      console.log(response,'response')
+      Token = response.payload.tokenuigiugitygtyigtyi;
       console.log(Token, "tokenes");
       localStorage.setItem("token", JSON.stringify(Token));
       console.log(values, "token");
-      window.location.reload();
+      window.location.href= "http://localhost:3000";
     });
   };
 

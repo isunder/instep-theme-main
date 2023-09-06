@@ -10,7 +10,7 @@ import { filterByCategory } from "../../../../Redux/action/getFilterCategoryActi
 import { getProductAction } from "../../../../Redux/action/getProductDetailAction";
 import { getUserId } from "../../../../utils/auth";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineMail, AiTwotoneHeart } from "react-icons/ai";
 import { BiSearch, BiSolidPurchaseTag } from "react-icons/bi";
 import { MdAccountCircle, MdOutlineAccountCircle } from "react-icons/md";
@@ -27,10 +27,16 @@ const Usernavbar = () => {
   // console.log(userData.role ? userData.username : null, "userData");
 
   const userData = getUserId();
+  console.log(userData);
   // setUsername(userData?.username);
 
   const userLogin = localStorage.getItem("token");
   // console.log(userLogin, "userLogin");
+
+  const cart = useSelector((state) => state);
+  console.log(cart, "crt");
+
+  // const totalQuentity = cart.reduce((acc, item) => acc + item.quintity, 0);
 
   const [showMessage, setShowMessage] = useState({
     MOBILE: "false",
@@ -55,8 +61,6 @@ const Usernavbar = () => {
     window.location.reload();
   };
 
-  // postproductAdmindata
-
   const filterdata = useSelector(
     (state) => state?.filtercategoryData?.listdata
   );
@@ -65,9 +69,7 @@ const Usernavbar = () => {
 
   useEffect(() => {
     // dispatch(allAdminProductList());
-
     dispatch(filterByCategory());
-
     dispatch(getProductAction());
   }, []);
 
@@ -184,7 +186,10 @@ const Usernavbar = () => {
                         )}
                       </div>
                       <div className="Nav_link">
-                        <HiOutlineShoppingCart className="navbar_new_icon" />
+                        <Link to="/addtocart">
+                          <HiOutlineShoppingCart className="navbar_new_icon" />
+                          {/* {totalQuentity > 0 && <span>{totalQuentity}</span>} */}
+                        </Link>
                       </div>
                       <Button
                         variant="primary"
@@ -250,16 +255,14 @@ const Usernavbar = () => {
                         <div className="Nav_link">
                           <Accordion defaultActiveKey={["0"]} alwaysOpen>
                             <Accordion.Item eventKey="0">
-                              <Accordion.Header>
-                              Category
-                              </Accordion.Header>
+                              <Accordion.Header>Category</Accordion.Header>
                               <Accordion.Body>
-                               <p>Electronics</p>
-                               <p>Men</p>
-                               <p>Women</p>
-                               <p>Home & Kitchen</p>
-                               <p>Appliances</p>
-                               <p>Sports & More</p>
+                                <p>Electronics</p>
+                                <p>Men</p>
+                                <p>Women</p>
+                                <p>Home & Kitchen</p>
+                                <p>Appliances</p>
+                                <p>Sports & More</p>
                               </Accordion.Body>
                             </Accordion.Item>
                           </Accordion>
