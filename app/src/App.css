@@ -702,7 +702,7 @@ svg.rs-sidenav-item-icon {
 
 .Addnewpeoduct {
   border-radius: 5px;
-  padding: 15px;
+  padding: 10px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px !important;
 }
 
@@ -1974,6 +1974,26 @@ footer ul {
   width: 50%;
 }
 
+.addnewproduct_changes{
+  margin-bottom: 20px;
+  height: 40px;
+  border: 1px solid transparent;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  background-color: #f9f9f9;
+  padding: 24px 10px;
+  width: 100%;
+}
+
+.addnewproduct_changes:focus-visible{
+  outline: 0 !important;
+  box-shadow: 0 !important;
+}
+
+.right_Addnew{
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
 .descirption_box {
   margin-bottom: 20px;
   height: 40px;

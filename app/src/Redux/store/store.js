@@ -13,6 +13,8 @@ import updateProductReducer from "../reducer/updateProductReducer";
 import ProductsubcategoryReducer from "../reducer/subcategoryslice";
 import searchProductReducer from "../reducer/searchProductReducer";
 import AddToCartFileReducer from "../reducer/addToCartReducer";
+import cartinfouserReducer from "../reducer/usercartslice"
+
 export const store = configureStore({
   reducer: {
     register: registrationDataReducer,
@@ -29,5 +31,6 @@ export const store = configureStore({
     homesubcategoryapi: ProductsubcategoryReducer,
     Searchproduct: searchProductReducer,
     addToCartFile: AddToCartFileReducer,
+    cartdetails: cartinfouserReducer,
   },
 });

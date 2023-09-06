@@ -84,7 +84,6 @@ const ProductForm = () => {
     brand: "",
     discountpercentage: "",
     stock: "",
-    // code: "",
     title: "",
     // images: "",
     price: "",
@@ -114,49 +113,101 @@ const ProductForm = () => {
                   <h3 className="margin_bottom"> Basic Information</h3>
                   <div className="margin_bottom">
                     <h5 className="margin_bottom">Product Categories</h5>
-                    <Field
-                      className="descirption_box"
-                      name="category"
-                      component="select"
-                      required
-                    >
-                      <option>Select Category</option>
-                      <option>Electronics</option>
-                      <option>Men</option>
-                      <option>Women</option>
-                      <option>Home & Kitchen</option>
-                      <option>Appliances</option>
-                      <option>Sports & More</option>
-                      {/* {categories.map((category) => (
+                    <div className="d-flex newpeo_div">
+                      <Field
+                        className="addnewproduct_changes"
+                        name="category"
+                        component="input"
+                        type="text"
+                        placeholder="category"
+                        required
+                      />
+                      <Field
+                        className="addnewproduct_changes right_Addnew"
+                        name="category"
+                        component="select"
+                        required
+                      >
+                        <option>Select Category</option>
+                        <option>Electronics</option>
+                        <option>Men</option>
+                        <option>Women</option>
+                        <option>Home & Kitchen</option>
+                        <option>Appliances</option>
+                        <option>Sports & More</option>
+                        {/* {categories.map((category) => (
                           <option key={category.value} value={category.value}>
                             {category.label}
                           </option>
                         ))} */}
-                    </Field>
+                      </Field>
+                    </div>
                   </div>
                   <div className="margin_bottom">
                     <h5 className="margin_bottom">Subcategory</h5>
-                    <Field
-                      className="descirption_box"
-                      name="subcategory"
-                      component="input"
-                      type="text"
-                      placeholder="subcategory"
-                      required
-                    />
+                    <div className="d-flex newpeo_div">
+                      <Field
+                        className="addnewproduct_changes"
+                        name="subcategory"
+                        component="input"
+                        type="text"
+                        placeholder="subcategory"
+                        required
+                      />
+                      <Field
+                        className="addnewproduct_changes right_Addnew"
+                        name="subcategory"
+                        component="select"
+                        required
+                      >
+                        <option>Select Category</option>
+                        <option>Electronics</option>
+                        <option>Men</option>
+                        <option>Women</option>
+                        <option>Home & Kitchen</option>
+                        <option>Appliances</option>
+                        <option>Sports & More</option>
+                        {/* {categories.map((category) => (
+                          <option key={category.value} value={category.value}>
+                            {category.label}
+                          </option>
+                        ))} */}
+                      </Field>
+                    </div>
                   </div>
                 </div>
                 <div className="Addnewpeoduct margin_bottom py-4">
                   <div className="margin_bottom">
                     <h5>Product Brand</h5>
-                    <Field
-                      className="descirption_box"
-                      name="brand"
-                      component="input"
-                      type="text"
-                      placeholder="Brand Name"
-                      required
-                    />
+                    <div className="d-flex newpeo_div">
+                      <Field
+                        className="addnewproduct_changes"
+                        name="brand"
+                        component="input"
+                        type="text"
+                        placeholder="Brand Name"
+                        required
+                      />
+                      <Field
+                        className="addnewproduct_changes right_Addnew"
+                        name="brand"
+                        component="select"
+                        required
+                      >
+                        <option>Select Category</option>
+                        <option>Electronics</option>
+                        <option>Men</option>
+                        <option>Women</option>
+                        <option>Home & Kitchen</option>
+                        <option>Appliances</option>
+                        <option>Sports & More</option>
+                        {/* {categories.map((category) => (
+                          <option key={category.value} value={category.value}>
+                            {category.label}
+                          </option>
+                        ))} */}
+                      </Field>
+                    </div>
                   </div>
                   {/* <div className="product_brand "> */}
                   {/* <h5>Product Unit</h5> */}
@@ -203,8 +254,8 @@ const ProductForm = () => {
                     ) : (
                       "ggggggg"
                     )}
-                    <div>
-                      <h2>Upload Image</h2>
+                    <div className="margin_bottom">
+                      <h4 >Upload Thumbnail</h4>
 
                       {/* <input
                         name="images"
@@ -225,7 +276,13 @@ const ProductForm = () => {
                       {/* <button onClick={handleImageUpload}>Upload Image</button> */}
                     </div>
                     <div>
-                      <h2>Uploaded Image</h2>
+                      <h4 >Upload Image</h4>
+                      <input
+                        name="images"
+                        type="file"
+                        className="form-control signup_form_input"
+                        onChange={handleImgeFile}
+                      />
                       {/* {uploadedImageUrl ? (
                         <img src={uploadedImageUrl} alt="Uploaded" />
                       ) : (
@@ -290,7 +347,7 @@ const ProductForm = () => {
                           className="descirption_box price_flex"
                           name="stock"
                           component="input"
-                          type="text"
+                          type="number"
                           placeholder="Avalaible stocks"
                           required
                         />
@@ -301,13 +358,13 @@ const ProductForm = () => {
                           className="descirption_box price_flex"
                           name="rating"
                           component="input"
-                          type="text"
+                          type="number"
                           placeholder="Rating:"
                           required
                         />
                       </Col>
                       <Col lg={3}>
-                        <h6>Code</h6>
+                        <h6>Discount</h6>
                         <Field
                           className="descirption_box price_flex"
                           name="discountpercentage"
@@ -320,13 +377,13 @@ const ProductForm = () => {
                     </div>
                   </Row>
                 </div>
-                <div className="Addnewpeoduct margin_bottom py-4">
+                <div className="Addnewpeoduct margin_bottom">
                   <div className="margin_bottom">
                     <h5 className="margin_bottom">Short Description</h5>
                     <Field
                       className="descirption_box"
                       name="description"
-                      component="input"
+                      component="textarea"
                       type="text"
                       placeholder="description"
                       required

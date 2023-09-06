@@ -375,8 +375,8 @@ const Home = () => {
                               <div className="img_div">
                                 <Card.Img
                                   variant="top"
-                                  src={item?.image || item?.thumbnail}
-                                  // src={`http://localhost:5000/uploads${item.thumbnail}`}
+                                  // src={}
+                                  src={`http://localhost:5000/uploads${item.thumbnail}||item?.image || item?.thumbnail}`}
                                 />
                               </div>
                               Zara
@@ -469,6 +469,9 @@ const Home = () => {
         <Row>
           {data &&
             data.map((e) => {
+              if(e.image){
+                // console.log(e,'jjjjjjjjjjjjjj')
+              }
               return (
                 <Link
                   className="card_deco"
@@ -477,7 +480,15 @@ const Home = () => {
                 >
                   <Card className="shopping_card">
                     <div className="img_div">
-                      <Card.Img variant="top" src={e?.image || e?.thumbnail} />
+
+
+                
+                      <Card.Img
+                        variant="top"
+                        src={
+                          e?.image ? e?.image : e?.thumbnail.split(":").length>1 ? e?.thumbnail : `http://localhost:5000/uploads/${e.thumbnail}`
+                        }
+                      />
                     </div>
                     <Card.Body>
                       <div className="item_rating">
@@ -486,7 +497,7 @@ const Home = () => {
                       </div>
                       <Card.Title className="crad_text">{e?.title}</Card.Title>
                       <Card.Text className="crad_text">
-                        {e?.description}
+                        {e?.description}\
                       </Card.Text>
                       <Card.Text className="crad_text">
                         <h5> ₹ {e?.price}</h5>
