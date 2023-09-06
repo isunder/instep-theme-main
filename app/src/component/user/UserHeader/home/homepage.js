@@ -106,7 +106,7 @@ const Home = () => {
       <div className="container ">
         <div className=" slider_col margin_bottom">
           <div className="slider">
-            <Carousel className="">
+            <Carousel>
               <Carousel.Item interval={1000}>
                 <Row>
                   <Col lg={6}>
@@ -328,7 +328,7 @@ const Home = () => {
           <div className="homeelectnics_carouse margin_bottom">
             <Row>
               <Col lg={2} className="fistcardof_elct">
-                <Card className=" swiperfront_swiperview w-100 ">
+                <Card className=" swiperfront_swiperview w-100">
                   <div className="fistcardof_elct">
                     <div className="viewallcard_div">
                       <Card.Text className="">
@@ -467,7 +467,7 @@ const Home = () => {
           </Col>
         </Row>
         <Row>
-          {data &&
+          {/* {data &&
             data.map((e) => {
               if(e.image){
                 // console.log(e,'jjjjjjjjjjjjjj')
@@ -506,7 +506,7 @@ const Home = () => {
                   </Card>
                 </Link>
               );
-            })}
+            })} */}
           <Col lg={2} className="fistcardof_elct">
             <Card className="swiperfront_swiperview ">
               <div className="fistcardof_elct">

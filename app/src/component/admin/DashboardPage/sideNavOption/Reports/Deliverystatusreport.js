@@ -20,49 +20,56 @@ function DeliveryStatus() {
         </Col>
       </Row>
       <Row className="searchbutton">
-        <Col className="order_report margin_bottom" lg={12}>
-          {" "}
-          <Flatpickr
-            className="order_date"
-            ref={startDateRef}
-            options={{
-              dateFormat: "m/d/Y",
-              onClose: (_, selectedDates) => {
-                // Set the minimum date for the end date calendar
-                if (selectedDates.length > 0) {
-                  endDateRef.current.flatpickr.set("minDate", selectedDates[0]);
-                }
-              },
-            }}
-            placeholder="Start Date"
-          />
-          <span className="date-range-separator">to</span>
-          <Flatpickr
-            className="order_date"
-            ref={endDateRef}
-            options={{
-              dateFormat: "m/d/Y",
-              onClose: (_, selectedDates) => {
-                // Set the maximum date for the start date calendar
-                if (selectedDates.length > 0) {
-                  startDateRef.current.flatpickr.set(
-                    "maxDate",
-                    selectedDates[0]
-                  );
-                }
-              },
-            }}
-            placeholder="End Date"
-          />
-          <div className="btngroup  alllocation_button">
-            <Button className="select_button  m-0" type="submit">
+        <Col lg={12}>
+          <div className="d-flex justify-content-between">
+            <div  className="delieverystatusdate_col margin_bottom">
               {" "}
-              <AiOutlineSearch /> search
-            </Button>
-          </div>
-          <div className="_totaldelivery_order">
-            <div>Total Orders</div>
-            <p>26</p>
+              <Flatpickr
+                className="order_date"
+                ref={startDateRef}
+                options={{
+                  dateFormat: "m/d/Y",
+                  onClose: (_, selectedDates) => {
+                    // Set the minimum date for the end date calendar
+                    if (selectedDates.length > 0) {
+                      endDateRef.current.flatpickr.set(
+                        "minDate",
+                        selectedDates[0]
+                      );
+                    }
+                  },
+                }}
+                placeholder="Start Date"
+              />
+              <span className="date-range-separator">to</span>
+              <Flatpickr
+                className="order_date"
+                ref={endDateRef}
+                options={{
+                  dateFormat: "m/d/Y",
+                  onClose: (_, selectedDates) => {
+                    // Set the maximum date for the start date calendar
+                    if (selectedDates.length > 0) {
+                      startDateRef.current.flatpickr.set(
+                        "maxDate",
+                        selectedDates[0]
+                      );
+                    }
+                  },
+                }}
+                placeholder="End Date"
+              />
+              <div className="btngroup  alllocation_button">
+                <Button className="select_button " type="submit">
+                  {" "}
+                  <AiOutlineSearch /> search
+                </Button>
+              </div>
+            </div>
+            <div className="_totaldelivery_order">
+              <div>Total Orders</div>
+              <p>26</p>
+            </div>
           </div>
         </Col>
         <Col>

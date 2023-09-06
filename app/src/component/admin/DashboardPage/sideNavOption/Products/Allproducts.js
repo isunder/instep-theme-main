@@ -92,12 +92,12 @@ function Allproducts(params) {
         <Row>
           <Col lg={12} className="searchbutton">
             <div className="form_control_or_btngroup">
-              <div className="all_product_search">
-                <FiSearch className="allproduct_searchicon" />{" "}
+              <div className="all_product_search location_search">
+                <FiSearch className="allproduct_searchicon " />{" "}
                 <Form.Control
                   type="text"
                   placeholder="Search"
-                  className=" mr-sm-2 search_bar"
+                  className=" mr-sm-2 adminsearch_bar"
                 />
               </div>
               <div className="btngroup">
@@ -137,7 +137,7 @@ function Allproducts(params) {
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
-                <Button className="select_button m-0" type="submit">
+                <Button className="select_button " type="submit">
                   {" "}
                   <AiOutlineSearch /> search
                 </Button>
@@ -177,16 +177,18 @@ function Allproducts(params) {
                                 <BiDotsVerticalRounded />
                               </Dropdown.Toggle>
                               <Dropdown.Menu>
-                                <Dropdown.Item  href="#/action-1">
+                                <Dropdown.Item href="#/action-1">
                                   {" "}
-                                  <button className="editdeleter_button"
+                                  <button
+                                    className="editdeleter_button"
                                     onClick={() => editClick(product._id)}
                                   >
                                     <LuEdit3 /> Edit
                                   </button>
                                 </Dropdown.Item>
                                 <Dropdown.Item href="#/action-2">
-                                  <button className="editdeleter_button"
+                                  <button
+                                    className="editdeleter_button"
                                     onClick={() => deleteClick(product._id)}
                                   >
                                     {" "}
