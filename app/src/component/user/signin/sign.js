@@ -25,7 +25,7 @@ const SignIn = () => {
   const onSubmit = (values, res) => {
     dispatch(loginAction(values)).then((response) => {
       console.log(response,'response')
-      Token = response.payload.tokenuigiugitygtyigtyi;
+      Token = response.payload.token;
       console.log(Token, "tokenes");
       localStorage.setItem("token", JSON.stringify(Token));
       console.log(values, "token");
