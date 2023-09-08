@@ -14,6 +14,8 @@ import ProductsubcategoryReducer from "../reducer/subcategoryslice";
 import searchProductReducer from "../reducer/searchProductReducer";
 import AddToCartFileReducer from "../reducer/addToCartReducer";
 import cartinfouserReducer from "../reducer/usercartslice"
+import HomecategoryReducer from "../reducer/categoryWiseSlice"
+
 
 export const store = configureStore({
   reducer: {
@@ -32,5 +34,6 @@ export const store = configureStore({
     Searchproduct: searchProductReducer,
     addToCartFile: AddToCartFileReducer,
     cartdetails: cartinfouserReducer,
+    homecategory:HomecategoryReducer,
   },
 });

@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
-import { Accordion, Card, Col, Row } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Accordion, Card, Col, Offcanvas, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { homesubcategory } from "../../../../Redux/action/homesubcategory";
 import { Link, useParams } from "react-router-dom";
 import { BiChevronRight } from "react-icons/bi";
+import Subcaregoryfilter from "./subcaregoryfilter";
 const Subcategory = () => {
   const { subcategory } = useParams();
 
@@ -16,11 +17,13 @@ const Subcategory = () => {
   useEffect(() => {
     dispatch(homesubcategory(subcategory));
   }, []);
+
   return (
     <>
       <div className="container-fluid home_subcatetop">
         <Row>
-          <Col lg={2}>
+          <Col lg={2} md={4}>
+            <Subcaregoryfilter />
             <div className="leftfilter_bar">
               <div className="margin_bottom">
                 <h4> Filters</h4>
@@ -141,43 +144,45 @@ const Subcategory = () => {
               </div>
             </div>
           </Col>
-          <Col lg={10}>
+          <Col lg={10} md={8}>
             <div className="rightboxborder">
               <Row>
                 <Col lg={12} md={12}>
-                  <div className="subcategory_topcontent">
-                    <div>
-                      <Link className="home_link" to="/">
-                        Home{" "}
-                      </Link>
-                      <BiChevronRight />
+                  <div className="subcarhide">
+                    <div className="subcategory_topcontent">
+                      <div>
+                        <Link className="home_link" to="/">
+                          Home{" "}
+                        </Link>
+                        <BiChevronRight />
+                      </div>
+                      <div>{subcategory}</div>
                     </div>
-                    <div>{subcategory}</div>
-                  </div>
-                  <div className="margin_bottom">
-                    <p>
-                      Lorem Ipsum is simply dummy text of the printing and
-                      typesetting industry. Lorem Ipsum has been the industry's
-                      standard dummy text ever since the 1500s, when an unknown
-                      printer took a galley of type and scrambled it to make a
-                      type specimen book. It has survived not only five
-                      centuries, but also the leap into electronic typesetting,
-                      remaining essentially unchanged. It was popularised in the
-                      1960s with the release of Letraset sheets containing Lorem
-                      Ipsum passages, and more recently with desktop publishing
-                      software like Aldus PageMaker including versions of Lorem
-                      Ipsum.
-                    </p>
-                  </div>
-                  <div>
-                    <h4>{subcategory}</h4>
-                  </div>
-                  <div className="righthome_filter">
-                    <h4>Sort By</h4>
-                    <h4>Popularity</h4>
-                    <h4>Price--Low to High</h4>
-                    <h4>Price--High to Low </h4>
-                    <h4>Newest First </h4>
+                    <div className="margin_bottom">
+                      <p>
+                        Lorem Ipsum is simply dummy text of the printing and
+                        typesetting industry. Lorem Ipsum has been the
+                        industry's standard dummy text ever since the 1500s,
+                        when an unknown printer took a galley of type and
+                        scrambled it to make a type specimen book. It has
+                        survived not only five centuries, but also the leap into
+                        electronic typesetting, remaining essentially unchanged.
+                        It was popularised in the 1960s with the release of
+                        Letraset sheets containing Lorem Ipsum passages, and
+                        more recently with desktop publishing software like
+                        Aldus PageMaker including versions of Lorem Ipsum.
+                      </p>
+                    </div>
+                    <div>
+                      <h4>{subcategory}</h4>
+                    </div>
+                    <div className="righthome_filter">
+                      <h4>Sort By</h4>
+                      <h4>Popularity</h4>
+                      <h4>Price--Low to High</h4>
+                      <h4>Price--High to Low </h4>
+                      <h4>Newest First </h4>
+                    </div>
                   </div>
                 </Col>
               </Row>
@@ -185,7 +190,7 @@ const Subcategory = () => {
                 {data?.map((item) => {
                   return (
                     <>
-                      <Col lg={3}>
+                      <Col lg={4}>
                         <Card className="shopping_card subcat_homecard">
                           <div className="homesub_image">
                             <Card.Img
@@ -196,7 +201,10 @@ const Subcategory = () => {
                           <Card.Body>
                             <div className="item_rating">
                               <p className="homerating_cat"> {item?.rating}</p>
-                              <p className="homerating_cat"> {item?.category}</p>
+                              <p className="homerating_cat">
+                                {" "}
+                                {item?.category}
+                              </p>
                             </div>
                             <Card.Title className="crad_text">
                               {item.title}
