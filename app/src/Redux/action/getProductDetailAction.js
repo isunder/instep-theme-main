@@ -16,3 +16,7 @@ export const getProductAction = createAsyncThunk(
     return data1.data;
   }
 );
+export const myCartList = createAsyncThunk("mrcart", async (payload) => {
+  const data1 = await axiosInstance.post("get-cart", payload);
+  return data1.data;
+});

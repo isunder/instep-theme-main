@@ -42,7 +42,7 @@ const ProductDetails = () => {
     dispatch(updateProduct({ _id }));
   }, [_id]);
   console.log(productDetail, "productDetailproductDetail");
-  const cartClick = () => {
+  const cartClick = (asd) => {
     let apiObject = {
       productid: productDetail._id,
       userid: userData.id,

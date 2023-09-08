@@ -1,10 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { addToCartAction } from "../action/addToCartAction";
+import { myCartList } from "../action/getProductDetailAction";
 
 const initialState = {
   isLoading: false,
   listdata: [],
   error: "",
+  mycart: [],
 };
 const AddToCartFile = createSlice({
   name: "Productdata",
@@ -23,6 +25,11 @@ const AddToCartFile = createSlice({
     bulider.addCase(addToCartAction.rejected, (state, action) => {
       state.error = "";
       state.isLoading = false;
+    });
+    bulider.addCase(myCartList.fulfilled, (state, action) => {
+      state.error = "";
+      state.isLoading = false;
+      state.mycart = action.payload.userProductDetails;
     });
   },
 });
