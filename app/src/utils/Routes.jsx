@@ -47,6 +47,7 @@ const protects = {
         { path: "/subcategory/:subcategory", element: <Subcategory /> },
         { path: "/search", element: <Searchproduct /> },
         { path: "/addtocart", element: <AddToCartProduct /> },
+        {path: "/profile", element: <Profile />},
         { path: "*", element: "NO PAGE FOUND" },
       ],
     },
@@ -91,8 +92,6 @@ const protects = {
         { path: "/signin", element: <SignIn /> },
         { path: "/subcategory/:subcategory", element: <Subcategory /> },
         { path: "/search", element: <Searchproduct /> },
-        { path: "/Profile", element: <Profile /> },
-
         { path: "*", element: "NO PAGE FOUND" },
       ],
     },

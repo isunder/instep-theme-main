@@ -17,12 +17,11 @@ export default function Profile() {
 
     const dispatch = useDispatch()
     const userinfo = useSelector((state) => state?.cartdetails?.listdata?.data)
-    console.log(userinfo,"usersssssssssssssssss")
+    console.log(userinfo, "usersssssssssssssssss")
 
     const cartdata = useSelector((state) => state?.cartdetails?.listdata?.data?.userProductDetails)
     console.log(userinfo, "dauserinfota")
     console.log(cartdata, "cartdata")
-
 
     useEffect(() => {
         dispatch(cartinfo({ userid: "64b8ccde661f313c3be26a41" }))

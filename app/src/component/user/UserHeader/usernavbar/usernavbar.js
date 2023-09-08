@@ -7,7 +7,10 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import { Accordion, Col, Dropdown, DropdownButton, Row } from "react-bootstrap";
 import { React, useEffect, useState } from "react";
 import { filterByCategory } from "../../../../Redux/action/getFilterCategoryAction";
-import { getProductAction } from "../../../../Redux/action/getProductDetailAction";
+import {
+  getProductAction,
+  myCartList,
+} from "../../../../Redux/action/getProductDetailAction";
 import { getUserId } from "../../../../utils/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -16,12 +19,21 @@ import { BiSearch, BiSolidPurchaseTag } from "react-icons/bi";
 import { MdAccountCircle, MdOutlineAccountCircle } from "react-icons/md";
 import { HiOutlineShoppingBag, HiOutlineShoppingCart } from "react-icons/hi";
 import { searchAction } from "../../../../Redux/action/searchProductAction";
+import { cartinfo } from "../../../../Redux/action/usercartinfo";
 
+// export const CartAddClick = () => {
+//   // const userLogin = localStorage.getItem("token");
+//   const dispatch = useDispatch();
+//   const userData = getUserId();
+//   const navigate = useNavigate;
+//   if (userData && userData.id) dispatch(myCartList({ userid: userData.id }));
+//   navigate("/addtocart");
+// };
 const Usernavbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [data, setData] = useState();
-  const [filterValue, setFilterValue] = useState();
+  const [filterValue, setFilterValue] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
 
   // console.log(userData.role ? userData.username : null, "userData");
@@ -33,10 +45,27 @@ const Usernavbar = () => {
   const userLogin = localStorage.getItem("token");
   // console.log(userLogin, "userLogin");
 
-  const cart = useSelector((state) => state);
-  console.log(cart, "crt");
+  // const cart = useSelector((state) => state);cartinfo
+  // console.log(cart, "crt");
 
-  // const totalQuentity = cart.reduce((acc, item) => acc + item.quintity, 0);
+  // const selectCart = useSelector((state) => state);
+  // console.log(selectCart)
+  // useEffect(() => {
+  //   dispatch(cartinfo(selectCart));
+  // }, []);
+  // dispatch(cartinfo)
+  // console.log(selectCart, "selectCart");
+  // const cart = useSelector((selectCart) => selectCart?.addToCartFile?.listdata);
+  const mycart = useSelector((selectCart) => selectCart?.addToCartFile?.mycart);
+  console.log(mycart, "cart");
+  // const cartLength = cart?.length;
+
+  // const cartLength = cart?.length((acc, item) => acc + item.quintity, 0);
+
+  // const cartAddClick = () => {
+  //   // if (userData && userData.id) dispatch(myCartList({ userid: userData.id }));
+  //   navigate("/addtocart");
+  // };
 
   const [showMessage, setShowMessage] = useState({
     MOBILE: "false",
@@ -46,6 +75,8 @@ const Usernavbar = () => {
     APPLIANCES: "false",
     SPORTS: "false",
   });
+
+  // const profileClick = () => {};
 
   const hideMessage = () => {
     setShowMessage(true);
@@ -70,6 +101,7 @@ const Usernavbar = () => {
   useEffect(() => {
     // dispatch(allAdminProductList());
     dispatch(filterByCategory());
+    if (userData && userData.id) dispatch(myCartList({ userid: userData.id }));
     dispatch(getProductAction());
   }, []);
 
@@ -121,7 +153,7 @@ const Usernavbar = () => {
                         </div>
                         <div className="Nav_link">Home</div>
                         <div className="Nav_link">Products</div>
-                        <div className="Nav_link">Pages</div>
+                        {/* <div className="Nav_link">Pages  {mycart?.length}</div> */}
                       </div>
                       <div className="Nav_link">
                         <BiSearch className="navbar_new_icon" />
@@ -153,9 +185,11 @@ const Usernavbar = () => {
                         {userData && userLogin ? (
                           <div className="nav_Filter myprofile_align">
                             <ul>
-                              <li>
-                                <MdOutlineAccountCircle /> My Account
-                              </li>
+                              <Link to="/profile">
+                                <li>
+                                  <MdOutlineAccountCircle /> {userData.username}
+                                </li>
+                              </Link>
                               <li>
                                 <BiSolidPurchaseTag /> My Orders
                               </li>
@@ -186,10 +220,27 @@ const Usernavbar = () => {
                         )}
                       </div>
                       <div className="Nav_link">
-                        <Link to="/addtocart">
-                          <HiOutlineShoppingCart className="navbar_new_icon" />
-                          {/* {totalQuentity > 0 && <span>{totalQuentity}</span>} */}
-                        </Link>
+                        {userData && userLogin ? (
+                          <Link to="/addtocart">
+                            <HiOutlineShoppingCart className="navbar_new_icon" />
+                            {/* {totalQuentity > 0 && <span>{totalQuentity}</span>}  */}
+                            <span className="navbar_new_icon_length">
+                              {mycart?.length}
+                            </span>
+                            {/* { <span>{cart?.length ?  cart?.length : 2}</span>} */}
+                            {/* <span>{cart}</span> */}
+                          </Link>
+                        ) : (
+                          <Link to="/signin">
+                            <HiOutlineShoppingCart className="navbar_new_icon" />
+                            {/* {totalQuentity > 0 && <span>{totalQuentity}</span>}  */}
+                            <span className="navbar_new_icon_length">
+                              {/* {mycart?.length} */}
+                            </span>
+                            {/* { <span>{cart?.length ?  cart?.length : 2}</span>} */}
+                            {/* <span>{cart}</span> */}
+                          </Link>
+                        )}
                       </div>
                       <Button
                         variant="primary"
