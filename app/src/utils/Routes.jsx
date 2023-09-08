@@ -31,6 +31,7 @@ import Subcategory from "../component/user/UserHeader/home/subcategory";
 import Searchproduct from "../component/SearchProducts/searchProduct";
 import AddToCartProduct from "../component/user/AddCartprouct/addtocart";
 import Profile from "../component/user/UserHeader/home/Profile";
+import Homecategory from "../component/user/UserHeader/home/homecategory";
 
 const role = getUserId() ? getUserId()?.userRole : null;
 // console.log(role, "aaasdfgfds");
@@ -47,6 +48,7 @@ const protects = {
         { path: "/subcategory/:subcategory", element: <Subcategory /> },
         { path: "/search", element: <Searchproduct /> },
         { path: "/addtocart", element: <AddToCartProduct /> },
+        { path: "/category/:categoryName", element: <Homecategory /> },
         {path: "/profile", element: <Profile />},
         { path: "*", element: "NO PAGE FOUND" },
       ],
@@ -92,6 +94,8 @@ const protects = {
         { path: "/signin", element: <SignIn /> },
         { path: "/subcategory/:subcategory", element: <Subcategory /> },
         { path: "/search", element: <Searchproduct /> },
+        { path: "/Profile", element: <Profile /> },
+        { path: "/category/:categoryName", element: <Homecategory /> },
         { path: "*", element: "NO PAGE FOUND" },
       ],
     },

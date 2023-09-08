@@ -1,7 +1,11 @@
 css * {
   margin: 0px;
   padding: 0px;
+  font-family: 'Poppins', sans-serif;
+  font-family: 'Raleway', sans-serif;
 }
+
+
 
 /* navbar */
 .navbarhead_prop {
@@ -1123,6 +1127,21 @@ p {
   left: -140px !important;
 }
 
+@media (max-width:579px){
+  .navsearch_alignnew{
+    left:-203px !important;
+  }
+}
+@media (max-width:503px){
+  .navsearch_alignnew{
+    left:-189px !important;
+  }
+}
+@media (max-width:503px) and (min-width:417px){
+  .navsearch_alignnew{
+    left:-105px !important;
+  }
+}
 /* ------------------------------------------Navbar-css--------------------------------------------- */
 
 /* ----------------------------------------Nav_link css--------------------------------------------- */
@@ -1154,7 +1173,7 @@ p {
   display: flex;
 }
 
-ul li {
+.nav_Filter div ul li {
   color: #a0a0a0;
   font-weight: 600;
   font-size: 18px;
@@ -1269,6 +1288,7 @@ h5 {
   background-color: #4eb529 !important;
   color: #fff !important;
   margin-left: 10px !important;
+  border-radius: 5px;
 }
 
 .slider_rightbutton:hover {
@@ -1546,6 +1566,10 @@ h5 {
   height: 360px !important;
   width: 250px;
 }
+
+.carddecorationnone_cat{
+  text-decoration: none !important;
+}
 .shopping_card img {
   height: 200px;
   object-fit: contain;
@@ -1556,6 +1580,7 @@ h5 {
   justify-content: flex-end;
   margin-bottom: 10px;
   gap: 10px;
+  text-decoration: none !important;
 }
 
 .item_rating p {
@@ -1620,6 +1645,7 @@ h5 {
   padding: 2px 5px;
   color: #fff;
   font-size: 3px;
+  
 }
 /* .homeelectnics_carouse{
   display: flex;
@@ -2379,6 +2405,86 @@ input[type="range"]::-moz-range-progress {
   font-weight: 500;
   opacity: 0.7;
 }
+
+.mobile_filter{
+ display: flex;
+ gap: 20px;
+}
+
+.hidebuttonfor_mob{
+  padding: 10px 10px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* line-height: 22px;
+  font-size: 19px; */
+  }
+
+  .filter_icon{
+    margin-right: 5px;
+  }
+
+  .offcanvas_height{
+    height: 590px !important;
+  }
+
+  .filter_catdiv{
+    color: #fff !important;
+  }
+
+  .filterbutton_col{
+    color: #fff;
+    font-weight: 500;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    background-color: #4EB529;
+  }
+
+  .filterbutton_col:hover{
+    background-color: #FF7C08;
+  }
+
+  .filter_extend{
+    display: flex;
+    flex-direction: row;
+  }
+
+  .checkboxsize{
+    height: 15px;
+    width: 15px;
+margin-right: 10px;
+  }
+
+  .locationfilter{
+    border-left: none;
+    border-top: none;
+    border-right: none;
+  }
+
+  @media (max-width: 1800px){
+    .filter_leftbutton{
+      display: none;
+    }
+  }
+  @media (max-width: 439px){
+    .filter_leftbutton{
+      display: block;
+    }
+    .leftfilter_bar{
+      display: none;
+    }
+    .subcarhide{
+      display: none;
+    }
+  }
+
+  @media (max-width: 768px){
+    .righthome_filter{
+      display: none;
+    }
+  }
 /* ------------------------------------home page subcategory------------------------------------ */
 
 /* ------------------------------------backgroundimage_aboutus----------------------------------- */

@@ -197,128 +197,140 @@ const Home = () => {
                 <div className="category_borderdiv">
                   <Row>
                     <Col lg={2} md={4}>
-                      <Card className="cat_card_homep">
-                        <div className="hoveron_arrow">
-                          <div className="top_catcard">
-                            <div className="pos_catimage">
-                              <img
-                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSuAL06ra4m2W_DXcRRcf_ai47fI6SMX2A0g&usqp=CAU"
-                                alt=""
-                              />
+                      <Link to={`/category/${"electronics"}`}>
+                        <Card className="cat_card_homep">
+                          <div className="hoveron_arrow">
+                            <div className="top_catcard">
+                              <div className="pos_catimage">
+                                <img
+                                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSuAL06ra4m2W_DXcRRcf_ai47fI6SMX2A0g&usqp=CAU"
+                                  alt=""
+                                />
+                              </div>
+                              <p>Electronics</p>
                             </div>
-                            <p>Electronics</p>
-                          </div>
-                          <div className="hoverarrow_direc">
-                            <div className="right_bottomborder">
-                              <FiArrowUpRight className="arrow-icon" />
+                            <div className="hoverarrow_direc">
+                              <div className="right_bottomborder">
+                                <FiArrowUpRight className="arrow-icon" />
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </Card>
+                        </Card>
+                      </Link>
                     </Col>
                     <Col lg={2} md={4}>
-                      <Card className="cat_card_homep">
-                        <div className="hoveron_arrow">
-                          <div className="top_catcard">
-                            <div className="pos_catimage">
-                              <img
-                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSuAL06ra4m2W_DXcRRcf_ai47fI6SMX2A0g&usqp=CAU"
-                                alt=""
-                              />
+                      <Link to={`/category/${"men"}`}>
+                        <Card className="cat_card_homep">
+                          <div className="hoveron_arrow">
+                            <div className="top_catcard">
+                              <div className="pos_catimage">
+                                <img
+                                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSuAL06ra4m2W_DXcRRcf_ai47fI6SMX2A0g&usqp=CAU"
+                                  alt=""
+                                />
+                              </div>
+                              <p>Men</p>
                             </div>
-                            <p>Men</p>
-                          </div>
-                          <div className="hoverarrow_direc">
-                            <div className="right_bottomborder">
-                              <FiArrowUpRight className="arrow-icon" />
+                            <div className="hoverarrow_direc">
+                              <div className="right_bottomborder">
+                                <FiArrowUpRight className="arrow-icon" />
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </Card>
+                        </Card>
+                      </Link>
                     </Col>
                     <Col lg={2} md={4}>
-                      <Card className="cat_card_homep">
-                        <div className="hoveron_arrow">
-                          <div className="top_catcard">
-                            <div className="pos_catimage">
-                              {" "}
-                              <img
-                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSuAL06ra4m2W_DXcRRcf_ai47fI6SMX2A0g&usqp=CAU"
-                                alt=""
-                              />
+                      <Link to={`/category/${"women"}`}>
+                        <Card className="cat_card_homep">
+                          <div className="hoveron_arrow">
+                            <div className="top_catcard">
+                              <div className="pos_catimage">
+                                {" "}
+                                <img
+                                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSuAL06ra4m2W_DXcRRcf_ai47fI6SMX2A0g&usqp=CAU"
+                                  alt=""
+                                />
+                              </div>
+                              <p>Women</p>
                             </div>
-                            <p>Women</p>
-                          </div>
-                          <div className="hoverarrow_direc">
-                            <div className="right_bottomborder">
-                              <FiArrowUpRight className="arrow-icon" />
+                            <div className="hoverarrow_direc">
+                              <div className="right_bottomborder">
+                                <FiArrowUpRight className="arrow-icon" />
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </Card>
+                        </Card>
+                      </Link>
                     </Col>
                     <Col lg={2} md={4}>
-                      <Card className="cat_card_homep">
-                        <div className="hoveron_arrow">
-                          <div className="top_catcard">
-                            <div className="pos_catimage">
-                              {" "}
-                              <img
-                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSuAL06ra4m2W_DXcRRcf_ai47fI6SMX2A0g&usqp=CAU"
-                                alt=""
-                              />
+                      <Link to={`/category/${"home&kitchen"}`}>
+                        <Card className="cat_card_homep">
+                          <div className="hoveron_arrow">
+                            <div className="top_catcard">
+                              <div className="pos_catimage">
+                                {" "}
+                                <img
+                                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSuAL06ra4m2W_DXcRRcf_ai47fI6SMX2A0g&usqp=CAU"
+                                  alt=""
+                                />
+                              </div>
+                              <p>Home & Kitchen</p>
                             </div>
-                            <p>Home & Kitchen</p>
-                          </div>
-                          <div className="hoverarrow_direc">
-                            <div className="right_bottomborder">
-                              <FiArrowUpRight className="arrow-icon" />
+                            <div className="hoverarrow_direc">
+                              <div className="right_bottomborder">
+                                <FiArrowUpRight className="arrow-icon" />
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </Card>
+                        </Card>
+                      </Link>
                     </Col>
                     <Col lg={2} md={4}>
-                      <Card className="cat_card_homep">
-                        <div className="hoveron_arrow">
-                          <div className="top_catcard">
-                            <div className="pos_catimage">
-                              {" "}
-                              <img
-                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSuAL06ra4m2W_DXcRRcf_ai47fI6SMX2A0g&usqp=CAU"
-                                alt=""
-                              />
+                      <Link to={`/category/${"aplices"}`}>
+                        <Card className="cat_card_homep">
+                          <div className="hoveron_arrow">
+                            <div className="top_catcard">
+                              <div className="pos_catimage">
+                                {" "}
+                                <img
+                                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSuAL06ra4m2W_DXcRRcf_ai47fI6SMX2A0g&usqp=CAU"
+                                  alt=""
+                                />
+                              </div>
+                              <p>Appliances</p>
                             </div>
-                            <p>Appliances</p>
-                          </div>
-                          <div className="hoverarrow_direc">
-                            <div className="right_bottomborder">
-                              <FiArrowUpRight className="arrow-icon" />
+                            <div className="hoverarrow_direc">
+                              <div className="right_bottomborder">
+                                <FiArrowUpRight className="arrow-icon" />
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </Card>
+                        </Card>
+                      </Link>
                     </Col>
                     <Col lg={2} md={4}>
-                      <Card className="cat_card_homep">
-                        <div className="hoveron_arrow">
-                          <div className="top_catcard">
-                            <div className="pos_catimage">
-                              {" "}
-                              <img
-                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSuAL06ra4m2W_DXcRRcf_ai47fI6SMX2A0g&usqp=CAU"
-                                alt=""
-                              />
+                      <Link to={`/category/${"sports & more"}`}>
+                        <Card className="cat_card_homep">
+                          <div className="hoveron_arrow">
+                            <div className="top_catcard">
+                              <div className="pos_catimage">
+                                {" "}
+                                <img
+                                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSuAL06ra4m2W_DXcRRcf_ai47fI6SMX2A0g&usqp=CAU"
+                                  alt=""
+                                />
+                              </div>
+                              <p>Sports & More</p>
                             </div>
-                            <p>Sports & More</p>
-                          </div>
-                          <div className="hoverarrow_direc">
-                            <div className="right_bottomborder">
-                              <FiArrowUpRight className="arrow-icon" />
+                            <div className="hoverarrow_direc">
+                              <div className="right_bottomborder">
+                                <FiArrowUpRight className="arrow-icon" />
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </Card>
+                        </Card>
+                      </Link>
                     </Col>
                   </Row>
                 </div>
@@ -354,7 +366,6 @@ const Home = () => {
               <Col lg={10}>
                 <Swiper
                   modules={[Navigation]}
-                  x
                   spaceBetween={90}
                   slidesPerView={4}
                   navigation
