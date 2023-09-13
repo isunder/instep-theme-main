@@ -32,6 +32,7 @@ import Searchproduct from "../component/SearchProducts/searchProduct";
 import AddToCartProduct from "../component/user/AddCartprouct/addtocart";
 import Homecategory from "../component/user/filterbyCategory/homecategory";
 import Profile from "../component/user/profile/Profile";
+import AllProductDetail from "../component/user/UserHeader/allProduct/allProductDetail";
 
 const role = getUserId() ? getUserId()?.userRole : null;
 // console.log(role, "aaasdfgfds");
@@ -50,6 +51,7 @@ const protects = {
         { path: "/addtocart", element: <AddToCartProduct /> },
         { path: "/category/:categoryName", element: <Homecategory /> },
         { path: "/profile", element: <Profile /> },
+        { path: "/allproduct", element: <AllProductDetail /> },
         { path: "*", element: "NO PAGE FOUND" },
       ],
     },
@@ -96,6 +98,7 @@ const protects = {
         { path: "/search", element: <Searchproduct /> },
         { path: "/Profile", element: <Profile /> },
         { path: "/category/:categoryName", element: <Homecategory /> },
+        { path: "/allproduct", element: <AllProductDetail /> },
         { path: "*", element: "NO PAGE FOUND" },
       ],
     },
