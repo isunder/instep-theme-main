@@ -455,9 +455,9 @@ const Home = () => {
           </div>
         </div>
         <Row>
-          {/* {data &&
+          {data &&
             data.map((e) => {
-              if(e.image){
+              if (e.image) {
                 // console.log(e,'jjjjjjjjjjjjjj')
               }
               return (
@@ -468,13 +468,14 @@ const Home = () => {
                 >
                   <Card className="shopping_card">
                     <div className="img_div">
-
-
-                
                       <Card.Img
                         variant="top"
                         src={
-                          e?.image ? e?.image : e?.thumbnail.split(":").length>1 ? e?.thumbnail : `http://localhost:5000/uploads/${e.thumbnail}`
+                          e?.image
+                            ? e?.image
+                            : e?.thumbnail.split(":").length > 1
+                            ? e?.thumbnail
+                            : `http://localhost:5000/uploads/${e.thumbnail}`
                         }
                       />
                     </div>
@@ -494,7 +495,7 @@ const Home = () => {
                   </Card>
                 </Link>
               );
-            })} */}
+            })}
           <Col lg={2} className="fistcardof_elct">
             <Card className="swiperfront_swiperview ">
               <div className="fistcardof_elct">
@@ -634,7 +635,6 @@ const Home = () => {
           </Col>
         </Row>
       </div>
-  
     </>
   );
 };
