@@ -33,6 +33,7 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
+import { Link } from "react-router-dom";
 
 const Admindashboard = (percentage) => {
 
@@ -132,10 +133,13 @@ const Admindashboard = (percentage) => {
                   <BsCart2 className="Admin_icons" />
                   Manage Sales
                 </Button>
-                <Button className="Admin_rbutton" variant="secondary">
-                  <AiOutlinePlus className="Admin_icons" />
-                  Add Product
-                </Button>
+                <Link to={"/product"}>
+                  <Button className="Admin_rbutton" variant="secondary">
+                    <AiOutlinePlus className="Admin_icons" />
+                    Add Product
+                  </Button>
+                </Link>
+
               </div>
             </Col>
             <Col className="Admin_graphs margin_bottom" lg={8}>

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { BsPlusCircleDotted } from "react-icons/bs";
 import { Field, Form as FinalForm } from "react-final-form";
 
 import { adminPostProduct } from "../../../Redux/action/adminPostProductAction";
@@ -17,33 +16,69 @@ const ProductForm = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state);
 
-  const [selectedOption, setSelectedOption] = useState(null);
+  // const [selectedOption, setSelectedOption] = useState(null);
   const [imgupload, setImgupload] = useState("");
 
   console.log(imgupload, "kkkkkkkkkkkkkkkkkkkkkkkk");
 
-  const [selectedFile, setSelectedFile] = useState("");
-  const [message, setMessage] = useState("");
+  const [selectedthumbnalFile, setselectedthumbnalFile] = useState([]);
+  const [thumbnail, setthumbnail] = useState("");
 
-  const handleFileChange = (filesObject, name) => {
+  const handlethumbnalfile = (e) => {
+    const files = e.target.files;
     const uniqueId = Date.now();
-    const filename = uniqueId + "_" + filesObject[0].name;
-    let file = new File(filesObject, filename);
-    console.log(filename, "Upload IMAGE HEREEE", filesObject);
-    // file["nameType"] = name;
-    setImgupload(file);
-    console.log(file, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-  };
-  const handleImgeFile = (e) => {
-    // console.log(e?.target?.files[0], "eeee");
-    const file = e?.target?.files[0];
-    setSelectedFile(file);
+    let name = e.target.files[0].name
+    const filename = uniqueId + "_" + name;
 
-    if (file) {
-      // setMessage(URL.createObjectURL(selectedFile));
+    let file = new File(files, filename);
+
+
+    setselectedthumbnalFile(file);
+    console.log(file, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+
+
+    let imagesArray = [];
+    // Iterate through the selected files again to read and display them as previews
+    for (let i = 0; i < files.length; i++) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        imagesArray.push(event.target.result);
+        if (imagesArray.length === files.length) {
+          setthumbnail([imagesArray]);
+        }
+      };
+      reader.readAsDataURL(files[i]);
+    }
+
+  };
+  console.log(selectedthumbnalFile, "selectedthumbnalFile")
+
+  const [selectedImagesforpost, setselectedImagesforpost] = useState([]);
+  const [selectedImages, setSelectedImages] = useState([]);
+
+  const handleImgeFile = (e) => {
+    const files = e.target.files;
+    const uniqueId = Date.now();
+    let name = e.target.files[0].name
+    const filename = uniqueId + "_" + name;
+
+    let file = new File(files, filename);
+    setselectedImagesforpost([...selectedImagesforpost, file]);
+    // images  which is upoads
+    let imagesArray = [];
+    // Iterate through the selected files again to read and display them as previews
+    for (let i = 0; i < files.length; i++) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        imagesArray.push(event.target.result);
+        if (imagesArray.length === files.length) {
+          setSelectedImages([...selectedImages, imagesArray]);
+        }
+      };
+      reader.readAsDataURL(files[i]);
     }
   };
-  console.log(selectedFile, "selectedFile");
+  console.log(selectedImagesforpost, "first")
   const onSubmit = (values) => {
     console.log(values, imgupload, "dddd");
     var formData = new FormData();
@@ -58,13 +93,16 @@ const ProductForm = () => {
       discountpercentage: values?.discountpercentage,
       stock: values?.stock,
       rating: values?.rating,
-      image: selectedFile,
+      image: selectedImagesforpost,
     };
 
     console.log("SHIKHA", payload);
+    selectedImagesforpost.map((items) => {
+      formData.append("images", items);
 
-    formData.append("images", selectedFile);
-    //formData.append("imgesdd", JSON.stringify("uttututu"));
+    })
+    formData.append("thumbnail", selectedthumbnalFile);
+
     formData.append("userData", JSON.stringify(payload));
     console.log(payload, "ggg");
     console.log(JSON.parse(formData.getAll("userData")), "data");
@@ -89,6 +127,15 @@ const ProductForm = () => {
     price: "",
     rating: "",
   };
+
+  const deleteimage = (index) => {
+    let imagedataArray = [...selectedImagesforpost]
+    let showimageArray = [...selectedImages]
+    imagedataArray.splice(index, 1)
+    showimageArray.splice(index, 1)
+    setSelectedImages(showimageArray)
+    setselectedImagesforpost(imagedataArray)
+  }
 
   const [selectedImage, setSelectedImage] = useState();
   const [uploadedImageUrl, setUploadedImageUrl] = useState();
@@ -245,71 +292,57 @@ const ProductForm = () => {
                 <div className=" Addnewpeoduct margin_bottom py-4">
                   <div>
                     <h5 className="margin_bottom"> Images</h5>
-                    {uploadedImageUrl ? (
-                      <img
-                        src={uploadedImageUrl}
-                        alt="image"
-                        style={{ width: "inherit", height: "150px" }}
-                      />
-                    ) : (
-                      "ggggggg"
-                    )}
+
                     <div className="margin_bottom">
-                      <h4 >Upload Thumbnail</h4>
-
-                      {/* <input
-                        name="images"
-                        type="file"
-                        accept="image/*"
-                        onChange={(e) => handleImage(e)}
-                      /> */}
-
-                      <input
-                        // onChange={(e) => {
-                        //   handleFileChange(e?.target.files, `image${"1"}`);
-                        // }}
-                        name="images"
-                        type="file"
-                        className="form-control signup_form_input"
-                        onChange={handleImgeFile}
-                      />
-                      {/* <button onClick={handleImageUpload}>Upload Image</button> */}
+                      <h4 >Upload image</h4>
+                      <div>
+                        <input
+                          name="images"
+                          type="file"
+                          className="form-control signup_form_input"
+                          onChange={handleImgeFile}
+                        />
+                        {selectedImages?.length > 0 && (
+                          <div>
+                            <h2>Selected Images:</h2>
+                            <ul>
+                              {selectedImages?.map((imageUrl, index) => (
+                                <li key={index} className='d-flex'>
+                                  <img src={imageUrl} alt={`Image ${index}`} width="100" height="100" />
+                                  <p onClick={() => {
+                                    deleteimage(index)
+                                  }}>X</p>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
                     </div>
                     <div>
-                      <h4 >Upload Image</h4>
+                      <h4 >Upload thumbnail</h4>
                       <input
                         name="images"
                         type="file"
                         className="form-control signup_form_input"
-                        onChange={handleImgeFile}
+                        onChange={handlethumbnalfile}
                       />
-                      {/* {uploadedImageUrl ? (
-                        <img src={uploadedImageUrl} alt="Uploaded" />
-                      ) : (
-                        <p>No image uploaded yet</p>
-                      )} */}
-                    </div>
-                    {/* <div className="brand_image margin_bottom">
-                      <h3>Choose brand Thumbnail</h3>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleImageChange}
-                      />
+                      {thumbnail?.length > 0 && (
+                        <div>
+                          <h2>Selected Images:</h2>
+                          <ul>
+                            {thumbnail?.map((imageUrl, index) => (
+                              <li key={index} className='d-flex'>
+                                <img src={imageUrl} alt={`Image ${index}`} width="100" height="100" />
 
-                       <button onClick={handleUpload}>
-                        Upload Image
-                        <BsPlusCircleDotted className="brand_img_icon" />
-                      </button>
-                    </div> */}
-                  </div>
-                  {/* <div>
-                    <h5>Gallery</h5>
-                    <div className="brand_image">
-                      <h3>Choose brand Thumbnail</h3>
-                      <BsPlusCircleDotted className="brand_img_icon" />
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
                     </div>
-                  </div> */}
+                  </div>
+
                 </div>
                 <div className="Addnewpeoduct margin_bottom py-4">
                   <Row>
