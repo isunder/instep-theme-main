@@ -1,28 +1,27 @@
-import React, { useEffect, useState } from "react";
-import { Accordion, Card, Col, Offcanvas, Row } from "react-bootstrap";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { homesubcategory } from "../../../../Redux/action/homesubcategory";
+import { homecategory } from "../../../Redux/action/categoryWiseAction";
 import { Link, useParams } from "react-router-dom";
+import { Accordion, Card, Col, Container, Row } from "react-bootstrap";
+import Subcaregoryfilter from "./SubcaregoryMobilefilter";
 import { BiChevronRight } from "react-icons/bi";
-import Subcaregoryfilter from "./subcaregoryfilter";
-const Subcategory = () => {
-  const { subcategory } = useParams();
 
+const Homecategory = () => {
   const dispatch = useDispatch();
-
-  const data = useSelector((state) => state?.homesubcategoryapi?.listdata);
-
-  console.log(data, "goapppppppal");
-  console.log(subcategory, "ggggg");
+  const data = useSelector((state) => state?.homecategory?.listdata);
+  const { categoryName } = useParams();
   useEffect(() => {
-    dispatch(homesubcategory(subcategory));
+    dispatch(homecategory(categoryName));
   }, []);
+  console.log(data, "goapl");
+  console.log(categoryName);
 
   return (
     <>
-      <div className="container-fluid home_subcatetop">
+      <div className=" slider_col ">
         <Row>
-          <Col lg={2} md={4}>
+          <Col lg={2}>
+            {" "}
             <Subcaregoryfilter />
             <div className="leftfilter_bar">
               <div className="margin_bottom">
@@ -30,7 +29,6 @@ const Subcategory = () => {
               </div>
               <div className="categorieslefftfilter margin_bottom">
                 CATEGORIES
-                <h5>{subcategory} </h5>
               </div>
               <div>
                 <div className="pricealign margin_bottom">
@@ -144,55 +142,51 @@ const Subcategory = () => {
               </div>
             </div>
           </Col>
-          <Col lg={10} md={8}>
-            <div className="rightboxborder">
-              <Row>
-                <Col lg={12} md={12}>
-                  <div className="subcarhide">
-                    <div className="subcategory_topcontent">
-                      <div>
-                        <Link className="home_link" to="/">
-                          Home{" "}
-                        </Link>
-                        <BiChevronRight />
-                      </div>
-                      <div>{subcategory}</div>
-                    </div>
-                    <div className="margin_bottom">
-                      <p>
-                        Lorem Ipsum is simply dummy text of the printing and
-                        typesetting industry. Lorem Ipsum has been the
-                        industry's standard dummy text ever since the 1500s,
-                        when an unknown printer took a galley of type and
-                        scrambled it to make a type specimen book. It has
-                        survived not only five centuries, but also the leap into
-                        electronic typesetting, remaining essentially unchanged.
-                        It was popularised in the 1960s with the release of
-                        Letraset sheets containing Lorem Ipsum passages, and
-                        more recently with desktop publishing software like
-                        Aldus PageMaker including versions of Lorem Ipsum.
-                      </p>
-                    </div>
-                    <div>
-                      <h4>{subcategory}</h4>
-                    </div>
-                    <div className="righthome_filter">
-                      <h4>Sort By</h4>
-                      <h4>Popularity</h4>
-                      <h4>Price--Low to High</h4>
-                      <h4>Price--High to Low </h4>
-                      <h4>Newest First </h4>
-                    </div>
-                  </div>
-                </Col>
-              </Row>
-              <Row>
-                {data?.map((item) => {
-                  return (
-                    <>
-                      <Col lg={4}>
-                        <Card className="shopping_card subcat_homecard">
-                          <div className="homesub_image">
+          <Col lg={10}>
+            <div className="subcarhide">
+              <div className="subcategory_topcontent">
+                <div>
+                  <Link className="home_link" to="/">
+                    Home{" "}
+                  </Link>
+                  <BiChevronRight />
+                </div>
+              </div>
+              <div className="margin_bottom">
+                <p>
+                  Lorem Ipsum is simply dummy text of the printing and
+                  typesetting industry. Lorem Ipsum has been the industry's
+                  standard dummy text ever since the 1500s, when an unknown
+                  printer took a galley of type and scrambled it to make a type
+                  specimen book. It has survived not only five centuries, but
+                  also the leap into electronic typesetting, remaining
+                  essentially unchanged. It was popularised in the 1960s with
+                  the release of Letraset sheets containing Lorem Ipsum
+                  passages, and more recently with desktop publishing software
+                  like Aldus PageMaker including versions of Lorem Ipsum.
+                </p>
+              </div>
+              <div></div>
+              <div className="righthome_filter">
+                <h4>Sort By</h4>
+                <h4>Popularity</h4>
+                <h4>Price--Low to High</h4>
+                <h4>Price--High to Low </h4>
+                <h4>Newest First </h4>
+              </div>
+            </div>
+            <Row>
+              {data?.map((item) => {
+                return (
+                  <>
+                    <Col lg={3} md={4}>
+                      <Link
+                        className="carddecorationnone_cat"
+                        reloadDocumen={true}
+                        to={`/productdetail/${item._id}`}
+                      >
+                        <Card className="shopping_card forcatcards_htwd ">
+                          <div className="img_div">
                             <Card.Img
                               variant="top"
                               src={item?.image || item?.thumbnail}
@@ -201,10 +195,7 @@ const Subcategory = () => {
                           <Card.Body>
                             <div className="item_rating">
                               <p className="homerating_cat"> {item?.rating}</p>
-                              <p className="homerating_cat">
-                                {" "}
-                                {item?.category}
-                              </p>
+                              <p className="homerating_cat"> {item.category}</p>
                             </div>
                             <Card.Title className="crad_text">
                               {item.title}
@@ -217,12 +208,12 @@ const Subcategory = () => {
                             </Card.Text>
                           </Card.Body>
                         </Card>
-                      </Col>
-                    </>
-                  );
-                })}
-              </Row>
-            </div>
+                      </Link>
+                    </Col>
+                  </>
+                );
+              })}
+            </Row>
           </Col>
         </Row>
       </div>
@@ -230,4 +221,4 @@ const Subcategory = () => {
   );
 };
 
-export default Subcategory;
+export default Homecategory;

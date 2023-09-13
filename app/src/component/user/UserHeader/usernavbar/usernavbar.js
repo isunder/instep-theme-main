@@ -185,7 +185,7 @@ const Usernavbar = () => {
                         {userData && userLogin ? (
                           <div className="nav_Filter myprofile_align">
                             <ul>
-                              <Link to="/profile">
+                              <Link  className="carddecorationnone_cat" to="/profile">
                                 <li>
                                   <MdOutlineAccountCircle /> {userData.username}
                                 </li>
@@ -234,7 +234,7 @@ const Usernavbar = () => {
                           <Link to="/signin">
                             <HiOutlineShoppingCart className="navbar_new_icon" />
                             {/* {totalQuentity > 0 && <span>{totalQuentity}</span>}  */}
-                            <span className="navbar_new_icon_length">
+                            <span className="navbar_new_icon_length">0
                               {/* {mycart?.length} */}
                             </span>
                             {/* { <span>{cart?.length ?  cart?.length : 2}</span>} */}
