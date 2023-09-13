@@ -63,6 +63,7 @@ const Home = () => {
   const categorydata = useSelector((state) => state?.getproductdata.listdata);
   console.log(categorydata, "categorydata");
 
+
   useEffect(() => {
     dispatch(getProductAction());
     // dispatch(getProductAction(`${categorydata?.listdat.electronics}`));

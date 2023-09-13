@@ -68,6 +68,8 @@ const ProductDetails = () => {
               </div>
               {productDetail?.images && (
                 <>
+                  
+                  
                   <div className="main_image">
                     {productDetail?.images?.map((item, index) => {
                       if (item) {
