@@ -61,11 +61,7 @@ const ProductDetails = () => {
               <div>
                 <Card.Img
                   src={
-                    imageState
-                      ? imageState
-                      : productDetail?.images
-                      ? productDetail?.images[0]
-                      : ""
+                    imageState ? imageState : productDetail?.images ? productDetail?.images[0] : ""
                   }
                   className="topmain_imageview"
                 />
