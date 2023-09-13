@@ -4,7 +4,7 @@ import { AiFillMessage, AiOutlineHome, AiOutlineShopping } from "react-icons/ai"
 import { FcProcess } from 'react-icons/fc'
 import { MdAccountCircle, MdShoppingCartCheckout } from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux'
-import { cartinfo } from '../../../../Redux/action/usercartinfo'
+import { cartinfo } from '../../../Redux/action/usercartinfo'
 import { RxBorderWidth, RxDashboard } from 'react-icons/rx'
 import { BsArrowLeft, BsTelephoneFill, BsTruck, BsWalletFill } from 'react-icons/bs'
 import { CiLocationOn } from 'react-icons/ci'

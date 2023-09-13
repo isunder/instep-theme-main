@@ -27,11 +27,11 @@ import Orders from "../component/admin/dashboardPage/Orders";
 import Home from "../component/user/UserHeader/home/homepage";
 import ProductDetails from "../component/Products/productDetails";
 import Admindashboard from "../component/admin/dashboardPage/sideNavOption/Dashboard";
-import Subcategory from "../component/user/UserHeader/home/subcategory";
+import Subcategory from "../component/user/filterbyCategory/subcategory";
 import Searchproduct from "../component/SearchProducts/searchProduct";
 import AddToCartProduct from "../component/user/AddCartprouct/addtocart";
-import Profile from "../component/user/UserHeader/home/Profile";
-import Homecategory from "../component/user/UserHeader/home/homecategory";
+import Homecategory from "../component/user/filterbyCategory/homecategory";
+import Profile from "../component/user/profile/Profile";
 
 const role = getUserId() ? getUserId()?.userRole : null;
 // console.log(role, "aaasdfgfds");
@@ -49,7 +49,7 @@ const protects = {
         { path: "/search", element: <Searchproduct /> },
         { path: "/addtocart", element: <AddToCartProduct /> },
         { path: "/category/:categoryName", element: <Homecategory /> },
-        {path: "/profile", element: <Profile />},
+        { path: "/profile", element: <Profile /> },
         { path: "*", element: "NO PAGE FOUND" },
       ],
     },

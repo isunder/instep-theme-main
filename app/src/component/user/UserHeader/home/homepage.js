@@ -197,13 +197,17 @@ const Home = () => {
                 <div className="category_borderdiv">
                   <Row>
                     <Col lg={2} md={4}>
-                      <Link to={`/category/${"electronics"}`}>
+                      <Link
+                        className="carddecorationnone_cat"
+                        to={`/category/${"electronics"}`}
+                      >
                         <Card className="cat_card_homep">
                           <div className="hoveron_arrow">
                             <div className="top_catcard">
                               <div className="pos_catimage">
                                 <img
-                                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSuAL06ra4m2W_DXcRRcf_ai47fI6SMX2A0g&usqp=CAU"
+                                  className="topcatimage_home"
+                                  src="https://ouch-cdn2.icons8.com/MF3LVQWteyDimwnIdoFC51Z-MYy6ij6bGeS0jBRIYeQ/rs:fit:404:456/extend:false/wm:1:re:0:0:0.8/wmid:ouch/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9wbmcvOTA5/LzMxMDgzMmNhLTMw/MzAtNDljNy05MWQy/LTZmYTZkYjEyNWE4/ZS5wbmc.png"
                                   alt=""
                                 />
                               </div>
@@ -219,13 +223,17 @@ const Home = () => {
                       </Link>
                     </Col>
                     <Col lg={2} md={4}>
-                      <Link to={`/category/${"men"}`}>
+                      <Link
+                        className="carddecorationnone_cat"
+                        to={`/category/${"men"}`}
+                      >
                         <Card className="cat_card_homep">
                           <div className="hoveron_arrow">
                             <div className="top_catcard">
                               <div className="pos_catimage">
                                 <img
-                                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSuAL06ra4m2W_DXcRRcf_ai47fI6SMX2A0g&usqp=CAU"
+                                  className="topcatimage_home"
+                                  src="https://www.svgrepo.com/show/258165/shirt-men.svg"
                                   alt=""
                                 />
                               </div>
@@ -241,14 +249,18 @@ const Home = () => {
                       </Link>
                     </Col>
                     <Col lg={2} md={4}>
-                      <Link to={`/category/${"women"}`}>
+                      <Link
+                        className="carddecorationnone_cat"
+                        to={`/category/${"women"}`}
+                      >
                         <Card className="cat_card_homep">
                           <div className="hoveron_arrow">
                             <div className="top_catcard">
                               <div className="pos_catimage">
                                 {" "}
                                 <img
-                                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSuAL06ra4m2W_DXcRRcf_ai47fI6SMX2A0g&usqp=CAU"
+                                  className="topcatimage_home"
+                                  src="https://icons.veryicon.com/png/o/commerce-shopping/taobao-icon-library/womens-wear-4.png"
                                   alt=""
                                 />
                               </div>
@@ -264,14 +276,18 @@ const Home = () => {
                       </Link>
                     </Col>
                     <Col lg={2} md={4}>
-                      <Link to={`/category/${"home&kitchen"}`}>
+                      <Link
+                        className="carddecorationnone_cat"
+                        to={`/category/${"home&kitchen"}`}
+                      >
                         <Card className="cat_card_homep">
                           <div className="hoveron_arrow">
                             <div className="top_catcard">
                               <div className="pos_catimage">
                                 {" "}
                                 <img
-                                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSuAL06ra4m2W_DXcRRcf_ai47fI6SMX2A0g&usqp=CAU"
+                                  className="topcatimage_home"
+                                  src="https://as1.ftcdn.net/v2/jpg/05/30/97/20/1000_F_530972040_gyS6SJSIdVzXUVAlCxFtTE9jiiCbyLYt.jpg"
                                   alt=""
                                 />
                               </div>
@@ -287,14 +303,18 @@ const Home = () => {
                       </Link>
                     </Col>
                     <Col lg={2} md={4}>
-                      <Link to={`/category/${"aplices"}`}>
+                      <Link
+                        className="carddecorationnone_cat"
+                        to={`/category/${"aplices"}`}
+                      >
                         <Card className="cat_card_homep">
                           <div className="hoveron_arrow">
                             <div className="top_catcard">
                               <div className="pos_catimage">
                                 {" "}
                                 <img
-                                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSuAL06ra4m2W_DXcRRcf_ai47fI6SMX2A0g&usqp=CAU"
+                                  className="topcatimage_home"
+                                  src="https://static.thenounproject.com/png/3513484-200.png"
                                   alt=""
                                 />
                               </div>
@@ -310,14 +330,18 @@ const Home = () => {
                       </Link>
                     </Col>
                     <Col lg={2} md={4}>
-                      <Link to={`/category/${"sports & more"}`}>
+                      <Link
+                        className="carddecorationnone_cat"
+                        to={`/category/${"sports & more"}`}
+                      >
                         <Card className="cat_card_homep">
                           <div className="hoveron_arrow">
                             <div className="top_catcard">
                               <div className="pos_catimage">
                                 {" "}
                                 <img
-                                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSuAL06ra4m2W_DXcRRcf_ai47fI6SMX2A0g&usqp=CAU"
+                                  className="topcatimage_home"
+                                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Sport_balls.svg/1024px-Sport_balls.svg.png"
                                   alt=""
                                 />
                               </div>
@@ -346,12 +370,15 @@ const Home = () => {
                       <Card.Text className="">
                         <h5>Best Of Electronics</h5>
                       </Card.Text>
-                      <button
-                        className="electrnicswiewall_button"
-                        type="submit"
-                      >
-                        VIEW ALL
-                      </button>
+                      <Link className="" to={`/category/${"electronics"}`}>
+                        <button
+                          className="electrnicswiewall_button"
+                          type="submit"
+                        >
+                          VIEW ALL
+                        </button>
+                      </Link>
+
                       <Card.Body>
                         <img
                           className="homedecor_image"
@@ -386,13 +413,17 @@ const Home = () => {
                               <div className="img_div">
                                 <Card.Img
                                   variant="top"
-                                  // src={}
-                                  src={`http://localhost:5000/uploads${item.thumbnail}||item?.image || item?.thumbnail}`}
+                                  src={
+                                    item?.image
+                                      ? item?.image
+                                      : item?.thumbnail.split(":").length > 1
+                                      ? item?.thumbnail
+                                      : `http://localhost:5000/uploads/${item.thumbnail}`
+                                  }
                                 />
                               </div>
-                              Zara
                               <Card.Body>
-                                <div className="item_rating">
+                                {/* <div className="item_rating">
                                   <p className="homerating_cat">
                                     {" "}
                                     {item?.rating}
@@ -401,13 +432,13 @@ const Home = () => {
                                     {" "}
                                     {item.category}
                                   </p>
-                                </div>
+                                </div> */}
                                 <Card.Title className="crad_text">
                                   {item.title}
                                 </Card.Title>
-                                <Card.Text className="crad_text">
+                                {/* <Card.Text className="crad_text">
                                   {item?.description}
-                                </Card.Text>
+                                </Card.Text> */}
                                 <Card.Text className="crad_text">
                                   <h5> ₹ {item?.price}</h5>
                                 </Card.Text>
@@ -423,6 +454,131 @@ const Home = () => {
             </Row>
           </div>
         </div>
+        <Row>
+          {/* {data &&
+            data.map((e) => {
+              if(e.image){
+                // console.log(e,'jjjjjjjjjjjjjj')
+              }
+              return (
+                <Link
+                  className="card_deco"
+                  to={`/productdetail/${e._id}`}
+                  onClick={() => productClick(e?._id)}
+                >
+                  <Card className="shopping_card">
+                    <div className="img_div">
+
+
+                
+                      <Card.Img
+                        variant="top"
+                        src={
+                          e?.image ? e?.image : e?.thumbnail.split(":").length>1 ? e?.thumbnail : `http://localhost:5000/uploads/${e.thumbnail}`
+                        }
+                      />
+                    </div>
+                    <Card.Body>
+                      <div className="item_rating">
+                        <p className="homerating_cat"> {e?.rating}</p>
+                        <p className="homerating_cat"> {e?.category}</p>
+                      </div>
+                      <Card.Title className="crad_text">{e?.title}</Card.Title>
+                      <Card.Text className="crad_text">
+                        {e?.description}\
+                      </Card.Text>
+                      <Card.Text className="crad_text">
+                        <h5> ₹ {e?.price}</h5>
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                </Link>
+              );
+            })} */}
+          <Col lg={2} className="fistcardof_elct">
+            <Card className="swiperfront_swiperview ">
+              <div className="fistcardof_elct">
+                <div className="viewallcard_div">
+                  <Card.Text className="text-center">
+                    <h5>Best Of Home Appliances</h5>
+                  </Card.Text>
+                  <Link
+                    className="carddecorationnone_cat"
+                    to={`/category/${"home&kitchen"}`}
+                  >
+                    <button className="electrnicswiewall_button" type="submit">
+                      VIEW ALL
+                    </button>
+                  </Link>
+                  <Card.Body>
+                    <img
+                      className="homedecor_image"
+                      src="https://ouch-cdn2.icons8.com/rQiKaijxXLYiyqOYF9br0qlt89qoLZjE7uM8zvq2L_w/rs:fit:456:456/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvOTAy/Lzg1MzQwOTM5LTkw/Y2MtNDQzNC04MTcx/LTZlMjExMDI0OGFj/Ni5zdmc.png"
+                      alt=""
+                    />
+                  </Card.Body>
+                </div>
+              </div>
+            </Card>
+          </Col>
+          <Col lg={10}>
+            <Swiper
+              modules={[Navigation]}
+              x
+              spaceBetween={70}
+              slidesPerView={2}
+              navigation
+              pagination={{ clickable: true }}
+              onSwiper={(swiper) => console.log(swiper)}
+              onSlideChange={() => console.log("slide change")}
+            >
+              {data.map((e) => {
+                if (e.category === "home&kitchen") {
+                  return (
+                    <SwiperSlide key={e?.id}>
+                      <Link
+                        className="card_deco"
+                        to={`/subcategory/${e.subcategory}`}
+                        // to={`/productdetail/${e._id}`}
+                        onClick={() => productClick(e?._id)}
+                      >
+                        <Card className="shopping_card">
+                          <div className="img_div">
+                            <Card.Img
+                              variant="top"
+                              src={
+                                e?.image
+                                  ? e?.image
+                                  : e?.thumbnail.split(":").length > 1
+                                  ? e?.thumbnail
+                                  : `http://localhost:5000/uploads/${e.thumbnail}`
+                              }
+                            />
+                          </div>
+                          <Card.Body>
+                            {/* <div className="item_rating">
+                              <p className="homerating_cat"> {e?.rating}</p>
+                              <p className="homerating_cat"> {e?.category}</p>
+                            </div> */}
+                            <Card.Title className="crad_text">
+                              {e?.title}
+                            </Card.Title>
+                            {/* <Card.Text className="crad_text">
+                              {e?.description}
+                            </Card.Text> */}
+                            <Card.Text className="crad_text">
+                              <h5> ₹ {e?.price}</h5>
+                            </Card.Text>
+                          </Card.Body>
+                        </Card>
+                      </Link>
+                    </SwiperSlide>
+                  );
+                }
+              })}
+            </Swiper>
+          </Col>
+        </Row>
         <Row>
           <h2 className="ourtopcategories_home"> Top Trending Products</h2>
           <Col lg={4}>
@@ -477,241 +633,8 @@ const Home = () => {
             </div>
           </Col>
         </Row>
-        <Row>
-          {/* {data &&
-            data.map((e) => {
-              if(e.image){
-                // console.log(e,'jjjjjjjjjjjjjj')
-              }
-              return (
-                <Link
-                  className="card_deco"
-                  to={`/productdetail/${e._id}`}
-                  onClick={() => productClick(e?._id)}
-                >
-                  <Card className="shopping_card">
-                    <div className="img_div">
-
-
-                
-                      <Card.Img
-                        variant="top"
-                        src={
-                          e?.image ? e?.image : e?.thumbnail.split(":").length>1 ? e?.thumbnail : `http://localhost:5000/uploads/${e.thumbnail}`
-                        }
-                      />
-                    </div>
-                    <Card.Body>
-                      <div className="item_rating">
-                        <p className="homerating_cat"> {e?.rating}</p>
-                        <p className="homerating_cat"> {e?.category}</p>
-                      </div>
-                      <Card.Title className="crad_text">{e?.title}</Card.Title>
-                      <Card.Text className="crad_text">
-                        {e?.description}\
-                      </Card.Text>
-                      <Card.Text className="crad_text">
-                        <h5> ₹ {e?.price}</h5>
-                      </Card.Text>
-                    </Card.Body>
-                  </Card>
-                </Link>
-              );
-            })} */}
-          <Col lg={2} className="fistcardof_elct">
-            <Card className="swiperfront_swiperview ">
-              <div className="fistcardof_elct">
-                <div className="viewallcard_div">
-                  <Card.Text className="text-center">
-                    <h5>Best Of Home Appliances</h5>
-                  </Card.Text>
-                  <button className="electrnicswiewall_button" type="submit">
-                    VIEW ALL
-                  </button>
-                  <Card.Body>
-                    <img
-                      className="homedecor_image"
-                      src="https://ouch-cdn2.icons8.com/rQiKaijxXLYiyqOYF9br0qlt89qoLZjE7uM8zvq2L_w/rs:fit:456:456/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvOTAy/Lzg1MzQwOTM5LTkw/Y2MtNDQzNC04MTcx/LTZlMjExMDI0OGFj/Ni5zdmc.png"
-                      alt=""
-                    />
-                  </Card.Body>
-                </div>
-              </div>
-            </Card>
-          </Col>
-          <Col lg={10}>
-            <Swiper
-              modules={[Navigation]}
-              x
-              spaceBetween={70}
-              slidesPerView={2}
-              navigation
-              pagination={{ clickable: true }}
-              onSwiper={(swiper) => console.log(swiper)}
-              onSlideChange={() => console.log("slide change")}
-            >
-              {data.map((e) => {
-                if (e.category === "home&kitchen") {
-                  return (
-                    <SwiperSlide key={e?.id}>
-                      <Link
-                        className="card_deco"
-                        to={`/subcategory/${e.subcategory}`}
-                        // to={`/productdetail/${e._id}`}
-                        onClick={() => productClick(e?._id)}
-                      >
-                        <Card className="shopping_card">
-                          <div className="img_div">
-                            <Card.Img
-                              variant="top"
-                              src={e?.image || e?.thumbnail}
-                            />
-                          </div>
-                          <Card.Body>
-                            <div className="item_rating">
-                              <p className="homerating_cat"> {e?.rating}</p>
-                              <p className="homerating_cat"> {e?.category}</p>
-                            </div>
-                            <Card.Title className="crad_text">
-                              {e?.title}
-                            </Card.Title>
-                            <Card.Text className="crad_text">
-                              {e?.description}
-                            </Card.Text>
-                            <Card.Text className="crad_text">
-                              <h5> ₹ {e?.price}</h5>
-                            </Card.Text>
-                          </Card.Body>
-                        </Card>
-                      </Link>
-                    </SwiperSlide>
-                  );
-                }
-              })}
-            </Swiper>
-          </Col>
-        </Row>
       </div>
-      <div className="container-fluid">
-        <Row>
-          <footer>
-            <div className="top">
-              <ul>
-                <h5>ABOUT</h5>
-                <li>
-                  <a href="dgg">Contact Us</a>
-                </li>
-                <li>
-                  <a href="dgg">About Us</a>
-                </li>
-                <li>
-                  <a href="dg">Careers</a>
-                </li>
-                <li>
-                  <a href="dg">Press</a>
-                </li>
-              </ul>
-              <ul>
-                <h5>HELP</h5>
-                <li>
-                  <a href="dg">Payments</a>
-                </li>
-                <li>
-                  <a href="dg">Shipping</a>
-                </li>
-                <li>
-                  <a href="dg">Cancellation & Return</a>
-                </li>
-                <li>
-                  <a href="dg">FAQ</a>
-                </li>
-                <li>
-                  <a href="dg">Report Infringment</a>
-                </li>
-              </ul>
-              <ul>
-                <h5>CONSUMER POLICY</h5>
-                <li>
-                  <a href="dg">Return Policy</a>
-                </li>
-                <li>
-                  <a href="dg">Terms Of Use</a>
-                </li>
-                <li>
-                  <a href="dg">Security</a>
-                </li>
-                <li>
-                  <a href="dg">Privacy</a>
-                </li>
-                <li>
-                  <a href="dg">Sitemap</a>
-                </li>
-                <li>
-                  <a href="dg">Grievance Redressal</a>
-                </li>
-                <li>
-                  <a href="dg">EPR Compliance</a>
-                </li>
-              </ul>
-              <ul>
-                <h5>SOCIAL</h5>
-                <li>Facebook</li>
-                <li>Twitter</li>
-                <li>Youtube</li>
-              </ul>
-              <ul className="left_border">
-                <h5 className="text"> Mail Us:</h5>
-                <p>
-                  mailto:instepcart@mail.com <br />
-                </p>
-              </ul>
-              <ul>
-                <h5> Registered Office Address:</h5>
-                <p>
-                  {" "}
-                  Tricity Plaza, Office No. 14
-                  <br />
-                  Ground, Peer Muchalla <br />
-                  Zirakpur, Punjab 140603
-                </p>
-                <p className="tele">
-                  Telephone: <span>000-000-0000</span>{" "}
-                </p>
-              </ul>
-            </div>
-            <Row>
-              <Col className="social">
-                <i>
-                  {" "}
-                  <BsFillBagFill className="Soc_icon" />
-                  Become a Seller
-                </i>
-                <i>
-                  {" "}
-                  <BsStarHalf className="Soc_icon" />
-                  Advertise
-                </i>
-                <i>
-                  {" "}
-                  <BsFillGiftFill className="Soc_icon" />
-                  Gift Cards
-                </i>
-                <i>
-                  <BsQuestionCircleFill className="Soc_icon" />
-                  Help Center
-                </i>
-                <i> &copy; 2023 Instepcart.com</i>
-              </Col>
-            </Row>
-            {/* <div className="info">
-          <div className="legal">
-            <a href="dg">Terms & Conditions</a><a href="dg">Privacy Policy</a>
-          </div>
-          <div className="copyright">2021 Copyright &copy; Sean B</div>
-        </div> */}
-          </footer>
-        </Row>
-      </div>
+  
     </>
   );
 };
