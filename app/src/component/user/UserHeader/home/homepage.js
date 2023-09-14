@@ -6,16 +6,9 @@ import { useNavigate } from "react-router";
 import { Carousel } from "react-bootstrap";
 // import { productAction } from "../../Redux/action/productAction";
 import { Link } from "react-router-dom";
-import {
-  BsFillBagFill,
-  BsFillGiftFill,
-  BsQuestionCircleFill,
-  BsStarHalf,
-} from "react-icons/bs";
+
 import { FiArrowUpRight } from "react-icons/fi";
 import { getProductAction } from "../../../../Redux/action/getProductDetailAction";
-import { HiDesktopComputer } from "react-icons/hi";
-import { updateProduct } from "../../../../Redux/action/updateProductAction";
 import { Swiper } from "swiper/react";
 
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
@@ -455,7 +448,7 @@ const Home = () => {
           </div>
         </div>
         <Row>
-          {data &&
+          {/* {data &&
             data.map((e) => {
               if (e.image) {
                 // console.log(e,'jjjjjjjjjjjjjj')
@@ -495,7 +488,7 @@ const Home = () => {
                   </Card>
                 </Link>
               );
-            })}
+            })} */}
           <Col lg={2} className="fistcardof_elct">
             <Card className="swiperfront_swiperview ">
               <div className="fistcardof_elct">

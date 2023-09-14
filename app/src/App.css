@@ -284,6 +284,7 @@ div p {
 .allproduct_searchicon {
   height: 30px;
   width: 30px;
+  margin-top: 10px;
 }
 .adminsearch_bar.form-control {
   width: 100% !important;
@@ -1159,17 +1160,33 @@ p {
 .myprofile_align {
   left: -24px;
 }
+
+.color{
+  color: #4EB529;
+}
+
+.color:hover{
+  color: #4EB529;
+}
+
+.text_edit{
+  color: #000;
+}
+
+.text_edit:hover{
+color: #000;
+}
 .Nav_link {
   padding: 20px !important;
-  color: #000;
+  color: #000 !important;
   position: relative;
 }
 .search_user {
   display: none;
 }
 .Nav_link:hover {
-  background-color: white;
-  color: #4eb529;
+  background-color: white !important;
+  color: #4eb529 !important;
   white-space: nowrap;
 }
 .nav_Filter ul {
@@ -1576,16 +1593,24 @@ h5 {
   }
 }
 .shopping_card {
-  margin-top: 30px;
+margin-top: 30px;
   border: 1px solid #fff !important;
-  border-color: #f7f7f7;
+  border-color: #f7f7f7; 
   height: 300px !important;
   width: 250px;
 }
 
 .carddecorationnone_cat{
   text-decoration: none !important;
-  color: #4EB529 !important;
+  /* color: #000; */
+}
+
+.carddecorationnone_cat:hover{
+  /* color: #000; */
+}
+
+.color{
+
 }
 .shopping_card img {
   height: 200px;
@@ -2175,7 +2200,33 @@ footer ul {
 .navsearch_alignnew {
   left: -250px;
 }
+.productupload_image{
+width: 80%;
+height: 150px;
+object-fit: cover;
+border: 1px solid #fff;
+box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
 
+.productupload_item{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.addimagecncel_icon{
+  position:absolute;
+  right: 23px;
+  top: -8px;
+}
+
+.cancelicon_addproduct{
+  width: 30px;
+  height: 30px;
+  color: #000;
+}
 /* ---------------------------------product detail------------------------------------------- */
 
 .mainrowdata {
