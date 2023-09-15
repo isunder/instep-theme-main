@@ -151,8 +151,16 @@ const Usernavbar = () => {
                             </ul>
                           </div>
                         </div>
-                        <div className="Nav_link">Home</div>
-                        <Link className="Nav_link" to="/allproduct">
+                        <Link
+                          className="Nav_link carddecorationnone_cat"
+                          to="/"
+                        >
+                          Home
+                        </Link>
+                        <Link
+                          className="Nav_link carddecorationnone_cat"
+                          to="/allproduct"
+                        >
                           Products
                         </Link>
                         {/* <div className="Nav_link">Pages  {mycart?.length}</div> */}
@@ -187,14 +195,14 @@ const Usernavbar = () => {
                         {userData && userLogin ? (
                           <div className="nav_Filter myprofile_align">
                             <ul>
-                              <Link
-                                className="carddecorationnone_cat"
-                                to="/profile"
-                              >
-                                <li>
+                              <li>
+                                <Link
+                                  className=" carddecorationnone_cat color"
+                                  to="/profile"
+                                >
                                   <MdOutlineAccountCircle /> {userData.username}
-                                </li>
-                              </Link>
+                                </Link>
+                              </li>
                               <li>
                                 <BiSolidPurchaseTag /> My Orders
                               </li>

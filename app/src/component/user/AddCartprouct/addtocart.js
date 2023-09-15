@@ -79,6 +79,7 @@ const AddToCartProduct = () => {
       return count;
     }
   };
+
   return (
     <>
       <div className="container slider_col">
@@ -127,6 +128,7 @@ const AddToCartProduct = () => {
               <Row>
                 {myCartL &&
                   myCartL?.map((e, index) => {
+                    console.log(e, "adasdasdasdasdasda");
                     if (e.image) {
                       // console.log(e,'jjjjjjjjjjjjjj')
                     }
@@ -170,22 +172,19 @@ const AddToCartProduct = () => {
                               </span>
                             </div>
                             <span className="quantityval_ue">
-                              {quantities[index] || 0}
+                              {quantities[index]}
                             </span>
                             <div className="add">
                               <span onClick={() => quantityAdd(index)}>
                                 <AiOutlinePlus />
                               </span>
-                            </div>
+                            </div>  
                           </div>
                         </Col>
                         <Col lg={2}>
                           <div className="addtocart_title">
                             <h5>
-                              ₹{" "}
-                              {quantities[index] * e?.price
-                                ? quantities[index] * e?.price
-                                : 0}
+                              ₹ {e?.price.toFixed(0) * quantities[index] || 0}
                             </h5>
                           </div>
                         </Col>

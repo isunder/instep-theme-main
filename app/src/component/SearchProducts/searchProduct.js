@@ -16,14 +16,13 @@ function Searchproduct() {
                 <>
                   <Col>
                     <Link to={`/productdetail/${item._id}`}>
-                      <Card className="shopping_card">
+                      <Card className="shopping_card forcatcards_htwd">
                         <div className="img_div">
                           <Card.Img
                             variant="top"
                             src={item?.image || item?.thumbnail}
                           />
                         </div>
-                        Zara
                         <Card.Body>
                           <div className="item_rating">
                             <p className="homerating_cat"> {item?.rating}</p>

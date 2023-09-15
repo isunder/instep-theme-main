@@ -36,7 +36,6 @@ import {
 import { Link } from "react-router-dom";
 
 const Admindashboard = (percentage) => {
-
   const chart = [
     { name: "Jan", uv: 400, pv: 2400, amt: 2400 },
     { name: "Feb", uv: 300, pv: 1398, amt: 2210 },
@@ -139,7 +138,6 @@ const Admindashboard = (percentage) => {
                     Add Product
                   </Button>
                 </Link>
-
               </div>
             </Col>
             <Col className="Admin_graphs margin_bottom" lg={8}>

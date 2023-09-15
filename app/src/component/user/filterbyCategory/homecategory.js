@@ -179,37 +179,39 @@ const Homecategory = () => {
               {data?.map((item) => {
                 return (
                   <>
-                    <Col lg={3} md={4}>
-                      <Link
-                        className="carddecorationnone_cat"
-                        reloadDocumen={true}
-                        to={`/productdetail/${item._id}`}
-                      >
-                        <Card className="shopping_card forcatcards_htwd ">
-                          <div className="img_div">
-                            <Card.Img
-                              variant="top"
-                              src={item?.image || item?.thumbnail}
-                            />
+                    <Link
+                      className="carddecorationnone_cat text_edit"
+                      reloadDocumen={true}
+                      to={`/productdetail/${item._id}`}
+                    >
+                    <div className="subcatkitechenmaindiv margin_bottom">
+                      <Col lg={3}>
+                        <div>
+                          <img
+                            className="subcatkitchen_image"
+                            variant="top"
+                            src={item?.image || item?.thumbnail}
+                            alt=""
+                          />
+                        </div>
+                      </Col>
+                      <Col lg={6}>
+                        <div className="p-4">
+                          <div className="subcatitem_cont"> {item.title}</div>
+                          <div> {item?.description}</div>
+                          <div className="kit_homestarticon">
+                            <p> {item?.rating}</p>
                           </div>
-                          <Card.Body>
-                            <div className="item_rating">
-                              <p className="homerating_cat"> {item?.rating}</p>
-                              <p className="homerating_cat"> {item.category}</p>
-                            </div>
-                            <Card.Title className="crad_text">
-                              {item.title}
-                            </Card.Title>
-                            <Card.Text className="crad_text">
-                              {item?.description}
-                            </Card.Text>
-                            <Card.Text className="crad_text">
-                              <h5> ₹ {item?.price}</h5>
-                            </Card.Text>
-                          </Card.Body>
-                        </Card>
-                      </Link>
-                    </Col>
+                          {/* <p className="homerating_cat"> {item.category}</p> */}
+                        </div>
+                      </Col>
+                      <Col lg={3}>
+                        <div className="p-4">
+                          <h5> ₹{item?.price}</h5>
+                        </div>
+                      </Col>
+                    </div>
+                    </Link>
                   </>
                 );
               })}

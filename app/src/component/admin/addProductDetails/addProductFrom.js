@@ -5,6 +5,7 @@ import { Field, Form as FinalForm } from "react-final-form";
 import { adminPostProduct } from "../../../Redux/action/adminPostProductAction";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
+import { MdCancel } from "react-icons/md";
 import "react-toastify/dist/ReactToastify.css";
 
 const options = [
@@ -295,27 +296,30 @@ const ProductForm = () => {
                         <input
                           name="images"
                           type="file"
-                          className="form-control signup_form_input"
+                          className="form-control signup_form_input margin_bottom"
                           onChange={handleImgeFile}
                         />
                         {selectedImages?.length > 0 && (
                           <div>
-                            <h2>Selected Images:</h2>
-                            <ul>
+                            <h4>Selected Images:</h4>
+                            <ul className="row">
                               {selectedImages?.map((imageUrl, index) => (
-                                <li key={index} className="d-flex">
+                                <li
+                                  key={index}
+                                  className=" productupload_item col-md-3"
+                                >
                                   <img
+                                    className="productupload_image"
                                     src={imageUrl}
                                     alt={`Image ${index}`}
-                                    width="100"
-                                    height="100"
                                   />
                                   <p
+                                    className="addimagecncel_icon"
                                     onClick={() => {
                                       deleteimage(index);
                                     }}
                                   >
-                                    X
+                                    <MdCancel className="cancelicon_addproduct" />
                                   </p>
                                 </li>
                               ))}
@@ -335,14 +339,16 @@ const ProductForm = () => {
                       {thumbnail?.length > 0 && (
                         <div>
                           <h2>Selected Images:</h2>
-                          <ul>
+                          <ul className="row">
                             {thumbnail?.map((imageUrl, index) => (
-                              <li key={index} className="d-flex">
+                              <li
+                                key={index}
+                                className=" productupload_item col-md-3"
+                              >
                                 <img
+                                  className="productupload_image"
                                   src={imageUrl}
                                   alt={`Image ${index}`}
-                                  width="100"
-                                  height="100"
                                 />
                               </li>
                             ))}
