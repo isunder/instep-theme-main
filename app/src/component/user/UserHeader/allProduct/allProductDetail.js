@@ -20,7 +20,7 @@ const AllProductDetail = () => {
     // dispatch(updateProduct({ _id }));
   };
   return (
-    <div className="  slider_col ">
+    <div className="container-fluid  slider_col ">
       <Row>
         <Col lg={2}>
           {" "}
