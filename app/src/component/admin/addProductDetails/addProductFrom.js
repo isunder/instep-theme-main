@@ -94,7 +94,7 @@ const ProductForm = () => {
       image: selectedImagesforpost,
     };
 
-    console.log("SHIKHA", payload);
+    console.log("shar", payload);
     selectedImagesforpost.map((items) => {
       formData.append("images", items);
     });
@@ -292,7 +292,6 @@ const ProductForm = () => {
 
                     <div className="margin_bottom">
                       <h4>Upload image</h4>
-
                       <div>
                         <input
                           name="images"
