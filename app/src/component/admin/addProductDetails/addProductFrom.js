@@ -27,15 +27,13 @@ const ProductForm = () => {
   const handlethumbnalfile = (e) => {
     const files = e.target.files;
     const uniqueId = Date.now();
-    let name = e.target.files[0].name
+    let name = e.target.files[0].name;
     const filename = uniqueId + "_" + name;
 
     let file = new File(files, filename);
 
-
     setselectedthumbnalFile(file);
     console.log(file, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-
 
     let imagesArray = [];
     // Iterate through the selected files again to read and display them as previews
@@ -49,9 +47,8 @@ const ProductForm = () => {
       };
       reader.readAsDataURL(files[i]);
     }
-
   };
-  console.log(selectedthumbnalFile, "selectedthumbnalFile")
+  console.log(selectedthumbnalFile, "selectedthumbnalFile");
 
   const [selectedImagesforpost, setselectedImagesforpost] = useState([]);
   const [selectedImages, setSelectedImages] = useState([]);
@@ -59,7 +56,7 @@ const ProductForm = () => {
   const handleImgeFile = (e) => {
     const files = e.target.files;
     const uniqueId = Date.now();
-    let name = e.target.files[0].name
+    let name = e.target.files[0].name;
     const filename = uniqueId + "_" + name;
 
     let file = new File(files, filename);
@@ -78,7 +75,7 @@ const ProductForm = () => {
       reader.readAsDataURL(files[i]);
     }
   };
-  console.log(selectedImagesforpost, "first")
+  console.log(selectedImagesforpost, "first");
   const onSubmit = (values) => {
     console.log(values, imgupload, "dddd");
     var formData = new FormData();
@@ -96,11 +93,10 @@ const ProductForm = () => {
       image: selectedImagesforpost,
     };
 
-    console.log("SHIKHA", payload);
+    console.log("shar", payload);
     selectedImagesforpost.map((items) => {
       formData.append("images", items);
-
-    })
+    });
     formData.append("thumbnail", selectedthumbnalFile);
 
     formData.append("userData", JSON.stringify(payload));
@@ -129,13 +125,13 @@ const ProductForm = () => {
   };
 
   const deleteimage = (index) => {
-    let imagedataArray = [...selectedImagesforpost]
-    let showimageArray = [...selectedImages]
-    imagedataArray.splice(index, 1)
-    showimageArray.splice(index, 1)
-    setSelectedImages(showimageArray)
-    setselectedImagesforpost(imagedataArray)
-  }
+    let imagedataArray = [...selectedImagesforpost];
+    let showimageArray = [...selectedImages];
+    imagedataArray.splice(index, 1);
+    showimageArray.splice(index, 1);
+    setSelectedImages(showimageArray);
+    setselectedImagesforpost(imagedataArray);
+  };
 
   const [selectedImage, setSelectedImage] = useState();
   const [uploadedImageUrl, setUploadedImageUrl] = useState();
@@ -294,7 +290,7 @@ const ProductForm = () => {
                     <h5 className="margin_bottom"> Images</h5>
 
                     <div className="margin_bottom">
-                      <h4 >Upload image</h4>
+                      <h4>Upload image</h4>
                       <div>
                         <input
                           name="images"
@@ -307,11 +303,20 @@ const ProductForm = () => {
                             <h2>Selected Images:</h2>
                             <ul>
                               {selectedImages?.map((imageUrl, index) => (
-                                <li key={index} className='d-flex'>
-                                  <img src={imageUrl} alt={`Image ${index}`} width="100" height="100" />
-                                  <p onClick={() => {
-                                    deleteimage(index)
-                                  }}>X</p>
+                                <li key={index} className="d-flex">
+                                  <img
+                                    src={imageUrl}
+                                    alt={`Image ${index}`}
+                                    width="100"
+                                    height="100"
+                                  />
+                                  <p
+                                    onClick={() => {
+                                      deleteimage(index);
+                                    }}
+                                  >
+                                    X
+                                  </p>
                                 </li>
                               ))}
                             </ul>
@@ -320,7 +325,7 @@ const ProductForm = () => {
                       </div>
                     </div>
                     <div>
-                      <h4 >Upload thumbnail</h4>
+                      <h4>Upload thumbnail</h4>
                       <input
                         name="images"
                         type="file"
@@ -332,9 +337,13 @@ const ProductForm = () => {
                           <h2>Selected Images:</h2>
                           <ul>
                             {thumbnail?.map((imageUrl, index) => (
-                              <li key={index} className='d-flex'>
-                                <img src={imageUrl} alt={`Image ${index}`} width="100" height="100" />
-
+                              <li key={index} className="d-flex">
+                                <img
+                                  src={imageUrl}
+                                  alt={`Image ${index}`}
+                                  width="100"
+                                  height="100"
+                                />
                               </li>
                             ))}
                           </ul>
@@ -342,7 +351,6 @@ const ProductForm = () => {
                       )}
                     </div>
                   </div>
-
                 </div>
                 <div className="Addnewpeoduct margin_bottom py-4">
                   <Row>

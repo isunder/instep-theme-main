@@ -11,11 +11,12 @@ import { CiLocationOn } from "react-icons/ci";
 import { PiShoppingCartFill } from "react-icons/pi";
 import { BsFillLightningFill } from "react-icons/bs";
 import Table from "react-bootstrap/Table";
-import { Carousel } from "react-bootstrap";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { updateProduct } from "../../Redux/action/updateProductAction";
-import { addToCartAction } from "../../Redux/action/addToCartAction";
-import { getUserId } from "../../utils/auth";
+// import { Carousel } from "react-bootstrap";
+// import { Swiper, SwiperSlide } from "swiper/react";
+import { updateProduct } from "../../../Redux/action/updateProductAction";
+import { addToCartAction } from "../../../Redux/action/addToCartAction";
+import { getUserId } from "../../../utils/auth";
+import { productAction } from "../../../Redux/action/productAction";
 
 const ProductDetails = () => {
   const dispatch = useDispatch();
@@ -29,12 +30,16 @@ const ProductDetails = () => {
   const productDetail = useSelector(
     (state) => state.updateProductData.listdata
   );
+  console.log(productDetail, "www");
+
+  // const Check = useSelector((state) => state?.updateProductData);
+  // console.log(Check, "check");
 
   const cartData = useSelector((state) => state?.addToCartFile);
   console.log(cartData, "kkk");
 
   const [imageState, setImageState] = useState();
-  console.log(productDetail, "datas");
+  // console.log(productDetail?.images[0][0], "datas");
 
   // images
 
@@ -52,6 +57,9 @@ const ProductDetails = () => {
     console.log(cartData, "added to cart");
   };
 
+  console.log(productDetail?.images, `wopjveddwo`);
+
+  console.log(imageState, "wioeiwj");
   return (
     <>
       <div className="container mainrowdata">
@@ -60,16 +68,23 @@ const ProductDetails = () => {
             <Card>
               <div>
                 <Card.Img
+                  // src={`http://localhost:5000/uploads/${imageState? imageState : (productDetail?.images?.length > 0 &&productDetail?.images[0])}`}
                   src={
-                    imageState ? imageState : productDetail?.images ? productDetail?.images[0] : ""
+                    imageState
+                      ? imageState.split("http").length > 1
+                        ? imageState
+                        : `http://localhost:5000/uploads/${imageState}`
+                      : (productDetail?.images?.length > 0 &&
+                        // productDetail?.images?.length[0] > 0 &&
+                        (productDetail?.images[0].split("http").length > 1
+                      ? productDetail?.images[0]
+                      : `http://localhost:5000/uploads/${productDetail?.images[0]}`))
                   }
                   className="topmain_imageview"
                 />
               </div>
               {productDetail?.images && (
                 <>
-                  
-                  
                   <div className="main_image">
                     {productDetail?.images?.map((item, index) => {
                       if (item) {
@@ -77,7 +92,12 @@ const ProductDetails = () => {
                           <img
                             key={index}
                             className="subphotof_main"
-                            src={item}
+                            src={
+                              // Array.isArray(item) &&
+                              item?.split("https").length > 1
+                                ? item
+                                : `http://localhost:5000/uploads/${item}`
+                            }
                             onMouseEnter={() => setImageState(item)}
                             alt=""
                           />
