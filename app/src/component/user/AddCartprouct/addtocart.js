@@ -27,7 +27,7 @@ const AddToCartProduct = () => {
     // dispatch(cartinfo());
   }, []);
 
-  const initialQuantities = [1];
+  const initialQuantities = [];
 
   const [quantities, setQuantities] = useState(initialQuantities);
 
