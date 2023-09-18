@@ -456,7 +456,7 @@ const Home = () => {
           </div>
         </div>
         <Row>
-          {/* {data &&
+          {data &&
             data.map((e) => {
               if(e.image){
                 // console.log(e,'jjjjjjjjjjjjjj')
@@ -495,7 +495,7 @@ const Home = () => {
                   </Card>
                 </Link>
               );
-            })} */}
+            })}
           <Col lg={2} className="fistcardof_elct">
             <Card className="swiperfront_swiperview ">
               <div className="fistcardof_elct">

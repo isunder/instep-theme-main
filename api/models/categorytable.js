@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
 
 const categorytableschema = new mongoose.Schema({
-  name: {
+  category: {
     type: String,
+    required:true,
   },  
 });
 categorytableschema.set("categorytableschema",true)

@@ -18,6 +18,9 @@ const afterbuying = require("./models/afterbuying")
 const registerRoutes = require("./router/registerRoutes");
 const loginRoutes = require("./router/loginRouters")
 const postProductRouters = require("./router/Productpost")
+const addnewcategory=require("./router/categoryRought")
+const addnewSubcategory=require('./router/subCategory')
+const addnewbrand=require("./router/BrandRought")
 dotenv.config();
 
 const DB =
@@ -40,6 +43,11 @@ server.use("/api", loginRoutes);
 server.use("/api", postProductRouters);
 server.use("/uploads", express.static("uploads"));
 // http://localhost:5000/uploads/1693806012738-Capture.PNG
+server.use("/api", addnewcategory);
+server.use("/api", addnewSubcategory);
+
+server.use("/api", addnewbrand);
+
 
 
 
@@ -293,10 +301,10 @@ server.use("/uploads", express.static("uploads"));
 //table addd api category
 
 // server.post("/api/addproducts", async (req, res) => {
-//   const { name } = req.body;
+//   // const { name } = req.body;
 
 //   const arr = req.body.categoryData;
-//   console.log(arr, "aaa");
+//   // console.log(arr, "aaa");
 //   categorytable.insertMany(arr);
 
 //   try {
@@ -319,47 +327,47 @@ server.post("/api/category", async (req, res) => {
 
 //admn api for update from id
 
-// server.post("/api/productUpdate", async (req, res) => {
-//   console.log("productUpdate ddddddddddddddddddd");
-//   const {
-//     category,
-//     description,
-//     title,
-//     price,
-//     image,
-//     brand,
-//     rating,
-//     subcategory,
-//     thumbnail,
-//     stock,
-//     discountPercentage,
-//   } = req.body;
+server.post("/api/productUpdate", async (req, res) => {
+  console.log("productUpdate ddddddddddddddddddd");
+  const {
+    category,
+    description,
+    title,
+    price,
+    image,
+    brand,
+    rating,
+    subcategory,
+    thumbnail,
+    stock,
+    discountPercentage,
+  } = req.body;
 
-//   const findbyid = await Userproducts.findByIdAndUpdate(
-//     { _id: req.body._id },
-//     {
-//       category: category,
-//       description: description,
-//       title: title,
-//       price: price,
-//       image: image,
-//       brand: brand,
-//       rating: rating,
-//       subcategory: subcategory,
-//       thumbnail: thumbnail,
-//       stock: stock,
-//       discountPercentage: discountPercentage,
-//     },
-//     {
-//       new: true,
-//     }
-//   );
-//   try {
-//     res.send(findbyid);
-//   } catch (error) {
-//     res.status(400).send({ message: error.message });
-//   }
-// });
+  const findbyid = await Userproducts.findByIdAndUpdate(
+    { _id: req.body._id },
+    {
+      category: category,
+      description: description,
+      title: title,
+      price: price,
+      image: image,
+      brand: brand,
+      rating: rating,
+      subcategory: subcategory,
+      thumbnail: thumbnail,
+      stock: stock,
+      discountPercentage: discountPercentage,
+    },
+    {
+      new: true,
+    }
+  );
+  try {
+    res.send(findbyid);
+  } catch (error) {
+    res.status(400).send({ message: error.message });
+  }
+});
 
 // adim api for delete
 
