@@ -25,13 +25,14 @@ import Usernavbar from "../component/user/UserHeader/usernavbar/usernavbar";
 import SignIn from "../component/user/signin/sign";
 import Orders from "../component/admin/dashboardPage/Orders";
 import Home from "../component/user/UserHeader/home/homepage";
-import ProductDetails from "../component/Products/productDetails";
 import Admindashboard from "../component/admin/dashboardPage/sideNavOption/Dashboard";
 import Subcategory from "../component/user/filterbyCategory/subcategory";
 import Searchproduct from "../component/SearchProducts/searchProduct";
 import AddToCartProduct from "../component/user/AddCartprouct/addtocart";
 import Homecategory from "../component/user/filterbyCategory/homecategory";
 import Profile from "../component/user/profile/Profile";
+import AllProductDetail from "../component/user/UserHeader/allProduct/allProductDetail";
+import ProductDetails from "../component/user/Products/productDetails";
 
 const role = getUserId() ? getUserId()?.userRole : null;
 // console.log(role, "aaasdfgfds");
@@ -50,6 +51,7 @@ const protects = {
         { path: "/addtocart", element: <AddToCartProduct /> },
         { path: "/category/:categoryName", element: <Homecategory /> },
         { path: "/profile", element: <Profile /> },
+        { path: "/allproduct", element: <AllProductDetail /> },
         { path: "*", element: "NO PAGE FOUND" },
       ],
     },
@@ -96,6 +98,7 @@ const protects = {
         { path: "/search", element: <Searchproduct /> },
         { path: "/Profile", element: <Profile /> },
         { path: "/category/:categoryName", element: <Homecategory /> },
+        { path: "/allproduct", element: <AllProductDetail /> },
         { path: "*", element: "NO PAGE FOUND" },
       ],
     },

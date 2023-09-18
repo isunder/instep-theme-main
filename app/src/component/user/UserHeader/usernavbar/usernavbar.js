@@ -151,8 +151,18 @@ const Usernavbar = () => {
                             </ul>
                           </div>
                         </div>
-                        <div className="Nav_link">Home</div>
-                        <div className="Nav_link">Products</div>
+                        <Link
+                          className="Nav_link carddecorationnone_cat"
+                          to="/"
+                        >
+                          Home
+                        </Link>
+                        <Link
+                          className="Nav_link carddecorationnone_cat"
+                          to="/allproduct"
+                        >
+                          Products
+                        </Link>
                         {/* <div className="Nav_link">Pages  {mycart?.length}</div> */}
                       </div>
                       <div className="Nav_link">
@@ -185,11 +195,14 @@ const Usernavbar = () => {
                         {userData && userLogin ? (
                           <div className="nav_Filter myprofile_align">
                             <ul>
-                              <Link  className="carddecorationnone_cat" to="/profile">
-                                <li>
+                              <li>
+                                <Link
+                                  className=" carddecorationnone_cat color"
+                                  to="/profile"
+                                >
                                   <MdOutlineAccountCircle /> {userData.username}
-                                </li>
-                              </Link>
+                                </Link>
+                              </li>
                               <li>
                                 <BiSolidPurchaseTag /> My Orders
                               </li>
@@ -234,8 +247,8 @@ const Usernavbar = () => {
                           <Link to="/signin">
                             <HiOutlineShoppingCart className="navbar_new_icon" />
                             {/* {totalQuentity > 0 && <span>{totalQuentity}</span>}  */}
-                            <span className="navbar_new_icon_length">0
-                              {/* {mycart?.length} */}
+                            <span className="navbar_new_icon_length">
+                              0{/* {mycart?.length} */}
                             </span>
                             {/* { <span>{cart?.length ?  cart?.length : 2}</span>} */}
                             {/* <span>{cart}</span> */}

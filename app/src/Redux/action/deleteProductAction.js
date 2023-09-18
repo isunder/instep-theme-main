@@ -14,7 +14,7 @@ export const deleteProduct = createAsyncThunk(
   async (payload, id) => {
     console.log(payload, id, "gggggggggggggggggggg");
     const data1 = await axiosInstance
-      .post(`/procustdlt`, payload)
+      .post(`/productsdlt`, payload)
       .then((res) => res);
     console.log(data1, "data1data1");
     return data1.data;

@@ -284,6 +284,7 @@ div p {
 .allproduct_searchicon {
   height: 30px;
   width: 30px;
+  margin-top: 10px;
 }
 .adminsearch_bar.form-control {
   width: 100% !important;
@@ -1159,17 +1160,33 @@ p {
 .myprofile_align {
   left: -24px;
 }
+
+.color{
+  color: #4EB529;
+}
+
+.color:hover{
+  color: #4EB529;
+}
+
+.text_edit{
+  color: #000;
+}
+
+.text_edit:hover{
+color: #000;
+}
 .Nav_link {
   padding: 20px !important;
-  color: #000;
+  color: #000 !important;
   position: relative;
 }
 .search_user {
   display: none;
 }
 .Nav_link:hover {
-  background-color: white;
-  color: #4eb529;
+  background-color: white !important;
+  color: #4eb529 !important;
   white-space: nowrap;
 }
 .nav_Filter ul {
@@ -1389,8 +1406,7 @@ h5 {
 }
 
 .card_row {
-  background-color: #fff;
-  padding: 0px 30px;
+ 
 }
 
 .dealday_img {
@@ -1403,17 +1419,16 @@ h5 {
 }
 
 .swiperfront_swiperview {
-  margin-top: 30px;
   border: none !important;
   border-color: #f7f7f7;
-  /* padding: 15px 0; */
-  height: 300px !important;
+  height: 293px !important;
   width: 100%;
+  padding: 5px;
 }
 
-.shopping_card:hover {
+/* .shopping_card:hover {
   border: #4eb529 solid 1px !important;
-}
+} */
 
 /* .cardhide_onhov{
   display: none;
@@ -1470,6 +1485,7 @@ h5 {
   overflow: hidden;
   white-space: nowrap;
   margin: 0px;
+  opacity: 0.6px !important;
 }
 
 .card_deco {
@@ -1576,16 +1592,26 @@ h5 {
   }
 }
 .shopping_card {
-  margin-top: 30px;
+  /* height: 300px !important; */
+  width: 250px !important;
+}
+
+.shoppingcard_bor{
   border: 1px solid #fff !important;
-  border-color: #f7f7f7;
-  height: 300px !important;
-  width: 250px;
+  box-shadow: none !important;
 }
 
 .carddecorationnone_cat{
   text-decoration: none !important;
-  color: #4EB529 !important;
+  /* color: #000; */
+}
+
+.carddecorationnone_cat:hover{
+  /* color: #000; */
+}
+
+.color{
+
 }
 .shopping_card img {
   height: 200px;
@@ -1663,12 +1689,62 @@ h5 {
   font-size: 3px;
   
 }
-/* .homeelectnics_carouse{
-  display: flex;
-} */
+.homeelectnics_carouse{
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  padding: 5px 0px 5px 5px;
+}
 
 .swiper-button-disabled {
   display: none !important;
+}
+
+.homebackground_img{
+  width: 98%;
+  height: 300px;
+  object-fit: contain;
+}
+
+.sports_bannerhomepage{
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  padding-top: 20px;
+  border-radius: 2px;
+}
+
+.sportscontent_align{
+  padding-left: 40px;
+}
+
+.homedecorimag_e{
+  width: 100%;
+  height: 157px;
+  object-fit: contain;
+}
+
+.shop_roe{
+  width: 80%;
+}
+
+.homefashion_border{
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  padding: 10px;
+}
+
+.hometop_fashionbo_der{
+  border: 1px solid #D2D2D2;
+  border-radius: 3px;
+}
+
+.cloths_detail{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.topcategoies_icon{
+  width: 10%;
+  height: 10%;
+  color: #FF7C08;
 }
 /* ------------------------------------signup-------------------------------------------- */
 .signin_main {
@@ -2175,11 +2251,37 @@ footer ul {
 .navsearch_alignnew {
   left: -250px;
 }
+.productupload_image{
+width: 80%;
+height: 200px;
+object-fit: cover;
+border: 1px solid #fff;
+box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
 
+.productupload_item{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.addimagecncel_icon{
+  position:absolute;
+  right: 23px;
+  top: -8px;
+}
+
+.cancelicon_addproduct{
+  width: 30px;
+  height: 30px;
+  color: #000;
+}
 /* ---------------------------------product detail------------------------------------------- */
 
 .mainrowdata {
-  padding-top: 90px;
+  padding-top: 52px;
 }
 
 .subphotof_main {
@@ -2195,8 +2297,7 @@ footer ul {
 }
 
 .topmain_imageview {
-  /* display: none; */
-  height: 500px;
+  height: 350px;
   object-fit: contain;
 }
 
@@ -2254,6 +2355,7 @@ p {
   border: none !important;
   padding: 10px 20px !important;
   width: 100% !important;
+  border-radius: 2px !important;
 }
 
 .addtocart_button:hover {
@@ -2265,6 +2367,7 @@ p {
   border: none !important;
   padding: 10px 20px !important;
   width: 100% !important;
+  border-radius: 2px !important;
 }
 
 .bynow_button:hover {
@@ -2308,6 +2411,17 @@ p {
   border: none;
 }
 
+.buy_Addicon{
+  margin-right: 5px;
+  height: 10%;
+  width: 10%;
+}
+
+.mainpro_rightdescrip{
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
 /* ------------------------------------home page subcategory------------------------------------ */
 
 .home_subcatetop {
