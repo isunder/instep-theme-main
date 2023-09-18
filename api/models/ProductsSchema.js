@@ -24,6 +24,7 @@ const ProductSchema = new mongoose.Schema({
   thumbnail: {
     type: String,
   },
+
   images: [
     {
       type: String,

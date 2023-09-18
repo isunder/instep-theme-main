@@ -497,6 +497,7 @@ const Home = () => {
             </Row>
           </div>
         </div>
+
         <div className="homeelectnics_carouse ">
           <Row>
             {/* {data &&
@@ -539,6 +540,53 @@ const Home = () => {
                   </Card>
                 </Link>
               );
+            })}
+          <Col lg={2} className="fistcardof_elct">
+            <Card className="swiperfront_swiperview ">
+              <div className="fistcardof_elct">
+                <div className="viewallcard_div">
+                  <Card.Text className="text-center">
+                    <h5>Best Of Home Appliances</h5>
+                  </Card.Text>
+                  <Link
+                    className="carddecorationnone_cat"
+                    to={`/category/${"home&kitchen"}`}
+                  >
+                    <button className="electrnicswiewall_button" type="submit">
+                      VIEW ALL
+                    </button>
+                  </Link>
+                  <Card.Body>
+                    <img
+                      className="homedecor_image"
+                      src="https://ouch-cdn2.icons8.com/rQiKaijxXLYiyqOYF9br0qlt89qoLZjE7uM8zvq2L_w/rs:fit:456:456/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvOTAy/Lzg1MzQwOTM5LTkw/Y2MtNDQzNC04MTcx/LTZlMjExMDI0OGFj/Ni5zdmc.png"
+                      alt=""
+                    />
+                  </Card.Body>
+                </div>
+              </div>
+            </Card>
+          </Col>
+          <Col lg={10}>
+            <Swiper
+              modules={[Navigation]}
+              x
+              spaceBetween={70}
+              slidesPerView={2}
+              navigation
+              pagination={{ clickable: true }}
+              onSwiper={(swiper) => console.log(swiper)}
+              onSlideChange={() => console.log("slide change")}
+            >
+              {data.map((e) => {
+                if (e.category === "home&kitchen") {
+                  return (
+                    <SwiperSlide key={e?.id}>
+                      <Link
+                        className="card_deco"
+                        to={`/subcategory/${e.subcategory}`}
+                        // to={`/productdetail/${e._id}`}
+                        onClick={() => productClick(e?._id)}
             })} */}
             <Col lg={2} className="fistcardof_elct">
               <Card className="swiperfront_swiperview ">

@@ -215,4 +215,8 @@ console.log('hjhhdhdhdhhhh',product)
   }
 })
 
+// const categorytable=expressAsyncHandler(async(req,res)=>{{
+  
+// }})
+
 module.exports = { postproduct, getproduct, getfilter, categoryfilter, subcategoryfilter,updateproduct };
