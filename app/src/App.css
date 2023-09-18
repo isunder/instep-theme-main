@@ -1406,8 +1406,7 @@ h5 {
 }
 
 .card_row {
-  background-color: #fff;
-  padding: 0px 30px;
+ 
 }
 
 .dealday_img {
@@ -1422,7 +1421,7 @@ h5 {
 .swiperfront_swiperview {
   border: none !important;
   border-color: #f7f7f7;
-  height: 300px !important;
+  height: 293px !important;
   width: 100%;
   padding: 5px;
 }
@@ -1593,11 +1592,13 @@ h5 {
   }
 }
 .shopping_card {
-/* margin-top: 30px; */
-  border: 1px solid #fff !important;
-  border-color: #f7f7f7 !important; 
-  height: 300px !important;
+  /* height: 300px !important; */
   width: 250px !important;
+}
+
+.shoppingcard_bor{
+  border: 1px solid #fff !important;
+  box-shadow: none !important;
 }
 
 .carddecorationnone_cat{
@@ -2252,7 +2253,7 @@ footer ul {
 }
 .productupload_image{
 width: 80%;
-height: 150px;
+height: 200px;
 object-fit: cover;
 border: 1px solid #fff;
 box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -2280,7 +2281,7 @@ box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 /* ---------------------------------product detail------------------------------------------- */
 
 .mainrowdata {
-  padding-top: 90px;
+  padding-top: 52px;
 }
 
 .subphotof_main {
@@ -2296,8 +2297,7 @@ box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
 .topmain_imageview {
-  /* display: none; */
-  height: 500px;
+  height: 350px;
   object-fit: contain;
 }
 
@@ -2355,6 +2355,7 @@ p {
   border: none !important;
   padding: 10px 20px !important;
   width: 100% !important;
+  border-radius: 2px !important;
 }
 
 .addtocart_button:hover {
@@ -2366,6 +2367,7 @@ p {
   border: none !important;
   padding: 10px 20px !important;
   width: 100% !important;
+  border-radius: 2px !important;
 }
 
 .bynow_button:hover {
@@ -2409,6 +2411,17 @@ p {
   border: none;
 }
 
+.buy_Addicon{
+  margin-right: 5px;
+  height: 10%;
+  width: 10%;
+}
+
+.mainpro_rightdescrip{
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
 /* ------------------------------------home page subcategory------------------------------------ */
 
 .home_subcatetop {

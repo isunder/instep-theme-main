@@ -64,8 +64,9 @@ const ProductDetails = () => {
     <>
       <div className="container mainrowdata">
         <Row className="">
-          <Col>
-            <Card>
+          <Col lg={2}></Col>
+          <Col lg={4}>
+            <Card className="shoppingcard_bor">
               <div>
                 <Card.Img
                   // src={`http://localhost:5000/uploads/${imageState? imageState : (productDetail?.images?.length > 0 &&productDetail?.images[0])}`}
@@ -74,11 +75,11 @@ const ProductDetails = () => {
                       ? imageState.split("http").length > 1
                         ? imageState
                         : `http://localhost:5000/uploads/${imageState}`
-                      : (productDetail?.images?.length > 0 &&
+                      : productDetail?.images?.length > 0 &&
                         // productDetail?.images?.length[0] > 0 &&
                         (productDetail?.images[0].split("http").length > 1
-                      ? productDetail?.images[0]
-                      : `http://localhost:5000/uploads/${productDetail?.images[0]}`))
+                          ? productDetail?.images[0]
+                          : `http://localhost:5000/uploads/${productDetail?.images[0]}`)
                   }
                   className="topmain_imageview"
                 />
@@ -108,10 +109,10 @@ const ProductDetails = () => {
                 </>
               )}
               <Card.Body>
-                <Card.Title>
+                <Card.Title className="mb-5">
                   <h4>{productDetail.title}</h4>
                 </Card.Title>
-                <div className="main_imagecardte margin_bottom">
+                {/* <div className="main_imagecardte margin_bottom">
                   <Card.Text className="textrating">
                     <p>
                       Rating{" "}
@@ -146,31 +147,30 @@ const ProductDetails = () => {
                       </span>
                     </p>
                   </Card.Text>
-                </div>
-                <Card.Text className="textrating margin_bottom">
-                  <h5>{productDetail.description}</h5>
-                </Card.Text>
+                </div> */}
                 <Row>
                   <Col lg={6}>
                     {" "}
                     <Button className="addtocart_button" onClick={cartClick}>
-                      <PiShoppingCartFill />
-                      ADD TO CART
+                      <div>
+                        <PiShoppingCartFill className="buy_Addicon" />
+                        ADD TO CART
+                      </div>
                     </Button>{" "}
                   </Col>
                   <Col lg={6}>
                     {" "}
                     <Button className="bynow_button">
-                      <BsFillLightningFill /> BUY NOW
+                      <BsFillLightningFill className="buy_Addicon" /> BUY NOW
                     </Button>{" "}
                   </Col>
                 </Row>
               </Card.Body>
             </Card>
           </Col>
-          <Col>
+          <Col lg={4}>
             <div>
-              <Card className="Card_row">
+              <Card className="shoppingcard_bor">
                 <Card.Body>
                   <Card.Title>
                     <h4>{productDetail.title}</h4>
@@ -182,7 +182,6 @@ const ProductDetails = () => {
                     <h1>₹ {productDetail.price}</h1>
                   </Card.Subtitle>
 
-                  <Card.Text>{productDetail.description}</Card.Text>
                   <Card.Subtitle className="mb-2 discriptionoffers_product text-muted">
                     <h6> Available offers</h6>
                     <p>
@@ -193,7 +192,7 @@ const ProductDetails = () => {
                       above
                       <span>T&C</span>
                     </p>
-                    <p>
+                    {/* <p>
                       {" "}
                       <BsTags className="validpffers_icon" />
                       <span>Bank Offer5%</span> off on Flipkart Axis Bank Credit
@@ -206,7 +205,7 @@ const ProductDetails = () => {
                       <span>Bank Offer10%</span> Instant Discount on Citi Credit
                       Card and EMI Txns, up to ₹1,000 on orders of ₹5,000 and
                       above<span>T&C</span>
-                    </p>
+                    </p> */}
                     <p>
                       {" "}
                       <BsTags className="validpffers_icon" />
@@ -227,11 +226,16 @@ const ProductDetails = () => {
                       </div>
                     </div>
                   </Card.Subtitle>
+                  <Card.Text>
+                    <div className="d-flex justify-content-between mainpro_rightdescrip">
+                      <h5 className="mx-2 ">Description</h5>
+                      {productDetail.description}
+                    </div>
+                  </Card.Text>
                   {/* <Card.Link href="#">Card Link</Card.Link>
                   <Card.Link href="#">Another Link</Card.Link> */}
                 </Card.Body>
               </Card>
-
               <Card>
                 <Table striped bordered hover size="sm">
                   <thead>
@@ -258,6 +262,7 @@ const ProductDetails = () => {
               </Card>
             </div>
           </Col>
+          <Col lg={1}></Col>
         </Row>
       </div>
     </>
