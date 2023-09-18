@@ -197,9 +197,17 @@ const Subcategory = () => {
                             <img
                               className="subcatkitchen_image"
                               variant="top"
-                              src={item?.image || item?.thumbnail}
+                              // src={item?.image || item?.thumbnail}
+                              src={
+                                item?.image
+                                  ? item?.image
+                                  : item?.thumbnail.split(":").length > 1
+                                  ? item?.thumbnail
+                                  : `http://localhost:5000/uploads/${item.thumbnail}`
+                              }
                               alt=""
                             />
+                        
                           </div>
                         </Col>
                         <Col lg={6}>

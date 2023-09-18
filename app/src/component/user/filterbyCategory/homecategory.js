@@ -184,33 +184,40 @@ const Homecategory = () => {
                       reloadDocumen={true}
                       to={`/productdetail/${item._id}`}
                     >
-                    <div className="subcatkitechenmaindiv margin_bottom">
-                      <Col lg={3}>
-                        <div>
-                          <img
-                            className="subcatkitchen_image"
-                            variant="top"
-                            src={item?.image || item?.thumbnail}
-                            alt=""
-                          />
-                        </div>
-                      </Col>
-                      <Col lg={6}>
-                        <div className="p-4">
-                          <div className="subcatitem_cont"> {item.title}</div>
-                          <div> {item?.description}</div>
-                          <div className="kit_homestarticon">
-                            <p> {item?.rating}</p>
+                      <div className="subcatkitechenmaindiv margin_bottom">
+                        <Col lg={3}>
+                          <div>
+                            <img
+                              className="subcatkitchen_image"
+                              variant="top"
+                              // src={item?.image || item?.thumbnail}
+                              src={
+                                item?.image
+                                  ? item?.image
+                                  : item?.thumbnail.split(":").length > 1
+                                  ? item?.thumbnail
+                                  : `http://localhost:5000/uploads/${item.thumbnail}`
+                              }
+                              alt=""
+                            />
                           </div>
-                          {/* <p className="homerating_cat"> {item.category}</p> */}
-                        </div>
-                      </Col>
-                      <Col lg={3}>
-                        <div className="p-4">
-                          <h5> ₹{item?.price}</h5>
-                        </div>
-                      </Col>
-                    </div>
+                        </Col>
+                        <Col lg={6}>
+                          <div className="p-4">
+                            <div className="subcatitem_cont"> {item.title}</div>
+                            <div> {item?.description}</div>
+                            <div className="kit_homestarticon">
+                              <p> {item?.rating}</p>
+                            </div>
+                            {/* <p className="homerating_cat"> {item.category}</p> */}
+                          </div>
+                        </Col>
+                        <Col lg={3}>
+                          <div className="p-4">
+                            <h5> ₹{item?.price}</h5>
+                          </div>
+                        </Col>
+                      </div>
                     </Link>
                   </>
                 );

@@ -182,7 +182,7 @@ const AllProductDetail = () => {
                   // console.log(e,'jjjjjjjjjjjjjj')
                 }
                 return (
-                  <Col lg={3} md={4}>
+                  <Col lg={3} md={3}>
                     <Link
                       className="card_deco"
                       to={`/productdetail/${e._id}`}
