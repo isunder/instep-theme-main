@@ -13,9 +13,12 @@ import updateProductReducer from "../reducer/updateProductReducer";
 import ProductsubcategoryReducer from "../reducer/subcategoryslice";
 import searchProductReducer from "../reducer/searchProductReducer";
 import AddToCartFileReducer from "../reducer/addToCartReducer";
-import cartinfouserReducer from "../reducer/usercartslice"
-import HomecategoryReducer from "../reducer/categoryWiseSlice"
-
+import cartinfouserReducer from "../reducer/usercartslice";
+import HomecategoryReducer from "../reducer/categoryWiseSlice";
+import AddCategoryReducer from "../reducer/createNewCategoryReducer";
+import AddSubCategoryReducer from "../reducer/createNewSubcategorySlice";
+import AddNewBrandsReducer from "../reducer/createNewBrandsSlice";
+import SelectCategoryFilterByIdReducer from "../reducer/filterCategorySlice";
 
 export const store = configureStore({
   reducer: {
@@ -34,6 +37,10 @@ export const store = configureStore({
     Searchproduct: searchProductReducer,
     addToCartFile: AddToCartFileReducer,
     cartdetails: cartinfouserReducer,
-    homecategory:HomecategoryReducer,
+    homecategory: HomecategoryReducer,
+    AddCategory: AddCategoryReducer,
+    addsubcategory: AddSubCategoryReducer,
+    allnewbrands: AddNewBrandsReducer,
+    selectcategoryfilterbyid: SelectCategoryFilterByIdReducer,
   },
 });
