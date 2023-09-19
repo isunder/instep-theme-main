@@ -216,7 +216,7 @@ const Subcategory = () => {
                             <div className="">{item?.description}</div>
                             <div className="kit_homestarticon">
                               <p>
-                                {item?.rating} <AiOutlineStar />
+                                {item?.rating} 
                               </p>
                             </div>
                           </div>

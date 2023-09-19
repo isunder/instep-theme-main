@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Col, Row, Table } from 'react-bootstrap'
 import { AiFillMessage, AiOutlineHome, AiOutlineShopping } from "react-icons/ai"
 import { FcProcess } from 'react-icons/fc'
@@ -34,7 +34,7 @@ export default function Profile() {
                         <Col lg={3}>
                             <div className="">
 
-                                <img className="banner-img" src="https://grostore.themetags.com/public/uploads/media/binrIiKfbPUgMaMmQpi6mykL1cQYyFov0lBLzA2z.jpg" alt="" />
+                                <img className="banner-img" src="https://grostore.themetags.com/public/uploads/media/65bad2tYppDLFCZ2JzveKJtJX7NiX6sznq5VmUS1.jpg" alt="" />
                             </div>
                         </Col>
                         <Col lg={9}>

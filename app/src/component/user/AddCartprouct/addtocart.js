@@ -150,7 +150,7 @@ const AddToCartProduct = () => {
                                   ? e?.image
                                   : e?.thumbnail.split(":").length > 1
                                   ? e?.thumbnail
-                                  : ""`http://localhost:5000/uploads/${e.thumbnail}`
+                                  : `http://localhost:5000/uploads/${e.thumbnail}`
                               }
                               alt=""
                             />
@@ -172,7 +172,7 @@ const AddToCartProduct = () => {
                               </span>
                             </div>
                             <span className="quantityval_ue">
-                              {quantities[index]}
+                              {quantities[index] ||0}
                             </span>
                             <div className="add">
                               <span onClick={() => quantityAdd(index)}>

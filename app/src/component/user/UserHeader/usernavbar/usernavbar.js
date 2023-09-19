@@ -317,8 +317,8 @@ const Usernavbar = () => {
                       </div>
                       <div className="mid_navnewconent mid_offcanvas mobile_mid_navnewconent">
                         <div className="Nav_link">
-                          <Accordion defaultActiveKey={["0"]} alwaysOpen>
-                            <Accordion.Item eventKey="0">
+                          <Accordion defaultActiveKey={[""]} alwaysOpen>
+                            <Accordion.Item eventKey="">
                               <Accordion.Header>Category</Accordion.Header>
                               <Accordion.Body>
                                 <p>Electronics</p>

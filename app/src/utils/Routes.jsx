@@ -33,6 +33,7 @@ import Homecategory from "../component/user/filterbyCategory/homecategory";
 import Profile from "../component/user/profile/Profile";
 import AllProductDetail from "../component/user/UserHeader/allProduct/allProductDetail";
 import ProductDetails from "../component/user/Products/productDetails";
+import Aboutus from "../component/user/aboutUs/aboutus";
 
 const role = getUserId() ? getUserId()?.userRole : null;
 // console.log(role, "aaasdfgfds");
@@ -52,6 +53,7 @@ const protects = {
         { path: "/category/:categoryName", element: <Homecategory /> },
         { path: "/profile", element: <Profile /> },
         { path: "/allproduct", element: <AllProductDetail /> },
+        { path: "/aboutus", element: <Aboutus /> },
         { path: "*", element: "NO PAGE FOUND" },
       ],
     },
@@ -99,6 +101,7 @@ const protects = {
         { path: "/Profile", element: <Profile /> },
         { path: "/category/:categoryName", element: <Homecategory /> },
         { path: "/allproduct", element: <AllProductDetail /> },
+        { path: "/aboutus", element: <Aboutus /> },
         { path: "*", element: "NO PAGE FOUND" },
       ],
     },

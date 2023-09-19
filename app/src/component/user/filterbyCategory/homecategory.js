@@ -207,7 +207,7 @@ const Homecategory = () => {
                             <div className="subcatitem_cont"> {item.title}</div>
                             <div> {item?.description}</div>
                             <div className="kit_homestarticon">
-                              <p> {item?.rating}</p>
+                              {item?.rating}
                             </div>
                             {/* <p className="homerating_cat"> {item.category}</p> */}
                           </div>
