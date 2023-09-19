@@ -3,6 +3,9 @@ const dotenv = require("dotenv");
 const Userproducts = require("../models/ProductsSchema");
 const { UserState } = require("realm");
 const { status } = require("express/lib/response");
+const categorytable = require("../models/categorytable");
+const subcategorytable = require("../models/subcategorytable");
+const brandtable = require("../models/brandSchema");
 
 dotenv.config();
 
@@ -10,37 +13,37 @@ const postproduct = expressAsyncHandler(async (req, res) => {
   console.log("req.body.userData:", req.body.userData);
   const userData = JSON.parse(req.body.userData);
 
-const product=userData.id
+  const product = userData.id
 
-if(product){
-  // 
+  // if(product){
+  //   // 
 
-  const findbyid = await Userproducts.findByIdAndUpdate(
-    { _id:product },
+  //   const findbyid = await Userproducts.findByIdAndUpdate(
+  //     { _id:product },
 
-    {
-      category: userData.category,
-      description:userData.description,
-      title:userData.title,
-      price: userData.price,
-      image: userData.image,
-      brand: userData.brand,
-      rating: userData.rating,
-      subcategory: userData.subcategory,
-      thumbnail: userData.thumbnail,
-      stock: userData.stock,
-      discountPercentage: userData.discountPercentage,
-    },
-    {
-      new: true,
-    }
-  );
-  try {
-    res.send(findbyid,{ message: "Product is update" } );
-  } catch (error) {
-    res.status(400).send({ message: error.message });
-  }
-}else{
+  //     {
+  //       category: userData.category_id,
+  //       description:userData.description,
+  //       title:userData.title,
+  //       price: userData.price,
+  //       image: userData.image,
+  //       brand: userData.brand_id,
+  //       rating: userData.rating,
+  //       subcategory: userData.subcategory_id,
+  //       thumbnail: userData.thumbnail,
+  //       stock: userData.stock,
+  //       discountPercentage: userData.discountPercentage,
+  //     },
+  //     {
+  //       new: true,
+  //     }
+  //   );
+  //   try {
+  //     res.send(findbyid,{ message: "Product is update" } );
+  //   } catch (error) {
+  //     res.status(400).send({ message: error.message });
+  //   }
+  // }else{
   try {
 
     const imagesFilenames = req.files["images"].map((file) => file.filename); // Array of image filenames
@@ -50,25 +53,22 @@ if(product){
 
 
     console.log(userData, "ggggggggggg")
-    if (!req.body.userData) {
 
-      console.log("hhhhhhhhhhhhhhhhhhhhhhhhhh")
-      throw new Error("userData is missing in the request body.");
-    } else { }
 
 
     const productadd = new Userproducts({
-      category: userData.category,
+      category: userData.category_id,
       description: userData.description,
       title: userData.title,
       price: userData.price,
       images: imagesFilenames,
-      brand: userData.brand,
+      brand: userData.brand_id,
       rating: userData.rating,
-      subcategory: userData.subcategory,
+      subcategory: userData.subcategory_id,
       thumbnail: thumbnailFilename,
       stock: userData.stock,
       discountpercentage: userData.discountpercentage,
+
     });
 
     await productadd.save();
@@ -79,23 +79,62 @@ if(product){
     console.error(error);
     res.status(500).json({ error: error.message });
   }
-}
-  
+  // }  
+
 });
 
 // get all products
 const getproduct = expressAsyncHandler(async (req, res) => {
   try {
-    const products = await Userproducts.find();
+   
+
+    // ////
+    const products = await Userproducts.aggregate([
+      // idConversionStage, // Comment this out for now
+      {
+        $lookup: {
+          from: "categorytables",
+          localField: "category",
+          foreignField: "_id",
+          as: "category"
+        }
+      }
+      ,
+      {
+        $lookup: {
+          from: "subcategorytables",
+          localField: "subcategory",
+          foreignField: "_id",
+          as: "subcategory"
+        }
+      },
+      {
+        $lookup: {
+          from: "brandtables",
+          localField: "brand",
+          foreignField: "_id",
+          as: "brand"
+        }
+      }
+    ]);
+
+    // Log the products and categoryData to inspect the results
+    console.log("Products:", JSON.stringify(products, null, 2));
+
     if (products.length > 0) {
-      res.send(products);
+      res.status(200).json(products);
     } else {
-      resp.send({ result: "no products found" });
+      res.status(404).json({ result: "No products found" });
     }
+
+
+
+
+   
   } catch (error) {
     res
       .status(500)
-      .send({ error: "An error occurred while fetching products" });
+      .send({ error: "An error occurred while fetching products", error });
   }
 })
 // api category and subcategory,brand for admin filter
@@ -186,9 +225,9 @@ const subcategoryfilter = expressAsyncHandler(async (req, res) => {
 const updateproduct = expressAsyncHandler(async (req, res) => {
   const userData = JSON.parse(req.body.userData);
 
-  const product=userData?.id
-console.log('hjhhdhdhdhhhh',product)
- 
+  const product = userData?.id
+  console.log('hjhhdhdhdhhhh', product)
+
   const findbyid = await Userproducts.findByIdAndUpdate(
     { _id: product },
     {
@@ -216,7 +255,7 @@ console.log('hjhhdhdhdhhhh',product)
 })
 
 // const categorytable=expressAsyncHandler(async(req,res)=>{{
-  
+
 // }})
 
-module.exports = { postproduct, getproduct, getfilter, categoryfilter, subcategoryfilter,updateproduct };
+module.exports = { postproduct, getproduct, getfilter, categoryfilter, subcategoryfilter, updateproduct };

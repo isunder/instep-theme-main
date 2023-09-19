@@ -2,8 +2,10 @@
 const express = require("express");
 const router = express.Router();
 
-const { create_brand } = require("../controller/brandController");
+const  brandController  = require("../controller/brandController");
 
-router.post("/addbrand", create_brand);
+router.post("/addbrand", brandController.create_brand);
+router.get("/getOnlybrand", brandController.brandgetdata);
+
 
 module.exports = router;

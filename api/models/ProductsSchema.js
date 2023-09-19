@@ -6,11 +6,12 @@ const ProductSchema = new mongoose.Schema({
     required: true,
   },
   category: {
-    type: String,
+    type: mongoose.Schema.ObjectId,
+
     required: true,
   },
   subcategory: {
-    type: String,
+    type: mongoose.Schema.ObjectId,
     required: true,
   },
   title: {
@@ -31,7 +32,7 @@ const ProductSchema = new mongoose.Schema({
     },
   ],
   brand: {
-    type: String,
+    type: mongoose.Schema.ObjectId,
     required: true,
   },
   discountpercentage: {

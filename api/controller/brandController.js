@@ -53,7 +53,22 @@ const create_brand = async (req, res) => {
 
     }
 }
+const brandgetdata = async (req, res) => {
+    try {
+        const getdata = await brands.find();
+        if (getdata.length > 0) {
+            res.send(getdata);
+        } else {
+            res.send({ result: "no brands  found" });
+        }
+
+    } catch (error) {
+        res.status(400).send({ succes: false, msg: error.message })
+
+    }
+
+}
 
 module.exports = {
-    create_brand
+    create_brand,brandgetdata
 }
