@@ -5,7 +5,6 @@ import StockFile from "../component/admin/dashboardPage/sideNavOption/Stocks/Add
 import Alllocation from "../component/admin/dashboardPage/sideNavOption/Stocks/Alllocations";
 import Subscribeuser from "../component/admin/dashboardPage/sideNavOption/Newsletter/Subscriber";
 import Allcategories from "../component/admin/dashboardPage/sideNavOption/Products/Allcategories";
-import Allvariations from "../component/admin/dashboardPage/sideNavOption/Products/Allvariations";
 import Allbrands from "../component/admin/dashboardPage/sideNavOption/Products/Allbrands";
 import Allunit from "../component/admin/dashboardPage/sideNavOption/Products/Allunit";
 import Alltaxes from "../component/admin/dashboardPage/sideNavOption/Products/Alltaxes";
@@ -33,6 +32,7 @@ import Homecategory from "../component/user/filterbyCategory/homecategory";
 import Profile from "../component/user/profile/Profile";
 import AllProductDetail from "../component/user/UserHeader/allProduct/allProductDetail";
 import ProductDetails from "../component/user/Products/productDetails";
+import Allsubcategory from "../component/admin/dashboardPage/sideNavOption/Products/Allsubcategory";
 
 const role = getUserId() ? getUserId()?.userRole : null;
 // console.log(role, "aaasdfgfds");
@@ -68,7 +68,7 @@ const protects = {
         { path: "/allloation", element: <Alllocation /> },
         { path: "/subscriber", element: <Subscribeuser /> },
         { path: "/allcategories", element: <Allcategories /> },
-        { path: "/allvariations", element: <Allvariations /> },
+        { path: "/allsubcategory", element: <Allsubcategory /> },
         { path: "/allbrands", element: <Allbrands /> },
         { path: "/allunit", element: <Allunit /> },
         { path: "/alltaxes", element: <Alltaxes /> },
