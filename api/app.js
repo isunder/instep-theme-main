@@ -18,9 +18,9 @@ const afterbuying = require("./models/afterbuying");
 const registerRoutes = require("./router/registerRoutes");
 const loginRoutes = require("./router/loginRouters")
 const postProductRouters = require("./router/Productpost")
-const addnewcategory=require("./router/categoryRought")
-const addnewSubcategory=require('./router/subCategory')
-const addnewbrand=require("./router/BrandRought")
+const addnewcategory = require("./router/categoryRought")
+const addnewSubcategory = require('./router/subCategory')
+const addnewbrand = require("./router/BrandRought")
 dotenv.config();
 
 const DB =
@@ -49,227 +49,227 @@ server.use("/api", addnewSubcategory);
 server.use("/api", addnewbrand);
 
 
-server.post("/api/register", async (req, res) => {
-  const { email, password, username } = req.body;
+// server.post("/api/register", async (req, res) => {
+//   const { email, password, username } = req.body;
 
-  const role = "user";
-  const data = new User({
-    email: req.body.email,
-    password: req.body.password,
-    username: req.body.username,
-    role: role,
-  });
+//   const role = "user";
+//   const data = new User({
+//     email: req.body.email,
+//     password: req.body.password,
+//     username: req.body.username,
+//     role: role,
+//   });
 
-  try {
-    const useremail = await User.findOne({ email: email });
+//   try {
+//     const useremail = await User.findOne({ email: email });
 
-    if (useremail) {
-      res
-        .status(200)
-        .send({ success: false, msg: "this email is already exists" });
-    } else {
-      const dataToSave = await data.save();
-      res.status(200).send({ success: true });
-    }
-  } catch (error) {
-    res.status(400).send({ message: error.message });
-  }
-});
+//     if (useremail) {
+//       res
+//         .status(200)
+//         .send({ success: false, msg: "this email is already exists" });
+//     } else {
+//       const dataToSave = await data.save();
+//       res.status(200).send({ success: true });
+//     }
+//   } catch (error) {
+//     res.status(400).send({ message: error.message });
+//   }
+// });
 
-// login api
+// // login api
 
-server.post("/api/login", async (req, res) => {
-  const { email, password } = req.body;
+// server.post("/api/login", async (req, res) => {
+//   const { email, password } = req.body;
 
-  const UserEmail = await User.find({ email: email });
-  if (!UserEmail) {
-    res.send({ loginStatus: false, err: "User Does not Exist" });
-  } else if (UserEmail) {
-    const LoginVeryfy =
-      UserEmail[0]?.email === email && UserEmail[0]?.password === password;
-    if (LoginVeryfy) {
-      console.log(UserEmail[0]);
+//   const UserEmail = await User.find({ email: email });
+//   if (!UserEmail) {
+//     res.send({ loginStatus: false, err: "User Does not Exist" });
+//   } else if (UserEmail) {
+//     const LoginVeryfy =
+//       UserEmail[0]?.email === email && UserEmail[0]?.password === password;
+//     if (LoginVeryfy) {
+//       console.log(UserEmail[0]);
 
-      const token = jwt.sign(
-        {
-          userEmail: UserEmail[0]?.email,
-          userRole: UserEmail[0]?.role,
-          username: UserEmail[0].username,
-          id: UserEmail[0]._id,
-        },
+//       const token = jwt.sign(
+//         {
+//           userEmail: UserEmail[0]?.email,
+//           userRole: UserEmail[0]?.role,
+//           username: UserEmail[0].username,
+//           id: UserEmail[0]._id,
+//         },
 
-        secretkey,
-        {
-          expiresIn: "8h",
-        }
-      );
+//         secretkey,
+//         {
+//           expiresIn: "8h",
+//         }
+//       );
 
-      res.json({ loginStatus: LoginVeryfy, token: token });
-      console.log(token, "token");
-    } else if (!LoginVeryfy) {
-      res.send({ loginStatus: false, err: "Password Dose not match" });
-    }
-  }
-});
+//       res.json({ loginStatus: LoginVeryfy, token: token });
+//       console.log(token, "token");
+//     } else if (!LoginVeryfy) {
+//       res.send({ loginStatus: false, err: "Password Dose not match" });
+//     }
+//   }
+// });
 
-// api of products addd only for admin
+// // api of products addd only for admin
 
-// 25/08
+// // 25/08
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "./uploads");
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + "-" + file.originalname);
-  },
-});
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, "./uploads");
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, Date.now() + "-" + file.originalname);
+//   },
+// });
 
-const upload = multer({ storage: storage });
+// const upload = multer({ storage: storage });
 
-server.post(
-  "/api/products",
-  upload.fields([
-    { name: "images", maxCount: 4 },
-    { name: "thumbnail", maxCount: 1 },
-  ]),
-  async (req, res) => {
-    try {
-      const userData = JSON.parse(req.body.userData);
-      console.log(userData, "aaaaaaaaaaaaaaaa");
-      const imagesFilenames = req.files["images"].map((file) => file.filename); // Array of image filenames
-      console.log(req.files.images[0].filename, "req.files");
+// server.post(
+//   "/api/products",
+//   upload.fields([
+//     { name: "images", maxCount: 4 },
+//     { name: "thumbnail", maxCount: 1 },
+//   ]),
+//   async (req, res) => {
+//     try {
+//       const userData = JSON.parse(req.body.userData);
+//       console.log(userData, "aaaaaaaaaaaaaaaa");
+//       const imagesFilenames = req.files["images"].map((file) => file.filename); // Array of image filenames
+//       console.log(req.files.images[0].filename, "req.files");
 
-      const thumbnailFilename = req.files.thumbnail[0].filename;
+//       const thumbnailFilename = req.files.thumbnail[0].filename;
 
-      // Log filenames to see if they are being extracted correctly
-      console.log("Images Filenames:", imagesFilenames);
-      console.log("Thumbnail  issFilename:", thumbnailFilename);
+//       // Log filenames to see if they are being extracted correctly
+//       console.log("Images Filenames:", imagesFilenames);
+//       console.log("Thumbnail  issFilename:", thumbnailFilename);
 
-      let pic;
-      imagesFilenames.forEach((file) => {
-        pic = file;
-      });
-      console.log(pic, "11111111111111111");
+//       let pic;
+//       imagesFilenames.forEach((file) => {
+//         pic = file;
+//       });
+//       console.log(pic, "11111111111111111");
 
-      // Rest of your code to create and save the Userproducts document
-      // ...
+//       // Rest of your code to create and save the Userproducts document
+//       // ...
 
-      const productadd = new Userproducts({
-        category: userData.category,
-        description: userData.description,
-        title: userData.title,
-        price: userData.price,
-        images: imagesFilenames,
-        brand: userData.brand,
-        rating: userData.rating,
-        subcategory: userData.subcategory,
-        thumbnail: thumbnailFilename,
-        stock: userData.stock,
-        discountpercentage: userData.discountpercentage,
-      });
+//       const productadd = new Userproducts({
+//         category: userData.category,
+//         description: userData.description,
+//         title: userData.title,
+//         price: userData.price,
+//         images: imagesFilenames,
+//         brand: userData.brand,
+//         rating: userData.rating,
+//         subcategory: userData.subcategory,
+//         thumbnail: thumbnailFilename,
+//         stock: userData.stock,
+//         discountpercentage: userData.discountpercentage,
+//       });
 
-      await productadd.save();
-      // console.log( productadd)
-      res.status(200).send("Success: Product uploaded." + productadd);
-    } catch (error) {
-      console.error(error);
-      res.status(500).send({ error: error.message });
-    }
-  }
-);
+//       await productadd.save();
+//       // console.log( productadd)
+//       res.status(200).send("Success: Product uploaded." + productadd);
+//     } catch (error) {
+//       console.error(error);
+//       res.status(500).send({ error: error.message });
+//     }
+//   }
+// );
 
-// api of products all
-server.use("/uploads", express.static("uploads"));
-// http://localhost:5000/uploads/1693806012738-Capture.PNG
+// // api of products all
+// server.use("/uploads", express.static("uploads"));
+// // http://localhost:5000/uploads/1693806012738-Capture.PNG
 
-server.post("/api/Getproducts", async (req, resp) => {
-  try {
-    const products = await Userproducts.find();
-    if (products.length > 0) {
-      resp.send(products);
-    } else {
-      resp.send({ result: "no products found" });
-    }
-  } catch (error) {
-    resp
-      .status(500)
-      .send({ error: "An error occurred while fetching products" });
-  }
-});
+// server.post("/api/Getproducts", async (req, resp) => {
+//   try {
+//     const products = await Userproducts.find();
+//     if (products.length > 0) {
+//       resp.send(products);
+//     } else {
+//       resp.send({ result: "no products found" });
+//     }
+//   } catch (error) {
+//     resp
+//       .status(500)
+//       .send({ error: "An error occurred while fetching products" });
+//   }
+// });
 
-// category and subcategory,brand for admin filter
+// // category and subcategory,brand for admin filter
 
-server.post("/api/FilterProducts", async (req, resp) => {
-  const {
-    category,
-    description,
-    title,
-    price,
-    image,
-    brand,
-    rating,
-    subcategory,
-    thumbnail,
-    stock,
-    discountpercentage,
-  } = req.body;
+// server.post("/api/FilterProducts", async (req, resp) => {
+//   const {
+//     category,
+//     description,
+//     title,
+//     price,
+//     image,
+//     brand,
+//     rating,
+//     subcategory,
+//     thumbnail,
+//     stock,
+//     discountpercentage,
+//   } = req.body;
 
-  if (req.body) {
-    if (req.body.category) {
-      const filter = await Userproducts.find({ category: category });
+//   if (req.body) {
+//     if (req.body.category) {
+//       const filter = await Userproducts.find({ category: category });
 
-      console.log(filter);
+//       console.log(filter);
 
-      try {
-        resp.send(filter);
-      } catch (error) {
-        resp.send({ result: "no category products found" });
-      }
-    } else if (req.body.subcategory) {
-      console.log("sssssssssssssss");
-      const filter = await Userproducts.find({
-        subcategory: req.body.subcategory,
-      });
+//       try {
+//         resp.send(filter);
+//       } catch (error) {
+//         resp.send({ result: "no category products found" });
+//       }
+//     } else if (req.body.subcategory) {
+//       console.log("sssssssssssssss");
+//       const filter = await Userproducts.find({
+//         subcategory: req.body.subcategory,
+//       });
 
-      console.log(filter, "filter");
-      try {
-        resp.send(filter);
-      } catch (error) {
-        resp.send({ result: "no subcategory products found" });
-      }
-    } else if (req.body.brand) {
-      const filter = await Userproducts.find({ brand: req.body.brand });
-      try {
-        resp.send(filter);
-      } catch (error) {
-        resp.send({ result: "no brand products found" });
-      }
-    }
-  } else {
-    {
-      resp.send({ result: "no products found" });
-    }
-  }
-});
+//       console.log(filter, "filter");
+//       try {
+//         resp.send(filter);
+//       } catch (error) {
+//         resp.send({ result: "no subcategory products found" });
+//       }
+//     } else if (req.body.brand) {
+//       const filter = await Userproducts.find({ brand: req.body.brand });
+//       try {
+//         resp.send(filter);
+//       } catch (error) {
+//         resp.send({ result: "no brand products found" });
+//       }
+//     }
+//   } else {
+//     {
+//       resp.send({ result: "no products found" });
+//     }
+//   }
+// });
 
-// category find onlyyyyyy filter
+// // category find onlyyyyyy filter
 
-// 25/08
+// // 25/08
 
-server.get("/api/category/:category", async (req, res) => {
-  try {
-    console.log(req.params.category, "category");
-    const name = req.params.category;
-    console.log("Querying for category:", name);
-    const filter = await Userproducts.find({ category: name });
-    console.log("Filter result:", filter);
-    res.send(filter);
-  } catch (error) {
-    console.error("Error:", error);
-    res.status(500).json({ error: error.message, message: "Server error" });
-  }
-});
+// server.get("/api/category/:category", async (req, res) => {
+//   try {
+//     console.log(req.params.category, "category");
+//     const name = req.params.category;
+//     console.log("Querying for category:", name);
+//     const filter = await Userproducts.find({ category: name });
+//     console.log("Filter result:", filter);
+//     res.send(filter);
+//   } catch (error) {
+//     console.error("Error:", error);
+//     res.status(500).json({ error: error.message, message: "Server error" });
+//   }
+// });
 
 // subcategory find onlyyyyyy filter
 // 28/08

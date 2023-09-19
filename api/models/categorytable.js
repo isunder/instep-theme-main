@@ -7,6 +7,6 @@ const categorytableschema = new mongoose.Schema({
   },  
 });
 categorytableschema.set("categorytableschema",true)
-const  categorytable=mongoose.model("categorytable",categorytableschema)
+const  categorytable=mongoose.model("categorytables",categorytableschema)
 
 module.exports=categorytable;

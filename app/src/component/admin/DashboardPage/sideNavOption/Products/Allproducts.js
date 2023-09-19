@@ -158,15 +158,17 @@ function Allproducts(params) {
               <tbody>
                 {data &&
                   data?.map((product, index) => {
+                    console.log(product, "asdasdasdasd")
                     return (
                       <>
                         <tr key={index}>
                           <td></td>
                           <td>{product.title}</td>
-                          <td>{product.category}</td>
-                          <td>{product.subcategory}</td>
+                          <td>{product?.brand[0]?.brand}</td>
+                          <td>{product?.category[0]?.category}</td>
+                          {/* <td>{product?.subcategory[0]?.subcategory}</td> */}
                           <td>{product.price}</td>
-                          <td>{product.brand}</td>
+
                           <td>
                             {" "}
                             <Dropdown>
