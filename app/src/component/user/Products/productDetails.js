@@ -5,18 +5,14 @@ import { useDispatch, useSelector } from "react-redux";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
-// import span from "react-bootstrap/Badge";
 import { BsTags } from "react-icons/bs";
 import { CiLocationOn } from "react-icons/ci";
 import { PiShoppingCartFill } from "react-icons/pi";
 import { BsFillLightningFill } from "react-icons/bs";
-import Table from "react-bootstrap/Table";
-// import { Carousel } from "react-bootstrap";
-// import { Swiper, SwiperSlide } from "swiper/react";
 import { updateProduct } from "../../../Redux/action/updateProductAction";
 import { addToCartAction } from "../../../Redux/action/addToCartAction";
 import { getUserId } from "../../../utils/auth";
-import { productAction } from "../../../Redux/action/productAction";
+import ReactImageMagnify from "react-image-magnify";
 
 const ProductDetails = () => {
   const dispatch = useDispatch();
@@ -64,26 +60,54 @@ const ProductDetails = () => {
     <>
       <div className="container mainrowdata">
         <Row className="">
-          <Col lg={2}></Col>
-          <Col lg={4}>
+          <Col className="singlecard_posit" lg={4}>
             <Card className="shoppingcard_bor">
-              <div>
-                <Card.Img
-                  // src={`http://localhost:5000/uploads/${imageState? imageState : (productDetail?.images?.length > 0 &&productDetail?.images[0])}`}
-                  src={
-                    imageState
-                      ? imageState.split("http").length > 1
-                        ? imageState
-                        : `http://localhost:5000/uploads/${imageState}`
-                      : productDetail?.images?.length > 0 &&
-                        // productDetail?.images?.length[0] > 0 &&
-                        (productDetail?.images[0].split("http").length > 1
-                          ? productDetail?.images[0]
-                          : `http://localhost:5000/uploads/${productDetail?.images[0]}`)
-                  }
-                  className="topmain_imageview"
+              {/* <div className="topmain_imageview">
+                <ReactImageMagnify
+                  {...{
+                    smallImage: {
+                      alt: "Wristwatch by Ted Baker London",
+                      isFluidWidth: true,
+                      src: imageState
+                        ? imageState.split("http").length > 1
+                          ? imageState
+                          : `http://localhost:5000/uploads/${imageState}`
+                        : productDetail?.images?.length > 0 &&
+                          // productDetail?.images?.length[0] > 0 &&
+                          (productDetail?.images[0].split("http").length > 1
+                            ? productDetail?.images[0]
+                            : `http://localhost:5000/uploads/${productDetail?.images[0]}`),
+                    },
+                    largeImage: {
+                      src: imageState
+                        ? imageState.split("http").length > 1
+                          ? imageState
+                          : `http://localhost:5000/uploads/${imageState}`
+                        : productDetail?.images?.length > 0 &&
+                          // productDetail?.images?.length[0] > 0 &&
+                          (productDetail?.images[0].split("http").length > 1
+                            ? productDetail?.images[0]
+                            : `http://localhost:5000/uploads/${productDetail?.images[0]}`),
+                      width: 1200,
+                        height: 1800
+                    },
+                  }}
                 />
-              </div>
+              </div> */}
+              <Card.Img
+                src={
+                  imageState
+                    ? imageState.split("http").length > 1
+                      ? imageState
+                      : `http://localhost:5000/uploads/${imageState}`
+                    : productDetail?.images?.length > 0 &&
+                      // productDetail?.images?.length[0] > 0 &&
+                      (productDetail?.images[0].split("http").length > 1
+                        ? productDetail?.images[0]
+                        : `http://localhost:5000/uploads/${productDetail?.images[0]}`)
+                }
+                className="topmain_imageview"
+              />
               {productDetail?.images && (
                 <>
                   <div className="main_image">
@@ -109,160 +133,93 @@ const ProductDetails = () => {
                 </>
               )}
               <Card.Body>
-                <Card.Title className="mb-5">
-                  <h4>{productDetail.title}</h4>
+                <Card.Title>
+                  <div className="mb-3">{productDetail.title}</div>
                 </Card.Title>
-                {/* <div className="main_imagecardte margin_bottom">
-                  <Card.Text className="textrating">
-                    <p>
-                      Rating{" "}
-                      <span className="image_ratbracat">
-                        : {productDetail.rating}
-                      </span>
-                    </p>
-                  </Card.Text>
-                  <Card.Text className="textrating">
-                    <p>
+                <Card.Text>
+                  <div className="mainimg_button">
+                    <div className="twobuttondiv">
                       {" "}
-                      Brand
-                      <span className="image_ratbracat">
-                        : {productDetail.brand}
-                      </span>
-                    </p>
-                  </Card.Text>
-                  <Card.Text className="textrating">
-                    <p>
-                      {" "}
-                      Category
-                      <span className="image_ratbracat">
-                        : {productDetail.category}
-                      </span>
-                    </p>
-                  </Card.Text>
-                  <Card.Text className="textrating">
-                    <p>
-                      left stock:
-                      <span className="image_ratbracat">
-                        {productDetail.stock}
-                      </span>
-                    </p>
-                  </Card.Text>
-                </div> */}
-                <Row>
-                  <Col lg={6}>
-                    {" "}
-                    <Button className="addtocart_button" onClick={cartClick}>
-                      <div>
-                        <PiShoppingCartFill className="buy_Addicon" />
-                        ADD TO CART
-                      </div>
-                    </Button>{" "}
-                  </Col>
-                  <Col lg={6}>
-                    {" "}
-                    <Button className="bynow_button">
-                      <BsFillLightningFill className="buy_Addicon" /> BUY NOW
-                    </Button>{" "}
-                  </Col>
-                </Row>
+                      <Button className="addtocart_button" onClick={cartClick}>
+                        <div>
+                          <PiShoppingCartFill className="buy_Addicon" />
+                          ADD TO CART
+                        </div>
+                      </Button>
+                    </div>
+                    <div className="twobuttondiv">
+                      <Button className="bynow_button">
+                        <BsFillLightningFill className="buy_Addicon" /> BUY NOW
+                      </Button>
+                    </div>
+                  </div>
+                </Card.Text>
               </Card.Body>
             </Card>
           </Col>
-          <Col lg={4}>
-            <div>
-              <Card className="shoppingcard_bor">
-                <Card.Body>
-                  <Card.Title>
-                    <h4>{productDetail.title}</h4>
-                  </Card.Title>
-                  <Card.Subtitle className="mb-2 text-muted">
-                    <h5>Extra ₹ {productDetail.discountPercentage}..Off</h5>
-                  </Card.Subtitle>
-                  <Card.Subtitle className="mb-2">
-                    <h1>₹ {productDetail.price}</h1>
-                  </Card.Subtitle>
+          <Col lg={8}>
+            <Card className="shoppingcard_bor">
+              <Card.Body>
+                <Card.Title>
+                  <h4>{productDetail.title}</h4>
+                </Card.Title>
+                <Card.Subtitle className="mb-2 text-muted">
+                  <h5>Extra ₹ {productDetail.discountPercentage}..Off</h5>
+                </Card.Subtitle>
+                <Card.Subtitle className="mb-2">
+                  <h1>₹ {productDetail.price}</h1>
+                </Card.Subtitle>
+                <Card.Subtitle className="mb-2 discriptionoffers_product text-muted">
+                  <h6> Available offers</h6>
+                  <p>
+                    {" "}
+                    <BsTags className="validpffers_icon" />
+                    <span>Bank Offer10%</span> off on Axis Bank Credit Card and
+                    EMI Transactions, up to ₹1000, on orders of ₹5,000 and above
+                    <span>T&C</span>
+                  </p>
+                  <p>
+                    {" "}
+                    <BsTags className="validpffers_icon" />
+                    <span>Special Price</span>Get extra ₹15901 off (price
+                    inclusive of cashback/coupon)<span>T&C</span>
+                  </p>
+                  <p>View 10 more offers</p>
 
-                  <Card.Subtitle className="mb-2 discriptionoffers_product text-muted">
-                    <h6> Available offers</h6>
-                    <p>
-                      {" "}
-                      <BsTags className="validpffers_icon" />
-                      <span>Bank Offer10%</span> off on Axis Bank Credit Card
-                      and EMI Transactions, up to ₹1000, on orders of ₹5,000 and
-                      above
-                      <span>T&C</span>
-                    </p>
-                    {/* <p>
-                      {" "}
-                      <BsTags className="validpffers_icon" />
-                      <span>Bank Offer5%</span> off on Flipkart Axis Bank Credit
-                      Card and EMI Trxns, up to ₹500, on orders of ₹5,000 and
-                      above<span>T&C</span>
-                    </p>
-                    <p>
-                      {" "}
-                      <BsTags className="validpffers_icon" />
-                      <span>Bank Offer10%</span> Instant Discount on Citi Credit
-                      Card and EMI Txns, up to ₹1,000 on orders of ₹5,000 and
-                      above<span>T&C</span>
-                    </p> */}
-                    <p>
-                      {" "}
-                      <BsTags className="validpffers_icon" />
-                      <span>Special Price</span>Get extra ₹15901 off (price
-                      inclusive of cashback/coupon)<span>T&C</span>
-                    </p>
-                    <p>View 10 more offers</p>
-
-                    <div className="delivery_code">
-                      <h5>Delivery</h5>
-                      <div>
-                        <CiLocationOn className="deliverylocationcode" />
-                        <input
-                          type="text"
-                          placeholder="  Enter Delivery Pincode"
-                          className="pincode_bar"
-                        />
-                      </div>
+                  <div className="delivery_code">
+                    <h5>Delivery</h5>
+                    <div>
+                      <CiLocationOn className="deliverylocationcode" />
+                      <input
+                        type="text"
+                        placeholder="  Enter Delivery Pincode"
+                        className="pincode_bar"
+                      />
                     </div>
-                  </Card.Subtitle>
-                  <Card.Text>
-                    <div className="d-flex justify-content-between mainpro_rightdescrip">
-                      <h5 className="mx-2 ">Description</h5>
+                  </div>
+                </Card.Subtitle>
+                <Card.Text>
+                  <div className="d-flex ">
+                    <h6 className=" ">Description:</h6>
+                    <p className="mainpro_rightdescrip margin_bottom">
                       {productDetail.description}
-                    </div>
-                  </Card.Text>
-                  {/* <Card.Link href="#">Card Link</Card.Link>
-                  <Card.Link href="#">Another Link</Card.Link> */}
-                </Card.Body>
-              </Card>
-              <Card>
-                <Table striped bordered hover size="sm">
-                  <thead>
-                    <tr>
-                      <h4>Specifications</h4>
-                    </tr>
-                    {/* <p>General</p> */}
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>brand</td>
-                      <td>{productDetail.brand}</td>
-                    </tr>
-                    <tr>
-                      <td>stock</td>
-                      <td>{productDetail.stock}</td>
-                    </tr>
-                    <tr>
-                      <td>{productDetail.category}</td>
-                      <td>{productDetail.title}</td>
-                    </tr>
-                  </tbody>
-                </Table>
-              </Card>
-            </div>
+                    </p>
+                  </div>
+                </Card.Text>
+                <div className="d-flex ">
+                  <h6>Highlights</h6>
+                  <div className="d-flex px-5">
+                    <ul className="specification">
+                      <li>{productDetail.brand}</li>
+
+                      <li>{productDetail.category}</li>
+                      <li>{productDetail.title}</li>
+                    </ul>
+                  </div>
+                </div>
+              </Card.Body>
+            </Card>
           </Col>
-          <Col lg={1}></Col>
         </Row>
       </div>
     </>

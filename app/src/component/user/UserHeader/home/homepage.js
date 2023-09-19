@@ -118,7 +118,7 @@ const Home = () => {
 
   return (
     <>
-      <div className="container ">
+      <div className="container">
         <div className=" slider_col margin_bottom">
           <div className="slider">
             <Carousel>
@@ -131,11 +131,13 @@ const Home = () => {
                         <h1>Click & Collect</h1>
                       </div>
                       <Button className="slider_leftbutton" variant="light">
-                        Explore Now{" "}
+                        Explore Now
                       </Button>
-                      <Button className="slider_rightbutton" variant="light">
-                        About Us{" "}
-                      </Button>
+                      <Link to="/aboutus">
+                        <Button className="slider_rightbutton" variant="light">
+                          About Us
+                        </Button>
+                      </Link>
                     </div>
                   </Col>
                   <Col lg={6}>
@@ -159,9 +161,11 @@ const Home = () => {
                       <Button className="slider_leftbutton" variant="light">
                         Explore Now{" "}
                       </Button>
-                      <Button className="slider_rightbutton" variant="light">
-                        About Us{" "}
-                      </Button>
+                      <Link to="/aboutus">
+                        <Button className="slider_rightbutton" variant="light">
+                          About Us{" "}
+                        </Button>
+                      </Link>
                     </div>
                   </Col>
                   <Col lg={6}>
@@ -186,9 +190,11 @@ const Home = () => {
                       <Button className="slider_leftbutton" variant="light">
                         Explore Now{" "}
                       </Button>
-                      <Button className="slider_rightbutton" variant="light">
-                        About Us{" "}
-                      </Button>
+                      <Link to="/aboutus">
+                        <Button className="slider_rightbutton" variant="light">
+                          About Us{" "}
+                        </Button>
+                      </Link>
                     </div>
                   </Col>
                   <Col lg={6}>
@@ -241,7 +247,7 @@ const Home = () => {
                       <Col lg={2} md={4}>
                         <Link
                           className="carddecorationnone_cat"
-                          to={`/category/${"men"}`}
+                          to={`/category/${"Men"}`}
                         >
                           <Card className="cat_card_homep">
                             <div className="hoveron_arrow">
@@ -294,7 +300,7 @@ const Home = () => {
                       <Col lg={2} md={4}>
                         <Link
                           className="carddecorationnone_cat"
-                          to={`/category/${"home&kitchen"}`}
+                          to={`/category/${"Home & Kitchen"}`}
                         >
                           <Card className="cat_card_homep">
                             <div className="hoveron_arrow">
@@ -407,10 +413,10 @@ const Home = () => {
           <div className="homeelectnics_carouse margin_bottom">
             <Row>
               <Col lg={2} className="fistcardof_elct">
-                <Card className=" swiperfront_swiperview w-100">
+                <Card className=" swiperfront_swiperview">
                   <div className="fistcardof_elct">
                     <div className="viewallcard_div">
-                      <Card.Text className="">
+                      <Card.Text className="text-center">
                         <h5>Best Of Electronics</h5>
                       </Card.Text>
                       <Link className="" to={`/category/${"electronics"}`}>
@@ -496,393 +502,305 @@ const Home = () => {
               </Col>
             </Row>
           </div>
-        </div>
 
-        <div className="homeelectnics_carouse ">
-          <Row>
-            {/* {data &&
-            data.map((e) => {
-              if (e.image) {
-                // console.log(e,'jjjjjjjjjjjjjj')
-              }
-              return (
-                <Link
-                  className="card_deco"
-                  to={`/productdetail/${e._id}`}
-                  onClick={() => productClick(e?._id)}
-                >
-                  <Card className="shopping_card">
-                    <div className="img_div">
-                      <Card.Img
-                        variant="top"
-                        src={
-                          e?.image
-                            ? e?.image
-                            : e?.thumbnail.split(":").length > 1
-                            ? e?.thumbnail
-                            : `http://localhost:5000/uploads/${e.thumbnail}`
-                        }
-                      />
-                    </div>
-                    <Card.Body>
-                      <div className="item_rating">
-                        <p className="homerating_cat"> {e?.rating}</p>
-                        <p className="homerating_cat"> {e?.category}</p>
-                      </div>
-                      <Card.Title className="crad_text">{e?.title}</Card.Title>
-                      <Card.Text className="crad_text">
-                        {e?.description}\
+          <div className="homeelectnics_carouse ">
+            <Row>
+              <Col lg={2} className="fistcardof_elct">
+                <Card className="swiperfront_swiperview ">
+                  <div className="fistcardof_elct">
+                    <div className="viewallcard_div">
+                      <Card.Text className="text-center">
+                        <h5>Best Of Home Appliances</h5>
                       </Card.Text>
-                      <Card.Text className="crad_text">
-                        <h5> ₹ {e?.price}</h5>
-                      </Card.Text>
-                    </Card.Body>
-                  </Card>
-                </Link>
-              );
-            })}
-          <Col lg={2} className="fistcardof_elct">
-            <Card className="swiperfront_swiperview ">
-              <div className="fistcardof_elct">
-                <div className="viewallcard_div">
-                  <Card.Text className="text-center">
-                    <h5>Best Of Home Appliances</h5>
-                  </Card.Text>
-                  <Link
-                    className="carddecorationnone_cat"
-                    to={`/category/${"home&kitchen"}`}
-                  >
-                    <button className="electrnicswiewall_button" type="submit">
-                      VIEW ALL
-                    </button>
-                  </Link>
-                  <Card.Body>
-                    <img
-                      className="homedecor_image"
-                      src="https://ouch-cdn2.icons8.com/rQiKaijxXLYiyqOYF9br0qlt89qoLZjE7uM8zvq2L_w/rs:fit:456:456/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvOTAy/Lzg1MzQwOTM5LTkw/Y2MtNDQzNC04MTcx/LTZlMjExMDI0OGFj/Ni5zdmc.png"
-                      alt=""
-                    />
-                  </Card.Body>
-                </div>
-              </div>
-            </Card>
-          </Col>
-          <Col lg={10}>
-            <Swiper
-              modules={[Navigation]}
-              x
-              spaceBetween={70}
-              slidesPerView={2}
-              navigation
-              pagination={{ clickable: true }}
-              onSwiper={(swiper) => console.log(swiper)}
-              onSlideChange={() => console.log("slide change")}
-            >
-              {data.map((e) => {
-                if (e.category === "home&kitchen") {
-                  return (
-                    <SwiperSlide key={e?.id}>
                       <Link
-                        className="card_deco"
-                        to={`/subcategory/${e.subcategory}`}
-                        // to={`/productdetail/${e._id}`}
-                        onClick={() => productClick(e?._id)}
-            })} */}
-            <Col lg={2} className="fistcardof_elct">
-              <Card className="swiperfront_swiperview ">
-                <div className="fistcardof_elct">
-                  <div className="viewallcard_div">
-                    <Card.Text className="text-center">
-                      <h5>Best Of Home Appliances</h5>
-                    </Card.Text>
-                    <Link
-                      className="carddecorationnone_cat"
-                      to={`/category/${"home&kitchen"}`}
-                    >
-                      <button
-                        className="electrnicswiewall_button"
-                        type="submit"
+                        className="carddecorationnone_cat"
+                        to={`/category/${"home&kitchen"}`}
                       >
-                        VIEW ALL
-                      </button>
-                    </Link>
-                    <Card.Body>
-                      <img
-                        className="homedecor_image"
-                        src="https://ouch-cdn2.icons8.com/rQiKaijxXLYiyqOYF9br0qlt89qoLZjE7uM8zvq2L_w/rs:fit:456:456/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvOTAy/Lzg1MzQwOTM5LTkw/Y2MtNDQzNC04MTcx/LTZlMjExMDI0OGFj/Ni5zdmc.png"
-                        alt=""
-                      />
-                    </Card.Body>
-                  </div>
-                </div>
-              </Card>
-            </Col>
-            <Col lg={10}>
-              <Swiper
-                modules={[Navigation]}
-                x
-                spaceBetween={5}
-                slidesPerView={4}
-                navigation
-                pagination={{ clickable: true }}
-                onSwiper={(swiper) => console.log(swiper)}
-                onSlideChange={() => console.log("slide change")}
-              >
-                {data?.map((e) => {
-                  if (e.category === "Home & Kitchen") {
-                    return (
-                      <SwiperSlide className="shopping_card" key={e?.id}>
-                        <Link
-                          className="card_deco"
-                          to={`/subcategory/${e.subcategory}`}
-                          // to={`/productdetail/${e._id}`}
-                          onClick={() => productClick(e?._id)}
+                        <button
+                          className="electrnicswiewall_button"
+                          type="submit"
                         >
-                          <Card className="shoppingcard_bor">
-                            <div className="img_div">
-                              <Card.Img
-                                variant="top"
-                                src={
-                                  e?.image
-                                    ? e?.image
-                                    : e?.thumbnail.split(":").length > 1
-                                    ? e?.thumbnail
-                                    : `http://localhost:5000/uploads/${e.thumbnail}`
-                                }
-                              />
-                            </div>
-                            <Card.Body>
-                              {/* <div className="item_rating">
+                          VIEW ALL
+                        </button>
+                      </Link>
+                      <Card.Body>
+                        <img
+                          className="homedecor_image"
+                          src="https://ouch-cdn2.icons8.com/rQiKaijxXLYiyqOYF9br0qlt89qoLZjE7uM8zvq2L_w/rs:fit:456:456/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvOTAy/Lzg1MzQwOTM5LTkw/Y2MtNDQzNC04MTcx/LTZlMjExMDI0OGFj/Ni5zdmc.png"
+                          alt=""
+                        />
+                      </Card.Body>
+                    </div>
+                  </div>
+                </Card>
+              </Col>
+              <Col lg={10}>
+                <Swiper
+                  modules={[Navigation]}
+                  x
+                  spaceBetween={5}
+                  slidesPerView={4}
+                  navigation
+                  pagination={{ clickable: true }}
+                  onSwiper={(swiper) => console.log(swiper)}
+                  onSlideChange={() => console.log("slide change")}
+                >
+                  {data?.map((e) => {
+                    if (e.category === "Home & Kitchen") {
+                      return (
+                        <SwiperSlide className="shopping_card" key={e?.id}>
+                          <Link
+                            className="card_deco"
+                            to={`/subcategory/${e.subcategory}`}
+                            // to={`/productdetail/${e._id}`}
+                            onClick={() => productClick(e?._id)}
+                          >
+                            <Card className="shoppingcard_bor">
+                              <div className="img_div">
+                                <Card.Img
+                                  variant="top"
+                                  src={
+                                    e?.image
+                                      ? e?.image
+                                      : e?.thumbnail.split(":").length > 1
+                                      ? e?.thumbnail
+                                      : `http://localhost:5000/uploads/${e.thumbnail}`
+                                  }
+                                />
+                              </div>
+                              <Card.Body>
+                                {/* <div className="item_rating">
                               <p className="homerating_cat"> {e?.rating}</p>
                               <p className="homerating_cat"> {e?.category}</p>
                             </div> */}
-                              <Card.Title className="crad_text">
-                                {e?.title}
-                              </Card.Title>
-                              {/* <Card.Text className="crad_text">
+                                <Card.Title className="crad_text">
+                                  {e?.title}
+                                </Card.Title>
+                                {/* <Card.Text className="crad_text">
                               {e?.description}
                             </Card.Text> */}
-                              <Card.Text className="crad_text">
-                                <h6> ₹ {e?.price}</h6>
-                              </Card.Text>
-                            </Card.Body>
-                          </Card>
-                        </Link>
-                      </SwiperSlide>
-                    );
-                  }
-                })}
-              </Swiper>
-            </Col>
-          </Row>
-        </div>
-        <div className="my-4">
-          <Row>
-            <Col lg={4}>
-              <div className="homefashion_border">
-                <div className="d-flex justify-content-between ">
-                  <h4>Men's Top Fashion</h4>
-                  <AiFillRightCircle className="topcategoies_icon" />
-                </div>
-                <Row>
-                  {/* {data.map((e) => {
+                                <Card.Text className="crad_text">
+                                  <h6> ₹ {e?.price}</h6>
+                                </Card.Text>
+                              </Card.Body>
+                            </Card>
+                          </Link>
+                        </SwiperSlide>
+                      );
+                    }
+                  })}
+                </Swiper>
+              </Col>
+            </Row>
+          </div>
+          <div className="my-4">
+            <Row>
+              <Col lg={4}>
+                <div className="homefashion_border">
+                  <div className="d-flex justify-content-between ">
+                    <h4>Men's Top Fashion</h4>
+                    <AiFillRightCircle className="topcategoies_icon" />
+                  </div>
+                  <Row>
+                    {/* {data.map((e) => {
                     if (e.category === "home&kitchen") {
                       return ( */}
-                  <Col lg={6}>
-                    <div className="my-2">
-                      <div className="hometop_fashionbo_der">
-                        <img
-                          className="homedecorimag_e"
-                          variant="top"
-                          src={
-                            "https://media.istockphoto.com/id/471188329/photo/plain-red-tee-shirt-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=h1n990JR40ZFbPRDpxKppFziIWrisGcE_d9OqkLVAC4="
-                          }
-                          alt=""
-                        />
-                        <div className="cloths_detail">
-                          <p className="crad_text">T-Shirt</p>
-                          <p> 15% off</p>
+                    <Col lg={6}>
+                      <div className="my-2">
+                        <div className="hometop_fashionbo_der">
+                          <img
+                            className="homedecorimag_e"
+                            variant="top"
+                            src={
+                              "https://media.istockphoto.com/id/471188329/photo/plain-red-tee-shirt-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=h1n990JR40ZFbPRDpxKppFziIWrisGcE_d9OqkLVAC4="
+                            }
+                            alt=""
+                          />
+                          <div className="cloths_detail">
+                            <p className="crad_text">T-Shirt</p>
+                            <p> 15% off</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </Col>
-                  <Col lg={6}>
-                    <div className="my-2">
-                      <div className="hometop_fashionbo_der">
-                        <img
-                          className="homedecorimag_e"
-                          variant="top"
-                          src={
-                            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmjjL3hu_1k-cJqcsjBHnvwgMZYB3vOG597A&usqp=CAU"
-                          }
-                          alt=""
-                        />
-                        <div className="cloths_detail">
-                          <p className="crad_text">T-Shirt</p>
-                          <p> 15% off</p>
+                    </Col>
+                    <Col lg={6}>
+                      <div className="my-2">
+                        <div className="hometop_fashionbo_der">
+                          <img
+                            className="homedecorimag_e"
+                            variant="top"
+                            src={
+                              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmjjL3hu_1k-cJqcsjBHnvwgMZYB3vOG597A&usqp=CAU"
+                            }
+                            alt=""
+                          />
+                          <div className="cloths_detail">
+                            <p className="crad_text">T-Shirt</p>
+                            <p> 15% off</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </Col>
-                  {/* );
+                    </Col>
+                    {/* );
                     }
                   })} */}
-                </Row>
-                <Row>
-                  <Col lg={6}>
-                    <div className="my-2">
-                      <div className="hometop_fashionbo_der">
-                        <img
-                          className="homedecorimag_e"
-                          variant="top"
-                          src={
-                            "https://m.media-amazon.com/images/I/61ai5LmB5QL._AC_UY1000_.jpg"
-                          }
-                          alt=""
-                        />
-                        <div className="cloths_detail">
-                          <p className="crad_text">T-Shirt</p>
-                          <p> 15% off</p>
+                  </Row>
+                  <Row>
+                    <Col lg={6}>
+                      <div className="my-2">
+                        <div className="hometop_fashionbo_der">
+                          <img
+                            className="homedecorimag_e"
+                            variant="top"
+                            src={
+                              "https://m.media-amazon.com/images/I/61ai5LmB5QL._AC_UY1000_.jpg"
+                            }
+                            alt=""
+                          />
+                          <div className="cloths_detail">
+                            <p className="crad_text">T-Shirt</p>
+                            <p> 15% off</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </Col>
-                  <Col lg={6}>
-                    <div className="my-2">
-                      <div className="hometop_fashionbo_der">
-                        <img
-                          className="homedecorimag_e"
-                          variant="top"
-                          src={
-                            "https://media.istockphoto.com/id/471188329/photo/plain-red-tee-shirt-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=h1n990JR40ZFbPRDpxKppFziIWrisGcE_d9OqkLVAC4="
-                          }
-                          alt=""
-                        />
-                        <div className="cloths_detail">
-                          <p className="crad_text">T-Shirt</p>
-                          <p> 15% off</p>
+                    </Col>
+                    <Col lg={6}>
+                      <div className="my-2">
+                        <div className="hometop_fashionbo_der">
+                          <img
+                            className="homedecorimag_e"
+                            variant="top"
+                            src={
+                              "https://media.istockphoto.com/id/471188329/photo/plain-red-tee-shirt-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=h1n990JR40ZFbPRDpxKppFziIWrisGcE_d9OqkLVAC4="
+                            }
+                            alt=""
+                          />
+                          <div className="cloths_detail">
+                            <p className="crad_text">T-Shirt</p>
+                            <p> 15% off</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </Col>
-                </Row>
-              </div>
-            </Col>
-            <Col lg={4}>
-              <div className="homefashion_border">
-                <div className="d-flex justify-content-between ">
-                  <h4>Women's Top Fashion</h4>
-                  <AiFillRightCircle className="topcategoies_icon" />
+                    </Col>
+                  </Row>
                 </div>
-                <Row>
-                  {/* {data.map((e) => {
+              </Col>
+              <Col lg={4}>
+                <div className="homefashion_border">
+                  <div className="d-flex justify-content-between ">
+                    <h4>Women's Top Fashion</h4>
+                    <AiFillRightCircle className="topcategoies_icon" />
+                  </div>
+                  <Row>
+                    {/* {data.map((e) => {
                     if (e.category === "home&kitchen") {
                       return ( */}
-                  <Col lg={6}>
-                    <div className="my-2">
-                      <div className="hometop_fashionbo_der">
-                        <img
-                          className="homedecorimag_e"
-                          variant="top"
-                          src={
-                            "https://img.freepik.com/premium-photo/two-women-with-shopping-bags-walking-together-fashion-show-generative-ai_902049-23617.jpg?w=360"
-                          }
-                          alt=""
-                        />
-                        <div className="cloths_detail">
-                          <p className="crad_text">T-Shirt</p>
-                          <p> 15% off</p>
+                    <Col lg={6}>
+                      <div className="my-2">
+                        <div className="hometop_fashionbo_der">
+                          <img
+                            className="homedecorimag_e"
+                            variant="top"
+                            src={
+                              "https://img.freepik.com/premium-photo/two-women-with-shopping-bags-walking-together-fashion-show-generative-ai_902049-23617.jpg?w=360"
+                            }
+                            alt=""
+                          />
+                          <div className="cloths_detail">
+                            <p className="crad_text">T-Shirt</p>
+                            <p> 15% off</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </Col>
-                  <Col lg={6}>
-                    <div className="my-2">
-                      <div className="hometop_fashionbo_der">
-                        <img
-                          className="homedecorimag_e"
-                          variant="top"
-                          src={
-                            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRALWyoMNY3B9QCvUlWUYlYHTZZiV56mlrC_-YAARbCc6QHeJCHcUdrPkrxPKndXNjtz1o&usqp=CAU"
-                          }
-                          alt=""
-                        />
-                        <div className="cloths_detail">
-                          <p className="crad_text">T-Shirt</p>
-                          <p> 15% off</p>
+                    </Col>
+                    <Col lg={6}>
+                      <div className="my-2">
+                        <div className="hometop_fashionbo_der">
+                          <img
+                            className="homedecorimag_e"
+                            variant="top"
+                            src={
+                              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRALWyoMNY3B9QCvUlWUYlYHTZZiV56mlrC_-YAARbCc6QHeJCHcUdrPkrxPKndXNjtz1o&usqp=CAU"
+                            }
+                            alt=""
+                          />
+                          <div className="cloths_detail">
+                            <p className="crad_text">T-Shirt</p>
+                            <p> 15% off</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </Col>
-                  {/* );
+                    </Col>
+                    {/* );
                     }
                   })} */}
-                </Row>
-                <Row>
-                  <Col lg={6}>
-                    <div className="my-2">
-                      <div className="hometop_fashionbo_der">
-                        <img
-                          className="homedecorimag_e"
-                          variant="top"
-                          src={
-                            "https://png.pngtree.com/background/20210709/original/pngtree-fashion-girl-shopping-banner-material-picture-image_860169.jpg"
-                          }
-                          alt=""
-                        />
-                        <div className="cloths_detail">
-                          <p className="crad_text">T-Shirt</p>
-                          <p> 15% off</p>
+                  </Row>
+                  <Row>
+                    <Col lg={6}>
+                      <div className="my-2">
+                        <div className="hometop_fashionbo_der">
+                          <img
+                            className="homedecorimag_e"
+                            variant="top"
+                            src={
+                              "https://png.pngtree.com/background/20210709/original/pngtree-fashion-girl-shopping-banner-material-picture-image_860169.jpg"
+                            }
+                            alt=""
+                          />
+                          <div className="cloths_detail">
+                            <p className="crad_text">T-Shirt</p>
+                            <p> 15% off</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </Col>
-                  <Col lg={6}>
-                    <div className="my-2">
-                      <div className="hometop_fashionbo_der">
-                        <img
-                          className="homedecorimag_e"
-                          variant="top"
-                          src={
-                            "https://5.imimg.com/data5/ZY/SW/VU/ANDROID-89787775/screenshot-20190715-114639-01-jpg-500x500.jpg"
-                          }
-                          alt=""
-                        />
-                        <div className="cloths_detail">
-                          <p className="crad_text">T-Shirt</p>
-                          <p> 15% off</p>
+                    </Col>
+                    <Col lg={6}>
+                      <div className="my-2">
+                        <div className="hometop_fashionbo_der">
+                          <img
+                            className="homedecorimag_e"
+                            variant="top"
+                            src={
+                              "https://5.imimg.com/data5/ZY/SW/VU/ANDROID-89787775/screenshot-20190715-114639-01-jpg-500x500.jpg"
+                            }
+                            alt=""
+                          />
+                          <div className="cloths_detail">
+                            <p className="crad_text">T-Shirt</p>
+                            <p> 15% off</p>
+                          </div>
                         </div>
                       </div>
+                    </Col>
+                  </Row>
+                </div>
+              </Col>
+              <Col lg={4}>
+                <div className="sports_bannerhomepage">
+                  <div className="sportscontent_align">
+                    <div>
+                      <h2>Stay Fit & Active</h2>
                     </div>
-                  </Col>
-                </Row>
-              </div>
-            </Col>
-            <Col lg={4}>
-              <div className="sports_bannerhomepage">
-                <div className="sportscontent_align">
-                  <div>
-                    <h2>Stay Fit & Active</h2>
-                  </div>
-                  <div className="margin_bottom shop_roe">
-                    <p>Shop from our Fitness & Sports Equipment Collection</p>
+                    <div className="margin_bottom shop_roe">
+                      <p>Shop from our Fitness & Sports Equipment Collection</p>
+                    </div>
+                    <div>
+                      <button className="slider_rightbutton margin_bottom">
+                        Explore
+                      </button>
+                    </div>
                   </div>
                   <div>
-                    <button className="slider_rightbutton margin_bottom">
-                      Explore
-                    </button>
+                    <img
+                      className="homebackground_img"
+                      src="https://img.freepik.com/free-vector/box-full-sport-equipments_1308-37207.jpg?w=2000"
+                      alt=""
+                    />
                   </div>
                 </div>
-                <div>
-                  <img
-                    className="homebackground_img"
-                    src="https://img.freepik.com/free-vector/box-full-sport-equipments_1308-37207.jpg?w=2000"
-                    alt=""
-                  />
-                </div>
-              </div>
-            </Col>
-          </Row>
+              </Col>
+            </Row>
+          </div>
         </div>
       </div>
     </>

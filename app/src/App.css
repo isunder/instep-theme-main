@@ -307,10 +307,10 @@ div p {
   background-color: #f9f9fa;
 }
 .select_button {
-  margin-left: 20px !important;
-  padding: 15px 30px !important;
-  font-size: 15px !important;
-  line-height: 22px !important;
+  margin-left: 11px !important;
+  padding: 15px 22px !important;
+  font-size: 12px !important;
+  /* line-height: 22px !important; */
   color: #000 !important;
   background-color: #f4f6f8 !important;
   border: none !important;
@@ -649,8 +649,8 @@ svg.rs-sidenav-item-icon {
   width: 15px;
   height: 15px;
   background-color: #dfe3e8;
-  /* outline: 2px solid green; */
-  /* outline-offset: 5px; */
+  outline: 2px solid #4EB529;
+  outline-offset: 5px;
   border-radius: 100%;
   top: 6px;
 }
@@ -765,7 +765,7 @@ svg.rs-sidenav-item-icon {
   background-color: #f4f6f8 !important;
   border: none !important;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px !important;
-  width: 30% !important;
+  width: 39% !important;
 }
 
 .order_divchanges {
@@ -1202,9 +1202,11 @@ color: #000;
   font-weight: 600;
   font-size: 18px;
   cursor: pointer;
-  /* margin-bottom: 5px; */
 }
 
+.nav_Filter ul li{
+  text-decoration: none !important;
+}
 .Nav_link .nav_Filter {
   display: none;
   width: auto;
@@ -1219,6 +1221,13 @@ color: #000;
   padding: 0px 10px 0px 10px;
   line-height: 30px;
   cursor: pointer;
+}
+
+.nav_Filter ul li{
+  list-style: none;
+}
+.navbarteextdecora_tion{
+  text-decoration: none !important;
 }
 
 .search_link {
@@ -1601,6 +1610,18 @@ h5 {
   box-shadow: none !important;
 }
 
+.singlecard_posit{
+  position: sticky !important;
+  top: 140px !important;
+  height: 700px;
+}
+
+@media (max-width: 980px){
+  .singlecard_posit{
+    position: relative !important;
+  }
+}
+
 .carddecorationnone_cat{
   text-decoration: none !important;
   /* color: #000; */
@@ -1874,7 +1895,7 @@ h5 {
 * {
   margin: 0;
   padding: 0;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  /* font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; */
 }
 
 /* footer body {
@@ -1892,7 +1913,7 @@ a {
 
 /* ------------------------------------toggle--------------------------------------------------- */
 
-li {
+.top ul li {
   list-style: none;
 }
 
@@ -2350,6 +2371,14 @@ p {
   margin-left: 0px;
 }
 
+.twobuttondiv{
+  width: 50%;
+}
+.mainimg_button{
+  display: flex;
+  width: 100%;
+  gap: 20px;
+}
 .addtocart_button {
   background-color: #4eb529 !important;
   border: none !important;
@@ -2397,20 +2426,27 @@ p {
 
 .delivery_code {
   display: flex;
+  align-items: center;
   gap: 10px;
 }
 
 .deliverylocationcode {
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
   color: #ff7c08;
 }
 
 .pincode_bar {
-  padding: 10px 30px;
-  border: none;
+  padding: 10px 0px 5px 5px;
+  border-bottom:1px solid #4EB529;
+  border-top: none;
+  border-left: none;
+  border-right: none;
 }
 
+.pincode_bar:focus-visible{
+  outline: none !important;
+}
 .buy_Addicon{
   margin-right: 5px;
   height: 10%;
@@ -2418,9 +2454,12 @@ p {
 }
 
 .mainpro_rightdescrip{
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
+ font-weight: 400 !important;
+ margin-left: 5px;
+}
+
+.specification ul{
+  padding-left: 15px;
 }
 /* ------------------------------------home page subcategory------------------------------------ */
 
@@ -2611,7 +2650,7 @@ input[type="range"]::-moz-range-progress {
   .kit_homestarticon{
    border-radius: 50px;
    background-color: #4EB529;
-   width: 10%;
+   width: 6%;  
    height: 9%;
    padding-left: 5px;
    color: #fff;
@@ -2690,10 +2729,13 @@ input[type="range"]::-moz-range-progress {
 
 .abouthomedec {
   text-decoration: none;
-  color: #000;
+  color: #4EB529;
   font-size: 18px;
 }
 
+.abouthomedec:hover{
+  color: #4EB529;
+}
 .aboutusimagediv {
   /* padding-top: 90px; */
   /* padding-left: 30px; */
@@ -3101,7 +3143,8 @@ font-weight: 400 !important;
 }
 @media (max-width: 1226px){
   .kit_homestarticon{
-    width: 10%;
+    width: 6%;
+    padding-left: 2px;
   }
 }
 @media (max-width: 1121px){

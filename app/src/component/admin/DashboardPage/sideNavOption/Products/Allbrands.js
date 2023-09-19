@@ -35,7 +35,7 @@ export default function Allbrands() {
                                             <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>
-                                    <Button className="select_button m-0" type="submit">   <AiOutlineSearch /> search</Button>
+                                    <Button className="select_button" type="submit">   <AiOutlineSearch /> search</Button>
                                 </div>
                             </div>
                             <Table responsive="md">

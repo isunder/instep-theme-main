@@ -142,8 +142,8 @@ const AllProductDetail = () => {
             </div>
           </div>
         </Col>
-        <Col lg={10} >
-          <div className="subcarhide">
+        <Col lg={10}>
+          <div className="subcarhide margin_bottom">
             <div className="subcategory_topcontent">
               <div>
                 <Link className="home_link" to="/">
@@ -175,53 +175,55 @@ const AllProductDetail = () => {
               <h4>Newest First </h4>
             </div>
           </div>
-          <Row>
-            {data &&
-              data?.map((e) => {
-                if (e.image) {
-                  // console.log(e,'jjjjjjjjjjjjjj')
-                }
-                return (
-                  <Col lg={3} md={3}>
-                    <Link
-                      className="card_deco"
-                      to={`/productdetail/${e._id}`}
-                      onClick={() => productClick(e?._id)}
-                    >
-                      <Card className="shopping_card forcatcards_htwd">
-                        <div className="img_div">
-                          <Card.Img
-                            variant="top"
-                            src={
-                              e?.image
-                                ? e?.image
-                                : e?.thumbnail.split(":").length > 1
-                                ? e?.thumbnail
-                                : `http://localhost:5000/uploads/${e.thumbnail}`
-                            }
-                          />
-                        </div>
-                        <Card.Body>
-                          <div className="item_rating">
-                            <p className="homerating_cat"> {e?.rating}</p>
-                            <p className="homerating_cat"> {e?.category}</p>
+          <div className="margin_bottom">
+            <Row>
+              {data &&
+                data.map((e) => {
+                  if (e.image) {
+                    // console.log(e,'jjjjjjjjjjjjjj')
+                  }
+                  return (
+                    <Col lg={3} md={3}>
+                      <Link
+                        className="card_deco"
+                        to={`/productdetail/${e._id}`}
+                        onClick={() => productClick(e?._id)}
+                      >
+                        <Card className="shopping_card forcatcards_htwd ">
+                          <div className="img_div">
+                            <Card.Img
+                              variant="top"
+                              src={
+                                e?.image
+                                  ? e?.image
+                                  : e?.thumbnail.split(":").length > 1
+                                  ? e?.thumbnail
+                                  : `http://localhost:5000/uploads/${e.thumbnail}`
+                              }
+                            />
                           </div>
-                          <Card.Title className="crad_text">
-                            {e?.title}
-                          </Card.Title>
-                          <Card.Text className="crad_text">
-                            {e?.description}\
-                          </Card.Text>
-                          <Card.Text className="crad_text">
-                            <h5> ₹ {e?.price}</h5>
-                          </Card.Text>
-                        </Card.Body>
-                      </Card>
-                    </Link>
-                  </Col>
-                );
-              })}
-          </Row>
+                          <Card.Body>
+                            <div className="item_rating">
+                              <p className="homerating_cat"> {e?.rating}</p>
+                              <p className="homerating_cat"> {e?.category}</p>
+                            </div>
+                            <Card.Title className="crad_text">
+                              {e?.title}
+                            </Card.Title>
+                            <Card.Text className="crad_text">
+                              {e?.description}\
+                            </Card.Text>
+                            <Card.Text className="crad_text">
+                              <h5> ₹ {e?.price}</h5>
+                            </Card.Text>
+                          </Card.Body>
+                        </Card>
+                      </Link>
+                    </Col>
+                  );
+                })}
+            </Row>
+          </div>
         </Col>
       </Row>
     </div>
