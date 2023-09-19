@@ -2,8 +2,10 @@
 const express = require("express");
 const router = express.Router();
 
-const { create_subcategory } = require("../controller/Subcategory");
+const  Subcategory= require("../controller/Subcategory");
 
-router.post("/addsubcatgeory", create_subcategory);
+router.post("/addsubcatgeory", Subcategory.create_subcategory);
+router.get("/getOnlysubcatgeory", Subcategory.subcategorydata);
+
 
 module.exports = router;

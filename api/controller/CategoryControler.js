@@ -41,6 +41,22 @@ const adddCategory = async (req, res) => {
 }
 
 
+const getcategorydata = async (req, res) => {
+    try {
+        const getdata = await modelcategory.find();
+        if (getdata.length > 0) {
+            res.send(getdata);
+        } else {
+            res.send({ result: "no category  found" });
+        }
+
+    } catch (error) {
+        res.status(400).send({ succes: false, msg: error.message })
+
+    }
+
+}
+
 const filtercategory = async (req, res) => {
     const { category_id, subcategory_id } = req.body;
 
@@ -81,5 +97,5 @@ const filtercategory = async (req, res) => {
 
 
 module.exports = {
-    adddCategory, filtercategory
+    adddCategory, filtercategory, getcategorydata
 }

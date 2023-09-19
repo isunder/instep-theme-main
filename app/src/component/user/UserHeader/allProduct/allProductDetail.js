@@ -177,7 +177,7 @@ const AllProductDetail = () => {
           </div>
           <Row>
             {data &&
-              data.map((e) => {
+              data?.map((e) => {
                 if (e.image) {
                   // console.log(e,'jjjjjjjjjjjjjj')
                 }
