@@ -59,9 +59,6 @@ function Mainheader() {
                   <span className="navbar-toggler-icon"></span>
                 </Button>
                 <div className="Navbaricons hide_for_mobile">
-                  <div>
-                    <Button onClick={() => SignClick()}>sigin</Button>
-                  </div>
                   <div className="navicon_heading">
                     <BsGlobe2 className="navicons" /> visit store
                   </div>
