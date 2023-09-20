@@ -19,6 +19,7 @@ import AddCategoryReducer from "../reducer/createNewCategoryReducer";
 import AddSubCategoryReducer from "../reducer/createNewSubcategorySlice";
 import AddNewBrandsReducer from "../reducer/createNewBrandsSlice";
 import SelectCategoryFilterByIdReducer from "../reducer/filterCategorySlice";
+import GetCategoryListDataReducer from "../reducer/getCategoryListReducer";
 
 export const store = configureStore({
   reducer: {
@@ -42,5 +43,6 @@ export const store = configureStore({
     addsubcategory: AddSubCategoryReducer,
     allnewbrands: AddNewBrandsReducer,
     selectcategoryfilterbyid: SelectCategoryFilterByIdReducer,
+    getcategorylistdata: GetCategoryListDataReducer,
   },
 });
