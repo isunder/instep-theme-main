@@ -3,6 +3,7 @@ import { Form, Field } from "react-final-form";
 import { useDispatch, useSelector } from "react-redux";
 import { addsubcategory } from "../../../../../Redux/action/createNewSubcategoryAction";
 import { allCategoryList } from "../../../../../Redux/action/getCategoryAction";
+import { Col, Row } from "react-bootstrap";
 
 const Allsubcategory = () => {
   const dispatch = useDispatch();
@@ -15,10 +16,8 @@ const Allsubcategory = () => {
 
   const getscat = useSelector((state) => state?.getcategorylistdata?.listdata);
 
-  // console.log(getscat, "zzz");
   const onSubmit = (values) => {
     console.log(values.subcategory, "dddddddddddd");
-    // let scategorynew = { subcategory: "values" };
 
     let asd = {
       subcategoryData: [
@@ -45,63 +44,62 @@ const Allsubcategory = () => {
 
   return (
     <>
-      <Form
-        onSubmit={onSubmit}
-        initialValues={{ subcategory: "" }}
-        render={({ handleSubmit, form, submitting, pristine }) => (
-          <form onSubmit={handleSubmit}>
-            <div>
-              {/* <Field
-                className="addnewproduct_changes right_Addnew"
-                name="category"
-                component="select"
-                onChange={handleCategoryChange}
-                required
-              >
-                {getscat?.map((i) => {
-                  return (
-                    <>
-                      <option key={i._id} value={i._id}>
-                        {i.category}
+      <Row>
+        <div className="admin_toppadding ">
+          <Col className="Admin_dashboard " lg={12}>
+            <h3> Add New Subcategory</h3>
+          </Col>
+        </div>
+      </Row>
+      <Row>
+        <Col lg={8}>
+          <Form
+            onSubmit={onSubmit}
+            initialValues={{ subcategory: "" }}
+            render={({ handleSubmit, form, submitting, pristine }) => (
+              <form onSubmit={handleSubmit}>
+                <div>
+                  <div className="margin_bottom fgtftt">
+                    <select
+                      className="subcategory_drop"
+                      onChange={handleCategoryChange2}
+                      value={selectedCategoryId}
+                    >
+                      <option className="option" value={selectedCategory}>
+                        Select a category
                       </option>
-                    </>
-                  );
-                })}
-              </Field> */}
-              <select
-                onChange={handleCategoryChange2}
-                value={selectedCategoryId}
-              >
-                <option value="">Select a category</option>
-                {getscat?.map((i) => (
-                  <option key={i._id} value={i._id}>
-                    {i.category}
-                  </option>
-                ))}
-              </select>
-              <input
-                type="text"
-                value={selectedCategory}
-                readOnly
-                className="addnewproduct_changes right_Addnew"
-              />
-              <div className="d-flex newpeo_div">
-                <Field
-                  className="addnewproduct_changes"
-                  name="subcategory"
-                  component="input"
-                  type="text"
-                  placeholder="subcategory"
-                  required
-                />
-              </div>
-              <div className="buttons">
-                <button type="submit">Submit</button>
-              </div>
-            </div>
-          </form>
-        )}
-      />
+                      {getscat?.map((i) => (
+                        <option key={i._id} value={i._id}>
+                          {i.category}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <input
+                    type="text"
+                    value={setSelectedCategory}
+                    readOnly
+                    className="addnewproduct_changes right_Addnew"
+                  />
+                  <div className="d-flex newpeo_div">
+                    <Field
+                      className="addnewproduct_changes"
+                      name="subcategory"
+                      component="input"
+                      type="text"
+                      placeholder="subcategory"
+                      required
+                    />
+                  </div>
+                  <div className="buttons">
+                    <button type="submit">Submit</button>
+                  </div>
+                </div>
+              </form>
+            )}
+          />
+        </Col>
+      </Row>
     </>
   );
 };

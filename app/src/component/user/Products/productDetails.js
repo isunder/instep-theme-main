@@ -96,26 +96,12 @@ const ProductDetails = () => {
                       zIndex: 1500,
                     },
                     enlargedImageContainerDimensions: {
-                      width: 700,
-                      height: 500,
+                      width: 890,
+                      height: 550,
                     },
                   }}
                 />
               </div>
-              {/* <Card.Img
-                src={
-                  imageState
-                    ? imageState.split("http").length > 1
-                      ? imageState
-                      : `http://localhost:5000/uploads/${imageState}`
-                    : productDetail?.images?.length > 0 &&
-                      // productDetail?.images?.length[0] > 0 &&
-                      (productDetail?.images[0].split("http").length > 1
-                        ? productDetail?.images[0]
-                        : `http://localhost:5000/uploads/${productDetail?.images[0]}`)
-                }
-                className="topmain_imageview"
-              /> */}
               {productDetail?.images && (
                 <>
                   <div className="main_image">
@@ -141,9 +127,6 @@ const ProductDetails = () => {
                 </>
               )}
               <Card.Body>
-                <Card.Title>
-                  <div className="mb-3">{productDetail.title}</div>
-                </Card.Title>
                 <Card.Text>
                   <div className="mainimg_button">
                     <div className="twobuttondiv">
@@ -200,7 +183,7 @@ const ProductDetails = () => {
                       <CiLocationOn className="deliverylocationcode" />
                       <input
                         type="text"
-                        placeholder="  Enter Delivery Pincode"
+                        placeholder="Enter Delivery Pincode"
                         className="pincode_bar"
                       />
                     </div>
