@@ -69,6 +69,32 @@ const brandgetdata = async (req, res) => {
 
 }
 
+const deletebrand = async (req, res) => {
+
+    try {
+        const { _id } = req.body;
+
+
+        const deletedbrand = await brands.findByIdAndDelete(_id);
+
+        if (!deletedbrand) {
+            // If the product with the given ID doesn't exist, return an error response
+            return res.status(404).json({ message: "brand not found" });
+        }
+
+        // Return the deleted product
+
+        // res.send(deletedcategory)
+        res.status(200).send({ success: true, msg: "brand data delete", data: deletedbrand })
+
+
+        console.log("delete done category");
+    } catch (error) {
+        // Handle any errors that occurred during the delete process
+        res.status(500).json({ message: "Server error" });
+    }
+}
+
 module.exports = {
-    create_brand,brandgetdata
+    create_brand, brandgetdata, deletebrand
 }

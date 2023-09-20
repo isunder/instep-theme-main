@@ -45,7 +45,6 @@ server.use("/uploads", express.static("uploads"));
 // http://localhost:5000/uploads/1693806012738-Capture.PNG
 server.use("/api", addnewcategory);
 server.use("/api", addnewSubcategory);
-
 server.use("/api", addnewbrand);
 
 

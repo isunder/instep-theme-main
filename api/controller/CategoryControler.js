@@ -57,6 +57,32 @@ const getcategorydata = async (req, res) => {
 
 }
 
+const deletecategory = async (req, res) => {
+
+    try {
+        const { _id } = req.body;
+
+
+        const deletedcategory = await modelcategory.findByIdAndDelete(_id);
+
+        if (!deletedcategory) {
+            // If the product with the given ID doesn't exist, return an error response
+            return res.status(404).json({ message: "category not found" });
+        }
+
+        // Return the deleted product
+
+        // res.send(deletedcategory)
+        res.status(200).send({ success: true, msg: "category data delete", data: deletedcategory })
+   
+
+        console.log("delete done category");
+    } catch (error) {
+        // Handle any errors that occurred during the delete process
+        res.status(500).json({ message: "Server error" });
+    }
+}
+
 const filtercategory = async (req, res) => {
     const { category_id, subcategory_id } = req.body;
 
@@ -97,5 +123,5 @@ const filtercategory = async (req, res) => {
 
 
 module.exports = {
-    adddCategory, filtercategory, getcategorydata
+    adddCategory, filtercategory, getcategorydata, deletecategory
 }
