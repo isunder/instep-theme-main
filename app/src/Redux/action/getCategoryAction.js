@@ -9,10 +9,10 @@ export const axiosInstance = axios.create({
   },
 });
 
-export const addsubcategory = createAsyncThunk(
-  "subcategory",
+export const allCategoryList = createAsyncThunk(
+  "getcategoryonly",
   async (payload) => {
-    const data1 = await axiosInstance.post(`/addsubcatgeory`);
+    const data1 = await axiosInstance.get(`/getOnlycategory`, payload);
     return data1.data;
   }
 );
