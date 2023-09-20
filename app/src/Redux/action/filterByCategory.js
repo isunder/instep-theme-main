@@ -12,7 +12,7 @@ export const axiosInstance = axios.create({
 export const selectCategoryFilter = createAsyncThunk(
   "selectcategoryfilter",
   async (payload) => {
-    const data1 = await axiosInstance.post(`getcategory`, payload);
+    const data1 = await axiosInstance.post(`/getcategory`, payload);
     return data1.data;
   }
 );
