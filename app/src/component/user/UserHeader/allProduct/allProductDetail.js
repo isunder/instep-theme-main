@@ -205,13 +205,13 @@ const AllProductDetail = () => {
                           <Card.Body>
                             <div className="item_rating">
                               <p className="homerating_cat"> {e?.rating}</p>
-                              <p className="homerating_cat"> {e?.category}</p>
+                              {/* <p className="homerating_cat">{e?.category[0]?.category}</p> */}
                             </div>
                             <Card.Title className="crad_text">
                               {e?.title}
                             </Card.Title>
                             <Card.Text className="crad_text">
-                              {e?.description}\
+                              {e?.description}
                             </Card.Text>
                             <Card.Text className="crad_text">
                               <h5> ₹ {e?.price}</h5>

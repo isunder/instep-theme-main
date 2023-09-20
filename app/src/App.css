@@ -123,7 +123,7 @@ css * {
 
 /* ------------------------------------------------------------admin dashboard-------------------------------------------------------- */
 .admin_toppadding {
-  padding: 40px 30px;
+  padding: 10px 0px;
   margin-bottom: 15px !important;
 }
 
@@ -272,7 +272,7 @@ div p {
   justify-content: space-between;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   border-radius: 10px;
-  padding: 20px 40px;
+  padding: 20px 0px;
   flex-direction: row;
 }
 .all_product_search {
@@ -681,6 +681,53 @@ svg.rs-sidenav-item-icon {
   top: 0 !important;
 }
 
+.categoryadd_new{
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  padding: 10px;
+}
+
+.category_item{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.leftcategory_add{
+  width: 85%;
+}
+
+.buttons{
+  width: 15%;
+}
+
+.catesearchbutton{
+  padding: 12px 30px;
+  border-radius: 2px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.ctegorysearc_h{
+  height: 40px;
+  border: 1px solid #ebe9e9;
+ border-radius: 5px;
+  background-color: #f9f9f9;
+  padding: 24px 10px;
+  width: 100%;
+}
+
+.threedot_tog_gle{
+  height: 20px;
+  width: 20px;
+}
+
+.focusotoggle.btn-check:focus+.btn, .btn:focus{
+  box-shadow: none !important;
+  outline: 0 !important;
+  border: none;
+}
 /* -------------------------------------------------------------------------all categories------------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------brand ------------------------------------------------------------------------------- */
 
@@ -1608,6 +1655,7 @@ h5 {
 .shoppingcard_bor{
   border: 1px solid #fff !important;
   box-shadow: none !important;
+  z-index: -1;
 }
 
 .singlecard_posit{
@@ -2159,9 +2207,8 @@ footer ul {
 }
 
 .addnewproduct_changes {
-  margin-bottom: 20px;
   height: 40px;
-  border: 1px solid transparent;
+  border: 1px solid #656565;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
   background-color: #f9f9f9;
@@ -2317,9 +2364,20 @@ box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   gap: 10px;
 }
 
-.topmain_imageview {
-  height: 350px;
+
+.topmain_imageview img[type=smallImage]{
+  height: 100%;
+  box-sizing: border-box;
   object-fit: contain;
+}
+.topmain_imageview{
+  height: 400px;
+}
+
+
+
+.topmain_imageview{
+  margin-bottom: 20px;
 }
 
 .topmain_otherimage1 {

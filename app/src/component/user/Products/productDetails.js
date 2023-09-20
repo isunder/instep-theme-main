@@ -59,15 +59,16 @@ const ProductDetails = () => {
   return (
     <>
       <div className="container mainrowdata">
-        <Row className="">
+        <Row>
           <Col className="singlecard_posit" lg={4}>
             <Card className="shoppingcard_bor">
-              {/* <div className="topmain_imageview">
+              <div>
                 <ReactImageMagnify
                   {...{
                     smallImage: {
                       alt: "Wristwatch by Ted Baker London",
-                      isFluidWidth: true,
+                      width: 400,
+                      height: 400,
                       src: imageState
                         ? imageState.split("http").length > 1
                           ? imageState
@@ -88,13 +89,20 @@ const ProductDetails = () => {
                           (productDetail?.images[0].split("http").length > 1
                             ? productDetail?.images[0]
                             : `http://localhost:5000/uploads/${productDetail?.images[0]}`),
-                      width: 1200,
-                        height: 1800
+                      width: 1800,
+                      height: 1800,
+                    },
+                    enlargedImageContainerStyle: {
+                      zIndex: 1500,
+                    },
+                    enlargedImageContainerDimensions: {
+                      width: 700,
+                      height: 500,
                     },
                   }}
                 />
-              </div> */}
-              <Card.Img
+              </div>
+              {/* <Card.Img
                 src={
                   imageState
                     ? imageState.split("http").length > 1
@@ -107,7 +115,7 @@ const ProductDetails = () => {
                         : `http://localhost:5000/uploads/${productDetail?.images[0]}`)
                 }
                 className="topmain_imageview"
-              />
+              /> */}
               {productDetail?.images && (
                 <>
                   <div className="main_image">
