@@ -60,6 +60,12 @@ const Allcategories = () => {
                 </button>
               </div>
             </div>
+          </div>
+        </Col>
+      </Row>
+      <Row>
+        <Col lg={8}>
+          <div className="categoryadd_new">
             <Table responsive="md">
               <thead>
                 <tr>
@@ -73,8 +79,12 @@ const Allcategories = () => {
                   <td>1</td>
                   <td>Mark</td>
                   <td className="d-flex justify-content-end">
-                    <Dropdown >
-                      <Dropdown.Toggle variant="" id="dropdown-basic" className="focusotoggle">
+                    <Dropdown>
+                      <Dropdown.Toggle
+                        variant=""
+                        id="dropdown-basic"
+                        className="focusotoggle"
+                      >
                         <BiDotsVerticalRounded className="threedot_tog_gle" />
                       </Dropdown.Toggle>
                       <Dropdown.Menu>
