@@ -16,11 +16,11 @@ const Usercart = require("./models/CartSchema");
 const slidertable = require("./models/slider");
 const afterbuying = require("./models/afterbuying");
 const registerRoutes = require("./router/registerRoutes");
-const loginRoutes = require("./router/loginRouters")
-const postProductRouters = require("./router/Productpost")
-const addnewcategory = require("./router/categoryRought")
-const addnewSubcategory = require('./router/subCategory')
-const addnewbrand = require("./router/BrandRought")
+const loginRoutes = require("./router/loginRouters");
+const postProductRouters = require("./router/Productpost");
+const addnewcategory = require("./router/categoryRought");
+const addnewSubcategory = require("./router/subCategory");
+const addnewbrand = require("./router/BrandRought");
 dotenv.config();
 
 const DB =
@@ -46,7 +46,6 @@ server.use("/uploads", express.static("uploads"));
 server.use("/api", addnewcategory);
 server.use("/api", addnewSubcategory);
 server.use("/api", addnewbrand);
-
 
 // server.post("/api/register", async (req, res) => {
 //   const { email, password, username } = req.body;
@@ -303,7 +302,6 @@ server.use("/api", addnewbrand);
 //     res.status(400).send({ message: error.message });
 //   }
 // });
-
 
 ///   category  api  next plain
 

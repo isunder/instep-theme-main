@@ -59,32 +59,8 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getProductAction());
-    // dispatch(getProductAction(`${categorydata?.listdat.electronics}`));
-
-    // dispatch(signUpAction());
-    // dispatch(productDetails());
-    // fetch(`https://fakestoreapi.com/products/categories`)
-    //   .then((res) => res.json())
-    //   .then((data) => setCategory(data));
-    // fetch(`https://fakestoreapi.com/products`)
-    //   .then((res) => res.json())
-    //   .then((data) => setApiData(data));
   }, []);
 
-  // const handelChange = (e, value) => {
-  //   console.log(e, "fghjkjhghjklkjhghjk");
-  //   if (e === true) {
-  //     fetch(`https://fakestoreapi.com/products/category/${value}`)
-  //       .then((res) => res.json())
-  //       .then((data) => setApiData(data));
-  //   }
-  // };
-
-  // categorydata.map((item) => {
-  //   if (item.category === "electronics") {
-  //     console.log(item.category, item.title,'item>>>>>>>>>>>>>>>>>>>>>>>');
-  //   }
-  // });
   console.log(category, "json");
   const handleClick = () => {
     navigate("/addcart");

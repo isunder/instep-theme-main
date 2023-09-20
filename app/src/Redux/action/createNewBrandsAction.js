@@ -10,6 +10,6 @@ export const axiosInstance = axios.create({
 });
 
 export const addbrands = createAsyncThunk("brands", async (payload) => {
-  const data1 = await axiosInstance.get(`/addbrand`);
+  const data1 = await axiosInstance.post(`/addbrand`, payload);
   return data1.data;
 });
