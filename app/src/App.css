@@ -732,7 +732,10 @@ svg.rs-sidenav-item-icon {
 .subcategory_drop{
   width: 100%;
   padding: 12px 10px;
-  border-radius: 5px;
+ border-radius: 3px;
+  /* border-left: none !important; */
+  border: 1px solid #D2D2D2;
+
 }
 
 .subcategory_drop:focus-visible{
@@ -742,6 +745,38 @@ svg.rs-sidenav-item-icon {
 .option{
   width: 50% !important;
 }
+
+/* .cat_select{
+  display: flex;
+  width: 100%;
+} */
+
+.inputslect_cat{
+  width: 80%;
+}
+
+.input_Tab{
+  width: 100%;
+  height: 49px !important;
+  padding: 10px;
+  border-bottom-left-radius: 3px;
+  border-top-left-radius: 3px;
+  border-right: none !important;
+  border: 1px solid #D2D2D2;
+}
+
+.input_Tab:focus-visible{
+  outline: 0px;
+}
+
+.addcatsubit_button{
+  padding: 10px 30px;
+  border-radius: 2px;
+  background-color: #4EB529;
+  color: #fff;
+  font-weight: 400px;
+}
+
 /* -------------------------------------------------------------------------all categories------------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------brand ------------------------------------------------------------------------------- */
 
