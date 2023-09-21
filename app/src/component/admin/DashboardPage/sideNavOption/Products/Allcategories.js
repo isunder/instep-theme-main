@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Form, Field } from "react-final-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addcategory } from "../../../../../Redux/action/createNewCategoryAction";
 import { Col, Dropdown, Row, Table } from "react-bootstrap";
 import { BiDotsVerticalRounded } from "react-icons/bi";
-import { LuEdit3 } from "react-icons/lu";
+import { allCategoryList } from "../../../../../Redux/action/getCategoryAction";
 
 const Allcategories = () => {
   const dispatch = useDispatch();
+
+  const data = useSelector((state) => state?.getcategorylistdata?.listdata);
+  console.log(data, "adat");
 
   const onSubmit = (values) => {
     console.log(values, "gpoalpk");
@@ -15,6 +18,9 @@ const Allcategories = () => {
     dispatch(addcategory(values));
     // console.log(values, "ggggggggggggggg");
   };
+  useEffect(() => {
+    dispatch(allCategoryList());
+  }, []);
 
   return (
     <>
@@ -50,14 +56,14 @@ const Allcategories = () => {
                         placeholder="category"
                         required
                       />
+                      <div className="buttons">
+                        <button className="catesearchbutton" type="submit">
+                          Submit
+                        </button>
+                      </div>
                     </form>
                   )}
                 />
-              </div>
-              <div className="buttons">
-                <button className="catesearchbutton" type="submit">
-                  Submit
-                </button>
               </div>
             </div>
           </div>
@@ -75,7 +81,36 @@ const Allcategories = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                {data &&
+                  data.map((e, i) => {
+                    return (
+                      <tr>
+                        <td></td>
+                        <td>{e.category}</td>
+                        <td className="d-flex justify-content-end">
+                          <Dropdown>
+                            <Dropdown.Toggle
+                              variant=""
+                              id="dropdown-basic"
+                              className="focusotoggle"
+                            >
+                              <BiDotsVerticalRounded className="threedot_tog_gle" />
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                              {/* <Dropdown.Item href="#/action-1">
+                        {" "}
+                        <LuEdit3 /> Edit
+                      </Dropdown.Item> */}
+                              <Dropdown.Item href="#/action-2">
+                                Delete
+                              </Dropdown.Item>
+                            </Dropdown.Menu>
+                          </Dropdown>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                {/* <tr>
                   <td>1</td>
                   <td>Mark</td>
                   <td className="d-flex justify-content-end">
@@ -88,15 +123,15 @@ const Allcategories = () => {
                         <BiDotsVerticalRounded className="threedot_tog_gle" />
                       </Dropdown.Toggle>
                       <Dropdown.Menu>
-                        {/* <Dropdown.Item href="#/action-1">
+                         <Dropdown.Item href="#/action-1">
                         {" "}
                         <LuEdit3 /> Edit
-                      </Dropdown.Item> */}
+                      </Dropdown.Item>
                         <Dropdown.Item href="#/action-2">Delete</Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown>
                   </td>
-                </tr>
+                </tr> */}
               </tbody>
             </Table>
           </div>
