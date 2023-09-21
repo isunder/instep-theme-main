@@ -310,7 +310,6 @@ div p {
   margin-left: 11px !important;
   padding: 15px 22px !important;
   font-size: 12px !important;
-  /* line-height: 22px !important; */
   color: #000 !important;
   background-color: #f4f6f8 !important;
   border: none !important;
@@ -2794,14 +2793,13 @@ input[type="range"]::-moz-range-progress {
 
 /* ------------------------------------backgroundimage_aboutus----------------------------------- */
 
-.backgroundimage_aboutus {
-  /* background-image: url("https://img.freepik.com/free-vector/gradient-monochromatic-abstract-background_52683-74300.jpg"); */
-  height: 700px;
+/* .backgroundimage_aboutus {
+  background-image: url("https://img.freepik.com/free-vector/gradient-monochromatic-abstract-background_52683-74300.jpg");
   background-repeat: none !important;
   background-size: cover;
   width: 100%;
   object-fit: contain;
-}
+} */
 
 .aboutushead {
   display: flex;
@@ -2904,8 +2902,8 @@ input[type="range"]::-moz-range-progress {
   fill: none !important;
 }
 
-.paddingdiv_popuarcat {
-  padding: 20px 300px 20px 300px;
+.paddingdiv_popuarcat h2{
+  text-align: center;
 }
 
 /* .bottombackgrouns_image{
@@ -2926,7 +2924,7 @@ input[type="range"]::-moz-range-progress {
 }
 
 .aboutustoppadding {
-  padding-top: 100px;
+  /* padding-top: 100px; */
 }
 
 .workingability_column {
@@ -3266,7 +3264,7 @@ font-weight: 400 !important;
 }
 @media (max-width: 992px){
   .kit_homestarticon{
-    width: 15%;
+    width: 15%; 
   }
 }
 @media (max-width: 768px){

@@ -1,11 +1,40 @@
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import {GiComputerFan} from "react-icons/gi";
+import {GrPersonalComputer} from "react-icons/gr";
+
+const topbrands = [
+  {
+    image:
+      "https://cdn.sanity.io/images/kts928pd/production/4f75d00dcef8ea2832f617ea9d7b6135f0441cd2-1600x900.png",
+  },
+  {
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Wish_2022.svg/1200px-Wish_2022.svg.png",
+  },
+  {
+    image:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwvq-S7q4soBdqTt9ylS-qaZ2Pn_yk3mxGkXtcFlgfjzvvVhmMyDYN22joVXZTK_13JQ&usqp=CAU",
+  },
+  {
+    image:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTF1d_6mJtqea8jVWlGWT0OcR3YL-Ifu096cw&usqp=CAU",
+  },
+  {
+    image:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-5BMAfeAbDn_NVRGFqsPDzQ0gA7wRR7e3iTRmZp8LzeIN00l6v5ZANl65fEX5J6YGyoo&usqp=CAU",
+  },
+  {
+    image:
+      "https://seeklogo.com/images/Y/yotpo-logo-D5E7916640-seeklogo.com.png",
+  },
+];
 
 const Aboutus = () => {
   return (
     <>
-      <div className="backgroundimage_aboutus">
+      <div className="margin_bottom">
         <div className=" home_subcatetop">
           <div className="container">
             <div className="aboutushead">
@@ -55,7 +84,7 @@ const Aboutus = () => {
                     <img
                       src="https://www.grostore.themetags.com/public/frontend/default/assets/img/icons/hand-icon.svg?v=v2.5.1"
                       alt="hand icon"
-                      class="img-fluid"
+                      className="img-fluid"
                     />
                     <h4>Our Vision</h4>
                     <p>
@@ -69,61 +98,32 @@ const Aboutus = () => {
           </div>
         </div>
       </div>
-      <div className="paddingdiv_popuarcat">
-        <h2>Top Categories</h2>
-        <Row>
-          <Col lg={12} md={6}>
-            <div className="mostpopularbrandborder">
-              <Row>
-                <Col lg={2}>
-                  <img
-                    className="poupularbrands"
-                    src="/photos/puma-logo.svg"
-                    alt=""
-                  />
-                </Col>
-                <Col lg={2}>
-                  <img
-                    className="poupularbrands"
-                    src="/photos/asus-rog-1.svg"
-                    alt=""
-                  />
-                </Col>
-                <Col lg={2}>
-                  <img
-                    className="poupularbrands"
-                    src="/photos/asus-rog-1.svg"
-                    alt=""
-                  />
-                </Col>
-                <Col lg={2}>
-                  <img
-                    className="poupularbrands"
-                    src="/photos/lacoste-logo.svg"
-                    alt=""
-                  />
-                </Col>
-                <Col lg={2}>
-                  <img
-                    className="poupularbrands"
-                    src="/photos/lacoste-logo.svg"
-                    alt=""
-                  />
-                </Col>
-                <Col lg={2}>
-                  <img
-                    className="poupularbrands"
-                    src="https://cdn.sanity.io/images/kts928pd/production/4f75d00dcef8ea2832f617ea9d7b6135f0441cd2-1600x900.png"
-                    alt=""
-                  />
-                </Col>
-              </Row>
-            </div>
-          </Col>
-        </Row>
-      </div>
-      <div className="bottombackgrouns_image">
-        <div className="container">
+      <div className="container">
+        <div className="paddingdiv_popuarcat margin_bottom">
+          <h2 className="margin_bottom">Top Categories</h2>
+          <Row>
+            <Col lg={12} md={12}>
+              <div className="mostpopularbrandborder">
+                <Row>
+                  {topbrands.map((item, index) => {
+                    return (
+                      <>
+                        <Col lg={2} md={4} key={index}>
+                          <img
+                            className="poupularbrands"
+                            src={item.image}
+                            alt=""
+                          />
+                        </Col>
+                      </>
+                    );
+                  })}
+                </Row>
+              </div>
+            </Col>
+          </Row>
+        </div>
+        <div className="bottombackgrouns_image">
           <Row>
             <Col lg={12}>
               <div className="workingability_column margin_bottom">
@@ -143,19 +143,21 @@ const Aboutus = () => {
           <Row>
             <Col lg={3} md={6}>
               <div className="workability">
+                <GrPersonalComputer/>
                 <h2>100k +</h2>
                 <p> Total Products</p>
               </div>
-            </Col>
+            </Col> 
             <Col lg={3} md={6}>
               <div className="workability">
+                <GiComputerFan />
                 <h2>255k +</h2>
                 <p> Total Orders</p>
               </div>
             </Col>
             <Col lg={3} md={6}>
               <div className="workability">
-                {" "}
+                <FaPeopleRoof/>
                 <h2>250k +</h2>
                 <p> Total Visitors</p>
               </div>
