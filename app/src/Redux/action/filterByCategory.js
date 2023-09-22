@@ -16,3 +16,11 @@ export const selectCategoryFilter = createAsyncThunk(
     return data1.data;
   }
 );
+export const selectSubcategoryFilter = createAsyncThunk(
+  "selectcategoryfilter",
+  async (payload) => {
+    const subcategoryId = payload.subcategory_Id;
+    const data1 = await axiosInstance.post(`/getcategory`, payload);
+    return data1.data;
+  }
+);

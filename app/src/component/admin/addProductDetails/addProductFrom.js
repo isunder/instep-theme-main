@@ -1,18 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { Field, Form as FinalForm } from "react-final-form";
+import { Field } from "react-final-form";
+import { Form as FinalForm } from "react-final-form";
 
 import { adminPostProduct } from "../../../Redux/action/adminPostProductAction";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import { MdCancel } from "react-icons/md";
 import "react-toastify/dist/ReactToastify.css";
+import { selectCategoryFilter } from "../../../Redux/action/filterByCategory";
 
-const options = [
-  { value: "", label: "" },
-  { value: "", label: "" },
-  { value: "", label: "" },
-];
 const ProductForm = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state);
@@ -20,7 +17,7 @@ const ProductForm = () => {
   // const [selectedOption, setSelectedOption] = useState(null);
   const [imgupload, setImgupload] = useState("");
 
-  console.log(imgupload, "kkkkkkkkkkkkkkkkkkkkkkkk");
+  // console.log(imgupload, "kkkkkkkkkkkkkkkkkkkkkkkk");
 
   const [selectedthumbnalFile, setselectedthumbnalFile] = useState([]);
   const [thumbnail, setthumbnail] = useState("");
@@ -34,7 +31,7 @@ const ProductForm = () => {
     let file = new File(files, filename);
 
     setselectedthumbnalFile(file);
-    console.log(file, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+    // console.log(file, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 
     let imagesArray = [];
     // Iterate through the selected files again to read and display them as previews
@@ -49,10 +46,14 @@ const ProductForm = () => {
       reader.readAsDataURL(files[i]);
     }
   };
-  console.log(selectedthumbnalFile, "selectedthumbnalFile");
+  // console.log(selectedthumbnalFile, "selectedthumbnalFile");
 
   const [selectedImagesforpost, setselectedImagesforpost] = useState([]);
   const [selectedImages, setSelectedImages] = useState([]);
+
+  const [getCateId, setGetCateId] = useState([]);
+
+  const [selectedCategoryId, setSelectedCategoryId] = useState("");
 
   const handleImgeFile = (e) => {
     const files = e.target.files;
@@ -76,9 +77,9 @@ const ProductForm = () => {
       reader.readAsDataURL(files[i]);
     }
   };
-  console.log(selectedImagesforpost, "first");
+  // console.log(selectedImagesforpost, "first");
   const onSubmit = (values) => {
-    console.log(values, imgupload, "dddd");
+    // console.log(values, imgupload, "dddd");
     var formData = new FormData();
 
     const payload = {
@@ -94,14 +95,14 @@ const ProductForm = () => {
       image: selectedImagesforpost,
     };
 
-    console.log("shar", payload);
+    // console.log("shar", payload);
     selectedImagesforpost.map((items) => {
       formData.append("images", items);
     });
     formData.append("thumbnail", selectedthumbnalFile);
 
     formData.append("userData", JSON.stringify(payload));
-    console.log(payload, "ggg");
+    // console.log(payload, "ggg");
     console.log(JSON.parse(formData.getAll("userData")), "data");
     dispatch(adminPostProduct(formData)).then((res) =>
       console.log(res, "Response from dispatch")
@@ -111,7 +112,7 @@ const ProductForm = () => {
       position: toast.POSITION.TOP_RIGHT,
     });
 
-    console.log(values, "aaaaaaaaaaaaaaaa");
+    // console.log(values, "aaaaaaaaaaaaaaaa");
   };
 
   const initialValues = {
@@ -134,10 +135,27 @@ const ProductForm = () => {
     setselectedImagesforpost(imagedataArray);
   };
 
-  const [selectedImage, setSelectedImage] = useState();
-  const [uploadedImageUrl, setUploadedImageUrl] = useState();
+  // const [selectedImage, setSelectedImage] = useState();
+  // const [uploadedImageUrl, setUploadedImageUrl] = useState();
 
-  console.log(uploadedImageUrl, "selectedImage");
+  // console.log(uploadedImageUrl, "selectedImage");
+
+  const filterdata = useSelector(
+    (state) => state?.selectcategoryfilterbyid?.listdata
+  );
+  console.log(filterdata, "fltr");
+
+  const handleChange = () => {
+    // setSelectedCategoryId();
+  };
+
+  useEffect(() => {
+    const dataid = { category_id: "" };
+    
+
+    dispatch(selectCategoryFilter(dataid));
+    // console.log(dataid, "iddi");
+  }, []);
   return (
     <>
       <FinalForm
@@ -166,25 +184,53 @@ const ProductForm = () => {
                         placeholder="category"
                         required
                       />
-                      <Field
+                      <select
                         className="addnewproduct_changes right_Addnew"
                         name="category"
                         component="select"
                         required
                       >
-                        <option>Select Category</option>
+                        {filterdata &&
+                          filterdata.map((e) => {
+                            return (
+                              <>
+                                <option
+                                  onClick={handleChange}
+                                  name="category_id"
+                                >
+                                  {e.category}
+                                </option>
+                              </>
+                            );
+                          })}
+                        {/* <option>Select Category</option>
                         <option>Electronics</option>
                         <option>Men</option>
                         <option>Women</option>
                         <option>Home & Kitchen</option>
                         <option>Appliances</option>
-                        <option>Sports & More</option>
+                        <option>Sports & More</option> */}
                         {/* {categories.map((category) => (
                           <option key={category.value} value={category.value}>
                             {category.label}
-                          </option>
+                        </option>
                         ))} */}
-                      </Field>
+                      </select>
+                      {/* <select>
+                        {filterdata &&
+                          filterdata.map((e) => {
+                            return (
+                              <>
+                                <option
+                                  onClick={handleChange}
+                                  name="category_id"
+                                >
+                                  {e.category}
+                                </option>
+                              </>
+                            );
+                          })}
+                      </select> */}
                     </div>
                   </div>
                   <div className="margin_bottom">
@@ -217,6 +263,17 @@ const ProductForm = () => {
                           </option>
                         ))} */}
                       </Field>
+                      {/* <select style={{ width: 100 }}>
+                        {filterdata.map((e) => {
+                          return (
+                            <>
+                              <option onClick={handleChange} name="category_id">
+                                {e.category}
+                              </option>
+                            </>
+                          );
+                        })}
+                      </select> */}
                     </div>
                   </div>
                 </div>

@@ -5,6 +5,7 @@ import { addsubcategory } from "../../../../../Redux/action/createNewSubcategory
 import { allCategoryList } from "../../../../../Redux/action/getCategoryAction";
 import { Col, Dropdown, Row, Table } from "react-bootstrap";
 import { BiDotsVerticalRounded } from "react-icons/bi";
+import { allSubCategoryList } from "../../../../../Redux/action/getSubcategoryAction";
 
 const Allsubcategory = () => {
   const dispatch = useDispatch();
@@ -12,6 +13,11 @@ const Allsubcategory = () => {
   const [selectedCategory, setSelectedCategory] = useState(""); // State to store the selected category
 
   const getscat = useSelector((state) => state?.getcategorylistdata?.listdata);
+
+  const getsubcat = useSelector(
+    (state) => state?.getsubsategorylistdata?.listdata
+  );
+  console.log(getsubcat, "gaets");
 
   const onSubmit = (values) => {
     console.log(values.subcategory, "dddddddddddd");
@@ -29,6 +35,7 @@ const Allsubcategory = () => {
   };
   useEffect(() => {
     dispatch(allCategoryList());
+    dispatch(allSubCategoryList());
   }, []);
 
   console.log(selectedCategoryId, "selectedCategoryId");
@@ -111,28 +118,37 @@ const Allsubcategory = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Mark</td>
-                  <td className="d-flex justify-content-end">
-                    <Dropdown>
-                      <Dropdown.Toggle
-                        variant=""
-                        id="dropdown-basic"
-                        className="focusotoggle"
-                      >
-                        <BiDotsVerticalRounded className="threedot_tog_gle" />
-                      </Dropdown.Toggle>
-                      <Dropdown.Menu>
-                        {/* <Dropdown.Item href="#/action-1">
-                        {" "}
-                        <LuEdit3 /> Edit
-                      </Dropdown.Item> */}
-                        <Dropdown.Item href="#/action-2">Delete</Dropdown.Item>
-                      </Dropdown.Menu>
-                    </Dropdown>
-                  </td>
-                </tr>
+                {getsubcat &&
+                  getsubcat.map((e, i) => {
+                    return (
+                      <>
+                        <tr>
+                          <td>{i + 1}</td>
+                          <td>{e.subcategory}</td>
+                          <td className="d-flex justify-content-end">
+                            <Dropdown>
+                              <Dropdown.Toggle
+                                variant=""
+                                id="dropdown-basic"
+                                className="focusotoggle"
+                              >
+                                <BiDotsVerticalRounded className="threedot_tog_gle" />
+                              </Dropdown.Toggle>
+                              <Dropdown.Menu>
+                                {/* <Dropdown.Item href="#/action-1">
+                                      {" "}
+                                      <LuEdit3 /> Edit
+                                    </Dropdown.Item> */}
+                                <Dropdown.Item href="#/action-2">
+                                  Delete
+                                </Dropdown.Item>
+                              </Dropdown.Menu>
+                            </Dropdown>
+                          </td>
+                        </tr>
+                      </>
+                    );
+                  })}
               </tbody>
             </Table>
           </div>

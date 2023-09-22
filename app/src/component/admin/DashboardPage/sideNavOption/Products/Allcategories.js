@@ -85,7 +85,7 @@ const Allcategories = () => {
                   data.map((e, i) => {
                     return (
                       <tr>
-                        <td></td>
+                        <td>{i + 1}</td>
                         <td>{e.category}</td>
                         <td className="d-flex justify-content-end">
                           <Dropdown>
