@@ -1,8 +1,9 @@
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import {GiComputerFan} from "react-icons/gi";
-import {GrPersonalComputer} from "react-icons/gr";
+import { GiComputerFan } from "react-icons/gi";
+import { GrPersonalComputer } from "react-icons/gr";
+import { FaPeopleRoof } from "react-icons/fa6";
 
 const topbrands = [
   {
@@ -143,11 +144,11 @@ const Aboutus = () => {
           <Row>
             <Col lg={3} md={6}>
               <div className="workability">
-                <GrPersonalComputer/>
+                <GrPersonalComputer />
                 <h2>100k +</h2>
                 <p> Total Products</p>
               </div>
-            </Col> 
+            </Col>
             <Col lg={3} md={6}>
               <div className="workability">
                 <GiComputerFan />
@@ -157,7 +158,7 @@ const Aboutus = () => {
             </Col>
             <Col lg={3} md={6}>
               <div className="workability">
-                <FaPeopleRoof/>
+                <FaPeopleRoof />
                 <h2>250k +</h2>
                 <p> Total Visitors</p>
               </div>

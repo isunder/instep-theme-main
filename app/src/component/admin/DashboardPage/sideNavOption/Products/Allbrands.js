@@ -5,6 +5,7 @@ import { addbrands } from "../../../../../Redux/action/createNewBrandsAction";
 import { allSubCategoryList } from "../../../../../Redux/action/getSubcategoryAction";
 import { Col, Dropdown, Row, Table } from "react-bootstrap";
 import { BiDotsVerticalRounded } from "react-icons/bi";
+import { allBrandsList } from "../../../../../Redux/action/getAllBrandListAction";
 
 const Allsubcategory = () => {
   const dispatch = useDispatch();
@@ -18,6 +19,11 @@ const Allsubcategory = () => {
   const getbrand = useSelector(
     (state) => state?.getsubsategorylistdata?.listdata
   );
+
+  const getbrandlist = useSelector(
+    (state) => state?.getbrandslistdata?.listdata
+  );
+  console.log(getbrandlist, "1111");
 
   console.log(getbrand, "zzz");
   const onSubmit = (values) => {
@@ -33,6 +39,7 @@ const Allsubcategory = () => {
   };
   useEffect(() => {
     dispatch(allSubCategoryList());
+    dispatch(allBrandsList());
   }, []);
 
   var selectedId;
@@ -108,28 +115,36 @@ const Allsubcategory = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Mark</td>
-                  <td className="d-flex justify-content-end">
-                    <Dropdown>
-                      <Dropdown.Toggle
-                        variant=""
-                        id="dropdown-basic"
-                        className="focusotoggle"
-                      >
-                        <BiDotsVerticalRounded className="threedot_tog_gle" />
-                      </Dropdown.Toggle>
-                      <Dropdown.Menu>
-                        {/* <Dropdown.Item href="#/action-1">
+                {getbrandlist.map((e, i) => {
+                  return (
+                    <>
+                      <tr>
+                        <td>{i + 1}</td>
+                        <td>{e.brand}</td>
+                        <td className="d-flex justify-content-end">
+                          <Dropdown>
+                            <Dropdown.Toggle
+                              variant=""
+                              id="dropdown-basic"
+                              className="focusotoggle"
+                            >
+                              <BiDotsVerticalRounded className="threedot_tog_gle" />
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                              {/* <Dropdown.Item href="#/action-1">
                         {" "}
                         <LuEdit3 /> Edit
                       </Dropdown.Item> */}
-                        <Dropdown.Item href="#/action-2">Delete</Dropdown.Item>
-                      </Dropdown.Menu>
-                    </Dropdown>
-                  </td>
-                </tr>
+                              <Dropdown.Item href="#/action-2">
+                                Delete
+                              </Dropdown.Item>
+                            </Dropdown.Menu>
+                          </Dropdown>
+                        </td>
+                      </tr>
+                    </>
+                  );
+                })}
               </tbody>
             </Table>
           </div>
