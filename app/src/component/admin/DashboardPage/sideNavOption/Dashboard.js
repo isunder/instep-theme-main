@@ -123,7 +123,7 @@ const Admindashboard = (percentage) => {
       <Row>
         <Col>
           <Row className="admin_toppadding ">
-            <Col className="Admin_dashboard margin_bottom" md={12} lg={12}>
+            <Col className="Admin_dashboard margin_bottom" md={12} lg={12} xs={12}>
               <h3> Admin Dashboard</h3>
               {/* <Button onClick={() => SignClick()}>sigin</Button> */}
               <div>
@@ -142,17 +142,17 @@ const Admindashboard = (percentage) => {
             </Col>
             <Col className="Admin_graphs margin_bottom" lg={8}>
               <Row>
-                <Col className="margin_bottom" lg={4}>
+                <Col className="margin_bottom" lg={4} md={4}>
                   <Card>
                     <Card.Body></Card.Body>
                   </Card>
                 </Col>
-                <Col className="margin_bottom" lg={4}>
+                <Col className="margin_bottom" lg={4} md={4}>
                   <Card>
                     <Card.Body></Card.Body>
                   </Card>
                 </Col>
-                <Col className="margin_bottom" lg={4}>
+                <Col className="margin_bottom" lg={4} md={4}>
                   <Card>
                     <Card.Body></Card.Body>
                   </Card>

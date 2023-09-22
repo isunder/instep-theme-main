@@ -24,8 +24,8 @@ function Orderreport() {
       </Row>
       <Row className="searchbutton">
         <Col lg={12}>
-          <div className="d-flex justify-content-between">
-            <div className="delieverystatusdate_col margin_bottom">
+          <div className="delieverystatusdate_col margin_bottom">
+            <div className="leftorderreport_edit">
               <Flatpickr
                 className="order_date"
                 ref={startDateRef}
@@ -61,6 +61,8 @@ function Orderreport() {
                 }}
                 placeholder="End Date"
               />
+            </div>
+            <div className="orderrightbuttons">
               <div>
                 {" "}
                 <Form.Select className="order_payment_status">

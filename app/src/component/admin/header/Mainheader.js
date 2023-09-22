@@ -1,20 +1,14 @@
 import React, { useState } from "react";
-import {
-  Col,
-  Container,
-  Form,
-  Nav,
-  NavDropdown,
-  Navbar,
-  Offcanvas,
-  Row,
-} from "react-bootstrap";
+import { Container, Dropdown, Form, Navbar, Offcanvas } from "react-bootstrap";
 import { BsGlobe2 } from "react-icons/bs";
 import { FiSearch } from "react-icons/fi";
+import { IoMdPerson } from "react-icons/io";
 import { MdOutlineNotificationsActive } from "react-icons/md";
 import { useNavigate } from "react-router";
 import { Button } from "rsuite";
 import SidebarFun from "../../admin/dashboardPage/sidebar/Navbarside";
+import { AiOutlineSetting } from "react-icons/ai";
+import { GoSignOut } from "react-icons/go";
 
 function Mainheader() {
   const navigate = useNavigate();
@@ -64,11 +58,41 @@ function Mainheader() {
                   </div>
 
                   <MdOutlineNotificationsActive className="navicons" />
-                  <img
+                  {/* <img
                     className="profile_img"
                     src="https://grostore.themetags.com/public/uploads/media/65bad2tYppDLFCZ2JzveKJtJX7NiX6sznq5VmUS1.jpg"
                     alt=""
-                  />
+                  /> */}
+                  <Dropdown data-bs-theme="">
+                    <Dropdown.Toggle
+                      id="dropdown-button-dark-example1"
+                      variant="secondary"
+                      className="adminnav_profiletoggle"
+                    >
+                      <img
+                        className="profile_img"
+                        src="https://grostore.themetags.com/public/uploads/media/65bad2tYppDLFCZ2JzveKJtJX7NiX6sznq5VmUS1.jpg"
+                        alt=""
+                      />
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu className="adminprofiledrop">
+                      <Dropdown.Item>
+                        <IoMdPerson /> My Account
+                      </Dropdown.Item>
+                      <Dropdown.Item>
+                        <AiOutlineSetting /> Settings
+                      </Dropdown.Item>
+                      <Dropdown.Item>
+                        <GoSignOut />
+                        Sign Out
+                      </Dropdown.Item>
+                      {/* <Dropdown.Divider /> */}
+                      {/* <Dropdown.Item href="#/action-4">
+                        Separated link
+                      </Dropdown.Item> */}
+                    </Dropdown.Menu>
+                  </Dropdown>
                   <Button
                     variant="primary"
                     className="offcanvas_toggole_btn for_tablet "
