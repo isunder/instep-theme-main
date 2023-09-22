@@ -1,8 +1,10 @@
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import {GiComputerFan} from "react-icons/gi";
-import {GrPersonalComputer} from "react-icons/gr";
+import { GiComputerFan } from "react-icons/gi";
+import { HiOutlineComputerDesktop } from "react-icons/hi2";
+import { FaPeopleRoof } from "react-icons/fa6";
+import { MdElectricBike } from "react-icons/md";
 
 const topbrands = [
   {
@@ -54,7 +56,7 @@ const Aboutus = () => {
                     <div className="whitecircleimage">
                       <img
                         className="aboutusright_missionimg"
-                        src="https://cdni.iconscout.com/illustration/premium/thumb/ecommerce-business-management-2885342-2399045.png"
+                        src="https://miro.medium.com/max/1400/1*312ysPze0cYOs60z8PEqPA.jpeg"
                         alt=""
                       />
                     </div>
@@ -140,38 +142,49 @@ const Aboutus = () => {
               </div>
             </Col>
           </Row>
-          <Row>
-            <Col lg={3} md={6}>
-              <div className="workability">
-                <GrPersonalComputer/>
-                <h2>100k +</h2>
-                <p> Total Products</p>
-              </div>
-            </Col> 
-            <Col lg={3} md={6}>
-              <div className="workability">
-                <GiComputerFan />
-                <h2>255k +</h2>
-                <p> Total Orders</p>
-              </div>
-            </Col>
-            <Col lg={3} md={6}>
-              <div className="workability">
-                <FaPeopleRoof/>
-                <h2>250k +</h2>
-                <p> Total Visitors</p>
-              </div>
-            </Col>
-            <Col lg={3} md={6}>
-              <div className="workability">
-                <h2>1250k +</h2>
-                <p> Total Deliverymen</p>
-              </div>
-            </Col>
-          </Row>
+          <div className="workability_align">
+            <Row>
+              <Col lg={3} md={6}>
+                <div className="workability">
+                  <div>
+                    <HiOutlineComputerDesktop className="workability-icon" />
+                    <h4>100k +</h4>
+                  </div>
+                  <p> Total Products</p>
+                </div>
+              </Col>
+              <Col lg={3} md={6}>
+                <div className="workability">
+                  <div>
+                    <GiComputerFan className="workability-icon" />
+                    <h4>255k +</h4>
+                  </div>
+                  <p> Total Orders</p>
+                </div>
+              </Col>
+              <Col lg={3} md={6}>
+                <div className="workability">
+                  <div>
+                    <FaPeopleRoof className="workability-icon" />
+                    <h4>250k +</h4>
+                  </div>
+                  <p> Total Visitors</p>
+                </div>
+              </Col>
+              <Col lg={3} md={6}>
+                <div className="workability">
+                  <div>
+                    <MdElectricBike className="workability-icon" />
+                    <h4>1250k +</h4>
+                  </div>
+                  <p> Total Deliverymen</p>
+                </div>
+              </Col>
+            </Row>
+          </div>
         </div>
       </div>
-      <div className="container py-4">
+      <div className="container turst_align">
         <Row>
           <Col lg={4}>
             <div className=" thirdrowpadding">
@@ -183,7 +196,7 @@ const Aboutus = () => {
               </div>
               <img
                 className="thridrow_backgroundimage"
-                src="https://static.semrush.com/blog/uploads/media/e4/81/e4815bb11c067c2e423effe13fbf2e04/ecommerce-content-marketing-strategy.svg"
+                src="https://cdn.pixabay.com/photo/2021/04/23/09/41/e-commerce-6201271_960_720.png"
                 alt=""
               />
             </div>

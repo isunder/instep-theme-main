@@ -35,36 +35,39 @@ const SidebarFun = () => {
       <Sidenav defaultOpenKeys={["3", "4"]}>
         <Sidenav.Body>
           <div className="sidebar_deco">
-            <Nav activeKey="1">
-              <Nav.Item eventKey="1" onClick={() => dashClick()}>
-                {" "}
+            <Nav  activeKey="1">
+              <Nav.Item
+                className="dashboard"
+                eventKey="1"
+                onClick={() => dashClick()}
+              >
                 <AiOutlineDashboard />
                 Dashboard
               </Nav.Item>{" "}
-              <Nav.Menu
+              <Nav.Menu 
                 eventKey="2"
                 title="Products"
                 icon={<MdProductionQuantityLimits />}
               >
                 <Nav.Item eventKey="2-1">
                   {" "}
-                  <Link to={"/allproduct"}> All Products</Link>{" "}
+                  <Link to={"/allproduct"}>- All Products</Link>{" "}
                 </Nav.Item>
                 <Nav.Item eventKey="2-2">
                   {" "}
-                  <Link to={"/Allcategories"}> All Categories</Link>
+                  <Link to={"/Allcategories"}>- All Categories</Link>
                 </Nav.Item>
                 <Nav.Item eventKey="2-3">
-                  <Link to={"/allsubcategory"}> All Subcategory</Link>
+                  <Link to={"/allsubcategory"}>- All Subcategory</Link>
                 </Nav.Item>
                 <Nav.Item eventKey="2-4">
-                  <Link to={"/Allbrands"}> All Brands</Link>
+                  <Link to={"/Allbrands"}>- All Brands</Link>
                 </Nav.Item>
                 <Nav.Item eventKey="2-5">
-                  <Link to={"/Allunit"}> All Units</Link>
+                  <Link to={"/Allunit"}>- All Units</Link>
                 </Nav.Item>
                 <Nav.Item eventKey="2-6">
-                  <Link to={"/Alltaxes"}> All Taxes</Link>
+                  <Link to={"/Alltaxes"}>- All Taxes</Link>
                 </Nav.Item>
               </Nav.Menu>
               <Nav.Menu
@@ -75,10 +78,10 @@ const SidebarFun = () => {
               <Nav.Menu eventKey="4" title="Order" icon={<HiDocument />} />{" "}
               <Nav.Menu eventKey="5" title="Stock" icon={<GoDatabase />}>
                 <Nav.Item eventKey="5-1">
-                  <Link to={"/Addstock"}> Add Stock </Link>{" "}
+                  <Link to={"/Addstock"}>- Add Stock </Link>{" "}
                 </Nav.Item>
                 <Nav.Item eventKey="5-2">
-                  <Link to={"/Allloation"}> All Location</Link>
+                  <Link to={"/Allloation"}>- All Location</Link>
                 </Nav.Item>
               </Nav.Menu>{" "}
               <Nav.Menu
@@ -87,10 +90,10 @@ const SidebarFun = () => {
                 icon={<BsArrow90DegLeft />}
               >
                 {" "}
-                <Nav.Item eventKey="6-1">Refund Configurations</Nav.Item>
-                <Nav.Item eventKey="6-2">Refunds Requests</Nav.Item>
-                <Nav.Item eventKey="6-1">Approved Refunds</Nav.Item>
-                <Nav.Item eventKey="6-2">Rejected Refunds</Nav.Item>{" "}
+                <Nav.Item eventKey="6-1">-Refund Configurations</Nav.Item>
+                <Nav.Item eventKey="6-2">-Refunds Requests</Nav.Item>
+                <Nav.Item eventKey="6-1">-Approved Refunds</Nav.Item>
+                <Nav.Item eventKey="6-2">-Rejected Refunds</Nav.Item>{" "}
               </Nav.Menu>
               <Nav.Menu
                 eventKey="7"
@@ -98,9 +101,9 @@ const SidebarFun = () => {
                 icon={<BsAwardFill />}
               >
                 {" "}
-                <Nav.Item eventKey="7-1">Rewards Configurations</Nav.Item>
-                <Nav.Item eventKey="7-2">Set Reward Points</Nav.Item>
-                <Nav.Item eventKey="7-3">Wallet Configurations</Nav.Item>
+                <Nav.Item eventKey="7-1">-Rewards Configurations</Nav.Item>
+                <Nav.Item eventKey="7-2">-Set Reward Points</Nav.Item>
+                <Nav.Item eventKey="7-3">-Wallet Configurations</Nav.Item>
               </Nav.Menu>
               <Nav.Menu
                 eventKey="8"
@@ -144,22 +147,22 @@ const SidebarFun = () => {
               <Nav.Menu eventKey="18" title="Reports" icon={<BiSolidReport />}>
                 {" "}
                 <Nav.Item eventKey="18-1">
-                  <Link to={"/Orderreport"}>Order Report</Link>
+                  <Link to={"/Orderreport"}>-Order Report</Link>
                 </Nav.Item>
                 <Nav.Item eventKey="18-2">
                   {" "}
-                  <Link to={"/Productsale"}>Products Sales</Link>
+                  <Link to={"/Productsale"}>-Products Sales</Link>
                 </Nav.Item>
                 <Nav.Item eventKey="18-3">
                   {" "}
-                  <Link to={"/Categorywise"}>Category Wise Sales</Link>
+                  <Link to={"/Categorywise"}>-Category Wise Sales</Link>
                 </Nav.Item>
                 <Nav.Item eventKey="18-4">
-                  <Link to={"/Salesamountreport"}>Sales Amount Report</Link>
+                  <Link to={"/Salesamountreport"}>-Sales Amount Report</Link>
                 </Nav.Item>
                 <Nav.Item eventKey="18-4">
                   <Link to={"/Deliverystatusreport"}>
-                    Delivery Status Report
+                    -Delivery Status Report
                   </Link>
                 </Nav.Item>
               </Nav.Menu>
@@ -170,12 +173,12 @@ const SidebarFun = () => {
               />
               <Nav.Menu eventKey="20" title="Appearance">
                 {" "}
-                <Nav.Item eventKey="20-1"> Home Page</Nav.Item>
-                <Nav.Item eventKey="20-2">Products Page</Nav.Item>
-                <Nav.Item eventKey="20-3">Products Details</Nav.Item>
-                <Nav.Item eventKey="20-4">About Us</Nav.Item>
-                <Nav.Item eventKey="20-5">Header</Nav.Item>
-                <Nav.Item eventKey="20-5">Footer</Nav.Item>
+                <Nav.Item eventKey="20-1"> -Home Page</Nav.Item>
+                <Nav.Item eventKey="20-2">-Products Page</Nav.Item>
+                <Nav.Item eventKey="20-3">-Products Details</Nav.Item>
+                <Nav.Item eventKey="20-4">-About Us</Nav.Item>
+                <Nav.Item eventKey="20-5">-Header</Nav.Item>
+                <Nav.Item eventKey="20-5">-Footer</Nav.Item>
               </Nav.Menu>
               <Nav.Menu
                 eventKey="22"
@@ -184,23 +187,15 @@ const SidebarFun = () => {
               />
               <Nav.Menu eventKey="23" title="Setting" icon={<AiFillSetting />}>
                 {" "}
-                <Nav.Item eventKey="23-1"> Auth Setting</Nav.Item>
-                <Nav.Item eventKey="23-2">OTP Setting</Nav.Item>
-                <Nav.Item eventKey="23-3">Order Setting</Nav.Item>
-                <Nav.Item eventKey="23-4">Smtp Setting</Nav.Item>
-                <Nav.Item eventKey="23-5">General Setting</Nav.Item>
-                <Nav.Item eventKey="23-6">Payment Methods</Nav.Item>
-                <Nav.Item eventKey="23-7">Social Media Login</Nav.Item>
-                <Nav.Item eventKey="23-8">Multilingual Setting</Nav.Item>
-                <Nav.Item eventKey="23-9">Multi Currency Setting</Nav.Item>
-              </Nav.Menu>
-              <Nav.Menu eventKey="4-5" title="Product">
-                <Nav.Item eventKey="4-5-1" onClick={() => AllProductClick()}>
-                  All Proucts
-                </Nav.Item>
-                <Nav.Item eventKey="4-5-2" onClick={() => AddProductClick()}>
-                  Add Product
-                </Nav.Item>
+                <Nav.Item eventKey="23-1">- Auth Setting</Nav.Item>
+                <Nav.Item eventKey="23-2">-OTP Setting</Nav.Item>
+                <Nav.Item eventKey="23-3">-Order Setting</Nav.Item>
+                <Nav.Item eventKey="23-4">-Smtp Setting</Nav.Item>
+                <Nav.Item eventKey="23-5">-General Setting</Nav.Item>
+                <Nav.Item eventKey="23-6">-Payment Methods</Nav.Item>
+                <Nav.Item eventKey="23-7">-Social Media Login</Nav.Item>
+                <Nav.Item eventKey="23-8">-Multilingual Setting</Nav.Item>
+                <Nav.Item eventKey="23-9">-Multi Currency Setting</Nav.Item>
               </Nav.Menu>
             </Nav>
           </div>

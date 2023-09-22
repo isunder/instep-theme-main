@@ -34,6 +34,7 @@ import AllProductDetail from "../component/user/UserHeader/allProduct/allProduct
 import ProductDetails from "../component/user/Products/productDetails";
 import Aboutus from "../component/user/aboutUs/aboutus";
 import Allsubcategory from "../component/admin/dashboardPage/sideNavOption/Products/Allsubcategory";
+import Delieverydetail from "../component/user/placeOrder/delieverydetail";
 
 const role = getUserId() ? getUserId()?.userRole : null;
 // console.log(role, "aaasdfgfds");
@@ -54,6 +55,7 @@ const protects = {
         { path: "/profile", element: <Profile /> },
         { path: "/allproduct", element: <AllProductDetail /> },
         { path: "/aboutus", element: <Aboutus /> },
+        { path: "/deliverydetail", element: <Delieverydetail/> },
         { path: "*", element: "NO PAGE FOUND" },
       ],
     },
@@ -102,6 +104,7 @@ const protects = {
         { path: "/category/:categoryName", element: <Homecategory /> },
         { path: "/allproduct", element: <AllProductDetail /> },
         { path: "/aboutus", element: <Aboutus /> },
+        { path: "/deliverydetail", element: <Delieverydetail/> },
         { path: "*", element: "NO PAGE FOUND" },
       ],
     },
