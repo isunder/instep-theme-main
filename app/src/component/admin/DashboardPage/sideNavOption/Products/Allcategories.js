@@ -34,20 +34,20 @@ const Allcategories = () => {
       <Row>
         <Col lg={8}>
           <div className="categoryadd_new margin_bottom">
-            <div className="category_item">
-              <div className="leftcategory_add">
-                <Form
-                  onSubmit={onSubmit}
-                  // initialValues={sxsszs}
-                  // validate={validate}
-                  render={({
-                    handleSubmit,
-                    form,
-                    submitting,
-                    pristine,
-                    valuess,
-                  }) => (
-                    <form onSubmit={handleSubmit}>
+            <div className="leftcategory_add">
+              <Form
+                onSubmit={onSubmit}
+                // initialValues={sxsszs}
+                // validate={validate}
+                render={({
+                  handleSubmit,
+                  form,
+                  submitting,
+                  pristine,
+                  valuess,
+                }) => (
+                  <form onSubmit={handleSubmit}>
+                    <div className="category_item">
                       <Field
                         className="ctegorysearc_h"
                         name="category"
@@ -57,14 +57,14 @@ const Allcategories = () => {
                         required
                       />
                       <div className="buttons">
-                        <button className="catesearchbutton" type="submit">
+                        <button className="addcatsubit_button" type="submit">
                           Submit
                         </button>
                       </div>
-                    </form>
-                  )}
-                />
-              </div>
+                    </div>
+                  </form>
+                )}
+              />
             </div>
           </div>
         </Col>

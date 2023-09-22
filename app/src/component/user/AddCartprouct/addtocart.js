@@ -172,13 +172,13 @@ const AddToCartProduct = () => {
                               </span>
                             </div>
                             <span className="quantityval_ue">
-                              {quantities[index] ||0}
+                              {quantities[index] || 0}
                             </span>
                             <div className="add">
                               <span onClick={() => quantityAdd(index)}>
                                 <AiOutlinePlus />
                               </span>
-                            </div>  
+                            </div>
                           </div>
                         </Col>
                         <Col lg={2}>
@@ -238,7 +238,9 @@ const AddToCartProduct = () => {
           </Col>
         </Row>
         <div className="plceorderbutton_cart col-lg-9">
-          <button className="placeorder_butcart">Place Order</button>
+          <Link to="/deliverydetail">
+            <button className="placeorder_butcart">Place Order</button>
+          </Link>
         </div>
       </div>
     </>
