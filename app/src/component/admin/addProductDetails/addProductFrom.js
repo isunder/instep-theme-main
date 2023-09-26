@@ -8,20 +8,30 @@ import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import { MdCancel } from "react-icons/md";
 import "react-toastify/dist/ReactToastify.css";
-import { selectCategoryFilter } from "../../../Redux/action/filterByCategory";
+import {
+  selectBrandFilter,
+  selectCategoryFilter,
+  selectSubcategoryFilter,
+} from "../../../Redux/action/filterByCategory";
 
 const ProductForm = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state);
 
-  // const [selectedOption, setSelectedOption] = useState(null);
   const [imgupload, setImgupload] = useState("");
 
-  // console.log(imgupload, "kkkkkkkkkkkkkkkkkkkkkkkk");
+  const [selectedCategoryId, setSelectedCategoryId] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState(""); // State to store the selected category
+  console.log(selectedCategory, "dsjhhf");
+  const [subcategory, setSubcategory] = useState("");
+  const [subcategoryid, setSubcategoryid] = useState("");
+  const [brandcategory, setBrandcategory] = useState("");
+  const [brand, setbrand] = useState("");
+  console.log(brandcategory, "zzzz");
 
   const [selectedthumbnalFile, setselectedthumbnalFile] = useState([]);
   const [thumbnail, setthumbnail] = useState("");
-
+  const [subcategorydata, setsubcategorydata] = useState("");
   const handlethumbnalfile = (e) => {
     const files = e.target.files;
     const uniqueId = Date.now();
@@ -46,14 +56,9 @@ const ProductForm = () => {
       reader.readAsDataURL(files[i]);
     }
   };
-  // console.log(selectedthumbnalFile, "selectedthumbnalFile");
 
   const [selectedImagesforpost, setselectedImagesforpost] = useState([]);
   const [selectedImages, setSelectedImages] = useState([]);
-
-  const [getCateId, setGetCateId] = useState([]);
-
-  const [selectedCategoryId, setSelectedCategoryId] = useState("");
 
   const handleImgeFile = (e) => {
     const files = e.target.files;
@@ -77,18 +82,17 @@ const ProductForm = () => {
       reader.readAsDataURL(files[i]);
     }
   };
-  // console.log(selectedImagesforpost, "first");
   const onSubmit = (values) => {
     // console.log(values, imgupload, "dddd");
     var formData = new FormData();
 
     const payload = {
       description: values?.description,
-      category: values?.category,
-      subcategory: values?.subcategory,
+      category_id: selectedCategoryId,
+      subcategory_id: subcategoryid,
       title: values?.title,
       price: values?.price,
-      brand: values?.brand,
+      brand_id: brandcategory,
       discountpercentage: values?.discountpercentage,
       stock: values?.stock,
       rating: values?.rating,
@@ -135,33 +139,67 @@ const ProductForm = () => {
     setselectedImagesforpost(imagedataArray);
   };
 
-  // const [selectedImage, setSelectedImage] = useState();
-  // const [uploadedImageUrl, setUploadedImageUrl] = useState();
-
-  // console.log(uploadedImageUrl, "selectedImage");
-
   const filterdata = useSelector(
     (state) => state?.selectcategoryfilterbyid?.listdata
   );
-  console.log(filterdata, "fltr");
 
-  const handleChange = () => {
-    // setSelectedCategoryId();
+  const filterdatasubcat = useSelector(
+    (state) => state?.subcategoryfilter?.listdata
+  );
+  const filterbrand = useSelector((state) => state?.brandfilter?.listdata);
+  console.log(filterbrand, "dddddddddddddddddddddddddfdfd");
+
+  const handleChangehandleChange = (e) => {
+    console.log("Category selected", e.target.value);
+  };
+  console.log(selectedCategoryId, "selectedCategoryId");
+  const handleChange = (event) => {
+    const selectedId = event.target.value;
+    setSelectedCategoryId(selectedId);
+
+    const selectedLabel =
+      filterdata.find((i) => i._id === selectedId)?.category || "";
+    setSelectedCategory(selectedLabel);
+  };
+  console.log(filterdata, selectedCategory, "asdasdddddddddddd");
+
+  // subcategory change
+
+  const handleChangesubcat = (event) => {
+    const selectedId = event.target.value;
+    setSubcategoryid(selectedId);
+
+    const selectedLabel =
+      filterdatasubcat.find((i) => i._id === selectedId)?.subcategory || "";
+    setSubcategory(selectedLabel);
   };
 
-  useEffect(() => {
-    const dataid = { category_id: "" };
-    
+  const brandChange = (event) => {
+    const selectedId = event.target.value;
+    setBrandcategory(selectedId);
 
-    dispatch(selectCategoryFilter(dataid));
-    // console.log(dataid, "iddi");
-  }, []);
+    const selectedLabel =
+      filterbrand.find((i) => i._id === selectedId)?.brand || "";
+    setbrand(selectedLabel);
+  };
+  useEffect(() => {
+    console.log(selectedCategoryId, subcategoryid, brandcategory, "idds");
+    if (subcategoryid != "") {
+      dispatch(selectBrandFilter({ subcategory_id: subcategoryid }));
+    } else if (selectedCategoryId) {
+      dispatch(selectSubcategoryFilter({ category_id: selectedCategoryId }));
+    } else {
+      dispatch(selectCategoryFilter({ subcategory_id: brandcategory }));
+    }
+  }, [selectedCategoryId, subcategoryid, brandcategory]);
+
+  console.log(subcategoryid, "subcategorydata");
   return (
     <>
       <FinalForm
         onSubmit={onSubmit}
         // validate={validate}
-        initialValues={initialValues}
+        // initialValues={initialValues}
         render={({ handleSubmit }) => (
           <form onSubmit={handleSubmit} enctype="multipart/form-data">
             <Row>
@@ -176,104 +214,73 @@ const ProductForm = () => {
                   <div className="margin_bottom">
                     <h5 className="margin_bottom">Product Categories</h5>
                     <div className="d-flex newpeo_div">
-                      <Field
-                        className="addnewproduct_changes"
-                        name="category"
-                        component="input"
+                      <input
                         type="text"
-                        placeholder="category"
-                        required
-                      />
+                        placeholder="select category"
+                        className="addnewproduct_changes"
+                        value={selectedCategory}
+                      ></input>
                       <select
                         className="addnewproduct_changes right_Addnew"
                         name="category"
                         component="select"
+                        onChange={handleChange}
+                        value={selectedCategoryId}
                         required
                       >
                         {filterdata &&
                           filterdata.map((e) => {
                             return (
                               <>
-                                <option
-                                  onClick={handleChange}
-                                  name="category_id"
-                                >
+                                <option name="option" key={e._id} value={e._id}>
                                   {e.category}
                                 </option>
                               </>
                             );
                           })}
-                        {/* <option>Select Category</option>
-                        <option>Electronics</option>
-                        <option>Men</option>
-                        <option>Women</option>
-                        <option>Home & Kitchen</option>
-                        <option>Appliances</option>
-                        <option>Sports & More</option> */}
-                        {/* {categories.map((category) => (
-                          <option key={category.value} value={category.value}>
-                            {category.label}
-                        </option>
-                        ))} */}
                       </select>
-                      {/* <select>
-                        {filterdata &&
-                          filterdata.map((e) => {
-                            return (
-                              <>
-                                <option
-                                  onClick={handleChange}
-                                  name="category_id"
-                                >
-                                  {e.category}
-                                </option>
-                              </>
-                            );
-                          })}
-                      </select> */}
                     </div>
                   </div>
                   <div className="margin_bottom">
                     <h5 className="margin_bottom">Subcategory</h5>
                     <div className="d-flex newpeo_div">
-                      <Field
-                        className="addnewproduct_changes"
-                        name="subcategory"
-                        component="input"
-                        type="text"
-                        placeholder="subcategory"
-                        required
-                      />
-                      <Field
+                      {/* <Field
                         className="addnewproduct_changes right_Addnew"
                         name="subcategory"
                         component="select"
+                        // onChange={handleChangesubcat}
+                        // value={subcategoryid}
+                        required
+                      > */}
+                      <input
+                        className="addnewproduct_changes right_Addnew"
+                        placeholder=" Select Subcategory"
+                        type="text"
+                        value={subcategory}
+                      ></input>
+                      <select
+                        className="addnewproduct_changes right_Addnew"
+                        name="subcategory"
+                        component="select"
+                        onChange={handleChangesubcat}
+                        value={subcategoryid}
                         required
                       >
-                        <option>Select Category</option>
-                        <option>Electronics</option>
-                        <option>Men</option>
-                        <option>Women</option>
-                        <option>Home & Kitchen</option>
-                        <option>Appliances</option>
-                        <option>Sports & More</option>
-                        {/* {categories.map((category) => (
-                          <option key={category.value} value={category.value}>
-                            {category.label}
-                          </option>
-                        ))} */}
-                      </Field>
-                      {/* <select style={{ width: 100 }}>
-                        {filterdata.map((e) => {
-                          return (
-                            <>
-                              <option onClick={handleChange} name="category_id">
-                                {e.category}
-                              </option>
-                            </>
-                          );
-                        })}
-                      </select> */}
+                        {filterdatasubcat &&
+                          filterdatasubcat.map((e) => {
+                            return (
+                              <>
+                                <option
+                                  name="option"
+                                  key={e.subcategory_id}
+                                  value={e._id}
+                                >
+                                  {e.subcategory}
+                                </option>
+                              </>
+                            );
+                          })}
+                      </select>
                     </div>
                   </div>
                 </div>
@@ -281,46 +288,55 @@ const ProductForm = () => {
                   <div className="margin_bottom">
                     <h5>Product Brand</h5>
                     <div className="d-flex newpeo_div">
-                      <Field
+                      {/* <Field
                         className="addnewproduct_changes"
                         name="brand"
-                        component="input"
-                        type="text"
-                        placeholder="Brand Name"
-                        required
-                      />
-                      <Field
-                        className="addnewproduct_changes right_Addnew"
-                        name="brand"
                         component="select"
+                        placeholder="Brand Name"
+                        onChange={brandChange}
+                        value={brandcategory}
+                        required
+                      > */}
+
+                      <input
+                        className="addnewproduct_changes right_Addnew"
+                        placeholder=" Select Brand"
+                        type="text"
+                        value={brand}
+                      ></input>
+                      <select
+                        className="addnewproduct_changes right_Addnew"
+                        name="subcategory"
+                        component="select"
+                        onChange={brandChange}
+                        value={brandcategory}
                         required
                       >
-                        <option>Select Category</option>
-                        <option>Electronics</option>
-                        <option>Men</option>
-                        <option>Women</option>
-                        <option>Home & Kitchen</option>
-                        <option>Appliances</option>
-                        <option>Sports & More</option>
-                        {/* {categories.map((category) => (
-                          <option key={category.value} value={category.value}>
-                            {category.label}
-                          </option>
-                        ))} */}
-                      </Field>
+                        {filterbrand &&
+                          filterbrand.map((e) => {
+                            console.log(e, "eeee");
+                            return (
+                              <>
+                                <option name="option" key={e._id} value={e._id}>
+                                  {e.brand}
+                                </option>
+                              </>
+                            );
+                          })}
+                      </select>
                     </div>
                   </div>
-                  {/* <div className="product_brand "> */}
-                  {/* <h5>Product Unit</h5> */}
-                  {/* <div className="">
+                  {/* <div className="product_brand ">
+                    <h5>Product Unit</h5>
+                    <div className="">
                       <Select
                         name="unit"
                         defaultValue={selectedOption}
                         onChange={setSelectedOption}
                         options={options}
                       />
-                    </div> */}
-                  {/* </div> */}
+                    </div>
+                  </div> */}
                 </div>
                 {/* <Button className="Brandsave_button" variant="success">
             Save Brand
