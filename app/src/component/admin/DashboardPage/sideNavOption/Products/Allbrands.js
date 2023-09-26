@@ -115,36 +115,38 @@ const Allsubcategory = () => {
                 </tr>
               </thead>
               <tbody>
-                {getbrandlist.map((e, i) => {
-                  return (
-                    <>
-                      <tr>
-                        <td>{i + 1}</td>
-                        <td>{e.brand}</td>
-                        <td className="d-flex justify-content-end">
-                          <Dropdown>
-                            <Dropdown.Toggle
-                              variant=""
-                              id="dropdown-basic"
-                              className="focusotoggle"
-                            >
-                              <BiDotsVerticalRounded className="threedot_tog_gle" />
-                            </Dropdown.Toggle>
-                            <Dropdown.Menu>
-                              {/* <Dropdown.Item href="#/action-1">
+                {getbrandlist &&
+                  getbrandlist?.map((e, i) => {
+                    console.log(e, "brnds");
+                    return (
+                      <>
+                        <tr>
+                          <td>{i + 1}</td>
+                          <td>{e.brand}</td>
+                          <td className="d-flex justify-content-end">
+                            <Dropdown>
+                              <Dropdown.Toggle
+                                variant=""
+                                id="dropdown-basic"
+                                className="focusotoggle"
+                              >
+                                <BiDotsVerticalRounded className="threedot_tog_gle" />
+                              </Dropdown.Toggle>
+                              <Dropdown.Menu>
+                                {/* <Dropdown.Item href="#/action-1">
                         {" "}
                         <LuEdit3 /> Edit
                       </Dropdown.Item> */}
-                              <Dropdown.Item href="#/action-2">
-                                Delete
-                              </Dropdown.Item>
-                            </Dropdown.Menu>
-                          </Dropdown>
-                        </td>
-                      </tr>
-                    </>
-                  );
-                })}
+                                <Dropdown.Item href="#/action-2">
+                                  Delete
+                                </Dropdown.Item>
+                              </Dropdown.Menu>
+                            </Dropdown>
+                          </td>
+                        </tr>
+                      </>
+                    );
+                  })}
               </tbody>
             </Table>
           </div>

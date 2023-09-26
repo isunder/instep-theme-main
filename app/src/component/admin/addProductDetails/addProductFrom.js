@@ -184,12 +184,12 @@ const ProductForm = () => {
   };
   useEffect(() => {
     console.log(selectedCategoryId, subcategoryid, brandcategory, "idds");
-    if (subcategoryid != "") {
+    if (subcategoryid) {
       dispatch(selectBrandFilter({ subcategory_id: subcategoryid }));
     } else if (selectedCategoryId) {
       dispatch(selectSubcategoryFilter({ category_id: selectedCategoryId }));
     } else {
-      dispatch(selectCategoryFilter({ subcategory_id: brandcategory }));
+      dispatch(selectCategoryFilter());
     }
   }, [selectedCategoryId, subcategoryid, brandcategory]);
 

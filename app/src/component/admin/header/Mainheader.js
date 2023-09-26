@@ -21,6 +21,11 @@ function Mainheader() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const logoutClick = () => {
+    localStorage.clear();
+    window.location.reload();
+  };
+
   return (
     <>
       {["lg"].map((expand) => (
@@ -83,7 +88,7 @@ function Mainheader() {
                       <Dropdown.Item>
                         <AiOutlineSetting /> Settings
                       </Dropdown.Item>
-                      <Dropdown.Item>
+                      <Dropdown.Item onClick={logoutClick}>
                         <GoSignOut />
                         Sign Out
                       </Dropdown.Item>

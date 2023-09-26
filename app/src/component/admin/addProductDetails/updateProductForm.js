@@ -35,7 +35,6 @@ function MydModalWithGrid(props) {
   const initialValues = {
     _id: single._id,
     description: single.description,
-
     category: single.category,
     title: single.title,
     price: single.price,
@@ -70,7 +69,7 @@ function MydModalWithGrid(props) {
               <form onSubmit={handleSubmit}>
                 <div className="d-flex modal-size">
                   <div className="left_update_product">
-                    <div className="update_product">
+                    {/* <div className="update_product">
                       <label htmlFor="category">
                         <h5>Category</h5>
                       </label>
@@ -87,7 +86,7 @@ function MydModalWithGrid(props) {
                         <option>Sports & More</option>
                         <option>Women</option>
                       </Field>
-                    </div>
+                    </div> */}
                     <div className="update_product">
                       <label htmlFor="description">
                         <h5>description</h5>

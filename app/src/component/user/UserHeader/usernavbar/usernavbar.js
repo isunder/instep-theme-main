@@ -60,8 +60,10 @@ const Usernavbar = () => {
   const mycart = useSelector((selectCart) => selectCart?.addToCartFile?.mycart);
   useEffect(() => {
     // Update the local state when mycart changes
-    setCartdata(mycart)
-    dispatch(myCartList({ userid: userData.id }))
+    setCartdata(mycart);
+    if (userData?.id) {
+      dispatch(myCartList({ userid: userData.id }));
+    }
   }, []); // This useEffect will run whenever mycart changes
 
   console.log(cartdata, "cart");
@@ -112,7 +114,7 @@ const Usernavbar = () => {
     dispatch(getProductAction());
   }, []);
 
-  const brandClick = () => { };
+  const brandClick = () => {};
 
   const [show, setShow] = useState(false);
 
