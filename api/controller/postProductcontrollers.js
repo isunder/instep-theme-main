@@ -6,45 +6,17 @@ const { status } = require("express/lib/response");
 const categorytable = require("../models/categorytable");
 const subcategorytable = require("../models/subcategorytable");
 const brandtable = require("../models/brandSchema");
+const { default: mongoose } = require("mongoose");
 
 dotenv.config();
 
 const postproduct = expressAsyncHandler(async (req, res) => {
-  console.log("req.body.userData:", req.body.userData);
+  console.log("req.body.userData:", req.body?.userData?.id);
   const userData = JSON.parse(req.body.userData);
 
-  const product = userData.id
-
-  // if(product){
-  //   // 
-
-  //   const findbyid = await Userproducts.findByIdAndUpdate(
-  //     { _id:product },
-
-  //     {
-  //       category: userData.category_id,
-  //       description:userData.description,
-  //       title:userData.title,
-  //       price: userData.price,
-  //       image: userData.image,
-  //       brand: userData.brand_id,
-  //       rating: userData.rating,
-  //       subcategory: userData.subcategory_id,
-  //       thumbnail: userData.thumbnail,
-  //       stock: userData.stock,
-  //       discountPercentage: userData.discountPercentage,
-  //     },
-  //     {
-  //       new: true,
-  //     }
-  //   );
-  //   try {
-  //     res.send(findbyid,{ message: "Product is update" } );
-  //   } catch (error) {
-  //     res.status(400).send({ message: error.message });
-  //   }
-  // }else{
   try {
+
+    const userData = JSON.parse(req.body.userData);
 
     const imagesFilenames = req.files["images"].map((file) => file.filename); // Array of image filenames
     console.log(req.files.images[0].filename, "req.files");
@@ -79,14 +51,16 @@ const postproduct = expressAsyncHandler(async (req, res) => {
     console.error(error);
     res.status(500).json({ error: error.message });
   }
-  // }  
+
+
+
 
 });
 
 // get all products
 const getproduct = expressAsyncHandler(async (req, res) => {
   try {
-   
+
 
     // ////
     const products = await Userproducts.aggregate([
@@ -130,7 +104,7 @@ const getproduct = expressAsyncHandler(async (req, res) => {
 
 
 
-   
+
   } catch (error) {
     res
       .status(500)
@@ -223,39 +197,121 @@ const subcategoryfilter = expressAsyncHandler(async (req, res) => {
 })
 
 const updateproduct = expressAsyncHandler(async (req, res) => {
-  const userData = JSON.parse(req.body.userData);
-
-  const product = userData?.id
-  console.log('hjhhdhdhdhhhh', product)
-
-  const findbyid = await Userproducts.findByIdAndUpdate(
-    { _id: product },
-    {
-      category: category,
-      description: description,
-      title: title,
-      price: price,
-      image: image,
-      brand: brand,
-      rating: rating,
-      subcategory: subcategory,
-      thumbnail: thumbnail,
-      stock: stock,
-      discountPercentage: discountPercentage,
-    },
-    {
-      new: true,
-    }
-  );
   try {
+    const userData = JSON.parse(req.body.userData);
+    const product = userData?.id;
+
+    // Check if the user wants to update images and thumbnail
+    const updateImages = userData?.updateImages;
+    const updateThumbnail = userData?.updateThumbnail;
+
+    // Create an object to store the fields to be updated
+    const updateFields = {};
+
+    if (updateImages) {
+      const imagesFilenames = req.files["images"].map((file) => file.filename);
+
+      updateFields.images = imagesFilenames;
+    }
+
+    if (updateThumbnail) {
+      const thumbnailFilename = req.files.thumbnail[0].filename;
+      updateFields.thumbnail = thumbnailFilename;
+    }
+
+    // Update other fields if needed
+    updateFields.description = userData?.description;
+    updateFields.title = userData?.title;
+    updateFields.price = userData?.price;
+    updateFields.rating = userData?.rating;
+    updateFields.stock = userData?.stock;
+    updateFields.discountPercentage = userData?.discountPercentage;
+
+    const findbyid = await Userproducts.findByIdAndUpdate(
+      { _id: product },
+      updateFields, // Use the updateFields object to only update selected fields
+      { new: true }
+    );
+
     res.send(findbyid);
   } catch (error) {
     res.status(400).send({ message: error.message });
   }
-})
+});
+// getSingleProduct 
+const getSingleProduct = expressAsyncHandler(async (req, res) => {
+  const productId = req.body.id; // Assuming the product ID is in the URL params
+  console.log(productId, "product ID");
+  
+  try {
+   
 
-// const categorytable=expressAsyncHandler(async(req,res)=>{{
+    // Aggregate to retrieve the single product with category, subcategory, and brand
+   
+    const product = await Userproducts.aggregate([
+      {
+        $match: { _id:new  mongoose.Types.ObjectId(productId) }, // Match the product by ID
+      },
+      {
+        $lookup: {
+          from: "categorytables",
+          localField: "category",
+          foreignField: "_id",
+          as: "category",
+        },
+      },
+      {
+        $lookup: {
+          from: "subcategorytables",
+          localField: "subcategory",
+          foreignField: "_id",
+          as: "subcategory",
+        },
+      },
+      {
+        $lookup: {
+          from: "brandtables",
+          localField: "brand",
+          foreignField: "_id",
+          as: "brand",
+        },
+      },
+    ]);
+    console.log(product, "product");
 
-// }})
+    if (product.length > 0) {
+      // Since product is an array, return the first (and only) result
+      const singleProduct = product[0];
 
-module.exports = { postproduct, getproduct, getfilter, categoryfilter, subcategoryfilter, updateproduct };
+      // Extract the category, subcategory, and brand objects from the arrays
+      const category = singleProduct.category[0];
+      const subcategory = singleProduct.subcategory[0];
+      const brand = singleProduct.brand[0];
+
+      // Merge the extracted data into a single object
+      const result = {
+        ...singleProduct,
+        category,
+        subcategory,
+        brand,
+      };
+
+      res.status(200).json(result);
+    } else {
+      res.status(404).json({ result: "Product not found" });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .send({ error: "An error occurred while fetching the product", error });
+  }
+});
+
+
+
+
+
+
+
+
+module.exports = { postproduct, getproduct, getfilter, categoryfilter, subcategoryfilter, updateproduct, getSingleProduct };

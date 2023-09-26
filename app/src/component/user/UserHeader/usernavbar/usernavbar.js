@@ -56,8 +56,15 @@ const Usernavbar = () => {
   // dispatch(cartinfo)
   // console.log(selectCart, "selectCart");
   // const cart = useSelector((selectCart) => selectCart?.addToCartFile?.listdata);
+  const [cartdata, setCartdata] = useState([]); // Initialize cartdata as an empty array
   const mycart = useSelector((selectCart) => selectCart?.addToCartFile?.mycart);
-  console.log(mycart, "cart");
+  useEffect(() => {
+    // Update the local state when mycart changes
+    setCartdata(mycart)
+    dispatch(myCartList({ userid: userData.id }))
+  }, []); // This useEffect will run whenever mycart changes
+
+  console.log(cartdata, "cart");
   // const cartLength = cart?.length;
 
   // const cartLength = cart?.length((acc, item) => acc + item.quintity, 0);
@@ -105,7 +112,7 @@ const Usernavbar = () => {
     dispatch(getProductAction());
   }, []);
 
-  const brandClick = () => {};
+  const brandClick = () => { };
 
   const [show, setShow] = useState(false);
 
@@ -144,7 +151,7 @@ const Usernavbar = () => {
                     <div className="subnewbar_rightcont">
                       <div className="mid_navnewconent desktop_mid_navnewconent">
                         <div className="Nav_link">
-                          Category
+                          {/* Category   */}
                           <div className="nav_Filter">
                             <ul>
                               <li>ef</li>
@@ -163,7 +170,6 @@ const Usernavbar = () => {
                         >
                           Products
                         </Link>
-                        {/* <div className="Nav_link">Pages  {mycart?.length}</div> */}
                       </div>
                       <div className="Nav_link">
                         <BiSearch className="navbar_new_icon" />
@@ -238,7 +244,7 @@ const Usernavbar = () => {
                             <HiOutlineShoppingCart className="navbar_new_icon" />
                             {/* {totalQuentity > 0 && <span>{totalQuentity}</span>}  */}
                             <span className="navbar_new_icon_length">
-                              {mycart?.length}
+                              {cartdata?.length}
                             </span>
                             {/* { <span>{cart?.length ?  cart?.length : 2}</span>} */}
                             {/* <span>{cart}</span> */}

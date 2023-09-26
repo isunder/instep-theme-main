@@ -16,7 +16,7 @@ export default function Profile() {
     // const [,setuserinfo]=useState()
 
     const dispatch = useDispatch()
-    const userinfo = useSelector((state) => state?.cartdetails?.listdata?.data)
+    const userinfo = useSelector((state) => state?.cartdetails?.listdata)
     console.log(userinfo, "usersssssssssssssssss")
 
     const cartdata = useSelector((state) => state?.cartdetails?.listdata?.data?.userProductDetails)
