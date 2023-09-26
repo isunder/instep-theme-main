@@ -9,10 +9,11 @@ import { BsTags } from "react-icons/bs";
 import { CiLocationOn } from "react-icons/ci";
 import { PiShoppingCartFill } from "react-icons/pi";
 import { BsFillLightningFill } from "react-icons/bs";
-import { updateProduct } from "../../../Redux/action/updateProductAction";
+// import { updateProduct } from "../../../Redux/action/updateProductAction";
 import { addToCartAction } from "../../../Redux/action/addToCartAction";
 import { getUserId } from "../../../utils/auth";
 import ReactImageMagnify from "react-image-magnify";
+import { singleproduct } from "../../../Redux/action/getsingleProduct";
 
 const ProductDetails = () => {
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ const ProductDetails = () => {
   //   const details = useSelector((state) => state.slicedetails.listdata);
 
   const productDetail = useSelector(
-    (state) => state.updateProductData.listdata
+    (state) => state.singleproduct?.listdata
   );
   console.log(productDetail, "www");
 
@@ -40,9 +41,10 @@ const ProductDetails = () => {
   // images
 
   useEffect(() => {
-    dispatch(updateProduct({ _id }));
+    dispatch(singleproduct({ _id }));
   }, []);
   console.log(productDetail, "productDetailproductDetail");
+  console.log( productDetail._id,"hhhhhhhhhhh")
   const cartClick = (asd) => {
     let apiObject = {
       productid: productDetail._id,
@@ -131,7 +133,7 @@ const ProductDetails = () => {
                   <div className="mainimg_button">
                     <div className="twobuttondiv">
                       {" "}
-                      <Button className="addtocart_button" onClick={()=>{cartClick()}}>
+                      <Button className="addtocart_button" onClick={() => { cartClick() }}>
                         <div>
                           <PiShoppingCartFill className="buy_Addicon" />
                           ADD TO CART
@@ -201,10 +203,9 @@ const ProductDetails = () => {
                   <h6>Highlights</h6>
                   <div className="d-flex px-5">
                     <ul className="specification">
-                      <li>{productDetail.brand}</li>
-
-
-                      <li>{productDetail.category}</li>
+                      <td>{productDetail?.brand?.[0]?.brand}</td>
+                      <td>{productDetail?.category?.[0]?.category}</td>
+                      <td>{productDetail?.subcategory?.[0]?.subcategory}</td>
                       <li>{productDetail.title}</li>
                     </ul>
                   </div>

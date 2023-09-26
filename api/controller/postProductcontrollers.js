@@ -240,7 +240,7 @@ const updateproduct = expressAsyncHandler(async (req, res) => {
 });
 // getSingleProduct 
 const getSingleProduct = expressAsyncHandler(async (req, res) => {
-  const productId = req.body.id; // Assuming the product ID is in the URL params
+  const productId = req.body._id; // Assuming the product ID is in the URL params
   console.log(productId, "product ID");
   
   try {
