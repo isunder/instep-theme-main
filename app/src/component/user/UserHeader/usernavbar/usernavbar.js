@@ -43,38 +43,19 @@ const Usernavbar = () => {
   // setUsername(userData?.username);
 
   const userLogin = localStorage.getItem("token");
-  // console.log(userLogin, "userLogin");
-
-  // const cart = useSelector((state) => state);cartinfo
-  // console.log(cart, "crt");
-
-  // const selectCart = useSelector((state) => state);
-  // console.log(selectCart)
-  // useEffect(() => {
-  //   dispatch(cartinfo(selectCart));
-  // }, []);
-  // dispatch(cartinfo)
-  // console.log(selectCart, "selectCart");
-  // const cart = useSelector((selectCart) => selectCart?.addToCartFile?.listdata);
+ 
   const [cartdata, setCartdata] = useState([]); // Initialize cartdata as an empty array
   const mycart = useSelector((selectCart) => selectCart?.addToCartFile?.mycart);
   useEffect(() => {
     // Update the local state when mycart changes
-    setCartdata(mycart);
+    // setCartdata(mycart);
     if (userData?.id) {
       dispatch(myCartList({ userid: userData.id }));
     }
   }, []); // This useEffect will run whenever mycart changes
 
-  console.log(cartdata, "cart");
-  // const cartLength = cart?.length;
+  // console.log(cartdata, "dddddddddddddddd");
 
-  // const cartLength = cart?.length((acc, item) => acc + item.quintity, 0);
-
-  // const cartAddClick = () => {
-  //   // if (userData && userData.id) dispatch(myCartList({ userid: userData.id }));
-  //   navigate("/addtocart");
-  // };
 
   const [showMessage, setShowMessage] = useState({
     MOBILE: "false",
@@ -246,7 +227,7 @@ const Usernavbar = () => {
                             <HiOutlineShoppingCart className="navbar_new_icon" />
                             {/* {totalQuentity > 0 && <span>{totalQuentity}</span>}  */}
                             <span className="navbar_new_icon_length">
-                              {cartdata?.length}
+                              {mycart?.length}
                             </span>
                             {/* { <span>{cart?.length ?  cart?.length : 2}</span>} */}
                             {/* <span>{cart}</span> */}
