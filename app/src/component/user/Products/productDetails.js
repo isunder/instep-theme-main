@@ -41,7 +41,7 @@ const ProductDetails = () => {
 
   useEffect(() => {
     dispatch(updateProduct({ _id }));
-  }, [_id]);
+  }, []);
   console.log(productDetail, "productDetailproductDetail");
   const cartClick = (asd) => {
     let apiObject = {
@@ -74,10 +74,10 @@ const ProductDetails = () => {
                           ? imageState
                           : `http://localhost:5000/uploads/${imageState}`
                         : productDetail?.images?.length > 0 &&
-                          // productDetail?.images?.length[0] > 0 &&
-                          (productDetail?.images[0].split("http").length > 1
-                            ? productDetail?.images[0]
-                            : `http://localhost:5000/uploads/${productDetail?.images[0]}`),
+                        // productDetail?.images?.length[0] > 0 &&
+                        (productDetail?.images[0].split("http").length > 1
+                          ? productDetail?.images[0]
+                          : `http://localhost:5000/uploads/${productDetail?.images[0]}`),
                     },
                     largeImage: {
                       src: imageState
@@ -85,10 +85,10 @@ const ProductDetails = () => {
                           ? imageState
                           : `http://localhost:5000/uploads/${imageState}`
                         : productDetail?.images?.length > 0 &&
-                          // productDetail?.images?.length[0] > 0 &&
-                          (productDetail?.images[0].split("http").length > 1
-                            ? productDetail?.images[0]
-                            : `http://localhost:5000/uploads/${productDetail?.images[0]}`),
+                        // productDetail?.images?.length[0] > 0 &&
+                        (productDetail?.images[0].split("http").length > 1
+                          ? productDetail?.images[0]
+                          : `http://localhost:5000/uploads/${productDetail?.images[0]}`),
                       width: 1800,
                       height: 1800,
                     },
@@ -131,7 +131,7 @@ const ProductDetails = () => {
                   <div className="mainimg_button">
                     <div className="twobuttondiv">
                       {" "}
-                      <Button className="addtocart_button" onClick={cartClick}>
+                      <Button className="addtocart_button" onClick={()=>{cartClick()}}>
                         <div>
                           <PiShoppingCartFill className="buy_Addicon" />
                           ADD TO CART
@@ -202,6 +202,7 @@ const ProductDetails = () => {
                   <div className="d-flex px-5">
                     <ul className="specification">
                       <li>{productDetail.brand}</li>
+
 
                       <li>{productDetail.category}</li>
                       <li>{productDetail.title}</li>
