@@ -9,11 +9,18 @@ import { RxBorderWidth, RxDashboard } from 'react-icons/rx'
 import { BsArrowLeft, BsTelephoneFill, BsTruck, BsWalletFill } from 'react-icons/bs'
 import { CiLocationOn } from 'react-icons/ci'
 import { BiLogOut } from 'react-icons/bi'
+import { getUserId } from '../../../utils/auth'
 
 export default function Profile() {
 
     // const [userinfo,setuserinfo]=useState()
     // const [,setuserinfo]=useState()
+    const userData = getUserId();
+    console.log(userData
+        , "usr");
+    // setUsername(userData?.username);
+
+    const userLogin = localStorage.getItem("token");
 
     const dispatch = useDispatch()
     const userinfo = useSelector((state) => state?.cartdetails?.listdata)
@@ -39,8 +46,8 @@ export default function Profile() {
                         </Col>
                         <Col lg={9}>
                             <Row>
-                                <Col lg={9}><h3>Robert Jacobs</h3></Col>
-                                <Col lg={3} > <div className='userprofile_contact'> <p> <AiFillMessage />customer@themetags.com</p> <p> <BsTelephoneFill />8801235385478</p>
+                                <Col lg={9}><h3>{userData.username}</h3></Col>
+                                <Col lg={3} > <div className='userprofile_contact'> <p> <AiFillMessage />{userData.userEmail}</p> <p> <BsTelephoneFill />8801235385478</p>
                                 </div></Col>
                             </Row>
                             <Row>

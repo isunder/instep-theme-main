@@ -54,7 +54,7 @@ const Home = () => {
   const data = useSelector((state) => state?.getproductdata?.listdata);
   console.log(data, "aaaaaabbbbbbbbbss");
 
-  const categorydata = useSelector((state) => state?.getproductdata.listdata);
+  const categorydata = useSelector((state) => state?.getproductdata?.listdata);
   console.log(categorydata, "categorydata");
 
   useEffect(() => {
@@ -425,30 +425,32 @@ const Home = () => {
                   onSwiper={(swiper) => console.log(swiper)}
                   onSlideChange={() => console.log("slide change")}
                 >
-                  {categorydata?.map((item, index) => {
-                    if (item.category === "Electronics") {
-                      return (
-                        <SwiperSlide className="shopping_card" key={index}>
-                          <Link
-                            className="card_deco"
-                            to={`/subcategory/${item.subcategory}`}
-                            onClick={() => productClick(item?._id)}
-                          >
-                            <Card className="shoppingcard_bor">
-                              <div className="img_div">
-                                <Card.Img
-                                  variant="top"
-                                  src={
-                                    item?.image
-                                      ? item?.image
-                                      : item?.thumbnail.split(":").length > 1
-                                      ? item?.thumbnail
-                                      : `http://localhost:5000/uploads/${item.thumbnail}`
-                                  }
-                                />
-                              </div>
-                              <Card.Body>
-                                {/* <div className="item_rating">
+                  {categorydata &&
+                    categorydata?.map((item, index) => {
+                      if (item?.category?.[0]?.category === "electronics") {
+                        // <td>{item?.category?.[0]?.category}</td>
+                        return (
+                          <SwiperSlide className="shopping_card" key={index}>
+                            <Link
+                              className="card_deco"
+                              to={`/subcategory/${item?.subcategory}`}
+                              onClick={() => productClick(item?._id)}
+                            >
+                              <Card className="shoppingcard_bor">
+                                <div className="img_div">
+                                  <Card.Img
+                                    variant="top"
+                                    src={
+                                      item?.image
+                                        ? item?.image
+                                        : item?.thumbnail.split(":").length > 1
+                                        ? item?.thumbnail
+                                        : `http://localhost:5000/uploads/${item.thumbnail}`
+                                    }
+                                  />
+                                </div>
+                                <Card.Body>
+                                  {/* <div className="item_rating">
                                   <p className="homerating_cat">
                                     {" "}
                                     {item?.rating}
@@ -458,22 +460,22 @@ const Home = () => {
                                     {item.category}
                                   </p>
                                 </div> */}
-                                <Card.Title className="crad_text">
-                                  {item.title}
-                                </Card.Title>
-                                {/* <Card.Text className="crad_text">
+                                  <Card.Title className="crad_text">
+                                    {item?.title}
+                                  </Card.Title>
+                                  {/* <Card.Text className="crad_text">
                                   {item?.description}
                                 </Card.Text> */}
-                                <Card.Text className="crad_text">
-                                  <h6> ₹ {item?.price}</h6>
-                                </Card.Text>
-                              </Card.Body>
-                            </Card>
-                          </Link>
-                        </SwiperSlide>
-                      );
-                    }
-                  })}
+                                  <Card.Text className="crad_text">
+                                    <h6> ₹ {item?.price}</h6>
+                                  </Card.Text>
+                                </Card.Body>
+                              </Card>
+                            </Link>
+                          </SwiperSlide>
+                        );
+                      }
+                    })}
                 </Swiper>
               </Col>
             </Row>
@@ -522,7 +524,7 @@ const Home = () => {
                   onSlideChange={() => console.log("slide change")}
                 >
                   {data?.map((e) => {
-                    if (e.category === "Home & Kitchen") {
+                    if (e?.category?.[0]?.category === "Home & Kitchen") {
                       return (
                         <SwiperSlide className="shopping_card" key={e?.id}>
                           <Link
