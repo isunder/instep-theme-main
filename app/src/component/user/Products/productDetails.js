@@ -42,7 +42,7 @@ const ProductDetails = () => {
 
   useEffect(() => {
     dispatch(singleproduct({ _id }));
-  }, []);
+  }, [_id]);
   console.log(productDetail, "productDetailproductDetail");
   console.log( productDetail._id,"hhhhhhhhhhh")
   const cartClick = (asd) => {

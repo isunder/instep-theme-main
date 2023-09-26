@@ -428,12 +428,13 @@ const Home = () => {
                   {categorydata &&
                     categorydata?.map((item, index) => {
                       if (item?.category?.[0]?.category === "electronics") {
-                        // <td>{item?.category?.[0]?.category}</td>
                         return (
                           <SwiperSlide className="shopping_card" key={index}>
                             <Link
                               className="card_deco"
-                              to={`/subcategory/${item?.subcategory}`}
+                              // to={`/subcategory/${item?.subcategory}`}
+                              to={`/productdetail/${item._id}`}
+
                               onClick={() => productClick(item?._id)}
                             >
                               <Card className="shoppingcard_bor">
@@ -444,8 +445,8 @@ const Home = () => {
                                       item?.image
                                         ? item?.image
                                         : item?.thumbnail.split(":").length > 1
-                                        ? item?.thumbnail
-                                        : `http://localhost:5000/uploads/${item.thumbnail}`
+                                          ? item?.thumbnail
+                                          : `http://localhost:5000/uploads/${item.thumbnail}`
                                     }
                                   />
                                 </div>
@@ -529,8 +530,9 @@ const Home = () => {
                         <SwiperSlide className="shopping_card" key={e?.id}>
                           <Link
                             className="card_deco"
-                            to={`/subcategory/${e.subcategory}`}
-                            // to={`/productdetail/${e._id}`}
+                            // to={`/subcategory/${e.subcategory}`}
+                            to={`/productdetail/${e._id}`}
+
                             onClick={() => productClick(e?._id)}
                           >
                             <Card className="shoppingcard_bor">
@@ -541,8 +543,8 @@ const Home = () => {
                                     e?.image
                                       ? e?.image
                                       : e?.thumbnail.split(":").length > 1
-                                      ? e?.thumbnail
-                                      : `http://localhost:5000/uploads/${e.thumbnail}`
+                                        ? e?.thumbnail
+                                        : `http://localhost:5000/uploads/${e.thumbnail}`
                                   }
                                 />
                               </div>
