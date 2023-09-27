@@ -197,7 +197,7 @@ const Home = () => {
                       <Col lg={2} md={4}>
                         <Link
                           className="carddecorationnone_cat"
-                          to={`/category/${"Electronics"}`}
+                          to={`/category/${"electronics"}`}
                         >
                           <Card className="cat_card_homep">
                             <div className="hoveron_arrow">

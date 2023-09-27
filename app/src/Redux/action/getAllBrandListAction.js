@@ -12,7 +12,7 @@ export const axiosInstance = axios.create({
 export const allBrandsList = createAsyncThunk(
   "getsubcategorybrandsonly",
   async (payload) => {
-    const data1 = await axiosInstance.post(`/getOnlybrand`, payload);
+    const data1 = await axiosInstance.get(`/getOnlybrand`, payload);
     return data1.data;
   }
 );

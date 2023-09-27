@@ -15,7 +15,7 @@ export const signUpAction = createAsyncThunk("signUpaction", async () => {
 });
 
 export const addcartapi = createAsyncThunk("addcartapi", async (payload) => {
-  console.log(payload, "hddddhhh");
+  // console.log(payload, "hddddhhh");
   const response = await axiosInstance.get(`products/${payload}`);
   return response.data;
 });

@@ -1,6 +1,6 @@
 import React from "react";
 import { Form, Field } from "react-final-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { registerAction } from "../../../Redux/action/registerAction";
 import { Link, useNavigate } from "react-router-dom";
 import { Col, Row } from "react-bootstrap";
@@ -9,20 +9,42 @@ const SignUp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const data = useSelector((state) => state?.registerdetail?.listdata);
+  console.log(data, "qaa");
+
+  const emailExistsError = useSelector((state) => state?.registerdetail?.error);
+
   const onSubmit = async (values) => {
-    dispatch(registerAction(values));
+    console.log(emailExistsError, "aaaajhjh");
+    // if (values.email) {
+    //   values.email === emailExistsError;
 
-    navigate("/signin");
+    // // }
+    // if (emailExistsError) {
+
+    // } else if () {
+
+    dispatch(registerAction(values)).then((res) => {
+      console.log(res, "asdasdasdasdas");
+      if (res.payload.msg) {
+        alert(res.payload.msg);
+      } else navigate("/signin");
+    });
+    // }
   };
-
+  // navigate("/signin");
   const validates = (values) => {
     const errors = {};
     // if (!values.username) {
     //   errors.username = "Required";
     // }
-    // if (!values.email) {
-    //   errors.email = "Required";
-    // }
+    if (!values.email) {
+      errors.email = "Required";
+    }
+
+    if (!values.phoneNumber) {
+      errors.phoneNumber = "Required";
+    }
     if (!values.password) {
       errors.password = "Required";
     }
@@ -36,6 +58,7 @@ const SignUp = () => {
 
   const initialValues = {
     username: "",
+    phoneNumber: "",
     email: "",
     password: "",
     confirmpassword: "",
@@ -87,6 +110,22 @@ const SignUp = () => {
                           </div>
                         )}
                       </Field>
+                      <Field name="phoneNumber">
+                        {({ input, meta }) => (
+                          <div className="mb-4">
+                            {/* <label>Your name</label> */}
+                            <input
+                              className="login_input"
+                              {...input}
+                              type="number"
+                              placeholder="Mobile No."
+                            />
+                            {meta.error && meta.touched && (
+                              <p className="star">{meta.error}</p>
+                            )}
+                          </div>
+                        )}
+                      </Field>
                       <Field name="email">
                         {({ input, meta }) => (
                           <div className="mb-4">
@@ -99,6 +138,9 @@ const SignUp = () => {
                             />
                             {meta.error && meta.touched && (
                               <p className="star">{meta.error}</p>
+                            )}{" "}
+                            {emailExistsError && (
+                              <p className="star">{emailExistsError}</p>
                             )}
                           </div>
                         )}

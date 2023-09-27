@@ -18,7 +18,7 @@ const registerData = createSlice({
     bulider.addCase(registerAction.fulfilled, (state, action) => {
       state.isLoading = false;
       state.listdata = action?.payload;
-      state.error = "";
+      state.error = "email error exist";
     });
     bulider.addCase(registerAction.rejected, (state, action) => {
       state.error = "";
