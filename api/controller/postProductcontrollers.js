@@ -167,20 +167,72 @@ const getfilter = expressAsyncHandler(async (req, res) => {
 
 })
 // category find onlyyyyyy filter
-// 25/08 category/men
+// 25/08 category/id
 const categoryfilter = expressAsyncHandler(async (req, res) => {
+
   try {
-    console.log(req.params.category, "category");
-    const name = req.params.category;
-    console.log("Querying for category:", name);
-    const filter = await Userproducts.find({ category: name });
-    console.log("Filter result:", filter);
-    res.send(filter);
+    const categoryId = req.params.category; // Assuming you're using "categoryid" as the parameter name
+    console.log(categoryId, 'categoryId')
+    // Use the Mongoose model for Userproducts
+    const products = await Userproducts.aggregate([
+      {
+        $match: {
+          category: new mongoose.Types.ObjectId(categoryId), // Convert categoryId to ObjectId
+        },
+      },
+      {
+        $lookup: {
+          from: 'categorytables',
+          localField: 'category',
+          foreignField: '_id',
+          as: 'category',
+        },
+      },
+      {
+        $lookup: {
+          from: 'subcategorytables',
+          localField: 'subcategory',
+          foreignField: '_id',
+          as: 'subcategory',
+        },
+      },
+      {
+        $lookup: {
+          from: 'brandtables',
+          localField: 'brand',
+          foreignField: '_id',
+          as: 'brand',
+        },
+      },
+    ]);
+    console.log(products, "ddd")
+    if (products.length > 0) {
+      // Assuming you want to return the first product found
+      const product = products;
+
+      // Extract category, subcategory, and brand
+      const category = product.category;
+      const subcategory = product.subcategory;
+      const brand = product.brand;
+
+      // Merge the extracted data into a single object
+      const result = {
+        ...product,
+        category,
+        subcategory,
+        brand,
+      };
+
+      res.status(200).json(result);
+    } else {
+      res.status(404).json({ message: 'No products found for the given category ID' });
+    }
   } catch (error) {
-    console.error("Error:", error);
-    res.status(500).json({ error: error.message, message: "Server error" });
+    console.error('Error:', error);
+    res.status(500).json({ error: error.message, message: 'Server error' });
   }
-})
+});
+
 // subcategory find onlyyyyyy filter
 const subcategoryfilter = expressAsyncHandler(async (req, res) => {
   try {
@@ -242,15 +294,15 @@ const updateproduct = expressAsyncHandler(async (req, res) => {
 const getSingleProduct = expressAsyncHandler(async (req, res) => {
   const productId = req.body._id; // Assuming the product ID is in the URL params
   console.log(productId, "product ID");
-  
-  try {
-   
 
-    // Aggregate to retrieve the single product with category, subcategory, and brand
-   
+  try {
+
+
+    
+
     const product = await Userproducts.aggregate([
       {
-        $match: { _id:new  mongoose.Types.ObjectId(productId) }, // Match the product by ID
+        $match: { _id: new mongoose.Types.ObjectId(productId) }, // Match the product by ID
       },
       {
         $lookup: {
@@ -307,6 +359,88 @@ const getSingleProduct = expressAsyncHandler(async (req, res) => {
   }
 });
 
+// filter 
+const filterall = expressAsyncHandler(async (req, res) => {
+  try {
+    const categoryId = req.query.categoryId; // Query parameter for category
+    const subcategoryId = req.query.subcategoryId; // Query parameter for subcategory
+    const brandId = req.query.brandId; // Query parameter for brand
+    const minPrice = parseFloat(req.query.minPrice); // Query parameter for minimum price
+    const maxPrice = parseFloat(req.query.maxPrice); // Query parameter for maximum price
+    const minDiscount = parseFloat(req.query.minDiscount); // Query parameter for minimum discount percentage
+
+    // Build the filter object based on the query parameters
+    const filter = {};
+
+  
+    if (categoryId) {
+      filter.category = new mongoose.Types.ObjectId(categoryId);
+    }
+   
+
+    if (subcategoryId) {
+      filter.subcategory = new mongoose.Types.ObjectId(subcategoryId);
+    }
+
+    if (brandId) {
+      filter.brand = new mongoose.Types.ObjectId(brandId);
+    }
+
+    if (!isNaN(minPrice) && !isNaN(maxPrice)) {
+      filter.price = {
+        $gte: minPrice,
+        $lte: maxPrice,
+      };
+    }
+
+    if (!isNaN(minDiscount)) {
+      filter.discountpercentage = {
+        $gte: minDiscount,
+      };
+    }
+    console.log(filter,"ddddddddd")
+    // Use the Mongoose model for Userproducts to apply the filter
+    const products = await Userproducts.aggregate([
+      {
+        $match: filter,
+      },
+      {
+        $lookup: {
+          from: 'categorytables',
+          localField: 'category',
+          foreignField: '_id',
+          as: 'category',
+        },
+      },
+      {
+        $lookup: {
+          from: 'subcategorytables',
+          localField: 'subcategory',
+          foreignField: '_id',
+          as: 'subcategory',
+        },
+      },
+      {
+        $lookup: {
+          from: 'brandtables',
+          localField: 'brand',
+          foreignField: '_id',
+          as: 'brand',
+        },
+      },
+    ]);
+
+    if (products.length > 0) {
+      // Return the filtered products
+      res.status(200).json(products);
+    } else {
+      res.status(404).json({ message: 'No products found for the given filters' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: error.message, message: 'Server error' });
+  }
+});
 
 
 
@@ -314,4 +448,6 @@ const getSingleProduct = expressAsyncHandler(async (req, res) => {
 
 
 
-module.exports = { postproduct, getproduct, getfilter, categoryfilter, subcategoryfilter, updateproduct, getSingleProduct };
+
+
+module.exports = { postproduct, getproduct, getfilter, categoryfilter, subcategoryfilter, updateproduct, getSingleProduct ,filterall};

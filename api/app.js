@@ -21,6 +21,8 @@ const postProductRouters = require("./router/Productpost");
 const addnewcategory = require("./router/categoryRought");
 const addnewSubcategory = require("./router/subCategory");
 const addnewbrand = require("./router/BrandRought");
+const addtocart = require("./router/addtocartRought");
+
 dotenv.config();
 
 const DB =
@@ -46,6 +48,9 @@ server.use("/uploads", express.static("uploads"));
 server.use("/api", addnewcategory);
 server.use("/api", addnewSubcategory);
 server.use("/api", addnewbrand);
+// addto cart api
+server.use("/api", addtocart);
+
 
 // server.post("/api/register", async (req, res) => {
 //   const { email, password, username } = req.body;
@@ -409,90 +414,90 @@ server.post("/api/Search", async (req, res) => {
 
 // add to cart for user
 
-server.post("/api/Add-to-cart", async (req, res) => {
-  try {
-    const { productid, userid, quantity } = req.body;
+// server.post("/api/Add-to-cart", async (req, res) => {
+//   try {
+//     const { productid, userid, quantity } = req.body;
 
-    if (userid) {
-      console.log(userid, "userid");
-      const cart = new Usercart({
-        productid: productid,
-        userid: userid,
-        quantity: quantity,
-      });
-      await cart.save();
-      res.status(200).send("Success: Add in cart ");
-    }
-  } catch (error) {
-    console.error(error);
-    res.status(500).send({ error: error.message });
-  }
-});
+//     if (userid) {
+//       console.log(userid, "userid");
+//       const cart = new Usercart({
+//         productid: productid,
+//         userid: userid,
+//         quantity: quantity,
+//       });
+//       await cart.save();
+//       res.status(200).send("Success: Add in cart ");
+//     }
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send({ error: error.message });
+//   }
+// });
 
-server.post("/api/Add-to-cart", async (req, res) => {
-  try {
-    const { productid, userid, quantity } = req.body;
+// server.post("/api/Add-to-cart", async (req, res) => {
+//   try {
+//     const { productid, userid, quantity } = req.body;
 
-    if (userid) {
-      const filter = { userid, productid }; // Match existing cart entry
-      const update = { $inc: { quantity } }; // Increment quantity by the provided value
-      const options = { upsert: true, new: true, setDefaultsOnInsert: true };
+//     if (userid) {
+//       const filter = { userid, productid }; // Match existing cart entry
+//       const update = { $inc: { quantity } }; // Increment quantity by the provided value
+//       const options = { upsert: true, new: true, setDefaultsOnInsert: true };
 
-      // Use async/await to wait for the operation to complete
-      const updatedCart = await Usercart.findOneAndUpdate(
-        filter,
-        update,
-        options
-      );
+//       // Use async/await to wait for the operation to complete
+//       const updatedCart = await Usercart.findOneAndUpdate(
+//         filter,
+//         update,
+//         options
+//       );
 
-      if (updatedCart) {
-        res
-          .status(200)
-          .json({ message: "Success: Added to cart", cart: updatedCart });
-      } else {
-        res.status(404).json({ error: "Product or user not found" });
-      }
-    } else {
-      res.status(400).json({ error: "Invalid userid" });
-    }
-  } catch (error) {
-    console.error(error);
-    res
-      .status(500)
-      .json({ error: "An error occurred while adding to the cart" });
-  }
-});
+//       if (updatedCart) {
+//         res
+//           .status(200)
+//           .json({ message: "Success: Added to cart", cart: updatedCart });
+//       } else {
+//         res.status(404).json({ error: "Product or user not found" });
+//       }
+//     } else {
+//       res.status(400).json({ error: "Invalid userid" });
+//     }
+//   } catch (error) {
+//     console.error(error);
+//     res
+//       .status(500)
+//       .json({ error: "An error occurred while adding to the cart" });
+//   }
+// });
 
 // getting all products from cart
 
-server.post("/api/get-cart", async (req, res) => {
-  try {
-    const userid = req.body.userid;
+// server.post("/api/get-cart", async (req, res) => {
+//   try {
+//     const userid = req.body.userid;
 
-    const cartItems = await Usercart.find({ userid });
+//     const cartItems = await Usercart.find({ userid });
 
-    const productIds = cartItems.map((item) => item.productid);
-    console.log(productIds, "productIds");
+//     const productIds = cartItems.map((item) => item.productid);
+//     console.log(productIds, "productIds");
 
-    const userProductDetails = await Userproducts.find({
-      _id: { $in: productIds },
-    });
-    const userdetails = await User.find({
-      _id: { $in: userid },
-    });
+//     const userProductDetails = await Userproducts.find({
+//       _id: { $in: productIds },
+//     });
+//     const userdetails = await User.find({
+//       _id: { $in: userid },
+//     });
 
-    // Create an object to hold both results
-    const responseData = {
-      userProductDetails,
-      userdetails,
-    };
+//     // Create an object to hold both results
+//     const responseData = {
+//       userProductDetails,
+//       userdetails,
+//     };
 
-    res.status(200).json(responseData);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: error.message });
-  }
-});
+//     res.status(200).json(responseData);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ error: error.message });
+//   }
+// });
 
 //silder .push img
 
