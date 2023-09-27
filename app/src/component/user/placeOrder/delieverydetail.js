@@ -13,7 +13,7 @@ const Delieverydetail = () => {
   // const handleButtonClick = () => {
   //   setShowCol(!showCol);
   // };
-  const [showCol, setShowCol] = useState(false);
+  const [showCol, setShowCol] = useState("login");
 
   return (
     <>
@@ -32,12 +32,12 @@ const Delieverydetail = () => {
                       </p>
                     </div>
                   </div>
-                  {showCol === false && (
+                  {showCol !== "login" && (
                     <div>
                       <button
                         className="infochange_button"
                         value="change"
-                        onClick={() => setShowCol(true)}
+                        onClick={() => setShowCol("login")}
                       >
                         CHANGE
                       </button>
@@ -45,7 +45,7 @@ const Delieverydetail = () => {
                   )}
                 </div>
 
-                {showCol && (
+                {showCol === "login" && (
                   <Row>
                     <Col lg={6}>
                       <div className="individual_info margin_bottom">
@@ -59,7 +59,7 @@ const Delieverydetail = () => {
                         <button
                           value="continue checkout"
                           className="logincont"
-                          onClick={() => setShowCol(false)}
+                          onClick={() => setShowCol("delivery")}
                         >
                           CONTINUE CHECKOUT
                         </button>
@@ -87,6 +87,7 @@ const Delieverydetail = () => {
                   </Row>
                 )}
               </div>
+
               <Row>
                 <Col lg={12}>
                   <div className="borderforall_detail">
@@ -98,143 +99,160 @@ const Delieverydetail = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="formalign">
-                      <div className="d-flex  margin_bottom">
-                        <MdRadioButtonChecked className="logindetail_icon" />
-                        <p>ADD A NEW ADDRESS</p>
-                      </div>
-                      <div className=" margin_bottom">
-                        <button
-                          value="use my current location"
-                          className="addresslocation"
-                        >
-                          use my current location
-                        </button>
-                      </div>
-                      <Row>
-                        <Col lg={6} className="leftbox_admission margin_bottom">
-                          <div>
-                            <input
-                              type="text"
-                              placeholder="Name"
-                              className="addressformfill"
-                            />
+                    {showCol === "delivery" && (
+                      <>
+                        <div className="formalign">
+                          <div className="d-flex  margin_bottom">
+                            <MdRadioButtonChecked className="logindetail_icon" />
+                            <p>ADD A NEW ADDRESS</p>
                           </div>
-                        </Col>
-                        <Col lg={6} className="leftbox_admission">
-                          <div>
-                            <input
-                              type="text"
-                              placeholder="10-digit mobile number"
-                              className="addressformfill"
-                            />
-                          </div>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col lg={6} className="leftbox_admission margin_bottom">
-                          <div>
-                            <input
-                              type="text"
-                              placeholder="Pincode"
-                              className="addressformfill"
-                            />
-                          </div>
-                        </Col>
-                        <Col lg={6} className="leftbox_admission">
-                          <div>
-                            <input
-                              type="text"
-                              placeholder="Locality"
-                              className="addressformfill"
-                            />
-                          </div>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col lg={9}>
-                          <Form>
-                            <Form.Group
-                              className="mb-3"
-                              controlId="exampleForm.ControlTextarea1"
-                              placeholder="Address (Area & Street"
+                          <div className=" margin_bottom">
+                            <button
+                              value="use my current location"
+                              className="addresslocation"
                             >
-                              <Form.Label>Address (Area & Street)</Form.Label>
-                              <Form.Control as="textarea" rows={3} />
-                            </Form.Group>
-                          </Form>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col lg={6} className="leftbox_admission margin_bottom">
-                          <div>
-                            <input
-                              type="text"
-                              placeholder="City/District/Town"
-                              className="addressformfill"
-                            />
+                              use my current location
+                            </button>
                           </div>
-                        </Col>
-                        <Col lg={6} className="leftbox_admission">
-                          <div>
-                            <Form.Select className="addressformfill">
-                              <option>Delivery Status</option>
-                              <option>Order Placed </option>
-                              <option>Pending</option>
-                              <option>Processing</option>
-                              <option>Delivered</option>
-                              <option>Cancelled</option>
-                            </Form.Select>
+                          <Row>
+                            <Col
+                              lg={6}
+                              className="leftbox_admission margin_bottom"
+                            >
+                              <div>
+                                <input
+                                  type="text"
+                                  placeholder="Name"
+                                  className="addressformfill"
+                                />
+                              </div>
+                            </Col>
+                            <Col lg={6} className="leftbox_admission">
+                              <div>
+                                <input
+                                  type="text"
+                                  placeholder="10-digit mobile number"
+                                  className="addressformfill"
+                                />
+                              </div>
+                            </Col>
+                          </Row>
+                          <Row>
+                            <Col
+                              lg={6}
+                              className="leftbox_admission margin_bottom"
+                            >
+                              <div>
+                                <input
+                                  type="text"
+                                  placeholder="Pincode"
+                                  className="addressformfill"
+                                />
+                              </div>
+                            </Col>
+                            <Col lg={6} className="leftbox_admission">
+                              <div>
+                                <input
+                                  type="text"
+                                  placeholder="Locality"
+                                  className="addressformfill"
+                                />
+                              </div>
+                            </Col>
+                          </Row>
+                          <Row>
+                            <Col lg={9}>
+                              <Form>
+                                <Form.Group
+                                  className="mb-3"
+                                  controlId="exampleForm.ControlTextarea1"
+                                  placeholder="Address (Area & Street"
+                                >
+                                  <Form.Label>
+                                    Address (Area & Street)
+                                  </Form.Label>
+                                  <Form.Control as="textarea" rows={3} />
+                                </Form.Group>
+                              </Form>
+                            </Col>
+                          </Row>
+                          <Row>
+                            <Col
+                              lg={6}
+                              className="leftbox_admission margin_bottom"
+                            >
+                              <div>
+                                <input
+                                  type="text"
+                                  placeholder="City/District/Town"
+                                  className="addressformfill"
+                                />
+                              </div>
+                            </Col>
+                            <Col lg={6} className="leftbox_admission">
+                              <div>
+                                <Form.Select className="addressformfill">
+                                  <option>Select State</option>
+                                  <option>Order Placed </option>
+                                  <option>Pending</option>
+                                  <option>Processing</option>
+                                  <option>Delivered</option>
+                                  <option>Cancelled</option>
+                                </Form.Select>
+                              </div>
+                            </Col>
+                          </Row>
+                          <Row>
+                            <Col
+                              lg={6}
+                              className="leftbox_admission margin_bottom"
+                            >
+                              <div>
+                                <input
+                                  type="text"
+                                  placeholder="Landmark (optional)"
+                                  className="addressformfill"
+                                />
+                              </div>
+                            </Col>
+                            <Col lg={6} className="leftbox_admission">
+                              <div>
+                                <input
+                                  type="text"
+                                  placeholder="Alternate Phone (optional)"
+                                  className="addressformfill"
+                                />
+                              </div>
+                            </Col>
+                          </Row>
+                          <p>Address Type</p>
+                          <div className="delivery_place margin_bottom">
+                            <div>
+                              <p>
+                                {" "}
+                                <input type="radio" />
+                                Home (All day delivery)
+                              </p>
+                            </div>
+                            <div>
+                              <p>
+                                <input type="radio" />
+                                Work (Delivery between 10 AM-5 PM)
+                              </p>
+                            </div>
                           </div>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col lg={6} className="leftbox_admission margin_bottom">
-                          <div>
-                            <input
-                              type="text"
-                              placeholder="Pincode"
-                              className="addressformfill"
-                            />
-                          </div>
-                        </Col>
-                        <Col lg={6} className="leftbox_admission">
-                          <div>
-                            <input
-                              type="text"
-                              placeholder="Locality"
-                              className="addressformfill"
-                            />
-                          </div>
-                        </Col>
-                      </Row>
-                      <p>Address Type</p>
-                      <div className="delivery_place margin_bottom">
-                        <div>
-                          <p>
-                            {" "}
-                            <input type="radio" />
-                            Home (All day delivery)
-                          </p>
+                          <button
+                            value="use my current location"
+                            className="addresslocation"
+                          >
+                            SAVE AND DELIVER HERE
+                          </button>
                         </div>
-                        <div>
-                          <p>
-                            <input type="radio" />
-                            Work (Delivery between 10 AM-5 PM)
-                          </p>
-                        </div>
-                      </div>
-                      <button
-                        value="use my current location"
-                        className="addresslocation"
-                      >
-                        SAVE AND DELIVER HERE
-                      </button>
-                    </div>
+                      </>
+                    )}
                   </div>
                 </Col>
               </Row>
-
             </Col>
             <Col lg={3}>
               <div className="rightpricedetail margin_bottom">

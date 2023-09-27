@@ -35,7 +35,7 @@ const SidebarFun = () => {
       <Sidenav defaultOpenKeys={["3", "4"]}>
         <Sidenav.Body>
           <div className="sidebar_deco">
-            <Nav  activeKey="1">
+            <Nav activeKey="1">
               <Nav.Item
                 className="dashboard"
                 eventKey="1"
@@ -44,7 +44,7 @@ const SidebarFun = () => {
                 <AiOutlineDashboard />
                 Dashboard
               </Nav.Item>{" "}
-              <Nav.Menu 
+              <Nav.Menu
                 eventKey="2"
                 title="Products"
                 icon={<MdProductionQuantityLimits />}
