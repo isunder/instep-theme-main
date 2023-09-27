@@ -10,16 +10,10 @@ import { Link } from "react-router-dom";
 import { BiSolidStarHalf } from "react-icons/bi";
 
 const Delieverydetail = () => {
-  const handleButtonClick = () => {
-    setShowCol(!showCol);
-  };
+  // const handleButtonClick = () => {
+  //   setShowCol(!showCol);
+  // };
   const [showCol, setShowCol] = useState(false);
-
-  const handleButtononClick = () => {
-    setOffCol(!offCol);
-  };
-
-  const [offCol, setOffCol] = useState(true);
 
   return (
     <>
@@ -29,28 +23,26 @@ const Delieverydetail = () => {
             <Col lg={9}>
               <div className="borderforall_detail margin_bottom">
                 <div className="loginmain_align">
-                  <div>
-                    <div className="d-flex my-3">
-                      <div className="logindetail">1</div>
-                      <div className="d-flex mx-2">
-                        <p>LOGIN</p>
-                        <p>
-                          <TiTick className="logindetail_icon" />
-                        </p>
-                      </div>
+                  <div className="d-flex my-3">
+                    <div className="logindetail">1</div>
+                    <div className="d-flex mx-2">
+                      <p>LOGIN</p>
+                      <p>
+                        <TiTick className="logindetail_icon" />
+                      </p>
                     </div>
-                    {showCol === false && (
-                      <div>
-                        <button
-                          className="infochange_button"
-                          value="change"
-                          onClick={() => setShowCol(true)}
-                        >
-                          CHANGE
-                        </button>
-                      </div>
-                    )}
                   </div>
+                  {showCol === false && (
+                    <div>
+                      <button
+                        className="infochange_button"
+                        value="change"
+                        onClick={() => setShowCol(true)}
+                      >
+                        CHANGE
+                      </button>
+                    </div>
+                  )}
                 </div>
 
                 {showCol && (
@@ -95,153 +87,188 @@ const Delieverydetail = () => {
                   </Row>
                 )}
               </div>
-            </Col>
-            <Col lg={3}></Col>
-          </Row>
-          <Row>
-            <Col lg={9}>
-              <div className="borderforall_detail">
-                <div className="loginmain_align">
-                  <div className="d-flex my-3">
-                    <div className="logindetail">2</div>
-                    <div className="d-flex mx-2">
-                      <p>DELIVERY ADDRESS</p>
+              <Row>
+                <Col lg={12}>
+                  <div className="borderforall_detail">
+                    <div className="loginmain_align">
+                      <div className="d-flex my-3">
+                        <div className="logindetail">2</div>
+                        <div className="d-flex mx-2">
+                          <p>DELIVERY ADDRESS</p>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-                <div className="formalign">
-                  <div className="d-flex  margin_bottom">
-                    <MdRadioButtonChecked className="logindetail_icon" />
-                    <p>ADD A NEW ADDRESS</p>
-                  </div>
-                  <div className=" margin_bottom">
-                    <button
-                      value="use my current location"
-                      className="addresslocation"
-                    >
-                      use my current location
-                    </button>
-                  </div>
-                  <Row>
-                    <Col lg={6} className="leftbox_admission margin_bottom">
-                      <div>
-                        <input
-                          type="text"
-                          placeholder="Name"
-                          className="addressformfill"
-                        />
+                    <div className="formalign">
+                      <div className="d-flex  margin_bottom">
+                        <MdRadioButtonChecked className="logindetail_icon" />
+                        <p>ADD A NEW ADDRESS</p>
                       </div>
-                    </Col>
-                    <Col lg={6} className="leftbox_admission">
-                      <div>
-                        <input
-                          type="text"
-                          placeholder="10-digit mobile number"
-                          className="addressformfill"
-                        />
-                      </div>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col lg={6} className="leftbox_admission margin_bottom">
-                      <div>
-                        <input
-                          type="text"
-                          placeholder="Pincode"
-                          className="addressformfill"
-                        />
-                      </div>
-                    </Col>
-                    <Col lg={6} className="leftbox_admission">
-                      <div>
-                        <input
-                          type="text"
-                          placeholder="Locality"
-                          className="addressformfill"
-                        />
-                      </div>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col lg={9}>
-                      <Form>
-                        <Form.Group
-                          className="mb-3"
-                          controlId="exampleForm.ControlTextarea1"
-                          placeholder="Address (Area & Street"
+                      <div className=" margin_bottom">
+                        <button
+                          value="use my current location"
+                          className="addresslocation"
                         >
-                          <Form.Label>Address (Area & Street)</Form.Label>
-                          <Form.Control as="textarea" rows={3} />
-                        </Form.Group>
-                      </Form>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col lg={6} className="leftbox_admission margin_bottom">
-                      <div>
-                        <input
-                          type="text"
-                          placeholder="City/District/Town"
-                          className="addressformfill"
-                        />
+                          use my current location
+                        </button>
                       </div>
-                    </Col>
-                    <Col lg={6} className="leftbox_admission">
-                      <div>
-                        <Form.Select className="addressformfill">
-                          <option>Delivery Status</option>
-                          <option>Order Placed </option>
-                          <option>Pending</option>
-                          <option>Processing</option>
-                          <option>Delivered</option>
-                          <option>Cancelled</option>
-                        </Form.Select>
+                      <Row>
+                        <Col lg={6} className="leftbox_admission margin_bottom">
+                          <div>
+                            <input
+                              type="text"
+                              placeholder="Name"
+                              className="addressformfill"
+                            />
+                          </div>
+                        </Col>
+                        <Col lg={6} className="leftbox_admission">
+                          <div>
+                            <input
+                              type="text"
+                              placeholder="10-digit mobile number"
+                              className="addressformfill"
+                            />
+                          </div>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col lg={6} className="leftbox_admission margin_bottom">
+                          <div>
+                            <input
+                              type="text"
+                              placeholder="Pincode"
+                              className="addressformfill"
+                            />
+                          </div>
+                        </Col>
+                        <Col lg={6} className="leftbox_admission">
+                          <div>
+                            <input
+                              type="text"
+                              placeholder="Locality"
+                              className="addressformfill"
+                            />
+                          </div>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col lg={9}>
+                          <Form>
+                            <Form.Group
+                              className="mb-3"
+                              controlId="exampleForm.ControlTextarea1"
+                              placeholder="Address (Area & Street"
+                            >
+                              <Form.Label>Address (Area & Street)</Form.Label>
+                              <Form.Control as="textarea" rows={3} />
+                            </Form.Group>
+                          </Form>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col lg={6} className="leftbox_admission margin_bottom">
+                          <div>
+                            <input
+                              type="text"
+                              placeholder="City/District/Town"
+                              className="addressformfill"
+                            />
+                          </div>
+                        </Col>
+                        <Col lg={6} className="leftbox_admission">
+                          <div>
+                            <Form.Select className="addressformfill">
+                              <option>Delivery Status</option>
+                              <option>Order Placed </option>
+                              <option>Pending</option>
+                              <option>Processing</option>
+                              <option>Delivered</option>
+                              <option>Cancelled</option>
+                            </Form.Select>
+                          </div>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col lg={6} className="leftbox_admission margin_bottom">
+                          <div>
+                            <input
+                              type="text"
+                              placeholder="Pincode"
+                              className="addressformfill"
+                            />
+                          </div>
+                        </Col>
+                        <Col lg={6} className="leftbox_admission">
+                          <div>
+                            <input
+                              type="text"
+                              placeholder="Locality"
+                              className="addressformfill"
+                            />
+                          </div>
+                        </Col>
+                      </Row>
+                      <p>Address Type</p>
+                      <div className="delivery_place margin_bottom">
+                        <div>
+                          <p>
+                            {" "}
+                            <input type="radio" />
+                            Home (All day delivery)
+                          </p>
+                        </div>
+                        <div>
+                          <p>
+                            <input type="radio" />
+                            Work (Delivery between 10 AM-5 PM)
+                          </p>
+                        </div>
                       </div>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col lg={6} className="leftbox_admission margin_bottom">
-                      <div>
-                        <input
-                          type="text"
-                          placeholder="Pincode"
-                          className="addressformfill"
-                        />
-                      </div>
-                    </Col>
-                    <Col lg={6} className="leftbox_admission">
-                      <div>
-                        <input
-                          type="text"
-                          placeholder="Locality"
-                          className="addressformfill"
-                        />
-                      </div>
-                    </Col>
-                  </Row>
-                  <p>Address Type</p>
-                  <div className="delivery_place margin_bottom">
-                    <div>
-                      <p>
-                        {" "}
-                        <input type="radio" />
-                        Home (All day delivery)
-                      </p>
-                    </div>
-                    <div>
-                      <p>
-                        <input type="radio" />
-                        Work (Delivery between 10 AM-5 PM)
-                      </p>
+                      <button
+                        value="use my current location"
+                        className="addresslocation"
+                      >
+                        SAVE AND DELIVER HERE
+                      </button>
                     </div>
                   </div>
-                  <button
-                    value="use my current location"
-                    className="addresslocation"
-                  >
-                    SAVE AND DELIVER HERE
-                  </button>
+                </Col>
+              </Row>
+
+            </Col>
+            <Col lg={3}>
+              <div className="rightpricedetail margin_bottom">
+                <div className="addcartpricede_tail margin_bottom ">
+                  <h5>PRICE DETAIL</h5>
                 </div>
+                <div className="d-flex justify-content-between  margin_bottom">
+                  <p className="totalamountright_">Price</p>
+                  {/* <p>₹{getTotalPrice()}</p> */}
+                </div>
+                <div className="d-flex justify-content-between margin_bottom">
+                  <p className="totalamountright_">Discount</p>
+                  <span className="discountpercentage_">
+                    {/* {getDiscountPercentage()}% */}
+                  </span>
+                </div>
+                <div className="d-flex justify-content-between margin_bottom addcart_delivery">
+                  <p className="totalamountright_">Delivery Charges</p>
+                  <p>-----------</p>
+                </div>
+                <div className="d-flex justify-content-between margin_bottom addcart_delivery">
+                  <h5>Total Amount</h5>
+                  {/* <p>₹{getTotalPrice() - getTotalDiscount()}</p> */}
+                </div>
+                <h6 className="discountpercentage_">
+                  {/* Your Will save ₹{getTotalDiscount()} on this order */}
+                </h6>
+                <div></div>
+                {/* <div className="securityline">
+                <SiSpringsecurity className="securepayment_icon" />
+                <div>
+                  Safe and Secure Payments.Easy returns.100% Authentic products.
+                </div>
+              </div> */}
               </div>
             </Col>
           </Row>
