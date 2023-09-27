@@ -21,6 +21,8 @@ router.post("/updateproducts", upload.fields([
   { name: "thumbnail", maxCount: 1 },
 ]), postproductcontroller.updateproduct)
 router.post("/singleproduct",postproductcontroller.getSingleProduct)
+router.post("/filteralldata",postproductcontroller.filterall)
+
 
 
 
