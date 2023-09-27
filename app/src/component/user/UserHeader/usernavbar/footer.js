@@ -6,6 +6,7 @@ import {
   BsQuestionCircleFill,
   BsStarHalf,
 } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 export default function MainFooter() {
   return (
@@ -19,7 +20,7 @@ export default function MainFooter() {
                 <a href="dgg">Contact Us</a>
               </li>
               <li>
-                <a href="dgg">About Us</a>
+                <Link  reloadDocument to="aboutus">About Us</Link>
               </li>
               <li>
                 <a href="dg">Careers</a>
@@ -31,10 +32,10 @@ export default function MainFooter() {
             <ul>
               <h5>HELP</h5>
               <li>
-                <a href="dg">Payments</a>
+                <Link reloadDocument to="/paymentdetail">Payments</Link>
               </li>
               <li>
-                <a href="dg">Shipping</a>
+                <Link reloadDocument to="/shippingdetail">Shipping</Link>
               </li>
               <li>
                 <a href="dg">Cancellation & Return</a>
@@ -52,13 +53,13 @@ export default function MainFooter() {
                 <a href="dg">Return Policy</a>
               </li>
               <li>
-                <a href="dg">Terms Of Use</a>
+                <Link reloadDocument to="/termofuse">Terms Of Use</Link>
               </li>
               <li>
-                <a href="dg">Security</a>
+                <Link reloadDocument to="/paymentsecurity">Security</Link>
               </li>
               <li>
-                <a href="dg">Privacy</a>
+                <Link reloadDocument to="/privacypolicy">Privacy</Link>
               </li>
               <li>
                 <a href="dg">Sitemap</a>

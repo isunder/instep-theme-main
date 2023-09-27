@@ -35,6 +35,11 @@ import ProductDetails from "../component/user/Products/productDetails";
 import Aboutus from "../component/user/aboutUs/aboutus";
 import Allsubcategory from "../component/admin/dashboardPage/sideNavOption/Products/Allsubcategory";
 import Delieverydetail from "../component/user/placeOrder/delieverydetail";
+import Payment from "../component/user/paymentsdetail/payment";
+import Shipping from "../component/user/shippingDetail/shipping";
+import TermsofuseDetail from "../component/user/termofuseDetail/termsDetail";
+import Security from "../component/user/securityDetail/security";
+import Privacy from "../component/user/privacyDetail/privacy";
 
 const role = getUserId() ? getUserId()?.userRole : null;
 // console.log(role, "aaasdfgfds");
@@ -56,6 +61,11 @@ const protects = {
         { path: "/allproduct", element: <AllProductDetail /> },
         { path: "/aboutus", element: <Aboutus /> },
         { path: "/deliverydetail", element: <Delieverydetail /> },
+        { path: "/paymentdetail", element: <Payment /> },
+        { path: "/shippingdetail", element: <Shipping /> },
+        { path: "/termofuse", element: <TermsofuseDetail /> },
+        { path: "/paymentsecurity", element: <Security /> },
+        { path: "/privacypolicy", element: <Privacy /> },
         { path: "*", element: "NO PAGE FOUND" },
       ],
     },
@@ -84,7 +94,8 @@ const protects = {
         { path: "/deliverystatusreport", element: <DeliveryStatus /> },
         { path: "/product", element: <ProductForm /> },
         { path: "/possystem", element: <PosSystem /> },
-        { path: "/orders", element: <Orders /> },
+        { path: "/possystem", element: <PosSystem /> },
+
         { path: "*", element: "NO PAGE FOUND" },
       ],
     },
@@ -104,6 +115,11 @@ const protects = {
         { path: "/allproduct", element: <AllProductDetail /> },
         { path: "/aboutus", element: <Aboutus /> },
         { path: "/deliverydetail", element: <Delieverydetail /> },
+        { path: "/paymentdetail", element: <Payment /> },
+        { path: "/shippingdetail", element: <Shipping /> },
+        { path: "/termofuse", element: <TermsofuseDetail /> },
+        { path: "/paymentsecurity", element: <Security /> },
+        { path: "/privacypolicy", element: <Privacy /> },
         { path: "*", element: "NO PAGE FOUND" },
       ],
     },
