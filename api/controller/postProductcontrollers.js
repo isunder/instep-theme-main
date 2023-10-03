@@ -171,6 +171,7 @@ const getfilter = expressAsyncHandler(async (req, res) => {
 const categoryfilter = expressAsyncHandler(async (req, res) => {
 
   try {
+
     const categoryId = req.params.category; // Assuming you're using "categoryid" as the parameter name
     console.log(categoryId, 'categoryId')
     // Use the Mongoose model for Userproducts
@@ -178,6 +179,72 @@ const categoryfilter = expressAsyncHandler(async (req, res) => {
       {
         $match: {
           category: new mongoose.Types.ObjectId(categoryId), // Convert categoryId to ObjectId
+        },
+      },
+      {
+        $lookup: {
+          from: 'categorytables',
+          localField: 'category',
+          foreignField: '_id',
+          as: 'category',
+        },
+      },
+      {
+        $lookup: {
+          from: 'subcategorytables',
+          localField: 'subcategory',
+          foreignField: '_id',
+          as: 'subcategory',
+        },
+      },
+      {
+        $lookup: {
+          from: 'brandtables',
+          localField: 'brand',
+          foreignField: '_id',
+          as: 'brand',
+        },
+      },
+    ]);
+    console.log(products, "ddd")
+    if (products.length > 0) {
+      // Assuming you want to return the first product found
+      const product = products;
+      console.log(product,)
+      // Extract category, subcategory, and brand
+      const category = product.category;
+      const subcategory = product.subcategory;
+      const brand = product.brand;
+
+      // Merge the extracted data into a single object
+      const result = [
+        ...product,
+        category,
+        subcategory,
+        brand,
+      ];
+
+      res.status(200).json(product);
+    } else {
+      res.status(404).json({ message: 'No products found for the given category ID' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: error.message, message: 'Server error' });
+  }
+});
+
+// subcategory find onlyyyyyy filter
+const subcategoryfilter = expressAsyncHandler(async (req, res) => {
+
+  try {
+    const subcategoryId = req.params.subcategory; // Assuming you're using "categoryid" as the parameter name
+    console.log(subcategoryId, 'categoryId')
+    // Use the Mongoose model for Userproducts
+    const products = await Userproducts.aggregate([
+      {
+        $match: {
+          subcategory: new mongoose.Types.ObjectId(subcategoryId), // Convert categoryId to ObjectId
         },
       },
       {
@@ -225,26 +292,11 @@ const categoryfilter = expressAsyncHandler(async (req, res) => {
 
       res.status(200).json(result);
     } else {
-      res.status(404).json({ message: 'No products found for the given category ID' });
+      res.status(404).json({ message: 'No products found for the given subcategory ID' });
     }
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ error: error.message, message: 'Server error' });
-  }
-});
-
-// subcategory find onlyyyyyy filter
-const subcategoryfilter = expressAsyncHandler(async (req, res) => {
-  try {
-    console.log(req.params.subcategory, "aaa");
-    const name = req.params.subcategory;
-    console.log("Querying for category:", name);
-    const filter = await Userproducts.find({ subcategory: name });
-    console.log("Filter result:", filter);
-    res.send(filter);
-  } catch (error) {
-    console.error("Error:", error);
-    res.status(500).json({ error: error.message, message: "Server error" });
   }
 })
 
@@ -298,7 +350,7 @@ const getSingleProduct = expressAsyncHandler(async (req, res) => {
   try {
 
 
-    
+
 
     const product = await Userproducts.aggregate([
       {
@@ -372,11 +424,11 @@ const filterall = expressAsyncHandler(async (req, res) => {
     // Build the filter object based on the query parameters
     const filter = {};
 
-  
+
     if (categoryId) {
       filter.category = new mongoose.Types.ObjectId(categoryId);
     }
-   
+
 
     if (subcategoryId) {
       filter.subcategory = new mongoose.Types.ObjectId(subcategoryId);
@@ -398,7 +450,7 @@ const filterall = expressAsyncHandler(async (req, res) => {
         $gte: minDiscount,
       };
     }
-    console.log(filter,"ddddddddd")
+    console.log(filter, "ddddddddd")
     // Use the Mongoose model for Userproducts to apply the filter
     const products = await Userproducts.aggregate([
       {
@@ -450,4 +502,4 @@ const filterall = expressAsyncHandler(async (req, res) => {
 
 
 
-module.exports = { postproduct, getproduct, getfilter, categoryfilter, subcategoryfilter, updateproduct, getSingleProduct ,filterall};
+module.exports = { postproduct, getproduct, getfilter, categoryfilter, subcategoryfilter, updateproduct, getSingleProduct, filterall };
