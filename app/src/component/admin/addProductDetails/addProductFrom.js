@@ -57,8 +57,8 @@ const ProductForm = () => {
     }
   };
 
-  const [selectedImagesforpost, setselectedImagesforpost] = useState([]);
-  const [selectedImages, setSelectedImages] = useState([]);
+    const [selectedImagesforpost, setselectedImagesforpost] = useState([]);
+    const [selectedImages, setSelectedImages] = useState([]);
 
   const handleImgeFile = (e) => {
     const files = e.target.files;

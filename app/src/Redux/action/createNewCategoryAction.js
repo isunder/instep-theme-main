@@ -9,7 +9,14 @@ export const axiosInstance = axios.create({
   },
 });
 
-export const addcategory = createAsyncThunk("categoryadd", async (payload) => {
-  const data1 = await axiosInstance.post(`/addcategory`, payload);
-  return data1.data;
-});
+// export const addcategory = createAsyncThunk("categoryadd", async (payload) => {
+//   const data1 = await axiosInstance.post(`/addcategory`, payload);
+//   return data1.data;
+// });
+
+
+export const addcategory = createAsyncThunk( "addcategory/addcategory",async (payload) => {
+    return axiosInstance.post("/addcategory", payload);
+  }
+);
+

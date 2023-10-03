@@ -21,6 +21,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { AiFillRightCircle } from "react-icons/ai";
+import { allCategoryList } from "../../../../Redux/action/getCategoryAction";
 
 // const cardData = [
 //   {
@@ -57,8 +58,13 @@ const Home = () => {
   const categorydata = useSelector((state) => state?.getproductdata?.listdata);
   console.log(categorydata, "categorydata");
 
+  const allcatgorydata = useSelector((state) => state.getcategorylistdata.listdata)
+  console.log(allcatgorydata, "jjjjjjjj")
   useEffect(() => {
     dispatch(getProductAction());
+    dispatch(allCategoryList());
+
+
   }, []);
 
   console.log(category, "json");
