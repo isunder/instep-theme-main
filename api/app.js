@@ -309,13 +309,13 @@ server.use("/api", addtocart);
 
 ///   category  api  next plain
 
-server.post("/api/category", async (req, res) => {
-  try {
-    res.send(productsjson);
-  } catch (error) {
-    res.status(400).send({ message: error.message });
-  }
-});
+// server.post("/api/category", async (req, res) => {
+//   try {
+//     res.send(productsjson);
+//   } catch (error) {
+//     res.status(400).send({ message: error.message });
+//   }
+// });
 
 //admn api for update from id
 
@@ -399,8 +399,8 @@ server.post("/api/Search", async (req, res) => {
       $or: [
         { title: { $regex: keyword, $options: "i" } }, // Case-insensitive search
         { description: { $regex: keyword, $options: "i" } },
-        { category: { $regex: keyword, $options: "i" } },
-        { brand: { $regex: keyword, $options: "i" } },
+        // { category: { $regex: keyword, $options: "i" } },
+        // { brand: { $regex: keyword, $options: "i" } },
       ],
     });
 

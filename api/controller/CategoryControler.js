@@ -4,30 +4,41 @@ const SUBCATEGORY = require("../models/subcategorytable")
 const brandtable = require("../models/brandSchema")
 
 const adddCategory = async (req, res) => {
-    console.log(req.body.category, "data")
-    const { category } = req.body;
+    console.log(req.body.userData, "data")
+
+
     try {
+
+        const userData = JSON.parse(req.body.userData);
+
+        // const imagesFilenames = req.files["images"].map((file) => file.filename);
+        // console.log(req.files.images[0].filename, "req.files");
+
+
+        const imagesFilenames = req.files.images[0].filename;
+
+
         const category_data = await modelcategory.find()
         if (category_data.length > 0) {
             let checking = false;
             for (let i = 0; i < category_data.length; i++) {
-                if (category_data[i]['category'].toLowerCase() === req.body.category.toLowerCase()) {
+                if (category_data[i]['category'].toLowerCase() === userData?.category.toLowerCase()) {
                     checking = true;
                     break;
                 }
             }
 
             if (checking == false) {
-                const savecategory = new modelcategory({ category: category })
+                const savecategory = new modelcategory({ category: userData?.category, images: imagesFilenames })
                 const cat_data = await savecategory.save()
                 res.status(200).send({ success: true, msg: "category data", data: cat_data })
             }
             else {
-                res.status(200).send({ success: true, msg: "this category (" + req.body.category + ") is already exist." })
+                res.status(200).send({ success: true, msg: "this category (" + userData?.category + ") is already exist." })
 
             }
         } else {
-            const savecategory = new modelcategory({ category: category })
+            const savecategory = new modelcategory({ category: userData?.category, images: imagesFilenames })
             const cat_data = await savecategory.save()
             res.status(200).send({ success: true, msg: "category data", data: cat_data })
 
@@ -74,7 +85,7 @@ const deletecategory = async (req, res) => {
 
         // res.send(deletedcategory)
         res.status(200).send({ success: true, msg: "category data delete", data: deletedcategory })
-   
+
 
         console.log("delete done category");
     } catch (error) {

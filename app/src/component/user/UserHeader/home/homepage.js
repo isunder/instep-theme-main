@@ -6,7 +6,6 @@ import { useNavigate } from "react-router";
 import { Carousel } from "react-bootstrap";
 // import { productAction } from "../../Redux/action/productAction";
 import { Link } from "react-router-dom";
-
 import { FiArrowUpRight } from "react-icons/fi";
 import { getProductAction } from "../../../../Redux/action/getProductDetailAction";
 import { Swiper } from "swiper/react";
@@ -18,6 +17,7 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { AiFillRightCircle } from "react-icons/ai";
 import { adminPostslider } from "../../../../Redux/action/postSliderAction";
+import { allCategoryList } from "../../../../Redux/action/getCategoryAction";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -30,8 +30,13 @@ const Home = () => {
   const categorydata = useSelector((state) => state?.getproductdata?.listdata);
   console.log(categorydata, "categorydata");
 
+  const allcatgorydata = useSelector((state) => state.getcategorylistdata.listdata)
+  console.log(allcatgorydata, "jjjjjjjj")
   useEffect(() => {
     dispatch(getProductAction());
+    dispatch(allCategoryList());
+
+
   }, []);
 
   console.log(category, "json");
@@ -342,11 +347,11 @@ const Home = () => {
                   <Col lg={4}>
                     <div className="banner margin_bottom" key={index}>
                       <div>
-                        <Button className="banner-button" variant="light">
-                          {item?.value}
-                        </Button>
-                      </div>
-                      <div>
+                        <div>
+                          <Button className="banner-button" variant="light">
+                            {item?.value}
+                          </Button>
+                        </div>
                         <img
                           className="banner-img"
                           src={item?.bannerImage}

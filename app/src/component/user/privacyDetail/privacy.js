@@ -13,7 +13,7 @@ const Privacy = () => {
                 <div className="privayhead d-flex justify-content-center">
                   <h5>PRIVACY POLICY</h5>
                 </div>
-                <p>
+                <p className="margin_bottom">
                   {" "}
                   We value the trust you place in us and recognize the
                   importance of secure transactions and information privacy.
@@ -24,7 +24,7 @@ const Privacy = () => {
                   mobile application, and m-site (hereinafter referred to as the
                   “Platform”).
                 </p>
-                <p>
+                <p className="margin_bottom">
                   While you can browse sections of the Platform without the need
                   of sharing any information with us, however, please note we do
                   not offer any product or service under this Platform outside

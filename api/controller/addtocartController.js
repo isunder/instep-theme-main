@@ -71,11 +71,16 @@ const removeFromCart = expressAsyncHandler(async (req, res) => {
     try {
         const userId = req.body.userId; // Assuming you have a userId to identify the user
         const productIdToRemove = req.body.productIdToRemove; // Assuming you send the product ID to remove
+        if (userId && productIdToRemove) {
+            await Usercart.findOneAndDelete({ userid: userId, productid: productIdToRemove });
 
+            res.status(200).json({ message: 'Product removed from cart successfully' });
+        } else {
+            res.status(400).json({ message: 'Product  is  not removed from cart ' });
+
+        }
         // Remove the product from the user's cart
-        await Usercart.findOneAndDelete({ userid: userId, productid: productIdToRemove });
 
-        res.status(200).json({ message: 'Product removed from cart successfully' });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: error.message });

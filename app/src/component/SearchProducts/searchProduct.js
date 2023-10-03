@@ -26,7 +26,7 @@ function Searchproduct() {
                         <Card.Body>
                           <div className="item_rating">
                             <p className="homerating_cat"> {item?.rating}</p>
-                            <p className="homerating_cat"> {item.category}</p>
+                            <p className="homerating_cat"> {item.category.category}</p>
                           </div>
                           <Card.Title className="crad_text">
                             {item.title}

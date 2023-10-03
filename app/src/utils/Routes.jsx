@@ -6,8 +6,8 @@ import Alllocation from "../component/admin/dashboardPage/sideNavOption/Stocks/A
 import Subscribeuser from "../component/admin/dashboardPage/sideNavOption/Newsletter/Subscriber";
 import Allcategories from "../component/admin/dashboardPage/sideNavOption/Products/Allcategories";
 import Allbrands from "../component/admin/dashboardPage/sideNavOption/Products/Allbrands";
-import Allunit from "../component/admin/dashboardPage/sideNavOption/Products/Allunit";
-import Alltaxes from "../component/admin/dashboardPage/sideNavOption/Products/Alltaxes";
+// import Allunit from "../component/admin/dashboardPage/sideNavOption/Products/Allunit";
+// import Alltaxes from "../component/admin/dashboardPage/sideNavOption/Products/Alltaxes";
 import Bulkemails from "../component/admin/dashboardPage/sideNavOption/Newsletter/Bulkemail";
 import Productsale from "../component/admin/dashboardPage/sideNavOption/Reports/Productsale";
 import Orderreport from "../component/admin/dashboardPage/sideNavOption/Reports/Orderreport";
@@ -85,8 +85,8 @@ const protects = {
         { path: "/allcategories", element: <Allcategories /> },
         { path: "/allsubcategory", element: <Allsubcategory /> },
         { path: "/allbrands", element: <Allbrands /> },
-        { path: "/allunit", element: <Allunit /> },
-        { path: "/alltaxes", element: <Alltaxes /> },
+        // { path: "/allunit", element: <Allunit /> },
+        // { path: "/alltaxes", element: <Alltaxes /> },
         { path: "/orderreport", element: <Orderreport /> },
         { path: "/categorywise", element: <Categorywise /> },
         { path: "/bulkemails", element: <Bulkemails /> },

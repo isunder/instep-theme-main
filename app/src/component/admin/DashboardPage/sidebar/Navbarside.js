@@ -63,12 +63,6 @@ const SidebarFun = () => {
                 <Nav.Item eventKey="2-4">
                   <Link to={"/Allbrands"}>- All Brands</Link>
                 </Nav.Item>
-                <Nav.Item eventKey="2-5">
-                  <Link to={"/Allunit"}>- All Units</Link>
-                </Nav.Item>
-                <Nav.Item eventKey="2-6">
-                  <Link to={"/Alltaxes"}>- All Taxes</Link>
-                </Nav.Item>
                 <Nav.Item eventKey="2-6">
                   <Link to={"/slider"}>- Slider</Link>
                 </Nav.Item>
