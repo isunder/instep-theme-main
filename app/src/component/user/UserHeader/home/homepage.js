@@ -369,11 +369,11 @@ const Home = () => {
                   <Col lg={4}>
                     <div className="banner margin_bottom" key={index}>
                       <div>
-                        <Button className="banner-button" variant="light">
-                          {item?.value}
-                        </Button>
-                      </div>
-                      <div>
+                        <div>
+                          <Button className="banner-button" variant="light">
+                            {item?.value}
+                          </Button>
+                        </div>
                         <img
                           className="banner-img"
                           src={item?.bannerImage}
@@ -434,7 +434,6 @@ const Home = () => {
                               className="card_deco"
                               // to={`/subcategory/${item?.subcategory}`}
                               to={`/productdetail/${item._id}`}
-
                               onClick={() => productClick(item?._id)}
                             >
                               <Card className="shoppingcard_bor">
@@ -445,8 +444,8 @@ const Home = () => {
                                       item?.image
                                         ? item?.image
                                         : item?.thumbnail.split(":").length > 1
-                                          ? item?.thumbnail
-                                          : `http://localhost:5000/uploads/${item.thumbnail}`
+                                        ? item?.thumbnail
+                                        : `http://localhost:5000/uploads/${item.thumbnail}`
                                     }
                                   />
                                 </div>
@@ -532,7 +531,6 @@ const Home = () => {
                             className="card_deco"
                             // to={`/subcategory/${e.subcategory}`}
                             to={`/productdetail/${e._id}`}
-
                             onClick={() => productClick(e?._id)}
                           >
                             <Card className="shoppingcard_bor">
@@ -543,8 +541,8 @@ const Home = () => {
                                     e?.image
                                       ? e?.image
                                       : e?.thumbnail.split(":").length > 1
-                                        ? e?.thumbnail
-                                        : `http://localhost:5000/uploads/${e.thumbnail}`
+                                      ? e?.thumbnail
+                                      : `http://localhost:5000/uploads/${e.thumbnail}`
                                   }
                                 />
                               </div>

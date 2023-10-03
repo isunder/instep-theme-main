@@ -36,68 +36,71 @@ function Mainheader() {
             className="bg-body-tertiary mb-3"
           >
             <Container fluid>
-              <div className="adminnavbar">
-                {" "}
-                <Navbar.Brand className="d-block" href="#">
-                  INSTEPCART{" "}
-                </Navbar.Brand>
-                <Form className="d-flex Navsearch_bar">
+              <div className="adminnavbar ">
+                <div className="adminmainnav_bar">
+                  <div>
+                    <Navbar.Brand className="" href="#">
+                      INSTEPCART{" "}
+                    </Navbar.Brand>
+                    {/* <Form className="d-flex Navsearch_bar">
                   <FiSearch className="allproduct_searchicon " />{" "}
                   <Form.Control
                     type="text"
                     placeholder="Search..."
                     className=" mr-sm-2 navsearch"
                   />
-                  {/* <Button variant="outline-success">Search</Button> */}
-                </Form>
-                <Button
-                  variant="primary"
-                  className="offcanvas_toggole_btn for_mobile"
-                  onClick={handleShow}
-                >
-                  <span className="navbar-toggler-icon"></span>
-                </Button>
-                <div className="Navbaricons hide_for_mobile">
-                  <div className="navicon_heading">
-                    <BsGlobe2 className="navicons" /> visit store
+                  <Button variant="outline-success">Search</Button>
+                </Form> */}
+                    <Button
+                      variant="primary"
+                      className="offcanvas_toggole_btn for_mobile"
+                      onClick={handleShow}
+                    >
+                      <span className="navbar-toggler-icon"></span>
+                    </Button>
                   </div>
+                  <div className="Navbaricons hide_for_mobile">
+                    <div className="navicon_heading">
+                      <BsGlobe2 className="navicons" /> visit store
+                    </div>
 
-                  <MdOutlineNotificationsActive className="navicons" />
-                  {/* <img
+                    <MdOutlineNotificationsActive className="navicons" />
+                    {/* <img
                     className="profile_img"
                     src="https://grostore.themetags.com/public/uploads/media/65bad2tYppDLFCZ2JzveKJtJX7NiX6sznq5VmUS1.jpg"
                     alt=""
                   /> */}
-                  <Dropdown data-bs-theme="">
-                    <Dropdown.Toggle
-                      id="dropdown-button-dark-example1"
-                      variant="secondary"
-                      className="adminnav_profiletoggle"
-                    >
-                      <img
-                        className="profile_img"
-                        src="https://grostore.themetags.com/public/uploads/media/65bad2tYppDLFCZ2JzveKJtJX7NiX6sznq5VmUS1.jpg"
-                        alt=""
-                      />
-                    </Dropdown.Toggle>
+                    <Dropdown data-bs-theme="">
+                      <Dropdown.Toggle
+                        id="dropdown-button-dark-example1"
+                        variant="secondary"
+                        className="adminnav_profiletoggle"
+                      >
+                        <img
+                          className="profile_img"
+                          src="https://grostore.themetags.com/public/uploads/media/65bad2tYppDLFCZ2JzveKJtJX7NiX6sznq5VmUS1.jpg"
+                          alt=""
+                        />
+                      </Dropdown.Toggle>
 
-                    <Dropdown.Menu className="adminprofiledrop">
-                      <Dropdown.Item>
-                        <IoMdPerson /> My Account
-                      </Dropdown.Item>
-                      <Dropdown.Item>
-                        <AiOutlineSetting /> Settings
-                      </Dropdown.Item>
-                      <Dropdown.Item onClick={logoutClick}>
-                        <GoSignOut />
-                        Sign Out
-                      </Dropdown.Item>
-                      {/* <Dropdown.Divider /> */}
-                      {/* <Dropdown.Item href="#/action-4">
+                      <Dropdown.Menu className="adminprofiledrop">
+                        <Dropdown.Item>
+                          <IoMdPerson /> My Account
+                        </Dropdown.Item>
+                        <Dropdown.Item>
+                          <AiOutlineSetting /> Settings
+                        </Dropdown.Item>
+                        <Dropdown.Item onClick={logoutClick}>
+                          <GoSignOut />
+                          Sign Out
+                        </Dropdown.Item>
+                        {/* <Dropdown.Divider /> */}
+                        {/* <Dropdown.Item href="#/action-4">
                         Separated link
                       </Dropdown.Item> */}
-                    </Dropdown.Menu>
-                  </Dropdown>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  </div>
                   <Button
                     variant="primary"
                     className="offcanvas_toggole_btn for_tablet "

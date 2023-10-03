@@ -27,3 +27,11 @@ export const addToCartAction = createAsyncThunk(
 //   type: "REMOVE_FROM_CART",
 //   payload: productId,
 // });
+
+export const removeFromCart = createAsyncThunk(
+  "removeFromCart",
+  async (payload) => {
+    const data1 = await axiosInstance.post(`remove-from-cart`, payload);
+    return data1.data;
+  }
+);

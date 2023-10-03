@@ -10,7 +10,7 @@ export const axiosInstance = axios.create({
 });
 
 export const homecategory = createAsyncThunk(
-  "category",
+  "homecategory",
   async (payload) => {
     const data1 = await axiosInstance.get(`/category/${payload}`);
     return data1.data;
