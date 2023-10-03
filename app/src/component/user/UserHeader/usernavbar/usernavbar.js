@@ -17,9 +17,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineMail, AiTwotoneHeart } from "react-icons/ai";
 import { BiSearch, BiSolidPurchaseTag } from "react-icons/bi";
 import { MdAccountCircle, MdOutlineAccountCircle } from "react-icons/md";
-import { HiOutlineShoppingBag, HiOutlineShoppingCart } from "react-icons/hi";
+import { HiOutlineShoppingCart } from "react-icons/hi";
 import { searchAction } from "../../../../Redux/action/searchProductAction";
 import { cartinfo } from "../../../../Redux/action/usercartinfo";
+import { allCategoryList } from "../../../../Redux/action/getCategoryAction";
 
 // export const CartAddClick = () => {
 //   // const userLogin = localStorage.getItem("token");
@@ -43,7 +44,7 @@ const Usernavbar = () => {
   // setUsername(userData?.username);
 
   const userLogin = localStorage.getItem("token");
- 
+
   const [cartdata, setCartdata] = useState([]); // Initialize cartdata as an empty array
   const mycart = useSelector((selectCart) => selectCart?.addToCartFile?.mycart);
   useEffect(() => {
@@ -55,7 +56,6 @@ const Usernavbar = () => {
   }, []); // This useEffect will run whenever mycart changes
 
   // console.log(cartdata, "dddddddddddddddd");
-
 
   const [showMessage, setShowMessage] = useState({
     MOBILE: "false",
@@ -108,6 +108,15 @@ const Usernavbar = () => {
     setSearchQuery("");
   };
 
+  const navcategorydata = useSelector(
+    (state) => state?.getcategorylistdata?.listdata
+  );
+  console.log(navcategorydata, "rahulllllll");
+
+  useEffect(() => {
+    dispatch(allCategoryList());
+  }, []);
+
   return (
     <>
       <div className="nav_header">
@@ -134,10 +143,23 @@ const Usernavbar = () => {
                     <div className="subnewbar_rightcont">
                       <div className="mid_navnewconent desktop_mid_navnewconent">
                         <div className="Nav_link">
-                          {/* Category   */}
+                          Category
                           <div className="nav_Filter">
                             <ul>
-                              <li>ef</li>
+                              {navcategorydata &&
+                                navcategorydata?.map((item, index) => {
+                                  console.log(item?.category, "qweqweqweqwewq")
+                                  return (
+                                    <>
+                                      <Link
+                                        className="navcat_deco"
+                                        to={`/category/${item._id}`}
+                                      >
+                                        <li key={index}>{item?.category}</li>
+                                      </Link>
+                                    </>
+                                  );
+                                })}
                             </ul>
                           </div>
                         </div>

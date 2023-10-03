@@ -8,11 +8,11 @@ import { BiChevronRight } from "react-icons/bi";
 
 const Homecategory = () => {
   const dispatch = useDispatch();
-  const data = useSelector((state) => state?.homecategory?.listdata);
+  const data = useSelector((state) => state.homecategory.listdata);
   const { categoryName } = useParams();
   useEffect(() => {
     dispatch(homecategory(categoryName));
-  }, []);
+  }, [categoryName]);
   console.log(data, "goapl");
   console.log(categoryName);
 
@@ -176,52 +176,55 @@ const Homecategory = () => {
               </div>
             </div>
             <Row>
-              {data?.map((item) => {
-                return (
-                  <>
-                    <Link
-                      className="carddecorationnone_cat text_edit"
-                      reloadDocumen={true}
-                      to={`/productdetail/${item._id}`}
-                    >
-                      <div className="subcatkitechenmaindiv margin_bottom">
-                        <Col lg={3}>
-                          <div>
-                            <img
-                              className="subcatkitchen_image"
-                              variant="top"
-                              // src={item?.image || item?.thumbnail}
-                              src={
-                                item?.image
-                                  ? item?.image
-                                  : item?.thumbnail.split(":").length > 1
-                                  ? item?.thumbnail
-                                  : `http://localhost:5000/uploads/${item.thumbnail}`
-                              }
-                              alt=""
-                            />
-                          </div>
-                        </Col>
-                        <Col lg={6}>
-                          <div className="p-4">
-                            <div className="subcatitem_cont"> {item.title}</div>
-                            <div> {item?.description}</div>
-                            <div className="kit_homestarticon">
-                              {item?.rating}
+              {data &&
+                data?.map((item) => {
+                  return (
+                    <>
+                      <Link
+                        className="carddecorationnone_cat text_edit"
+                        reloadDocumen={true}
+                        to={`/productdetail/${item._id}`}
+                      >
+                        <div className="subcatkitechenmaindiv margin_bottom">
+                          <Col lg={3}>
+                            <div>
+                              <img
+                                className="subcatkitchen_image"
+                                variant="top"
+                                // src={item?.image || item?.thumbnail}
+                                src={
+                                  item?.image
+                                    ? item?.image
+                                    : item?.thumbnail.split(":").length > 1
+                                    ? item?.thumbnail
+                                    : `http://localhost:5000/uploads/${item.thumbnail}`
+                                }
+                                alt=""
+                              />
                             </div>
-                            {/* <p className="homerating_cat"> {item.category}</p> */}
-                          </div>
-                        </Col>
-                        <Col lg={3}>
-                          <div className="p-4">
-                            <h5> ₹{item?.price}</h5>
-                          </div>
-                        </Col>
-                      </div>
-                    </Link>
-                  </>
-                );
-              })}
+                          </Col>
+                          <Col lg={6}>
+                            <div className="p-4">
+                              <div className="subcatitem_cont">
+                                {" "}
+                                {item.title}
+                              </div>
+                              <div> {item?.description}</div>
+                              <div className="kit_homestarticon">
+                                {item?.rating}
+                              </div>
+                            </div>
+                          </Col>
+                          <Col lg={3}>
+                            <div className="p-4">
+                              <h5> ₹{item?.price}</h5>
+                            </div>
+                          </Col>
+                        </div>
+                      </Link>
+                    </>
+                  );
+                })}
             </Row>
           </Col>
         </Row>

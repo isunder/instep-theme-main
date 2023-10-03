@@ -9,6 +9,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { RiSubtractFill } from "react-icons/ri";
 import { RxCross1 } from "react-icons/rx";
 import { SiSpringsecurity } from "react-icons/si";
+import { removeFromCart } from "../../../Redux/action/addToCartAction";
 
 const AddToCartProduct = () => {
   const userData = getUserId();
@@ -39,7 +40,7 @@ const AddToCartProduct = () => {
 
   const quantitySubtract = (index) => {
     const updatedQuantities = [...quantities];
-    if (updatedQuantities[index] > 0) {
+    if (updatedQuantities[index] > 1) {
       updatedQuantities[index] -= 1;
       setQuantities(updatedQuantities);
     }
@@ -60,7 +61,7 @@ const AddToCartProduct = () => {
     if (myCartL && myCartL.length > 0) {
       count = quantities.reduce((accumulator, currentValue, index) => {
         return (
-          (myCartL[index].discountPercentage / 100) *
+          (myCartL[index].discountpercentage / 100) *
           myCartL[index].price
         ).toFixed(0);
       }, 0);
@@ -73,13 +74,17 @@ const AddToCartProduct = () => {
     let count = 0;
     if (myCartL && myCartL.length > 0) {
       count = quantities.reduce((accumulator, currentValue, index) => {
-        return myCartL[index].discountPercentage;
+        return myCartL[index].discountpercentage;
       }, 0);
       console.log(count);
       return count;
     }
   };
 
+  const clickMe = (_id) => {
+    console.log(_id, "rahullllllll");
+    dispatch(removeFromCart({ userId: userData?.id, productIdToRemove: _id }));
+  };
   return (
     <>
       <div className="container slider_col">
@@ -172,7 +177,7 @@ const AddToCartProduct = () => {
                               </span>
                             </div>
                             <span className="quantityval_ue">
-                              {quantities[index] || 0}
+                              {quantities[index] || 1}
                             </span>
                             <div className="add">
                               <span onClick={() => quantityAdd(index)}>
@@ -184,13 +189,17 @@ const AddToCartProduct = () => {
                         <Col lg={2}>
                           <div className="addtocart_title">
                             <h5>
-                              ₹ {e?.price.toFixed(0) * quantities[index] || 0}
-                            </h5>
+                              ₹ {e?.price.toFixed(0) * (quantities[index] || 1)}
+                            </h5> 
                           </div>
                         </Col>
                         <Col lg={2}>
                           <div className="addtocart_title">
-                            <RxCross1 />
+                            <RxCross1
+                              onClick={() => {
+                                clickMe(e?._id);
+                              }}
+                            />
                           </div>
                         </Col>
                         {/* </Link> */}
@@ -225,7 +234,7 @@ const AddToCartProduct = () => {
                 <p>₹{getTotalPrice() - getTotalDiscount()}</p>
               </div>
               <h6 className="discountpercentage_">
-                Your Will save ₹{getTotalDiscount()} on this order
+                Your Will save ₹{getTotalDiscount() } on this order
               </h6>
               <div></div>
               <div className="securityline">

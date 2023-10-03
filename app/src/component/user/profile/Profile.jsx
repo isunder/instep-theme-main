@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { cartinfo } from '../../../Redux/action/usercartinfo'
 import { RxBorderWidth, RxDashboard } from 'react-icons/rx'
 import { BsArrowLeft, BsTelephoneFill, BsTruck, BsWalletFill } from 'react-icons/bs'
-import { CiLocationOn } from 'react-icons/ci'
+import { CiEdit, CiLocationOn } from 'react-icons/ci'
 import { BiLogOut } from 'react-icons/bi'
 import { getUserId } from '../../../utils/auth'
 
@@ -39,9 +39,10 @@ export default function Profile() {
                 <div className='recent_orders margin_bottom'>
                     <Row >
                         <Col lg={3}>
-                            <div className="">
+                            <div className="d-flex justify-content-center">
 
                                 <img className="banner-img" src="https://grostore.themetags.com/public/uploads/media/65bad2tYppDLFCZ2JzveKJtJX7NiX6sznq5VmUS1.jpg" alt="" />
+                                <CiEdit className=''/>
                             </div>
                         </Col>
                         <Col lg={9}>
@@ -51,14 +52,14 @@ export default function Profile() {
                                 </div></Col>
                             </Row>
                             <Row>
-                                <Col lg={3} md={6} sm={6} xs={6}>
+                                {/* <Col lg={3} md={6} sm={6} xs={6}>
                                     <div className="userhistory_icons">
                                         <AiOutlineShopping className='history_icon' />
                                         <div className='history_detail'><h3>3</h3>
                                             <p>Total Delivered</p>
                                         </div>
                                     </div>
-                                </Col>
+                                </Col> */}
                                 <Col lg={3} md={6} sm={6} xs={6}>
                                     <div className="userhistory_icons">
                                         <BsTruck className='historyshipped_icon' />
@@ -66,11 +67,11 @@ export default function Profile() {
                                             <p>Total Shipped</p></div>
                                     </div></Col>
 
-                                <Col lg={3} md={6} sm={6} xs={6}>
+                                {/* <Col lg={3} md={6} sm={6} xs={6}>
                                     <div className="userhistory_icons"><FcProcess className='historyprocess_icon' />
                                         <div className='history_detail'><h3>2</h3>
                                             <p>Order Processing</p></div>
-                                    </div> </Col>
+                                    </div> </Col> */}
 
                                 <Col lg={3} md={6} sm={6} xs={6}>
                                     <div className="userhistory_icons">
@@ -87,13 +88,13 @@ export default function Profile() {
                         <div className="recent_orders">
                             <th>Manage My Account</th>
                             <div className='d-flex flex-column profilemanage_account'>
-                                <div ><RxDashboard className='profilemanangeicon' />Dashboard</div>
+                                {/* <div ><RxDashboard className='profilemanangeicon' />Dashboard</div>
                                 <div><RxBorderWidth className='profilemanangeicon' />Order History</div>
                                 <div><BsWalletFill className='profilemanangeicon' />Wallet History</div>
-                                <div><BsArrowLeft className='profilemanangeicon' />Refund History</div>
+                                <div><BsArrowLeft className='profilemanangeicon' />Refund History</div> */}
+                                <div><MdAccountCircle className='profilemanangeicon' />Edit Profile</div>
                                 <div><CiLocationOn className='profilemanangeicon' />Track Order</div>
                                 <div><AiOutlineHome className='profilemanangeicon' />Address Book</div>
-                                <div><MdAccountCircle className='profilemanangeicon' />Updated Profile</div>
                                 <div><BiLogOut className='profilemanangeicon' />Log Out</div>
                             </div>
                         </div>

@@ -25,6 +25,7 @@ import GetBrandsListDataReducer from "../reducer/getBrandSlice";
 import SelectSubcategoryFilterByIdReducer from "../reducer/filterSubcategorySlice";
 import SelectBrandFilterByIdReducer from "../reducer/filterBrand";
 import singleProductDataReducer from "../reducer/singleproduct"
+import removeFromCartSliceReducer from "../reducer/removeFromCartSlice"
 export const store = configureStore({
   reducer: {
     register: registrationDataReducer,
@@ -53,6 +54,7 @@ export const store = configureStore({
     subcategoryfilter: SelectSubcategoryFilterByIdReducer,
     brandfilter: SelectBrandFilterByIdReducer,
     singleproduct: singleProductDataReducer,
+    removefromcart:removeFromCartSliceReducer,
 
   },
 });
