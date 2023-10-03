@@ -51,7 +51,6 @@ server.use("/api", addnewbrand);
 // addto cart api
 server.use("/api", addtocart);
 
-
 // server.post("/api/register", async (req, res) => {
 //   const { email, password, username } = req.body;
 

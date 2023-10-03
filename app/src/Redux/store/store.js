@@ -24,7 +24,10 @@ import GetSubsategoryListDataReducer from "../reducer/getSubcategoryListSlice";
 import GetBrandsListDataReducer from "../reducer/getBrandSlice";
 import SelectSubcategoryFilterByIdReducer from "../reducer/filterSubcategorySlice";
 import SelectBrandFilterByIdReducer from "../reducer/filterBrand";
-import singleProductDataReducer from "../reducer/singleproduct"
+import singleProductDataReducer from "../reducer/singleproduct";
+import PostSliderDataReducer from "../reducer/postSliderSlice";
+import GetSliderDataReducer from "../reducer/getSliderSlice";
+
 export const store = configureStore({
   reducer: {
     register: registrationDataReducer,
@@ -53,6 +56,7 @@ export const store = configureStore({
     subcategoryfilter: SelectSubcategoryFilterByIdReducer,
     brandfilter: SelectBrandFilterByIdReducer,
     singleproduct: singleProductDataReducer,
-
+    postsliderdata: PostSliderDataReducer,
+    getsliderdata: GetSliderDataReducer,
   },
 });

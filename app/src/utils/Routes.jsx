@@ -40,6 +40,7 @@ import Shipping from "../component/user/shippingDetail/shipping";
 import TermsofuseDetail from "../component/user/termofuseDetail/termsDetail";
 import Security from "../component/user/securityDetail/security";
 import Privacy from "../component/user/privacyDetail/privacy";
+import Sliderpost from "../component/admin/dashboardPage/sideNavOption/Products/Sliderpost";
 
 const role = getUserId() ? getUserId()?.userRole : null;
 // console.log(role, "aaasdfgfds");
@@ -95,6 +96,7 @@ const protects = {
         { path: "/product", element: <ProductForm /> },
         { path: "/possystem", element: <PosSystem /> },
         { path: "/possystem", element: <PosSystem /> },
+        { path: "/slider", element: <Sliderpost /> },
 
         { path: "*", element: "NO PAGE FOUND" },
       ],

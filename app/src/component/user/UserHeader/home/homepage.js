@@ -10,44 +10,17 @@ import { Link } from "react-router-dom";
 import { FiArrowUpRight } from "react-icons/fi";
 import { getProductAction } from "../../../../Redux/action/getProductDetailAction";
 import { Swiper } from "swiper/react";
-
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
-
 import { SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { AiFillRightCircle } from "react-icons/ai";
-
-// const cardData = [
-//   {
-//     cardImg: "image/pexels-pixabay-267320 (1).jpg",
-//     cardName: "Footwear",
-//     cardPara: "Upto 70% off",
-//   },
-//   {
-//     cardImg: "image/pexels-terje-sollie-298863.jpg",
-//     cardName: "clothing",
-//     cardPara: "Upto 70% off",
-//   },
-//   {
-//     cardImg: "image/pexels-godisable-jacob-934673.jpg",
-//     cardName: "Bags ",
-//     cardPara: "Upto 80% off",
-//   },
-//   {
-//     cardImg: "image/pexels-torsten-dettlaff-437038 (1).jpg",
-//     cardName: "Watches",
-//     cardPara: "Upto 40% off",
-//   },
-// ];
+import { adminPostslider } from "../../../../Redux/action/postSliderAction";
 
 const Home = () => {
   const navigate = useNavigate();
-
   const [apiData, setApiData] = useState();
   const [category, setCategory] = useState();
   const dispatch = useDispatch();
@@ -434,7 +407,6 @@ const Home = () => {
                               className="card_deco"
                               // to={`/subcategory/${item?.subcategory}`}
                               to={`/productdetail/${item._id}`}
-
                               onClick={() => productClick(item?._id)}
                             >
                               <Card className="shoppingcard_bor">
@@ -445,8 +417,8 @@ const Home = () => {
                                       item?.image
                                         ? item?.image
                                         : item?.thumbnail.split(":").length > 1
-                                          ? item?.thumbnail
-                                          : `http://localhost:5000/uploads/${item.thumbnail}`
+                                        ? item?.thumbnail
+                                        : `http://localhost:5000/uploads/${item.thumbnail}`
                                     }
                                   />
                                 </div>
@@ -532,7 +504,6 @@ const Home = () => {
                             className="card_deco"
                             // to={`/subcategory/${e.subcategory}`}
                             to={`/productdetail/${e._id}`}
-
                             onClick={() => productClick(e?._id)}
                           >
                             <Card className="shoppingcard_bor">
@@ -543,8 +514,8 @@ const Home = () => {
                                     e?.image
                                       ? e?.image
                                       : e?.thumbnail.split(":").length > 1
-                                        ? e?.thumbnail
-                                        : `http://localhost:5000/uploads/${e.thumbnail}`
+                                      ? e?.thumbnail
+                                      : `http://localhost:5000/uploads/${e.thumbnail}`
                                   }
                                 />
                               </div>
