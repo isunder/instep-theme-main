@@ -24,9 +24,7 @@ const ProductDetails = () => {
 
   //   const details = useSelector((state) => state.slicedetails.listdata);
 
-  const productDetail = useSelector(
-    (state) => state.singleproduct?.listdata
-  );
+  const productDetail = useSelector((state) => state.singleproduct?.listdata);
   console.log(productDetail, "www");
 
   // const Check = useSelector((state) => state?.updateProductData);
@@ -44,7 +42,7 @@ const ProductDetails = () => {
     dispatch(singleproduct({ _id }));
   }, [_id]);
   console.log(productDetail, "productDetailproductDetail");
-  console.log( productDetail._id,"hhhhhhhhhhh")
+  console.log(productDetail._id, "hhhhhhhhhhh");
   const cartClick = (asd) => {
     let apiObject = {
       productid: productDetail._id,
@@ -64,7 +62,7 @@ const ProductDetails = () => {
         <Row>
           <Col className="singlecard_posit" lg={4}>
             <Card className="shoppingcard_bor">
-              <div>
+              <div className="margin_bottom`">
                 <ReactImageMagnify
                   {...{
                     smallImage: {
@@ -76,10 +74,10 @@ const ProductDetails = () => {
                           ? imageState
                           : `http://localhost:5000/uploads/${imageState}`
                         : productDetail?.images?.length > 0 &&
-                        // productDetail?.images?.length[0] > 0 &&
-                        (productDetail?.images[0].split("http").length > 1
-                          ? productDetail?.images[0]
-                          : `http://localhost:5000/uploads/${productDetail?.images[0]}`),
+                          // productDetail?.images?.length[0] > 0 &&
+                          (productDetail?.images[0].split("http").length > 1
+                            ? productDetail?.images[0]
+                            : `http://localhost:5000/uploads/${productDetail?.images[0]}`),
                     },
                     largeImage: {
                       src: imageState
@@ -87,15 +85,15 @@ const ProductDetails = () => {
                           ? imageState
                           : `http://localhost:5000/uploads/${imageState}`
                         : productDetail?.images?.length > 0 &&
-                        // productDetail?.images?.length[0] > 0 &&
-                        (productDetail?.images[0].split("http").length > 1
-                          ? productDetail?.images[0]
-                          : `http://localhost:5000/uploads/${productDetail?.images[0]}`),
+                          // productDetail?.images?.length[0] > 0 &&
+                          (productDetail?.images[0].split("http").length > 1
+                            ? productDetail?.images[0]
+                            : `http://localhost:5000/uploads/${productDetail?.images[0]}`),
                       width: 1800,
                       height: 1800,
                     },
                     enlargedImageContainerStyle: {
-                      zIndex: 1500,
+                      zIndex: 999,
                     },
                     enlargedImageContainerDimensions: {
                       width: 890,
@@ -133,7 +131,12 @@ const ProductDetails = () => {
                   <div className="mainimg_button">
                     <div className="twobuttondiv">
                       {" "}
-                      <Button className="addtocart_button" onClick={() => { cartClick() }}>
+                      <Button
+                        className="addtocart_button"
+                        onClick={() => {
+                          cartClick();
+                        }}
+                      >
                         <div>
                           <PiShoppingCartFill className="buy_Addicon" />
                           ADD TO CART
@@ -178,19 +181,18 @@ const ProductDetails = () => {
                     inclusive of cashback/coupon)<span>T&C</span>
                   </p>
                   <p>View 10 more offers</p>
-
-                  <div className="delivery_code">
-                    <h5>Delivery</h5>
-                    <div>
-                      <CiLocationOn className="deliverylocationcode" />
-                      <input
-                        type="text"
-                        placeholder="Enter Delivery Pincode"
-                        className="pincode_bar"
-                      />
-                    </div>
-                  </div>
                 </Card.Subtitle>
+                <div className="delivery_code">
+                  <h5>Delivery</h5>
+                  <div>
+                    <CiLocationOn className="deliverylocationcode" />
+                    <input
+                      type="text"
+                      placeholder="Enter Delivery Pincode"
+                      className="pincode_bar"
+                    />
+                  </div>
+                </div>
                 <Card.Text>
                   <div className="d-flex ">
                     <h6 className=" ">Description:</h6>

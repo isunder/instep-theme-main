@@ -335,15 +335,15 @@ div p {
 
 .btngroup {
   display: flex;
-  justify-content: end;
   width: 47%;
+  gap: 10px;
 }
 .form_control_or_btngroup {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 10px;
   background-color: #f9f9fa;
+  gap: 10px;
 }
 .select_button {
   /* margin-left: 11px !important; */
@@ -1048,6 +1048,11 @@ svg.rs-sidenav-item-icon {
   color: #4eb529;
 }
 
+@media (max-width:424px){
+  .subnewbar_nav{
+    padding: 30px 0px;
+  }
+}
 /* Add to cart css */
 
 .navbar_new_icon_length {
@@ -1507,7 +1512,7 @@ h5 {
   border-color: #4eb529;
 }
 .slider_col {
-  padding: 90px 10px 0px 20px;
+  padding: 68px 10px 0px 20px;
 }
 
 .slide_img {
@@ -1775,14 +1780,14 @@ h5 {
 .shoppingcard_bor{
   border: 1px solid #fff !important;
   box-shadow: none !important;
-  z-index: -1;
+  /* z-index: -1; */
 }
 
-.singlecard_posit{
+/* .singlecard_posit{ 
   position: sticky !important;
   top: 140px !important;
   height: 700px;
-}
+} */
 
 @media (max-width: 980px){
   .singlecard_posit{
@@ -2313,12 +2318,12 @@ footer ul {
   /* padding-right: 50px; */
   /* margin-right: 20px; */
   /* padding-left: 20px; */
-  width: 50%;
+  /* width: 50%; */
 }
 
-.mainupdate_pro {
+/* .mainupdate_pro {
   width: 50%;
-}
+} */
 
 .addnewproduct_changes {
   height: 40px;
@@ -2373,7 +2378,7 @@ footer ul {
   padding: 15px 30px;
   color: #fff;
   border-radius: 10px;
-  width: 60%;
+  width: 84%;
 }
 
 .update_product_button:hover {
@@ -2395,7 +2400,7 @@ footer ul {
 }
 
 .update_product {
-  padding: 10px 40px;
+  padding: 10px 15px;
 }
 
 .editproduct_close_button {
@@ -2461,6 +2466,14 @@ box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   width: 30px;
   height: 30px;
   color: #000;
+}
+
+@media (min-width: 576px){
+.modal-dialog {
+    max-width: 900px !important;
+    margin-right: auto;
+    margin-left: auto;
+}
 }
 /* ---------------------------------product detail------------------------------------------- */
 
@@ -2919,8 +2932,8 @@ input[type="range"]::-moz-range-progress {
 }
 
 .aboutusright_missionimg {
-  width: 449px;
-  height: 394px;
+  width: 100%;
+  height: 100%;
   /* border-radius: 100%; */
 }
 
@@ -2932,16 +2945,16 @@ input[type="range"]::-moz-range-progress {
 } */
 
 .commentsection {
-  width: 80%;
-  height: 30%;
-  /* background-color: #46B737;/ */
+  width: 71%;
+  height: 25%;
   position: absolute;
   bottom: 17px;
-  left: 182px;
+  left: 151px;
   border-bottom-right-radius: 15px;
   background-color: #fff;
-  padding: 10px 0px 0px 10px;
+  padding: 3px 0px 0px 4px;
 }
+
 
 .commentinner_section {
   background-color: #ff7c08;
@@ -3264,6 +3277,11 @@ padding-left: 1px;
   white-space: nowrap;
 }
 
+.remove_cart{
+  color: #E70819;
+  height: 20px;
+  width: 20px;
+}
 .addcart_quantity{
   border: 1px solid #E9E9E9;
   border-radius: 5px;
@@ -3345,6 +3363,7 @@ font-weight: 400 !important;
   font-weight: 500;
   color: #656565;
 }
+
 @media (max-width: 992px){
   .hide_addtocart{
     display: none;
