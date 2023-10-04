@@ -92,7 +92,7 @@ function Allproducts(params) {
         <Row>
           <Col lg={12} className="searchbutton">
             <div className="form_control_or_btngroup">
-              <div className="all_product_search location_search">
+              <div className="all_product_search ">
                 <FiSearch className="allproduct_searchicon " />{" "}
                 <Form.Control
                   type="text"
@@ -151,7 +151,7 @@ function Allproducts(params) {
                   <th>Brand</th>
                   <th>Categories</th>
                   <th>Price</th>
-                  <th>Published</th>
+                  {/* <th>Published</th> */}
                   <th>Action</th>
                 </tr>
               </thead>

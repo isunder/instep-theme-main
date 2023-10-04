@@ -6,7 +6,7 @@ import { myCartList } from "../../../Redux/action/getProductDetailAction";
 import { getUserId } from "../../../utils/auth";
 import { cartinfo } from "../../../Redux/action/usercartinfo";
 import { AiOutlinePlus } from "react-icons/ai";
-import { RiSubtractFill } from "react-icons/ri";
+import { RiDeleteBin6Line, RiSubtractFill } from "react-icons/ri";
 import { RxCross1 } from "react-icons/rx";
 import { SiSpringsecurity } from "react-icons/si";
 import { removeFromCart } from "../../../Redux/action/addToCartAction";
@@ -46,10 +46,12 @@ const AddToCartProduct = () => {
     }
   };
 
+  console.log(quantities,'quantities')
+
   const getTotalPrice = () => {
     let count = 0;
     if (myCartL && myCartL.length > 0) {
-      count = quantities.reduce((accumulator, currentValue, index) => {
+      count = quantities?.reduce((accumulator, currentValue, index) => {
         return accumulator + currentValue * myCartL[index].price;
       }, 0);
     }
@@ -137,6 +139,7 @@ const AddToCartProduct = () => {
                     if (e.image) {
                       // console.log(e,'jjjjjjjjjjjjjj')
                     }
+                    let count = 1
                     return (
                       <>
                         {/* <Link
@@ -178,9 +181,13 @@ const AddToCartProduct = () => {
                             </div>
                             <span className="quantityval_ue">
                               {quantities[index] || 1}
+                              {/* {count} */}
                             </span>
                             <div className="add">
-                              <span onClick={() => quantityAdd(index)}>
+                              <span onClick={() => {
+                                quantityAdd(index)
+                                // count++
+                                }}>
                                 <AiOutlinePlus />
                               </span>
                             </div>
@@ -195,7 +202,7 @@ const AddToCartProduct = () => {
                         </Col>
                         <Col lg={2}>
                           <div className="addtocart_title">
-                            <RxCross1
+                            <RiDeleteBin6Line className="remove_cart"
                               onClick={() => {
                                 clickMe(e?._id);
                               }}
