@@ -103,7 +103,10 @@ const ProductForm = () => {
     selectedImagesforpost.map((items) => {
       formData.append("images", items);
     });
+    console.log(selectedImagesforpost,"dffdfdfdfdfdfdfdfdfdfdfffffffffff")
     formData.append("thumbnail", selectedthumbnalFile);
+    console.log(payload,"ddddd")
+    console.log(selectedthumbnalFile,"sssssssssssssssssssssdds")
 
     formData.append("userData", JSON.stringify(payload));
     // console.log(payload, "ggg");
@@ -116,7 +119,6 @@ const ProductForm = () => {
       position: toast.POSITION.TOP_RIGHT,
     });
 
-    // console.log(values, "aaaaaaaaaaaaaaaa");
   };
 
   const initialValues = {
