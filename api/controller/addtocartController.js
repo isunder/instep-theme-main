@@ -1,8 +1,9 @@
 const Usercart = require("../models/CartSchema")
 const expressAsyncHandler = require("express-async-handler");
 const dotenv = require("dotenv");
-const Userproducts = require("../models/ProductsSchema");
-const User = require("../models/RegisterSchema");
+// const Userproducts = require("../models/ProductsSchema");
+// const User = require("../models/RegisterSchema");
+const { default: mongoose } = require("mongoose");
 
 dotenv.config();
 
@@ -39,33 +40,40 @@ const addtocart = expressAsyncHandler(async (req, res) => {
     }
 });
 const getcartdata = expressAsyncHandler(async (req, res) => {
+    const userid = req.body.userid;
     try {
-        const userid = req.body.userid;
+        const products = await Usercart.aggregate([
+            {
+                $match: {
+                    userid: new mongoose.Types.ObjectId(userid) // Convert userid to ObjectId
+                }
+            },
+            {
+                $lookup: {
+                    from: "userproducts",
+                    localField: "productid",
+                    foreignField: "_id",
+                    as: "productDetails"
+                }
+            },
+            {
+                $lookup: {
+                    from: "users",
+                    localField: "userid",
+                    foreignField: "_id",
+                    as: "userdata"
+                }
+            },
 
-        const cartItems = await Usercart.find({ userid });
+        ]);
 
-        const productIds = cartItems.map((item) => item.productid);
-        console.log(productIds, "productIds");
-
-        const userProductDetails = await Userproducts.find({
-            _id: { $in: productIds },
-        });
-        const userdetails = await User.find({
-            _id: { $in: userid },
-        });
-
-        // Create an object to hold both results
-        const responseData = {
-            userProductDetails,
-            userdetails,
-        };
-
-        res.status(200).json(responseData);
+        res.status(200).json(products);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: error.message });
     }
 });
+
 
 const removeFromCart = expressAsyncHandler(async (req, res) => {
     try {
