@@ -14,19 +14,28 @@ function Searchproduct() {
             {item.map((item) => {
               return (
                 <>
-                  <Col>
-                    <Link to={`/productdetail/${item._id}`}>
+                  <Col lg={3}>
+                    <Link
+                      className="card_deco"
+                      to={`/productdetail/${item._id}`}
+                    >
                       <Card className="shopping_card forcatcards_htwd">
                         <div className="img_div">
                           <Card.Img
                             variant="top"
-                            src={item?.image || item?.thumbnail}
+                            src={
+                              item?.image
+                                ? item?.image
+                                : item?.thumbnail.split(":").length > 1
+                                ? item?.thumbnail
+                                : `http://localhost:5000/uploads/${item.thumbnail}`
+                            }
                           />
                         </div>
                         <Card.Body>
                           <div className="item_rating">
-                            <p className="homerating_cat"> {item?.rating}</p>
-                            <p className="homerating_cat"> {item.category.category}</p>
+                            {/* <p className="homerating_cat"> {item?.rating}</p> */}
+                            {/* <p className="homerating_cat"> {item.category.category}</p> */}
                           </div>
                           <Card.Title className="crad_text">
                             {item.title}

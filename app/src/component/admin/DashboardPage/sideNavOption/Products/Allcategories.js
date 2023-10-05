@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 
 const Allcategories = () => {
 
-  const [selectedImagesforpost, setselectedImagesforpost] = useState([]);
+  const [selectedImagesforpost, setselectedImagesforpost] = useState();
   const [selectedImages, setSelectedImages] = useState([]);
 
   const dispatch = useDispatch();
@@ -17,55 +17,32 @@ const Allcategories = () => {
   const data = useSelector((state) => state?.getcategorylistdata?.listdata);
   console.log(data, "adat");
 
+
+
   const onSubmit = (values) => {
-    console.log(values, "gpoalpk");
     var formData = new FormData();
-    // const payload = {
-    //   category: values?.category,
-    //   image: selectedImagesforpost,
 
-    // }
-    // console.log(payload, "payload")
-if(selectedImagesforpost){
+    const payload = {
+      category: values?.category,
+      // images: selectedImagesforpost,
+    }
+    console.log(payload, "gggggggggggggggg")
 
-  formData.append("images", selectedImagesforpost);
-}
-    formData.append("userData", JSON.stringify(values.category))
-  console.log(JSON.parse(formData.getAll("userData")), "ssssssssssssssss");
-    // console.log([...formData.entries()], 'ssssssssssssssss');
+    formData.append("images", selectedImagesforpost.file);
+    formData.append("userData", JSON.stringify(payload));
 
+    console.log(selectedImagesforpost, "fffff");
+    console.log(JSON.parse(formData.getAll("userData")), "data");
 
     dispatch(addcategory(formData)).then((res) =>
       console.log(res, "Response from dispatch")
     );
+
+    toast.success("Successfully!", {
+      position: toast.POSITION.TOP_RIGHT,
+    });
   };
 
-  // const onSubmit = (values) => {
-  //   // console.log(values, imgupload, "dddd");
-  //   var formData = new FormData();
-
-  //   const payload = {
-  //     category: values?.category,
-  //     image: selectedImagesforpost,
-
-  //   }
-
-
-  //   formData.append("images", selectedImagesforpost);
-
-  //   formData.append("userData", JSON.stringify(payload));
-
-  //   console.log(JSON.parse(formData.getAll("userData")), "data");
-  //   dispatch(addcategory(formData)).then((res) =>
-  //     console.log(res, "Response from dispatch")
-  //   );
-
-  //   toast.success("Successfully !", {
-  //     position: toast.POSITION.TOP_RIGHT,
-  //   });
-
-
-  // };
   useEffect(() => {
     dispatch(allCategoryList());
   }, []);
@@ -76,7 +53,7 @@ if(selectedImagesforpost){
     const filename = uniqueId + "_" + name;
 
     let file = new File(files, filename);
-    setselectedImagesforpost(file);
+    setselectedImagesforpost({file:file});
     // images  which is upoads
     let imagesArray = [];
     // Iterate through the selected files again to read and display them as previews
@@ -92,14 +69,7 @@ if(selectedImagesforpost){
     }
   };
   console.log(selectedImagesforpost, "forssssssssss post")
-  const deleteimage = (index) => {
-    let imagedataArray = [...selectedImagesforpost];
-    let showimageArray = [...selectedImages];
-    imagedataArray.splice(index, 1);
-    showimageArray.splice(index, 1);
-    setSelectedImages(showimageArray);
-    setselectedImagesforpost(imagedataArray);
-  };
+
 
 
   return (
@@ -166,14 +136,7 @@ if(selectedImagesforpost){
                                     src={imageUrl}
                                     alt={`Image ${index}`}
                                   />
-                                  <p
-                                    className="addimagecncel_icon"
-                                    onClick={() => {
-                                      deleteimage(index);
-                                    }}
-                                  >
-                                    {/* <MdCancel className="cancelicon_addproduct" /> */}
-                                  </p>
+s
                                 </li>
                               ))}
                             </ul>

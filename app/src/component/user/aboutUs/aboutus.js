@@ -104,13 +104,13 @@ const Aboutus = () => {
         <div className="paddingdiv_popuarcat margin_bottom">
           <h2 className="margin_bottom">Top Categories</h2>
           <Row>
-            <Col lg={12} md={12}>
+            <Col lg={12} md={12} sm={6}>
               <div className="mostpopularbrandborder">
                 <Row>
                   {topbrands.map((item, index) => {
                     return (
                       <>
-                        <Col lg={2} md={4} key={index}>
+                        <Col lg={2} md={4} sm={4} key={index}>
                           <img
                             className="poupularbrands"
                             src={item.image}

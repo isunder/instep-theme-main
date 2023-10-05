@@ -107,7 +107,8 @@ const Usernavbar = () => {
     navigate("/search");
     setSearchQuery("");
   };
-
+  const myCartL = useSelector((state) => state?.cartdetails.listdata);
+  console.log(myCartL.length, "dddddddddddddddd");
   const navcategorydata = useSelector(
     (state) => state?.getcategorylistdata?.listdata
   );
@@ -148,7 +149,7 @@ const Usernavbar = () => {
                             <ul>
                               {navcategorydata &&
                                 navcategorydata?.map((item, index) => {
-                                  console.log(item?.category, "qweqweqweqwewq")
+                                  console.log(item?.category, "qweqweqweqwewq");
                                   return (
                                     <>
                                       <Link
@@ -249,7 +250,7 @@ const Usernavbar = () => {
                             <HiOutlineShoppingCart className="navbar_new_icon" />
                             {/* {totalQuentity > 0 && <span>{totalQuentity}</span>}  */}
                             <span className="navbar_new_icon_length">
-                              {mycart?.length}
+                              {myCartL?.length}
                             </span>
                             {/* { <span>{cart?.length ?  cart?.length : 2}</span>} */}
                             {/* <span>{cart}</span> */}
@@ -303,9 +304,15 @@ const Usernavbar = () => {
                           grown into a platform that caters to all your needs,
                           wants, and desires.
                         </p>
-                        <Button className="slider_rightbutton" variant="light">
-                          About Us{" "}
-                        </Button>
+                        <Link to="/aboutus">
+                          {" "}
+                          <Button
+                            className="slider_rightbutton"
+                            variant="light"
+                          >
+                            About Us{" "}
+                          </Button>
+                        </Link>
                         <ul className="">
                           <h5 className=""> Mail Us:</h5>
                           <p>

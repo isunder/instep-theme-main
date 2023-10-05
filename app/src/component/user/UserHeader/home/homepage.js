@@ -168,7 +168,7 @@ const Home = () => {
               <Col lg={12}>
                 <div className="margin_bottom">
                   <h2 className="ourtopcategories_home margin_bottom">
-                    Our Top Categories
+                    Our Best Categories
                   </h2>
                   <div className="category_borderdiv">
                     <Row>

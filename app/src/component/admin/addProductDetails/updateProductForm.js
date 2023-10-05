@@ -63,11 +63,12 @@ function MydModalWithGrid(props) {
             </Col>
           </Row>
         </Modal.Header>
-        <div className="">
-          <Form onSubmit={handleSubmit} initialValues={initialValues}>
-            {({ handleSubmit, submitting }) => (
-              <form onSubmit={handleSubmit}>
-                <div className="d-flex modal-size">
+
+        <Form onSubmit={handleSubmit} initialValues={initialValues}>
+          {({ handleSubmit, submitting }) => (
+            <form onSubmit={handleSubmit}>
+              <Row>
+                <Col lg={6} md={6} sm={4}>
                   <div className="left_update_product">
                     {/* <div className="update_product">
                       <label htmlFor="category">
@@ -87,20 +88,20 @@ function MydModalWithGrid(props) {
                         <option>Women</option>
                       </Field>
                     </div> */}
+
                     <div className="update_product">
-                      <label htmlFor="description">
-                        <h5>description</h5>
+                      <label htmlFor="subcategory">
+                        <h5>subcategory:</h5>
                       </label>
                       <Field
                         className="descirption_box"
-                        name="description"
+                        name="subcategory"
                         component="input"
                         type="text"
-                        placeholder="description"
+                        placeholder="subcategory"
                         required
                       />
                     </div>
-
                     <div className="update_product">
                       <label htmlFor="brand">
                         <h5>Brand Name:</h5>
@@ -129,28 +130,6 @@ function MydModalWithGrid(props) {
                       />
                     </div>
                     <div className="update_product">
-                      <label htmlFor="images">
-                        <h5>Image</h5>
-                      </label>
-                      <Field
-                        className="descirption_box"
-                        name="images"
-                        component="input"
-                        type="text"
-                        placeholder="Image"
-                        required
-                      />
-                      <div>
-                        <h6>Gallery</h6>
-                        <div className="brand_image update_brandimage">
-                          <h6>Choose brand Thumbnail</h6>
-                          <BsPlusCircleDotted className="brand_img_icon" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="mainupdate_pro">
-                    <div className="update_product">
                       <label htmlFor="rating">
                         <h5>Rating:</h5>
                       </label>
@@ -160,19 +139,6 @@ function MydModalWithGrid(props) {
                         component="input"
                         type="text"
                         placeholder="Rating:"
-                        required
-                      />
-                    </div>
-                    <div className="update_product">
-                      <label htmlFor="subcategory">
-                        <h5>subcategory:</h5>
-                      </label>
-                      <Field
-                        className="descirption_box"
-                        name="subcategory"
-                        component="input"
-                        type="text"
-                        placeholder="subcategory"
                         required
                       />
                     </div>
@@ -203,6 +169,43 @@ function MydModalWithGrid(props) {
                       />
                     </div>
                     <div className="update_product">
+                      <label htmlFor="description">
+                        <h5>description</h5>
+                      </label>
+                      <Field
+                        className="descirption_box"
+                        name="description"
+                        component="input"
+                        type="text"
+                        placeholder="description"
+                        required
+                      />
+                    </div>
+                  </div>
+                </Col>
+                <Col lg={6} md={6} sm={4}>
+                  <div className="mainupdate_pro">
+                    <div className="update_product">
+                      <label htmlFor="images">
+                        <h5>Image</h5>
+                      </label>
+                      <Field
+                        className="descirption_box"
+                        name="images"
+                        component="input"
+                        type="text"
+                        placeholder="Image"
+                        required
+                      />
+                      <div>
+                        <h6>Gallery</h6>
+                        <div className="brand_image update_brandimage">
+                          <h6>Choose brand Thumbnail</h6>
+                          <BsPlusCircleDotted className="brand_img_icon" />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="update_product">
                       <label htmlFor="thumbnail">
                         <h5>Thumbnail:</h5>
                       </label>
@@ -220,18 +223,18 @@ function MydModalWithGrid(props) {
                         <BsPlusCircleDotted className="brand_img_icon" />
                       </div>
                     </div>
+                    <div className="updatebutton_div">
+                      <button className="update_product_button" type="submit">
+                        Update Product
+                      </button>
+                      <ToastContainer />
+                    </div>
                   </div>
-                </div>
-                <div className="updatebutton_div">
-                  <button className="update_product_button" type="submit">
-                    Update Product
-                  </button>
-                  <ToastContainer />
-                </div>
-              </form>
-            )}
-          </Form>
-        </div>
+                </Col>
+              </Row>
+            </form>
+          )}
+        </Form>
         <Modal.Body className="grid-example">{props.content}</Modal.Body>
       </Modal>
     </>

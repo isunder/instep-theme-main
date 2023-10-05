@@ -4,9 +4,7 @@ import { apiBasePath } from "../config/Config";
 
 export const axiosInstance = axios.create({
   baseURL: apiBasePath,
-  headers: {
-    "Content-Type": "application/json",
-  },
+
 });
 
 // export const addcategory = createAsyncThunk("categoryadd", async (payload) => {
@@ -15,8 +13,8 @@ export const axiosInstance = axios.create({
 // });
 
 
-export const addcategory = createAsyncThunk( "addcategory/addcategory",async (payload) => {
-    return axiosInstance.post("/addcategory", payload);
-  }
+export const addcategory = createAsyncThunk("addcategory/addcategory", async (payload) => {
+  return axiosInstance.post("/addcategory", payload);
+}
 );
 

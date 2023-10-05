@@ -2,54 +2,96 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Col, Row } from "react-bootstrap";
-import { myCartList } from "../../../Redux/action/getProductDetailAction";
 import { getUserId } from "../../../utils/auth";
 import { cartinfo } from "../../../Redux/action/usercartinfo";
 import { AiOutlinePlus } from "react-icons/ai";
-import { RiSubtractFill } from "react-icons/ri";
-import { RxCross1 } from "react-icons/rx";
+import { RiDeleteBin6Line, RiSubtractFill } from "react-icons/ri";
 import { SiSpringsecurity } from "react-icons/si";
-import { removeFromCart } from "../../../Redux/action/addToCartAction";
+import {
+  addToCartAction,
+  removeFromCart,
+} from "../../../Redux/action/addToCartAction";
 
 const AddToCartProduct = () => {
+  const [quantity, setQuantity] = useState({});
+
   const userData = getUserId();
   const userLogin = localStorage.getItem("token");
+  console.log(userData.id, "goplla");
   const dispatch = useDispatch();
-  const myCartL = useSelector((state) => state?.addToCartFile?.mycart);
+  const myCartL = useSelector((state) => state?.cartdetails.listdata);
   console.log(myCartL, "dwiuek");
   const productClick = (_id) => {
     console.log(_id, "hh/ddhhjjjjjjjjjjj");
-    // dispatch(updateProduct({ _id }));
   };
 
   useEffect(() => {
-    if (userData && userData.id) dispatch(myCartList({ userid: userData.id }));
-    // dispatch(myCartList);
-    // dispatch(cartinfo());
+    if (userData && userData.id) dispatch(cartinfo({ userid: userData.id }));
   }, []);
 
   const initialQuantities = [];
 
   const [quantities, setQuantities] = useState(initialQuantities);
-
-  const quantityAdd = (index) => {
-    const updatedQuantities = [...quantities];
-    updatedQuantities[index] = (updatedQuantities[index] || 0) + 1;
-    setQuantities(updatedQuantities);
+  const onHandleClickPlus = (id) => {
+    let apiObject = {
+      productid: id,
+      userid: userData?.id,
+      quantity: 1,
+    };
+    dispatch(addToCartAction(apiObject)).then((res) => {
+      console.log(res.payload.success, "dispstch");
+      if (res.payload.success === true) {
+        if (quantity[id]) {
+          setQuantity({ ...quantity, [`${id}`]: quantity[id] + 1 });
+        } else {
+          setQuantity({ ...quantity, [`${id}`]: 1 });
+        }
+      }
+    });
+    console.log(quantity, "added to cart");
+    console.log("goplaaaa");
   };
+  // const quantityAdd = (id) => {
+  //   if (quantity[id]) {
+  //     setQuantity({ ...quantity, [`${id}`]: quantity[id] + 1 });
+  //   } else {
+  //     setQuantity({ ...quantity, [`${id}`]: 1 });
+  //   }
+  // };
+  const onHandleClickMinus = (id) => {
+    let apiObject = {
+      productid: id,
+      userid: userData?.id,
+      quantity: -1,
+    };
 
-  const quantitySubtract = (index) => {
-    const updatedQuantities = [...quantities];
-    if (updatedQuantities[index] > 1) {
-      updatedQuantities[index] -= 1;
-      setQuantities(updatedQuantities);
-    }
+    dispatch(addToCartAction(apiObject)).then((res) => {
+      console.log(res.payload.success, "gopsoa");
+      if (res.payload.success === true) {
+        console.log("gaopaosojasjsajsnjas");
+        if (quantity[id]) {
+          setQuantity({ ...quantity, [`${id}`]: quantity[id] - 1 });
+        } else {
+          setQuantity({ ...quantity, [`${id}`]: -1 });
+        }
+      }
+    });
   };
+  console.log(quantity, "added to cart");
+  // const quantitySubtract = (id) => {
+  //   if (quantity[id]) {
+  //     setQuantity({ ...quantity, [`${id}`]: quantity[id] - 1 });
+  //   } else {
+  //     setQuantity({ ...quantity, [`${id}`]: -1 });
+  //   }
+  // };
+
+  // console.log(quantities, "quantities");
 
   const getTotalPrice = () => {
     let count = 0;
     if (myCartL && myCartL.length > 0) {
-      count = quantities.reduce((accumulator, currentValue, index) => {
+      count = quantities?.reduce((accumulator, currentValue, index) => {
         return accumulator + currentValue * myCartL[index].price;
       }, 0);
     }
@@ -63,7 +105,7 @@ const AddToCartProduct = () => {
         return (
           (myCartL[index].discountpercentage / 100) *
           myCartL[index].price
-        ).toFixed(0);
+        )?.toFixed(0);
       }, 0);
       console.log(count);
       return count;
@@ -80,6 +122,8 @@ const AddToCartProduct = () => {
       return count;
     }
   };
+
+  console.log(quantity, "fiwbeufbn");
 
   const clickMe = (_id) => {
     console.log(_id, "rahullllllll");
@@ -135,52 +179,70 @@ const AddToCartProduct = () => {
                   myCartL?.map((e, index) => {
                     console.log(e, "adasdasdasdasdasda");
                     if (e.image) {
-                      // console.log(e,'jjjjjjjjjjjjjj')
                     }
                     return (
                       <>
-                        {/* <Link
-                    className="card_deco"
-                    to={`/productdetail/${e._id}`}
-                    onClick={() => productClick(e?._id)}
-                  > */}
-
                         <Col lg={2}>
                           <div>
                             <img
                               className="addtocart_img"
                               variant="top"
                               src={
-                                e?.image
-                                  ? e?.image
-                                  : e?.thumbnail.split(":").length > 1
-                                  ? e?.thumbnail
-                                  : `http://localhost:5000/uploads/${e.thumbnail}`
+                                e?.productDetails[0]?.image
+                                  ? e?.productDetails[0]?.image
+                                  : e?.productDetails[0]?.thumbnail?.split(":")
+                                      .length > 1
+                                  ? e?.productDetails[0]?.thumbnail
+                                  : `http://localhost:5000/uploads/${e?.productDetails[0]?.thumbnail}`
                               }
                               alt=""
                             />
                           </div>
                         </Col>
                         <Col lg={2}>
-                          <div className="addtocart_title">{e?.title}</div>
+                          <div className="addtocart_title">
+                            {e?.productDetails[0]?.title}
+                          </div>
                         </Col>
                         <Col lg={2}>
                           <div className="addtocart_title">
-                            <h5> ₹ {e?.price.toFixed(0)}</h5>
+                            <h5>
+                              {" "}
+                              ₹ {e?.productDetails[0]?.price?.toFixed(0)}
+                            </h5>
                           </div>
                         </Col>
                         <Col lg={2}>
                           <div className="addcart_quantity">
-                            <div className="subtract">
-                              <span onClick={() => quantitySubtract(index)}>
-                                <RiSubtractFill />
+                            <div style={{ width: "25px" }} className="subtract">
+                              <span>
+                                <RiSubtractFill
+                                  onClick={() => {
+                                    onHandleClickMinus(e?.productid);
+                                  }}
+                                  style={
+                                    e?.quantity +
+                                      (quantity[e?.productid] || 0) ===
+                                    1
+                                      ? { display: "none" }
+                                      : {}
+                                  }
+                                />
                               </span>
                             </div>
                             <span className="quantityval_ue">
-                              {quantities[index] || 1}
+                              {/* {condition ? (true execute? fwef : ) : (fwfe ? fwefw :fwef)} */}
+                              {quantity[e?.productid]
+                                ? e?.quantity + quantity[e?.productid]
+                                : e?.quantity}
                             </span>
-                            <div className="add">
-                              <span onClick={() => quantityAdd(index)}>
+                            <div
+                              onClick={() => {
+                                onHandleClickPlus(e?.productid);
+                              }}
+                              className="add"
+                            >
+                              <span>
                                 <AiOutlinePlus />
                               </span>
                             </div>
@@ -189,20 +251,25 @@ const AddToCartProduct = () => {
                         <Col lg={2}>
                           <div className="addtocart_title">
                             <h5>
-                              ₹ {e?.price.toFixed(0) * (quantities[index] || 1)}
-                            </h5> 
+                              ₹{" "}
+                              {quantity[e?.productid]
+                                ? e?.productDetails[0]?.price?.toFixed(0) *
+                                  (e?.quantity + quantity[e?.productid])
+                                : e?.productDetails[0]?.price?.toFixed(0) *
+                                  e?.quantity}
+                            </h5>
                           </div>
                         </Col>
                         <Col lg={2}>
                           <div className="addtocart_title">
-                            <RxCross1
+                            <RiDeleteBin6Line
+                              className="remove_cart"
                               onClick={() => {
-                                clickMe(e?._id);
+                                clickMe(e?.productDetails[0]?._id);
                               }}
                             />
                           </div>
                         </Col>
-                        {/* </Link> */}
                       </>
                     );
                   })}
@@ -234,7 +301,7 @@ const AddToCartProduct = () => {
                 <p>₹{getTotalPrice() - getTotalDiscount()}</p>
               </div>
               <h6 className="discountpercentage_">
-                Your Will save ₹{getTotalDiscount() } on this order
+                Your Will save ₹{getTotalDiscount()} on this order
               </h6>
               <div></div>
               <div className="securityline">
