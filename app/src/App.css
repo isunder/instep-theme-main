@@ -3281,9 +3281,10 @@ padding-left: 1px;
   color: #E70819;
   height: 20px;
   width: 20px;
+  cursor: pointer;
 }
 .addcart_quantity{
-  border: 1px solid #E9E9E9;
+  border: 1px solid #797878;
   border-radius: 5px;
   padding: 0px 8px;
   display: flex;
@@ -3292,13 +3293,13 @@ padding-left: 1px;
 }
 
 .add{
-    border-left: 1px solid #e5dfdf;
+    border-left: 1px solid #797878;
     padding: 5px;
     border-radius: 100%;
 }
 
 .subtract{
-  border-right: 1px solid #e5dfdf;
+  border-right: 1px solid #797878;
   padding: 5px;
   border-radius: 100%;
 }

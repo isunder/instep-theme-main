@@ -10,9 +10,6 @@ import { Link } from "react-router-dom";
 import { BiSolidStarHalf } from "react-icons/bi";
 
 const Delieverydetail = () => {
-  // const handleButtonClick = () => {
-  //   setShowCol(!showCol);
-  // };
   const [showCol, setShowCol] = useState("login");
 
   return (
@@ -25,16 +22,16 @@ const Delieverydetail = () => {
                 <div className="loginmain_align">
                   <div className=" my-3">
                     <div className="d-flex mx-2">
-                    <div className="logindetail">1</div>
+                      <div className="logindetail">1</div>
                       <p>LOGIN</p>
                       <p>
                         <TiTick className="logindetail_icon" />
                       </p>
                     </div>
                     <div className="individual_info">
-                        <p>Name</p>
-                        <p>Contact No.</p>
-                      </div>
+                      <p>Name</p>
+                      <p>Contact No.</p>
+                    </div>
                   </div>
                   {showCol !== "login" && (
                     <div>
@@ -52,7 +49,6 @@ const Delieverydetail = () => {
                 {showCol === "login" && (
                   <Row>
                     <Col lg={6}>
-                      
                       <div className="individual_info login_contalign ">
                         <Link className="loginandsignout" to="./..">
                           Logout & Sign in to another account
