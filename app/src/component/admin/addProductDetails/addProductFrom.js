@@ -103,7 +103,6 @@ const ProductForm = () => {
       formData.append("images", items);
     });
     formData.append("thumbnail", selectedthumbnalFile.file);
-
     formData.append("userData", JSON.stringify(payload));
     // console.log(payload, "ggg");
     console.log(JSON.parse(formData.getAll("userData")), "data");
@@ -115,7 +114,6 @@ const ProductForm = () => {
       position: toast.POSITION.TOP_RIGHT,
     });
 
-    // console.log(values, "aaaaaaaaaaaaaaaa");
   };
 
   const deleteimage = (index) => {
