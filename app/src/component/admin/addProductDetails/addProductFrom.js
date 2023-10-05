@@ -57,20 +57,19 @@ const ProductForm = () => {
     }
   };
 
-    const [selectedImagesforpost, setselectedImagesforpost] = useState([]);
-    const [selectedImages, setSelectedImages] = useState([]);
+  const [selectedImagesforpost, setselectedImagesforpost] = useState([]);
+  const [selectedImages, setSelectedImages] = useState([]);
 
   const handleImgeFile = (e) => {
     const files = e.target.files;
     const uniqueId = Date.now();
     let name = e.target.files[0].name;
     const filename = uniqueId + "_" + name;
-
     let file = new File(files, filename);
     setselectedImagesforpost([...selectedImagesforpost, file]);
     // images  which is upoads
     let imagesArray = [];
-    // Iterate through the selected files again to read and display them as previews
+
     for (let i = 0; i < files.length; i++) {
       const reader = new FileReader();
       reader.onload = (event) => {
@@ -103,11 +102,7 @@ const ProductForm = () => {
     selectedImagesforpost.map((items) => {
       formData.append("images", items);
     });
-    console.log(selectedImagesforpost,"dffdfdfdfdfdfdfdfdfdfdfffffffffff")
-    formData.append("thumbnail", selectedthumbnalFile);
-    console.log(payload,"ddddd")
-    console.log(selectedthumbnalFile,"sssssssssssssssssssssdds")
-
+    formData.append("thumbnail", selectedthumbnalFile.file);
     formData.append("userData", JSON.stringify(payload));
     // console.log(payload, "ggg");
     console.log(JSON.parse(formData.getAll("userData")), "data");
@@ -119,17 +114,6 @@ const ProductForm = () => {
       position: toast.POSITION.TOP_RIGHT,
     });
 
-  };
-
-  const initialValues = {
-    description: "",
-    brand: "",
-    discountpercentage: "",
-    stock: "",
-    title: "",
-    // images: "",
-    price: "",
-    rating: "",
   };
 
   const deleteimage = (index) => {
