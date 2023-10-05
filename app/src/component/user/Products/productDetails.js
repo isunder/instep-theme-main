@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -19,6 +19,7 @@ const ProductDetails = () => {
   const dispatch = useDispatch();
   const { _id } = useParams();
   const userData = getUserId();
+  const navigate = useNavigate();
 
   console.log(userData, "useeeeeeeeeeeeeee");
 
@@ -49,7 +50,9 @@ const ProductDetails = () => {
       userid: userData.id,
       quantity: 1,
     };
-    dispatch(addToCartAction(apiObject));
+    dispatch(addToCartAction(apiObject)).then((res) => {
+      navigate("/addtocart");
+    });
     console.log(cartData, "added to cart");
   };
 

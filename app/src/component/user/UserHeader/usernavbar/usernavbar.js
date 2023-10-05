@@ -107,7 +107,8 @@ const Usernavbar = () => {
     navigate("/search");
     setSearchQuery("");
   };
-
+  const myCartL = useSelector((state) => state?.cartdetails.listdata);
+  console.log(myCartL.length, "dddddddddddddddd");
   const navcategorydata = useSelector(
     (state) => state?.getcategorylistdata?.listdata
   );
@@ -249,7 +250,7 @@ const Usernavbar = () => {
                             <HiOutlineShoppingCart className="navbar_new_icon" />
                             {/* {totalQuentity > 0 && <span>{totalQuentity}</span>}  */}
                             <span className="navbar_new_icon_length">
-                              {mycart?.length}
+                              {myCartL?.length}
                             </span>
                             {/* { <span>{cart?.length ?  cart?.length : 2}</span>} */}
                             {/* <span>{cart}</span> */}
