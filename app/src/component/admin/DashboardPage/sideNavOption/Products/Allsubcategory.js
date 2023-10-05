@@ -67,15 +67,6 @@ const Allsubcategory = () => {
             render={({ handleSubmit, form, submitting, pristine }) => (
               <form onSubmit={handleSubmit}>
                 <div className="cat_select">
-                  {/* <div className="inputslect_cat">
-                    <input
-                      name="option"
-                      type="text"
-                      value={selectedCategory}
-                      readOnly
-                      className="input_Tab"
-                    />
-                  </div> */}
                   <div>
                     <select
                       className="subcategory_drop margin_bottom"
@@ -91,7 +82,7 @@ const Allsubcategory = () => {
                     </select>
                   </div>
                 </div>
-                <div className="margin_bottom">
+                <div className="mb-2">
                   <Field
                     className="subcategory_drop"
                     name="subcategory"
@@ -100,6 +91,11 @@ const Allsubcategory = () => {
                     placeholder="subcategory"
                     required
                   />
+                </div>
+                <div className="d-flex justify-content-end margin_bottom">
+                  <button type="submit" className="addcatsubit_button">
+                    Submit
+                  </button>
                 </div>
               </form>
             )}
@@ -135,10 +131,7 @@ const Allsubcategory = () => {
                                 <BiDotsVerticalRounded className="threedot_tog_gle" />
                               </Dropdown.Toggle>
                               <Dropdown.Menu>
-                                {/* <Dropdown.Item href="#/action-1">
-                                      {" "}
-                                      <LuEdit3 /> Edit
-                                    </Dropdown.Item> */}
+                             
                                 <Dropdown.Item href="#/action-2">
                                   Delete
                                 </Dropdown.Item>
@@ -151,11 +144,6 @@ const Allsubcategory = () => {
                   })}
               </tbody>
             </Table>
-          </div>
-          <div className="d-flex justify-content-end">
-            <button type="submit" className="addcatsubit_button">
-              Submit
-            </button>
           </div>
         </Col>
       </Row>
