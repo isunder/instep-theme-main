@@ -8,7 +8,6 @@ import { allCategoryList } from "../../../../../Redux/action/getCategoryAction";
 import { toast } from "react-toastify";
 
 const Allcategories = () => {
-
   const [selectedImagesforpost, setselectedImagesforpost] = useState();
   const [selectedImages, setSelectedImages] = useState([]);
 
@@ -17,16 +16,14 @@ const Allcategories = () => {
   const data = useSelector((state) => state?.getcategorylistdata?.listdata);
   console.log(data, "adat");
 
-
-
   const onSubmit = (values) => {
     var formData = new FormData();
 
     const payload = {
       category: values?.category,
       // images: selectedImagesforpost,
-    }
-    console.log(payload, "gggggggggggggggg")
+    };
+    console.log(payload, "gggggggggggggggg");
 
     formData.append("images", selectedImagesforpost.file);
     formData.append("userData", JSON.stringify(payload));
@@ -53,7 +50,7 @@ const Allcategories = () => {
     const filename = uniqueId + "_" + name;
 
     let file = new File(files, filename);
-    setselectedImagesforpost({file:file});
+    setselectedImagesforpost({ file: file });
     // images  which is upoads
     let imagesArray = [];
     // Iterate through the selected files again to read and display them as previews
@@ -68,9 +65,7 @@ const Allcategories = () => {
       reader.readAsDataURL(files[i]);
     }
   };
-  console.log(selectedImagesforpost, "forssssssssss post")
-
-
+  console.log(selectedImagesforpost, "forssssssssss post");
 
   return (
     <>
@@ -122,7 +117,7 @@ const Allcategories = () => {
                           className="form-control signup_form_input margin_bottom"
                           onChange={handleImgeFile}
                         />
-                        {selectedImages?.length > 0 && (
+                        {/* {selectedImages?.length > 0 && (
                           <div>
                             <h4>Selected Images:</h4>
                             <ul className="row">
@@ -141,7 +136,7 @@ s
                               ))}
                             </ul>
                           </div>
-                        )}
+                        )} */}
                       </div>
                     </div>
                     <div>
@@ -186,10 +181,6 @@ s
                               <BiDotsVerticalRounded className="threedot_tog_gle" />
                             </Dropdown.Toggle>
                             <Dropdown.Menu>
-                              {/* <Dropdown.Item href="#/action-1">
-                        {" "}
-                        <LuEdit3 /> Edit
-                      </Dropdown.Item> */}
                               <Dropdown.Item href="#/action-2">
                                 Delete
                               </Dropdown.Item>
@@ -199,28 +190,6 @@ s
                       </tr>
                     );
                   })}
-                {/* <tr>
-                  <td>1</td>
-                  <td>Mark</td>
-                  <td className="d-flex justify-content-end">
-                    <Dropdown>
-                      <Dropdown.Toggle
-                        variant=""
-                        id="dropdown-basic"
-                        className="focusotoggle"
-                      >
-                        <BiDotsVerticalRounded className="threedot_tog_gle" />
-                      </Dropdown.Toggle>
-                      <Dropdown.Menu>
-                         <Dropdown.Item href="#/action-1">
-                        {" "}
-                        <LuEdit3 /> Edit
-                      </Dropdown.Item>
-                        <Dropdown.Item href="#/action-2">Delete</Dropdown.Item>
-                      </Dropdown.Menu>
-                    </Dropdown>
-                  </td>
-                </tr> */}
               </tbody>
             </Table>
           </div>

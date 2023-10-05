@@ -10,11 +10,7 @@ import { allBrandsList } from "../../../../../Redux/action/getAllBrandListAction
 const Allsubcategory = () => {
   const dispatch = useDispatch();
   const [selectedSubcategoryId, setSelectedSubcategoryId] = useState("");
-  const [selectedBrand, setSelectedBrands] = useState(""); // State to store the selected category
-
-  // const handleCategoryChange = (e) => {
-  //   setSelectedBrands(e.target.value); // Update the state when the select value changes
-  // };
+  const [selectedBrand, setSelectedBrands] = useState("");
 
   const getbrand = useSelector(
     (state) => state?.getsubsategorylistdata?.listdata
@@ -87,7 +83,7 @@ const Allsubcategory = () => {
                     readOnly
                     className="addnewproduct_changes right_Addnew"
                   /> */}
-                  <div className="margin_bottom">
+                  <div className="mb-2">
                     <Field
                       className="subcategory_drop"
                       name="brand"
@@ -97,6 +93,11 @@ const Allsubcategory = () => {
                       required
                     />
                   </div>
+                </div>
+                <div className="d-flex justify-content-end margin_bottom">
+                  <button type="submit" className="addcatsubit_button">
+                    Submit
+                  </button>
                 </div>
               </form>
             )}
@@ -133,10 +134,7 @@ const Allsubcategory = () => {
                                 <BiDotsVerticalRounded className="threedot_tog_gle" />
                               </Dropdown.Toggle>
                               <Dropdown.Menu>
-                                {/* <Dropdown.Item href="#/action-1">
-                        {" "}
-                        <LuEdit3 /> Edit
-                      </Dropdown.Item> */}
+                             
                                 <Dropdown.Item href="#/action-2">
                                   Delete
                                 </Dropdown.Item>
@@ -149,11 +147,6 @@ const Allsubcategory = () => {
                   })}
               </tbody>
             </Table>
-          </div>
-          <div className="d-flex justify-content-end">
-            <button type="submit" className="addcatsubit_button">
-              Submit
-            </button>
           </div>
         </Col>
       </Row>

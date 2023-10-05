@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { Col, Row } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
+import { Button, Col, Row } from "react-bootstrap";
 import { getUserId } from "../../../utils/auth";
 import { cartinfo } from "../../../Redux/action/usercartinfo";
 import { AiOutlinePlus } from "react-icons/ai";
@@ -11,10 +11,13 @@ import {
   addToCartAction,
   removeFromCart,
 } from "../../../Redux/action/addToCartAction";
+import Modal from "react-bootstrap/Modal";
 
 const AddToCartProduct = () => {
   const [quantity, setQuantity] = useState({});
+  const [deleteState, SetDeleteState] = useState([]);
 
+  const navigate = useNavigate();
   const userData = getUserId();
   const userLogin = localStorage.getItem("token");
   console.log(userData.id, "goplla");
@@ -51,13 +54,7 @@ const AddToCartProduct = () => {
     console.log(quantity, "added to cart");
     console.log("goplaaaa");
   };
-  // const quantityAdd = (id) => {
-  //   if (quantity[id]) {
-  //     setQuantity({ ...quantity, [`${id}`]: quantity[id] + 1 });
-  //   } else {
-  //     setQuantity({ ...quantity, [`${id}`]: 1 });
-  //   }
-  // };
+
   const onHandleClickMinus = (id) => {
     let apiObject = {
       productid: id,
@@ -78,15 +75,6 @@ const AddToCartProduct = () => {
     });
   };
   console.log(quantity, "added to cart");
-  // const quantitySubtract = (id) => {
-  //   if (quantity[id]) {
-  //     setQuantity({ ...quantity, [`${id}`]: quantity[id] - 1 });
-  //   } else {
-  //     setQuantity({ ...quantity, [`${id}`]: -1 });
-  //   }
-  // };
-
-  // console.log(quantities, "quantities");
 
   const getTotalPrice = () => {
     let count = 0;
@@ -124,11 +112,22 @@ const AddToCartProduct = () => {
   };
 
   console.log(quantity, "fiwbeufbn");
+  const handleClose = () => setShow(false);
 
-  const clickMe = (_id) => {
-    console.log(_id, "rahullllllll");
-    dispatch(removeFromCart({ userId: userData?.id, productIdToRemove: _id }));
+  const clickMe = (id) => {
+    console.log(id, "rahullllllll");
+    dispatch(
+      removeFromCart({ userId: userData?.id, productIdToRemove: id })
+    ).then((res) => {
+      SetDeleteState([...deleteState, id]);
+      handleClose()
+    });
   };
+
+  const [show, setShow] = useState(false);
+
+  const handleShow = () => setShow(true);
+
   return (
     <>
       <div className="container slider_col">
@@ -180,98 +179,135 @@ const AddToCartProduct = () => {
                     console.log(e, "adasdasdasdasdasda");
                     if (e.image) {
                     }
-                    return (
-                      <>
-                        <Col lg={2}>
-                          <div>
-                            <img
-                              className="addtocart_img"
-                              variant="top"
-                              src={
-                                e?.productDetails[0]?.image
-                                  ? e?.productDetails[0]?.image
-                                  : e?.productDetails[0]?.thumbnail?.split(":")
-                                      .length > 1
-                                  ? e?.productDetails[0]?.thumbnail
-                                  : `http://localhost:5000/uploads/${e?.productDetails[0]?.thumbnail}`
-                              }
-                              alt=""
-                            />
-                          </div>
-                        </Col>
-                        <Col lg={2}>
-                          <div className="addtocart_title">
-                            {e?.productDetails[0]?.title}
-                          </div>
-                        </Col>
-                        <Col lg={2}>
-                          <div className="addtocart_title">
-                            <h5>
-                              {" "}
-                              ₹ {e?.productDetails[0]?.price?.toFixed(0)}
-                            </h5>
-                          </div>
-                        </Col>
-                        <Col lg={2}>
-                          <div className="addcart_quantity">
-                            <div style={{ width: "25px" }} className="subtract">
-                              <span>
-                                <RiSubtractFill
-                                  onClick={() => {
-                                    onHandleClickMinus(e?.productid);
-                                  }}
-                                  style={
-                                    e?.quantity +
-                                      (quantity[e?.productid] || 0) ===
-                                    1
-                                      ? { display: "none" }
-                                      : {}
-                                  }
-                                />
-                              </span>
+                    if (!deleteState.includes(e?.productid)) {
+                      return (
+                        <>
+                          <Col lg={2}>
+                            <div>
+                              <img
+                                className="addtocart_img"
+                                variant="top"
+                                src={
+                                  e?.productDetails[0]?.image
+                                    ? e?.productDetails[0]?.image
+                                    : e?.productDetails[0]?.thumbnail?.split(
+                                        ":"
+                                      ).length > 1
+                                    ? e?.productDetails[0]?.thumbnail
+                                    : `http://localhost:5000/uploads/${e?.productDetails[0]?.thumbnail}`
+                                }
+                                alt=""
+                              />
                             </div>
-                            <span className="quantityval_ue">
-                              {/* {condition ? (true execute? fwef : ) : (fwfe ? fwefw :fwef)} */}
-                              {quantity[e?.productid]
-                                ? e?.quantity + quantity[e?.productid]
-                                : e?.quantity}
-                            </span>
-                            <div
-                              onClick={() => {
-                                onHandleClickPlus(e?.productid);
-                              }}
-                              className="add"
-                            >
-                              <span>
-                                <AiOutlinePlus />
-                              </span>
+                          </Col>
+                          <Col lg={2}>
+                            <div className="addtocart_title">
+                              {e?.productDetails[0]?.title}
                             </div>
-                          </div>
-                        </Col>
-                        <Col lg={2}>
-                          <div className="addtocart_title">
-                            <h5>
-                              ₹{" "}
-                              {quantity[e?.productid]
-                                ? e?.productDetails[0]?.price?.toFixed(0) *
-                                  (e?.quantity + quantity[e?.productid])
-                                : e?.productDetails[0]?.price?.toFixed(0) *
-                                  e?.quantity}
-                            </h5>
-                          </div>
-                        </Col>
-                        <Col lg={2}>
-                          <div className="addtocart_title">
-                            <RiDeleteBin6Line
-                              className="remove_cart"
-                              onClick={() => {
-                                clickMe(e?.productDetails[0]?._id);
-                              }}
-                            />
-                          </div>
-                        </Col>
-                      </>
-                    );
+                          </Col>
+                          <Col lg={2}>
+                            <div className="addtocart_title">
+                              <h5>
+                                {" "}
+                                ₹ {e?.productDetails[0]?.price?.toFixed(0)}
+                              </h5>
+                            </div>
+                          </Col>
+                          <Col lg={2}>
+                            <div className="addcart_quantity">
+                              <div
+                                style={{ width: "25px" }}
+                                className="subtract"
+                              >
+                                <span>
+                                  <RiSubtractFill
+                                    onClick={() => {
+                                      onHandleClickMinus(e?.productid);
+                                    }}
+                                    style={
+                                      e?.quantity +
+                                        (quantity[e?.productid] || 0) ===
+                                      1
+                                        ? { display: "none" }
+                                        : {}
+                                    }
+                                  />
+                                </span>
+                              </div>
+                              <span className="quantityval_ue">
+                                {/* {condition ? (true execute? fwef : ) : (fwfe ? fwefw :fwef)} */}
+                                {quantity[e?.productid]
+                                  ? e?.quantity + quantity[e?.productid]
+                                  : e?.quantity}
+                              </span>
+                              <div
+                                onClick={() => {
+                                  onHandleClickPlus(e?.productid);
+                                }}
+                                className="add"
+                              >
+                                <span>
+                                  <AiOutlinePlus />
+                                </span>
+                              </div>
+                            </div>
+                          </Col>
+                          <Col lg={2}>
+                            <div className="addtocart_title">
+                              <h5>
+                                ₹{" "}
+                                {quantity[e?.productid]
+                                  ? e?.productDetails[0]?.price?.toFixed(0) *
+                                    (e?.quantity + quantity[e?.productid])
+                                  : e?.productDetails[0]?.price?.toFixed(0) *
+                                    e?.quantity}
+                              </h5>
+                            </div>
+                          </Col>
+                          <Col lg={2}>
+                            <div className="addtocart_title">
+                              <RiDeleteBin6Line
+                                className="remove_cart"
+                                onClick={handleShow}
+                              />
+                              <Modal
+                                className="removerfromcart_modal"
+                                aria-labelledby="contained-modal-title-vcenter"
+                                centered
+                                show={show}
+                                onHide={handleClose}
+                              >
+                                <Modal.Header closeButton>
+                                  <Modal.Title>Remove Item</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+                                  Are you sure you want to remove this item ?
+                                </Modal.Body>
+                                <Modal.Footer>
+                                  <Button
+                                    className="cancelbut_removecart"
+                                    variant="secondary"
+                                    onClick={handleClose}
+                                  >
+                                    CANCEL
+                                  </Button>
+                                  <Button
+                                    className="removebut_cart"
+                                    variant="primary"
+                                    onClick={() => {
+                                      clickMe(e?.productDetails[0]?._id);
+                                      // navigate("/addtocart");
+                                    }}
+                                  >
+                                    REMOVE
+                                  </Button>
+                                </Modal.Footer>
+                              </Modal>
+                            </div>
+                          </Col>
+                        </>
+                      );
+                    }
                   })}
               </Row>
             </div>
