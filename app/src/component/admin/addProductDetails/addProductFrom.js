@@ -114,6 +114,7 @@ const ProductForm = () => {
       position: toast.POSITION.TOP_RIGHT,
     });
 
+    // console.log(values, "aaaaaaaaaaaaaaaa");
   };
 
   const deleteimage = (index) => {
