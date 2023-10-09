@@ -205,7 +205,9 @@ const AllProductDetail = () => {
                           <Card.Body>
                             <div className="item_rating">
                               {/* <p className="homerating_cat"> {e?.rating}</p> */}
-                              <p className="homerating_cat">{e?.category[0]?.category}</p>
+                              <p className="homerating_cat">
+                                {e?.category[0]?.category}
+                              </p>
                             </div>
                             <Card.Title className="crad_text">
                               {e?.title}

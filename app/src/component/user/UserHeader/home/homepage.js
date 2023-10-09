@@ -16,8 +16,9 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { AiFillRightCircle } from "react-icons/ai";
-import { adminPostslider } from "../../../../Redux/action/postSliderAction";
 import { allCategoryList } from "../../../../Redux/action/getCategoryAction";
+import { adminGetSlider } from "../../../../Redux/action/getSliderAction";
+// import { index } from "realm";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -25,18 +26,24 @@ const Home = () => {
   const [category, setCategory] = useState();
   const dispatch = useDispatch();
   const data = useSelector((state) => state?.getproductdata?.listdata);
-  console.log(data, "aaaaaabbbbbbbbbss");
+  // console.log(data, "aaaaaabbbbbbbbbss");
 
   const categorydata = useSelector((state) => state?.getproductdata?.listdata);
   console.log(categorydata, "categorydata");
 
-  const allcatgorydata = useSelector((state) => state.getcategorylistdata.listdata)
-  console.log(allcatgorydata, "jjjjjjjj")
+  const allcatgorydata = useSelector(
+    (state) => state.getcategorylistdata.listdata
+  );
+  console.log(allcatgorydata, "jjjjjjjj");
+  const dataslider = useSelector(
+    (state) => state?.getsliderdata?.listdata?.data
+  );
+  console.log(dataslider, "sliderimgs");
+
   useEffect(() => {
     dispatch(getProductAction());
     dispatch(allCategoryList());
-
-
+    dispatch(adminGetSlider());
   }, []);
 
   console.log(category, "json");
@@ -52,19 +59,16 @@ const Home = () => {
   const banner = [
     {
       value: "Shop Now ",
-
       bannerImage:
         "https://global-uploads.webflow.com/6185b708a2657014268d2eaf/6204941a794503795772a4a1_combatant-gentlemen-menswear-ecommerce-site.png",
     },
     {
       value: "Shop Now ",
-
       bannerImage:
         "https://global-uploads.webflow.com/6185b708a2657014268d2eaf/6204941a794503795772a4a1_combatant-gentlemen-menswear-ecommerce-site.png",
     },
     {
       value: "Shop Now ",
-
       bannerImage:
         "https://global-uploads.webflow.com/6185b708a2657014268d2eaf/6204941a794503795772a4a1_combatant-gentlemen-menswear-ecommerce-site.png",
     },
@@ -74,9 +78,9 @@ const Home = () => {
     <>
       <div className="container">
         <div className=" slider_col margin_bottom">
-          <div className="slider">
+          <div className="slider bvbvbvbvbvb">
             <Carousel>
-              <Carousel.Item interval={1000}>
+              {/* <Carousel.Item interval={1000}>
                 <Row>
                   <Col lg={6}>
                     <div className="slider_left_cont">
@@ -102,38 +106,66 @@ const Home = () => {
                     />
                   </Col>
                 </Row>
-                <Carousel.Caption></Carousel.Caption>
-              </Carousel.Item>
-              <Carousel.Item interval={500}>
-                <Row>
-                  <Col lg={6}>
-                    <div className="slider_left_cont">
-                      <div>
-                        <p>100% genuine product</p>
-                        <h1>Click & Collect</h1>
-                      </div>
-                      <Button className="slider_leftbutton" variant="light">
-                        Explore Now{" "}
-                      </Button>
-                      <Link to="/aboutus">
-                        <Button className="slider_rightbutton" variant="light">
-                          About Us{" "}
-                        </Button>
-                      </Link>
-                    </div>
-                  </Col>
-                  <Col lg={6}>
-                    {" "}
-                    <img
-                      className="slide_img"
-                      src="https://freepngimg.com/save/14064-ecommerce-png-pic/470x380"
-                      alt="Second slide"
-                    />
-                  </Col>
-                </Row>
-                <Carousel.Caption></Carousel.Caption>
-              </Carousel.Item>
-              <Carousel.Item>
+              </Carousel.Item> */}
+              {/* {Array.isArray(dataslider) &&
+                dataslider.map((item, index) => {
+                  return (
+                    <Carousel.Item key={index}>
+                      <img
+                        className="abcccc slide_img"
+                        src={
+                          item?.images
+                            ? item?.images
+                            : `http://localhost:5000/uploads/1693806012738-Capture.PNG/${item.name}`
+                        }
+                        alt="Slide"
+                      />
+                    </Carousel.Item>
+                  );
+                })} */}
+              {dataslider &&
+                dataslider.length > 0 &&
+                dataslider?.map((item, index) => {
+                  return (
+                    <Carousel.Item interval={500}>
+                      <Row>
+                        <Col lg={6}>
+                          <div className="slider_left_cont">
+                            <div>
+                              <p>100% genuine product</p>
+                              <h1>Click & Collect</h1>
+                            </div>
+                            <Button
+                              className="slider_leftbutton"
+                              variant="light"
+                            >
+                              Explore Now{" "}
+                            </Button>
+                            <Link to="/aboutus">
+                              <Button
+                                className="slider_rightbutton"
+                                variant="light"
+                              >
+                                About Us{" "}
+                              </Button>
+                            </Link>
+                          </div>
+                        </Col>
+
+                        <Col lg={6}>
+                          {" "}
+                          <p>{item.name}</p>
+                          <img
+                            className="slide_img"
+                            src={`http://localhost:5000/slider/${item?.images[0]}`}
+                            alt="Second sslide"
+                          />
+                        </Col>
+                      </Row>
+                    </Carousel.Item>
+                  );
+                })}
+              {/* <Carousel.Item>
                 <Row>
                   <Col lg={6}>
                     <div className="slider_left_cont">
@@ -155,12 +187,15 @@ const Home = () => {
                     <img
                       className="slide_img"
                       src="https://www.pngall.com/wp-content/uploads/2016/06/Ecommerce-PNG-File.png"
-                      alt="Third slide"
+                      alt="Third slide 1st"
                     />
+                  </Col>
+                  <Col lg={6}>
+                    <img className="slide_img" src="" alt="Third slide 2nd" />
                   </Col>
                 </Row>
                 <Carousel.Caption></Carousel.Caption>
-              </Carousel.Item>
+              </Carousel.Item>{" "} */}
             </Carousel>
           </div>
           <div>

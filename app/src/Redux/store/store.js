@@ -28,6 +28,7 @@ import PostSliderDataReducer from "../reducer/postSliderSlice";
 import GetSliderDataReducer from "../reducer/getSliderSlice";
 import singleProductDataReducer from "../reducer/singleproduct";
 import removeFromCartSliceReducer from "../reducer/removeFromCartSlice";
+import FilterationAllTypeReducer from "../reducer/allFilterationSlice";
 
 export const store = configureStore({
   reducer: {
@@ -60,5 +61,6 @@ export const store = configureStore({
     postsliderdata: PostSliderDataReducer,
     getsliderdata: GetSliderDataReducer,
     removefromcart: removeFromCartSliceReducer,
+    filterationalltype: FilterationAllTypeReducer,
   },
 });

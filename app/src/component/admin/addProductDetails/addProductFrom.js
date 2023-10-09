@@ -102,7 +102,7 @@ const ProductForm = () => {
     selectedImagesforpost.map((items) => {
       formData.append("images", items);
     });
-    formData.append("thumbnail", selectedthumbnalFile.file);
+    formData.append("thumbnail", selectedthumbnalFile);
     formData.append("userData", JSON.stringify(payload));
     // console.log(payload, "ggg");
     console.log(JSON.parse(formData.getAll("userData")), "data");
@@ -215,6 +215,7 @@ const ProductForm = () => {
                         value={selectedCategoryId}
                         required
                       >
+                        <option>Select Category</option>
                         {filterdata &&
                           filterdata.map((e) => {
                             return (
@@ -253,6 +254,7 @@ const ProductForm = () => {
                         value={subcategoryid}
                         required
                       >
+                        <option>Select Subcategory</option>
                         {filterdatasubcat &&
                           filterdatasubcat.map((e) => {
                             return (
@@ -299,6 +301,7 @@ const ProductForm = () => {
                         value={brandcategory}
                         required
                       >
+                        <option>Select Brand</option>
                         {filterbrand &&
                           filterbrand.map((e) => {
                             console.log(e, "eeee");

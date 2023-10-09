@@ -529,8 +529,7 @@ server.post(
       const sliderphotos = new slidertable({
         images: imagesFilenames,
         name: sildername.name,
-        url: sildername.url,
-
+        // url: sildername.url,
       });
       await sliderphotos.save();
       res.status(200).send("Success: slider images uploaded." + sliderphotos);
