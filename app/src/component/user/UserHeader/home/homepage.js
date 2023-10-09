@@ -21,8 +21,8 @@ import { allCategoryList } from "../../../../Redux/action/getCategoryAction";
 
 const Home = () => {
   const navigate = useNavigate();
-  const [apiData, setApiData] = useState();
-  const [category, setCategory] = useState();
+  // const [apiData, setApiData] = useState();
+  // const [category, setCategory] = useState();
   const dispatch = useDispatch();
   const data = useSelector((state) => state?.getproductdata?.listdata);
   console.log(data, "aaaaaabbbbbbbbbss");
@@ -39,14 +39,13 @@ const Home = () => {
 
   }, []);
 
-  console.log(category, "json");
+  // console.log(category, "json");
   const handleClick = () => {
     navigate("/addcart");
   };
 
   const productClick = (_id) => {
     console.log(_id, "hh/ddhhjjjjjjjjjjj");
-    // dispatch(updateProduct({ _id }));
   };
 
   const banner = [
@@ -172,166 +171,38 @@ const Home = () => {
                   </h2>
                   <div className="category_borderdiv">
                     <Row>
-                      <Col lg={2} md={4}>
-                        <Link
-                          className="carddecorationnone_cat"
-                          to={`/category/${"electronics"}`}
-                        >
-                          <Card className="cat_card_homep">
-                            <div className="hoveron_arrow">
-                              <div className="top_catcard">
-                                <div className="pos_catimage">
-                                  <img
-                                    className="topcatimage_home"
-                                    src="https://ouch-cdn2.icons8.com/MF3LVQWteyDimwnIdoFC51Z-MYy6ij6bGeS0jBRIYeQ/rs:fit:404:456/extend:false/wm:1:re:0:0:0.8/wmid:ouch/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9wbmcvOTA5/LzMxMDgzMmNhLTMw/MzAtNDljNy05MWQy/LTZmYTZkYjEyNWE4/ZS5wbmc.png"
-                                    alt=""
-                                  />
+                      {allcatgorydata.slice(0, 6).map((e) => {
+                        return (<>
+                          <Col lg={2} md={4}>
+                            <Link
+                              className="carddecorationnone_cat"
+                              to={`/category/${e._id}`}
+                            >
+                              <Card className="cat_card_homep">
+                                <div className="hoveron_arrow">
+                                  <div className="top_catcard">
+                                    <div className="pos_catimage">
+                                      <img
+                                        className="topcatimage_home"
+                                        src={`http://localhost:5000/categoryimg/${e.images}`
+
+                                        }
+                                        alt=""
+                                      />
+                                    </div>
+                                    <p>{e?.category}</p>
+                                  </div>
+                                  <div className="hoverarrow_direc">
+                                    <div className="right_bottomborder">
+                                      <FiArrowUpRight className="arrow-icon" />
+                                    </div>
+                                  </div>
                                 </div>
-                                <p>Electronics</p>
-                              </div>
-                              <div className="hoverarrow_direc">
-                                <div className="right_bottomborder">
-                                  <FiArrowUpRight className="arrow-icon" />
-                                </div>
-                              </div>
-                            </div>
-                          </Card>
-                        </Link>
-                      </Col>
-                      <Col lg={2} md={4}>
-                        <Link
-                          className="carddecorationnone_cat"
-                          to={`/category/${"Men"}`}
-                        >
-                          <Card className="cat_card_homep">
-                            <div className="hoveron_arrow">
-                              <div className="top_catcard">
-                                <div className="pos_catimage">
-                                  <img
-                                    className="topcatimage_home"
-                                    src="https://www.svgrepo.com/show/258165/shirt-men.svg"
-                                    alt=""
-                                  />
-                                </div>
-                                <p>Men</p>
-                              </div>
-                              <div className="hoverarrow_direc">
-                                <div className="right_bottomborder">
-                                  <FiArrowUpRight className="arrow-icon" />
-                                </div>
-                              </div>
-                            </div>
-                          </Card>
-                        </Link>
-                      </Col>
-                      <Col lg={2} md={4}>
-                        <Link
-                          className="carddecorationnone_cat"
-                          to={`/category/${"women"}`}
-                        >
-                          <Card className="cat_card_homep">
-                            <div className="hoveron_arrow">
-                              <div className="top_catcard">
-                                <div className="pos_catimage">
-                                  {" "}
-                                  <img
-                                    className="topcatimage_home"
-                                    src="https://icons.veryicon.com/png/o/commerce-shopping/taobao-icon-library/womens-wear-4.png"
-                                    alt=""
-                                  />
-                                </div>
-                                <p>Women</p>
-                              </div>
-                              <div className="hoverarrow_direc">
-                                <div className="right_bottomborder">
-                                  <FiArrowUpRight className="arrow-icon" />
-                                </div>
-                              </div>
-                            </div>
-                          </Card>
-                        </Link>
-                      </Col>
-                      <Col lg={2} md={4}>
-                        <Link
-                          className="carddecorationnone_cat"
-                          to={`/category/${"Home & Kitchen"}`}
-                        >
-                          <Card className="cat_card_homep">
-                            <div className="hoveron_arrow">
-                              <div className="top_catcard">
-                                <div className="pos_catimage">
-                                  {" "}
-                                  <img
-                                    className="topcatimage_home"
-                                    src="https://as1.ftcdn.net/v2/jpg/05/30/97/20/1000_F_530972040_gyS6SJSIdVzXUVAlCxFtTE9jiiCbyLYt.jpg"
-                                    alt=""
-                                  />
-                                </div>
-                                <p>Home & Kitchen</p>
-                              </div>
-                              <div className="hoverarrow_direc">
-                                <div className="right_bottomborder">
-                                  <FiArrowUpRight className="arrow-icon" />
-                                </div>
-                              </div>
-                            </div>
-                          </Card>
-                        </Link>
-                      </Col>
-                      <Col lg={2} md={4}>
-                        <Link
-                          className="carddecorationnone_cat"
-                          to={`/category/${"aplices"}`}
-                        >
-                          <Card className="cat_card_homep">
-                            <div className="hoveron_arrow">
-                              <div className="top_catcard">
-                                <div className="pos_catimage">
-                                  {" "}
-                                  <img
-                                    className="topcatimage_home"
-                                    src="https://static.thenounproject.com/png/3513484-200.png"
-                                    alt=""
-                                  />
-                                </div>
-                                <p>Appliances</p>
-                              </div>
-                              <div className="hoverarrow_direc">
-                                <div className="right_bottomborder">
-                                  <FiArrowUpRight className="arrow-icon" />
-                                </div>
-                              </div>
-                            </div>
-                          </Card>
-                        </Link>
-                      </Col>
-                      <Col lg={2} md={4}>
-                        <Link
-                          className="carddecorationnone_cat"
-                          to={`/category/${"sports & more"}`}
-                        >
-                          <Card className="cat_card_homep">
-                            <div className="hoveron_arrow">
-                              <div className="top_catcard">
-                                <div className="pos_catimage">
-                                  {" "}
-                                  <img
-                                    className="topcatimage_home"
-                                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Sport_balls.svg/1024px-Sport_balls.svg.png"
-                                    alt=""
-                                  />
-                                </div>
-                                <p>Sports & More</p>
-                              </div>
-                              <div className="hoverarrow_direc">
-                                <div className="right_bottomborder">
-                                  <FiArrowUpRight className="arrow-icon" />
-                                </div>
-                              </div>
-                            </div>
-                          </Card>
-                        </Link>
-                      </Col>
+                              </Card>
+                            </Link>
+                          </Col>
+                        </>)
+                      })}
                     </Row>
                   </div>
                 </div>
@@ -422,8 +293,8 @@ const Home = () => {
                                       item?.image
                                         ? item?.image
                                         : item?.thumbnail.split(":").length > 1
-                                        ? item?.thumbnail
-                                        : `http://localhost:5000/uploads/${item.thumbnail}`
+                                          ? item?.thumbnail
+                                          : `http://localhost:5000/uploads/${item.thumbnail}`
                                     }
                                   />
                                 </div>
@@ -519,8 +390,8 @@ const Home = () => {
                                     e?.image
                                       ? e?.image
                                       : e?.thumbnail.split(":").length > 1
-                                      ? e?.thumbnail
-                                      : `http://localhost:5000/uploads/${e.thumbnail}`
+                                        ? e?.thumbnail
+                                        : `http://localhost:5000/uploads/${e.thumbnail}`
                                   }
                                 />
                               </div>

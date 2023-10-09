@@ -1,22 +1,24 @@
 
 const SUBCATEGORY = require("../models/subcategorytable")
+const subcategorytable = require("../models/subcategorytable");
+
 const create_subcategory = async (req, res) => {
 
 
     try {
         const check_sub = await SUBCATEGORY.find({ category_id: req.body.category_id, })
 
-        req.body.subcategoryData.map(async(item)=>{
-            console.log(item,"first")
-                      const subcategrySave = new SUBCATEGORY({
-                    category_id: item.category_id,
-                    subcategory: item.subcategory
-                })
-                const sub_cat_data = await subcategrySave.save()
-                res.status(200).send({ sucess: true, msg: "subcategory details", data: sub_cat_data })
+        req.body.subcategoryData.map(async (item) => {
+            console.log(item, "first")
+            const subcategrySave = new SUBCATEGORY({
+                category_id: item.category_id,
+                subcategory: item.subcategory
+            })
+            const sub_cat_data = await subcategrySave.save()
+            res.status(200).send({ sucess: true, msg: "subcategory details", data: sub_cat_data })
         })
 
-       
+
 
 
 
@@ -43,32 +45,39 @@ const subcategorydata = async (req, res) => {
 }
 
 
+
 const deletesubcategory = async (req, res) => {
 
     try {
-        const { _id } = req.body;
+
+        if (req.body && req.body.subcategoryid) {
 
 
-        const deletedsubcategory = await SUBCATEGORY.findByIdAndDelete(_id);
+            const subcategoryId = req.body.subcategoryid;
+           
+            await brandtable.deleteMany({ subcategory_id: subcategoryId });
 
-        if (!deletedsubcategory) {
-            // If the product with the given ID doesn't exist, return an error response
-            return res.status(404).json({ message: "subcategory not found" });
+            await subcategorytable.deleteMany({ subcategory_id: subcategoryId });
+            
+
+            const productDlt = await Userproducts.deleteMany({ subcategory: subcategoryId });
+
+
+            res.status(200).send({ result: productDlt, success: true });
+
+
+
+        } else {
+
+            res.status(400).send({ error: "Invalid request  give subcategoryid for delete" });
+
         }
 
-        // Return the deleted product
-
-        // res.send(deletedcategory)
-        res.status(200).send({ success: true, msg: "subcategory data delete", data: deletedsubcategory })
-   
-
-        console.log("delete done category");
     } catch (error) {
-        // Handle any errors that occurred during the delete process
         res.status(500).json({ message: "Server error" });
     }
 }
 
 module.exports = {
-    create_subcategory,subcategorydata,deletesubcategory
+    create_subcategory, subcategorydata, deletesubcategory
 }
