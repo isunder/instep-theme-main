@@ -1,7 +1,7 @@
 import Button from "react-bootstrap/Button";
-import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
-import Nav from "react-bootstrap/Nav";
+// import Container from "react-bootstrap/Container";
+// import Form from "react-bootstrap/Form";
+// import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { Accordion, Col, Dropdown, DropdownButton, Row } from "react-bootstrap";
@@ -19,62 +19,28 @@ import { BiSearch, BiSolidPurchaseTag } from "react-icons/bi";
 import { MdAccountCircle, MdOutlineAccountCircle } from "react-icons/md";
 import { HiOutlineShoppingCart } from "react-icons/hi";
 import { searchAction } from "../../../../Redux/action/searchProductAction";
-import { cartinfo } from "../../../../Redux/action/usercartinfo";
 import { allCategoryList } from "../../../../Redux/action/getCategoryAction";
+import { cartinfo } from "../../../../Redux/action/usercartinfo";
 
-// export const CartAddClick = () => {
-//   // const userLogin = localStorage.getItem("token");
-//   const dispatch = useDispatch();
-//   const userData = getUserId();
-//   const navigate = useNavigate;
-//   if (userData && userData.id) dispatch(myCartList({ userid: userData.id }));
-//   navigate("/addtocart");
-// };
 const Usernavbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [data, setData] = useState();
-  const [filterValue, setFilterValue] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
-
-  // console.log(userData.role ? userData.username : null, "userData");
 
   const userData = getUserId();
   console.log(userData);
-  // setUsername(userData?.username);
 
   const userLogin = localStorage.getItem("token");
 
-  const [cartdata, setCartdata] = useState([]); // Initialize cartdata as an empty array
   const mycart = useSelector((selectCart) => selectCart?.addToCartFile?.mycart);
   useEffect(() => {
-    // Update the local state when mycart changes
-    // setCartdata(mycart);
     if (userData?.id) {
       dispatch(myCartList({ userid: userData.id }));
     }
-  }, []); // This useEffect will run whenever mycart changes
-
-  // console.log(cartdata, "dddddddddddddddd");
-
-  const [showMessage, setShowMessage] = useState({
-    MOBILE: "false",
-    MEN: "false",
-    WOMEN: "false",
-    HOMEKITCHEN: "false",
-    APPLIANCES: "false",
-    SPORTS: "false",
-  });
-
-  // const profileClick = () => {};
-
-  const hideMessage = () => {
-    setShowMessage(true);
-  };
+  }, [userData?.id]);
 
   const SignClick = (e) => {
     navigate("/signin");
-    // console.log(e, "SignClick");
   };
 
   const logoutClick = () => {
@@ -89,13 +55,14 @@ const Usernavbar = () => {
   console.log(filterdata, "filterdatafilterdata");
 
   useEffect(() => {
-    // dispatch(allAdminProductList());
     dispatch(filterByCategory());
-    if (userData && userData.id) dispatch(myCartList({ userid: userData.id }));
+    if (userData && userData.id) {
+      dispatch(cartinfo({ userid: userData.id })).then((res) => {
+        console.log("TRIGGERED", res);
+      });
+    }
     dispatch(getProductAction());
   }, []);
-
-  const brandClick = () => {};
 
   const [show, setShow] = useState(false);
 
@@ -107,8 +74,8 @@ const Usernavbar = () => {
     navigate("/search");
     setSearchQuery("");
   };
-  const myCartL = useSelector((state) => state?.cartdetails.listdata);
-  console.log(myCartL.length, "dddddddddddddddd");
+  const myCartL = useSelector((state) => state?.cartdetails?.listdata);
+  console.log(myCartL, "dddddddddddddddd");
   const navcategorydata = useSelector(
     (state) => state?.getcategorylistdata?.listdata
   );
@@ -246,24 +213,17 @@ const Usernavbar = () => {
                       </div>
                       <div className="Nav_link">
                         {userData && userLogin ? (
-                          <Link to="/addtocart">
+                          <Link  to="/addtocart">
                             <HiOutlineShoppingCart className="navbar_new_icon" />
-                            {/* {totalQuentity > 0 && <span>{totalQuentity}</span>}  */}
                             <span className="navbar_new_icon_length">
-                              {myCartL?.length}
+                              {console.log(myCartL, "TRIGGERED")}
+                              {myCartL?.length > 0 ? myCartL?.length : 0}
                             </span>
-                            {/* { <span>{cart?.length ?  cart?.length : 2}</span>} */}
-                            {/* <span>{cart}</span> */}
                           </Link>
                         ) : (
                           <Link to="/signin">
                             <HiOutlineShoppingCart className="navbar_new_icon" />
-                            {/* {totalQuentity > 0 && <span>{totalQuentity}</span>}  */}
-                            <span className="navbar_new_icon_length">
-                              0{/* {mycart?.length} */}
-                            </span>
-                            {/* { <span>{cart?.length ?  cart?.length : 2}</span>} */}
-                            {/* <span>{cart}</span> */}
+                            <span className="navbar_new_icon_length"></span>
                           </Link>
                         )}
                       </div>
@@ -365,121 +325,6 @@ const Usernavbar = () => {
             </Row>
           </div>
         </div>
-        {/* {["xl"].map((expand) => (
-          <Navbar
-            key={expand}
-            expand={expand}
-            className="bg-body-tertiary py-4"
-          >
-            <Container fluid className="">
-              <div className="nav_bar w-100">
-                <Navbar.Brand href="#">INSTEPCART</Navbar.Brand>
-                <Form className="d-flex search-bar">
-                  <Form.Control
-                    type="search"
-                    placeholder="What is on your mind today?"
-                    className=" search_bar"
-                    aria-label="Search"
-                  />
-                  <Button className="search_button">Search</Button>
-                </Form>
-                <div className="nav-icons sub_header_hide">
-                  <img onClick={cartClick} src="/Image/cart.png" alt="cart" />
-
-                  {userLogin && userData ? (
-                    <DropdownButton
-                      id="dropdown-basic-button"
-                      title={userData?.username}
-                    >
-                      <Dropdown.Item href="#/action-1">Profiless</Dropdown.Item>
-                      <Dropdown.Item href="#/action-2">
-                        <span onClick={() => notificationClick()}>
-                          <img
-                            src="/Image/notification.png"
-                            alt="notification"
-                          />
-                          Notification
-                        </span>
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        href="#/action-3"
-                        onClick={() => logoutClick()}
-                      >
-                        Logout
-                      </Dropdown.Item>
-                    </DropdownButton>
-                  ) : (
-                    <DropdownButton id="dropdown-basic-button" title="LOGIN">
-                      <Dropdown.Item href="#/action-1">
-                        <span onClick={() => notificationClick()}>
-                          <img
-                            src="/Image/notification.png"
-                            alt="notification"
-                          />
-                          Notification
-                        </span>
-                      </Dropdown.Item>
-                      <Dropdown.Item href="#/action-2">
-                        <p onClick={() => SignClick()} className="sign_hover">
-                          Sign In
-                        </p>
-                      </Dropdown.Item>
-                    </DropdownButton>
-                  )}
-                </div>
-              </div>
-              <Navbar.Toggle
-                aria-controls={`offcanvasNavbar-expand-${expand}`}
-              />
-              <Navbar.Offcanvas
-                id={`offcanvasNavbar-expand-${expand}`}
-                aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
-                placement="end"
-              >
-                <Offcanvas.Header closeButton>
-                  <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
-                    INSTEPCART
-                  </Offcanvas.Title>
-                </Offcanvas.Header>
-                <Offcanvas.Body>
-                  <Nav className=" hide_links ">
-                    <Nav.Link href="">
-                      <img src="/Image/location.png" alt="location" />
-                      <img src="/Image/cart.png" alt="cart" />
-                    </Nav.Link>
-                    <Nav.Link href="www.google.com">ELECTRONICS</Nav.Link>
-                    <Nav.Link href="#action2">MEN</Nav.Link>
-                    <Nav.Link href="#action2">WOMEN</Nav.Link>
-                    <Nav.Link href="#action2">HOME & KITCHEN</Nav.Link>
-                    <Nav.Link href="#action2">APPLIANCES</Nav.Link>
-                    <Nav.Link href="#action2">SPORTS & MORE</Nav.Link>
-                  </Nav>
-                </Offcanvas.Body>
-              </Navbar.Offcanvas>
-            </Container>
-          </Navbar>
-        ))} 
-        <div className="sales-navbar sub_header_hide">
-          {filterdata &&
-            filterdata?.map((e) => {
-              console.log(e, "category");
-              return (
-                <>
-                  <div className="Nav_link">
-                    {e.category}
-                    <div className="nav_Filter">
-                      <ul>
-                        <li>{e.subcategory}</li>
-                      </ul>
-                      <ul>
-                        <li onClick={() => brandClick()}>{e.brands}</li>
-                      </ul>
-                    </div>
-                  </div>
-                </>
-              );
-            })}
-        </div> */}
       </div>
     </>
   );

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -65,7 +65,7 @@ const ProductDetails = () => {
         <Row>
           <Col className="singlecard_posit" lg={4}>
             <Card className="shoppingcard_bor">
-              <div className="margin_bottom`">
+              <div className="margin_bottom ">
                 <ReactImageMagnify
                   {...{
                     smallImage: {
@@ -147,9 +147,12 @@ const ProductDetails = () => {
                       </Button>
                     </div>
                     <div className="twobuttondiv">
-                      <Button className="bynow_button">
-                        <BsFillLightningFill className="buy_Addicon" /> BUY NOW
-                      </Button>
+                      <Link to={"/deliverydetail"}>
+                        <Button className="bynow_button">
+                          <BsFillLightningFill className="buy_Addicon" /> BUY
+                          NOW
+                        </Button>
+                      </Link>
                     </div>
                   </div>
                 </Card.Text>

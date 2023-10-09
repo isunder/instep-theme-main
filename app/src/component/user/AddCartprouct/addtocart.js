@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button, Col, Row } from "react-bootstrap";
 import { getUserId } from "../../../utils/auth";
 import { cartinfo } from "../../../Redux/action/usercartinfo";
@@ -15,18 +15,13 @@ import Modal from "react-bootstrap/Modal";
 
 const AddToCartProduct = () => {
   const [quantity, setQuantity] = useState({});
+  const [deleteId,setDeleteId] = useState("")
   const [deleteState, SetDeleteState] = useState([]);
-
-  const navigate = useNavigate();
   const userData = getUserId();
   const userLogin = localStorage.getItem("token");
   console.log(userData.id, "goplla");
   const dispatch = useDispatch();
   const myCartL = useSelector((state) => state?.cartdetails.listdata);
-  console.log(myCartL, "dwiuek");
-  const productClick = (_id) => {
-    console.log(_id, "hh/ddhhjjjjjjjjjjj");
-  };
 
   useEffect(() => {
     if (userData && userData.id) dispatch(cartinfo({ userid: userData.id }));
@@ -43,16 +38,10 @@ const AddToCartProduct = () => {
     };
     dispatch(addToCartAction(apiObject)).then((res) => {
       console.log(res.payload.success, "dispstch");
-      if (res.payload.success === true) {
-        if (quantity[id]) {
-          setQuantity({ ...quantity, [`${id}`]: quantity[id] + 1 });
-        } else {
-          setQuantity({ ...quantity, [`${id}`]: 1 });
-        }
+      if (res.payload.success) {
+        dispatch(cartinfo({ userid: userData.id }));
       }
     });
-    console.log(quantity, "added to cart");
-    console.log("goplaaaa");
   };
 
   const onHandleClickMinus = (id) => {
@@ -64,38 +53,39 @@ const AddToCartProduct = () => {
 
     dispatch(addToCartAction(apiObject)).then((res) => {
       console.log(res.payload.success, "gopsoa");
-      if (res.payload.success === true) {
-        console.log("gaopaosojasjsajsnjas");
-        if (quantity[id]) {
-          setQuantity({ ...quantity, [`${id}`]: quantity[id] - 1 });
-        } else {
-          setQuantity({ ...quantity, [`${id}`]: -1 });
-        }
+      if (res.payload.success) {
+        dispatch(cartinfo({ userid: userData.id }));
       }
     });
   };
-  console.log(quantity, "added to cart");
 
   const getTotalPrice = () => {
     let count = 0;
     if (myCartL && myCartL.length > 0) {
-      count = quantities?.reduce((accumulator, currentValue, index) => {
-        return accumulator + currentValue * myCartL[index].price;
+      count = myCartL?.reduce((accumulator, currentValue, index) => {
+        return (
+          accumulator +
+          currentValue.productDetails[0].price * currentValue.quantity
+        );
       }, 0);
     }
+
     return count;
   };
+  console.log(myCartL, "mycartL");
 
   const getTotalDiscount = () => {
     let count = 0;
     if (myCartL && myCartL.length > 0) {
-      count = quantities.reduce((accumulator, currentValue, index) => {
-        return (
-          (myCartL[index].discountpercentage / 100) *
-          myCartL[index].price
-        )?.toFixed(0);
+      count = myCartL?.reduce((accumulator, currentValue, index) => {
+        let discountprice =
+          (currentValue.productDetails[0].discountpercentage / 100) *
+          currentValue.productDetails[0].price *
+          currentValue.quantity;
+        console.log(discountprice, "disc");
+        return accumulator + discountprice;
       }, 0);
-      console.log(count);
+
       return count;
     }
   };
@@ -103,11 +93,13 @@ const AddToCartProduct = () => {
   const getDiscountPercentage = () => {
     let count = 0;
     if (myCartL && myCartL.length > 0) {
-      count = quantities.reduce((accumulator, currentValue, index) => {
-        return myCartL[index].discountpercentage;
+      count = myCartL.reduce((accumulator, currentValue, index) => {
+        console.log(currentValue.productDetails[0].discountpercentage,'fwkoejoiwejl')
+        return accumulator + currentValue.productDetails[0].discountpercentage;
       }, 0);
-      console.log(count);
-      return count;
+      
+      console.log(count/myCartL?.length,'ekrfioejroij');
+      return count/myCartL?.length;
     }
   };
 
@@ -115,12 +107,11 @@ const AddToCartProduct = () => {
   const handleClose = () => setShow(false);
 
   const clickMe = (id) => {
-    console.log(id, "rahullllllll");
     dispatch(
-      removeFromCart({ userId: userData?.id, productIdToRemove: id })
+      removeFromCart({ userId: userData?.id, productIdToRemove: deleteId })
     ).then((res) => {
-      SetDeleteState([...deleteState, id]);
-      handleClose()
+      SetDeleteState([...deleteState, deleteId]);
+      handleClose();
     });
   };
 
@@ -149,7 +140,7 @@ const AddToCartProduct = () => {
                 <Col lg={2} className="addtocart_padding">
                   <div className="addtocarthead">
                     <p>U. Price</p>
-                  </div>
+                  </div> 
                 </Col>
                 <Col lg={2} className="addtocart_padding">
                   <div className="addtocarthead">
@@ -177,6 +168,7 @@ const AddToCartProduct = () => {
                 {myCartL &&
                   myCartL?.map((e, index) => {
                     console.log(e, "adasdasdasdasdasda");
+
                     if (e.image) {
                     }
                     if (!deleteState.includes(e?.productid)) {
@@ -219,23 +211,32 @@ const AddToCartProduct = () => {
                                 style={{ width: "25px" }}
                                 className="subtract"
                               >
-                                <span>
+                                <span
+                                  className={`${
+                                    e?.quantity +
+                                      (quantity[e?.productid] || 0) ===
+                                    1
+                                      ? "pe-none"
+                                      : ""
+                                  }`}
+                                  style={{
+                                    color:
+                                      e?.quantity +
+                                        (quantity[e?.productid] || 0) ===
+                                      1
+                                        ? "#C2C2C6"
+                                        : "inherit",
+                                  }}
+                                >
                                   <RiSubtractFill
                                     onClick={() => {
                                       onHandleClickMinus(e?.productid);
                                     }}
-                                    style={
-                                      e?.quantity +
-                                        (quantity[e?.productid] || 0) ===
-                                      1
-                                        ? { display: "none" }
-                                        : {}
-                                    }
                                   />
                                 </span>
                               </div>
                               <span className="quantityval_ue">
-                                {/* {condition ? (true execute? fwef : ) : (fwfe ? fwefw :fwef)} */}
+                                {/* {e.quantity} */}
                                 {quantity[e?.productid]
                                   ? e?.quantity + quantity[e?.productid]
                                   : e?.quantity}
@@ -268,7 +269,10 @@ const AddToCartProduct = () => {
                             <div className="addtocart_title">
                               <RiDeleteBin6Line
                                 className="remove_cart"
-                                onClick={handleShow}
+                                onClick={()=>{
+                                  setDeleteId(e?.productid)
+                                  handleShow()
+                                }}
                               />
                               <Modal
                                 className="removerfromcart_modal"
@@ -296,7 +300,6 @@ const AddToCartProduct = () => {
                                     variant="primary"
                                     onClick={() => {
                                       clickMe(e?.productDetails[0]?._id);
-                                      // navigate("/addtocart");
                                     }}
                                   >
                                     REMOVE
@@ -312,7 +315,6 @@ const AddToCartProduct = () => {
               </Row>
             </div>
           </Col>
-          {/* <button onClick={handleClick}>Add to Cart</button> */}
           <Col lg={3}>
             <div className="rightpricedetail margin_bottom">
               <div className="addcartpricede_tail margin_bottom ">
@@ -325,7 +327,7 @@ const AddToCartProduct = () => {
               <div className="d-flex justify-content-between margin_bottom">
                 <p className="totalamountright_">Discount</p>
                 <span className="discountpercentage_">
-                  {getDiscountPercentage()}%
+                  {getDiscountPercentage()?.toFixed(0)}%
                 </span>
               </div>
               <div className="d-flex justify-content-between margin_bottom addcart_delivery">
@@ -334,10 +336,12 @@ const AddToCartProduct = () => {
               </div>
               <div className="d-flex justify-content-between margin_bottom addcart_delivery">
                 <h5>Total Amount</h5>
-                <p>₹{getTotalPrice() - getTotalDiscount()}</p>
+                {console.log(getTotalPrice() , getTotalDiscount(),'dwjewdj')}
+                <p>₹{getTotalPrice() - getTotalDiscount()?.toFixed(0)}</p>
               </div>
+              {console.log(getTotalDiscount(), "getTotalDiscount()")}
               <h6 className="discountpercentage_">
-                Your Will save ₹{getTotalDiscount()} on this order
+                Your Will save ₹{getTotalDiscount()?.toFixed(0)} on this order
               </h6>
               <div></div>
               <div className="securityline">
