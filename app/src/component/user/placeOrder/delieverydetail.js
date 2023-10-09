@@ -8,9 +8,13 @@ import {
 } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { BiSolidStarHalf } from "react-icons/bi";
+import { getToken } from '../../../utils/auth'
 
 const Delieverydetail = () => {
   const [showCol, setShowCol] = useState("login");
+
+  const userLogin = getToken()
+  console.log(userLogin,"gopllaaaa")
 
   return (
     <>
