@@ -216,7 +216,7 @@ const ProductForm = () => {
                         value={selectedCategoryId}
                         required
                       >
-                        <option>select category</option>
+                        <option>Select Category</option>
                         {filterdata &&
                           filterdata.map((e) => {
                             return (
@@ -248,8 +248,7 @@ const ProductForm = () => {
                         value={subcategoryid}
                         required
                       >
-                        <option>select subcategory</option>
-
+                        <option>Select Subcategory</option>
                         {filterdatasubcat &&
                           filterdatasubcat.map((e) => {
                             return (
@@ -288,8 +287,7 @@ const ProductForm = () => {
                         value={brandcategory}
                         required
                       >
-                        <option>select brand</option>
-
+                        <option>Select Brand</option>
                         {filterbrand &&
                           filterbrand.map((e) => {
                             console.log(e, "eeee");

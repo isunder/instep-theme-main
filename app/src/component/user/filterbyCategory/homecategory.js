@@ -6,14 +6,22 @@ import { Accordion, Card, Col, Container, Row } from "react-bootstrap";
 import Subcaregoryfilter from "./SubcaregoryMobilefilter";
 import { BiChevronRight } from "react-icons/bi";
 import SubCategoryfilter from "./subCategoryfilter";
+import { AllFilterationData } from "../../../Redux/action/allFilterationAction";
 import {BsFillHeartFill} from "react-icons/bs"
 
 const Homecategory = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.homecategory.listdata);
   const { categoryName } = useParams();
+
+  const filterbyPrice = useSelector(
+    (state) => state?.filterationalltype?.listdata
+  );
+  console.log(filterbyPrice, "filterbyPrice");
+
   useEffect(() => {
     dispatch(homecategory(categoryName));
+    dispatch(AllFilterationData());
   }, [categoryName]);
   console.log(data, "goapl");
   console.log(categoryName);

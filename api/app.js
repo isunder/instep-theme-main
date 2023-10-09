@@ -532,7 +532,6 @@ server.post(
         images: imagesFilenames,
         name: sildername.name,
         // url: sildername.url,
-
       });
       await sliderphotos.save();
       res.status(200).send("Success: slider images uploaded." + sliderphotos);

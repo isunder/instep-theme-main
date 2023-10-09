@@ -1,5 +1,4 @@
-
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
 const sliderSchema = new mongoose.Schema({
   name: {
@@ -8,13 +7,12 @@ const sliderSchema = new mongoose.Schema({
   // url: {
   //   type: String,
   // },
-  images: [{
-    type: String,
-  }]
-
-})
-
-
+  images: [
+    {
+      type: String,
+    },
+  ],
+});
 sliderSchema.set("slider", true);
-const slidertable = mongoose.model("slidertable", sliderSchema)
-module.exports = slidertable
+const slidertable = mongoose.model("slidertable", sliderSchema);
+module.exports = slidertable;
