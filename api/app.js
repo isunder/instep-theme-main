@@ -44,7 +44,10 @@ server.use("/api", registerRoutes);
 server.use("/api", loginRoutes);
 server.use("/api", postProductRouters);
 server.use("/uploads", express.static("uploads"));
+
 // http://localhost:5000/uploads/1693806012738-Capture.PNG
+server.use("/categoryimg", express.static("categoryimg"));
+
 server.use("/api", addnewcategory);
 server.use("/api", addnewSubcategory);
 server.use("/api", addnewbrand);
@@ -516,7 +519,6 @@ server.post(
   "/api/sliderpost",
   uploadForImages.fields([{ name: "sliderimg", maxCount: 4 }]),
   async (req, res) => {
-    // console.log(req.files, "aaaaaaaaaaaaaaaa");
 
     try {
       const imagesFilenames = req.files["sliderimg"].map(

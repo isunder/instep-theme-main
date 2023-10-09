@@ -60,11 +60,12 @@ const postproduct = expressAsyncHandler(async (req, res) => {
 // get all products
 const getproduct = expressAsyncHandler(async (req, res) => {
   try {
+    const page = parseInt(req.body.page) || 1; // Default to page 1
+    const perPage = parseInt(req.body.perPage) || 10; // Default to 10 items per page
 
+    const skip = (page - 1) * perPage;
 
-    // ////
     const products = await Userproducts.aggregate([
-      // idConversionStage, // Comment this out for now
       {
         $lookup: {
           from: "categorytables",
@@ -72,8 +73,7 @@ const getproduct = expressAsyncHandler(async (req, res) => {
           foreignField: "_id",
           as: "category"
         }
-      }
-      ,
+      },
       {
         $lookup: {
           from: "subcategorytables",
@@ -89,10 +89,16 @@ const getproduct = expressAsyncHandler(async (req, res) => {
           foreignField: "_id",
           as: "brand"
         }
+      },
+      {
+        $skip: skip // Skip items based on the page number
+      },
+      {
+        $limit: perPage // Limit the number of items per page
       }
     ]);
 
-    // Log the products and categoryData to inspect the results
+    // Log the products to inspect the results
     console.log("Products:", JSON.stringify(products, null, 2));
 
     if (products.length > 0) {
@@ -100,17 +106,13 @@ const getproduct = expressAsyncHandler(async (req, res) => {
     } else {
       res.status(404).json({ result: "No products found" });
     }
-
-
-
-
-
   } catch (error) {
     res
       .status(500)
       .send({ error: "An error occurred while fetching products", error });
   }
-})
+});
+
 // api category and subcategory,brand for admin filter
 const getfilter = expressAsyncHandler(async (req, res) => {
 

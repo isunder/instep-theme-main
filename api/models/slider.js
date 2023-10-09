@@ -13,7 +13,6 @@ const sliderSchema = new mongoose.Schema({
     },
   ],
 });
-
 sliderSchema.set("slider", true);
 const slidertable = mongoose.model("slidertable", sliderSchema);
 module.exports = slidertable;

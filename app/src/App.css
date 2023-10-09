@@ -2847,8 +2847,20 @@ input[type="range"]::-moz-range-progress {
   }
 
   .forcatcards_htwd{
-    height: 320px !important;
     margin-bottom: 20px;
+  }
+
+  .forcatcards_htwd img {
+    height: 200px;
+    object-fit: contain;
+  }
+
+  .forcatcards_htwd .item_rating {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+    gap: 10px;
+    text-decoration: none !important;
   }
 
   @media (max-width: 1800px){
@@ -3358,11 +3370,79 @@ font-weight: 400 !important;
   height: 20%;
   color: #656565;
 }
+
+.removebut_cart{
+  padding: 10px 20px !important;
+  background-color: #4eb529 !important;
+  color: #fff !important;
+  border-radius: 3px !important;
+  border: 1px solid #fff !important;
+}
+
+.removerfromcart_modal{
+  width: 500px !important;
+  margin-left: 500px !important;
+}
+
 .securityline{
   display: flex;
   margin-top: 20px;
   font-weight: 500;
   color: #656565;
+}
+
+.cancelbut_removecart{
+  padding: 10px 20px !important;
+  background-color: #fff !important;
+  color: #000 !important;
+  border-radius: 3px !important;
+  border:1px solid #b0aaaa !important;
+}
+
+@media (max-width:1190px){
+  .removerfromcart_modal {
+    margin-left: 351px !important;
+  }
+}
+@media (max-width:979px){
+  .removerfromcart_modal {
+    margin-left: 234px !important;
+  }
+}
+@media (max-width:824px){
+  .removerfromcart_modal {
+    margin-left: 137px !important;
+  }
+}
+@media (max-width:650px){
+  .removerfromcart_modal {
+    margin-left: 121px !important;
+    width: 389px !important;
+  }
+}
+@media (max-width:567px){
+  .removerfromcart_modal {
+    margin-left: 87px !important;
+    width: 402px !important;
+}
+  }
+@media (max-width:560px){
+  .removerfromcart_modal {
+    margin-left: 73px !important;
+    width: 357px !important;
+}
+}
+@media (max-width:445px){
+  .removerfromcart_modal {
+    margin-left: 73px !important;
+    width: 357px !important;
+}
+}
+@media (max-width:437px){
+  .removerfromcart_modal {
+    margin-left: 51px !important;
+    width: 350px !important;
+}
 }
 
 @media (max-width: 992px){
@@ -3405,7 +3485,9 @@ font-weight: 400 !important;
 /* ------------------------------------add to cart---------------------------------------------- */
 
 /* placeorder */
-
+.modal-backdrop{
+  --bs-backdrop-opacity: 0.3 !important;
+}
 .borderforall_detail{
   border: 1px solid #E0E0E0;
   box-shadow: 0 1px 1px 0 rgba(0,0,0,.2);

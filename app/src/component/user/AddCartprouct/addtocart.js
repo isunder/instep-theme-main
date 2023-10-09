@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { Col, Row } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import { getUserId } from "../../../utils/auth";
 import { cartinfo } from "../../../Redux/action/usercartinfo";
 import { AiOutlinePlus } from "react-icons/ai";
@@ -11,19 +11,17 @@ import {
   addToCartAction,
   removeFromCart,
 } from "../../../Redux/action/addToCartAction";
+import Modal from "react-bootstrap/Modal";
 
 const AddToCartProduct = () => {
   const [quantity, setQuantity] = useState({});
-
+  const [deleteId,setDeleteId] = useState("")
+  const [deleteState, SetDeleteState] = useState([]);
   const userData = getUserId();
   const userLogin = localStorage.getItem("token");
   console.log(userData.id, "goplla");
   const dispatch = useDispatch();
   const myCartL = useSelector((state) => state?.cartdetails.listdata);
-  console.log(myCartL, "dwiuek");
-  const productClick = (_id) => {
-    console.log(_id, "hh/ddhhjjjjjjjjjjj");
-  };
 
   useEffect(() => {
     if (userData && userData.id) dispatch(cartinfo({ userid: userData.id }));
@@ -40,24 +38,12 @@ const AddToCartProduct = () => {
     };
     dispatch(addToCartAction(apiObject)).then((res) => {
       console.log(res.payload.success, "dispstch");
-      if (res.payload.success === true) {
-        if (quantity[id]) {
-          setQuantity({ ...quantity, [`${id}`]: quantity[id] + 1 });
-        } else {
-          setQuantity({ ...quantity, [`${id}`]: 1 });
-        }
+      if (res.payload.success) {
+        dispatch(cartinfo({ userid: userData.id }));
       }
     });
-    console.log(quantity, "added to cart");
-    console.log("goplaaaa");
   };
-  // const quantityAdd = (id) => {
-  //   if (quantity[id]) {
-  //     setQuantity({ ...quantity, [`${id}`]: quantity[id] + 1 });
-  //   } else {
-  //     setQuantity({ ...quantity, [`${id}`]: 1 });
-  //   }
-  // };
+
   const onHandleClickMinus = (id) => {
     let apiObject = {
       productid: id,
@@ -67,47 +53,39 @@ const AddToCartProduct = () => {
 
     dispatch(addToCartAction(apiObject)).then((res) => {
       console.log(res.payload.success, "gopsoa");
-      if (res.payload.success === true) {
-        console.log("gaopaosojasjsajsnjas");
-        if (quantity[id]) {
-          setQuantity({ ...quantity, [`${id}`]: quantity[id] - 1 });
-        } else {
-          setQuantity({ ...quantity, [`${id}`]: -1 });
-        }
+      if (res.payload.success) {
+        dispatch(cartinfo({ userid: userData.id }));
       }
     });
   };
-  console.log(quantity, "added to cart");
-  // const quantitySubtract = (id) => {
-  //   if (quantity[id]) {
-  //     setQuantity({ ...quantity, [`${id}`]: quantity[id] - 1 });
-  //   } else {
-  //     setQuantity({ ...quantity, [`${id}`]: -1 });
-  //   }
-  // };
-
-  // console.log(quantities, "quantities");
 
   const getTotalPrice = () => {
     let count = 0;
     if (myCartL && myCartL.length > 0) {
-      count = quantities?.reduce((accumulator, currentValue, index) => {
-        return accumulator + currentValue * myCartL[index].price;
+      count = myCartL?.reduce((accumulator, currentValue, index) => {
+        return (
+          accumulator +
+          currentValue.productDetails[0].price * currentValue.quantity
+        );
       }, 0);
     }
+
     return count;
   };
+  console.log(myCartL, "mycartL");
 
   const getTotalDiscount = () => {
     let count = 0;
     if (myCartL && myCartL.length > 0) {
-      count = quantities.reduce((accumulator, currentValue, index) => {
-        return (
-          (myCartL[index].discountpercentage / 100) *
-          myCartL[index].price
-        )?.toFixed(0);
+      count = myCartL?.reduce((accumulator, currentValue, index) => {
+        let discountprice =
+          (currentValue.productDetails[0].discountpercentage / 100) *
+          currentValue.productDetails[0].price *
+          currentValue.quantity;
+        console.log(discountprice, "disc");
+        return accumulator + discountprice;
       }, 0);
-      console.log(count);
+
       return count;
     }
   };
@@ -115,20 +93,32 @@ const AddToCartProduct = () => {
   const getDiscountPercentage = () => {
     let count = 0;
     if (myCartL && myCartL.length > 0) {
-      count = quantities.reduce((accumulator, currentValue, index) => {
-        return myCartL[index].discountpercentage;
+      count = myCartL.reduce((accumulator, currentValue, index) => {
+        console.log(currentValue.productDetails[0].discountpercentage,'fwkoejoiwejl')
+        return accumulator + currentValue.productDetails[0].discountpercentage;
       }, 0);
-      console.log(count);
-      return count;
+      
+      console.log(count/myCartL?.length,'ekrfioejroij');
+      return count/myCartL?.length;
     }
   };
 
   console.log(quantity, "fiwbeufbn");
+  const handleClose = () => setShow(false);
 
-  const clickMe = (_id) => {
-    console.log(_id, "rahullllllll");
-    dispatch(removeFromCart({ userId: userData?.id, productIdToRemove: _id }));
+  const clickMe = (id) => {
+    dispatch(
+      removeFromCart({ userId: userData?.id, productIdToRemove: deleteId })
+    ).then((res) => {
+      SetDeleteState([...deleteState, deleteId]);
+      handleClose();
+    });
   };
+
+  const [show, setShow] = useState(false);
+
+  const handleShow = () => setShow(true);
+
   return (
     <>
       <div className="container slider_col">
@@ -150,7 +140,7 @@ const AddToCartProduct = () => {
                 <Col lg={2} className="addtocart_padding">
                   <div className="addtocarthead">
                     <p>U. Price</p>
-                  </div>
+                  </div> 
                 </Col>
                 <Col lg={2} className="addtocart_padding">
                   <div className="addtocarthead">
@@ -178,105 +168,153 @@ const AddToCartProduct = () => {
                 {myCartL &&
                   myCartL?.map((e, index) => {
                     console.log(e, "adasdasdasdasdasda");
+
                     if (e.image) {
                     }
-                    return (
-                      <>
-                        <Col lg={2}>
-                          <div>
-                            <img
-                              className="addtocart_img"
-                              variant="top"
-                              src={
-                                e?.productDetails[0]?.image
-                                  ? e?.productDetails[0]?.image
-                                  : e?.productDetails[0]?.thumbnail?.split(":")
-                                      .length > 1
-                                  ? e?.productDetails[0]?.thumbnail
-                                  : `http://localhost:5000/uploads/${e?.productDetails[0]?.thumbnail}`
-                              }
-                              alt=""
-                            />
-                          </div>
-                        </Col>
-                        <Col lg={2}>
-                          <div className="addtocart_title">
-                            {e?.productDetails[0]?.title}
-                          </div>
-                        </Col>
-                        <Col lg={2}>
-                          <div className="addtocart_title">
-                            <h5>
-                              {" "}
-                              ₹ {e?.productDetails[0]?.price?.toFixed(0)}
-                            </h5>
-                          </div>
-                        </Col>
-                        <Col lg={2}>
-                          <div className="addcart_quantity">
-                            <div style={{ width: "25px" }} className="subtract">
-                              <span>
-                                <RiSubtractFill
-                                  onClick={() => {
-                                    onHandleClickMinus(e?.productid);
-                                  }}
-                                  style={
+                    if (!deleteState.includes(e?.productid)) {
+                      return (
+                        <>
+                          <Col lg={2}>
+                            <div>
+                              <img
+                                className="addtocart_img"
+                                variant="top"
+                                src={
+                                  e?.productDetails[0]?.image
+                                    ? e?.productDetails[0]?.image
+                                    : e?.productDetails[0]?.thumbnail?.split(
+                                        ":"
+                                      ).length > 1
+                                    ? e?.productDetails[0]?.thumbnail
+                                    : `http://localhost:5000/uploads/${e?.productDetails[0]?.thumbnail}`
+                                }
+                                alt=""
+                              />
+                            </div>
+                          </Col>
+                          <Col lg={2}>
+                            <div className="addtocart_title">
+                              {e?.productDetails[0]?.title}
+                            </div>
+                          </Col>
+                          <Col lg={2}>
+                            <div className="addtocart_title">
+                              <h5>
+                                {" "}
+                                ₹ {e?.productDetails[0]?.price?.toFixed(0)}
+                              </h5>
+                            </div>
+                          </Col>
+                          <Col lg={2}>
+                            <div className="addcart_quantity">
+                              <div
+                                style={{ width: "25px" }}
+                                className="subtract"
+                              >
+                                <span
+                                  className={`${
                                     e?.quantity +
                                       (quantity[e?.productid] || 0) ===
                                     1
-                                      ? { display: "none" }
-                                      : {}
-                                  }
-                                />
+                                      ? "pe-none"
+                                      : ""
+                                  }`}
+                                  style={{
+                                    color:
+                                      e?.quantity +
+                                        (quantity[e?.productid] || 0) ===
+                                      1
+                                        ? "#C2C2C6"
+                                        : "inherit",
+                                  }}
+                                >
+                                  <RiSubtractFill
+                                    onClick={() => {
+                                      onHandleClickMinus(e?.productid);
+                                    }}
+                                  />
+                                </span>
+                              </div>
+                              <span className="quantityval_ue">
+                                {/* {e.quantity} */}
+                                {quantity[e?.productid]
+                                  ? e?.quantity + quantity[e?.productid]
+                                  : e?.quantity}
                               </span>
+                              <div
+                                onClick={() => {
+                                  onHandleClickPlus(e?.productid);
+                                }}
+                                className="add"
+                              >
+                                <span>
+                                  <AiOutlinePlus />
+                                </span>
+                              </div>
                             </div>
-                            <span className="quantityval_ue">
-                              {/* {condition ? (true execute? fwef : ) : (fwfe ? fwefw :fwef)} */}
-                              {quantity[e?.productid]
-                                ? e?.quantity + quantity[e?.productid]
-                                : e?.quantity}
-                            </span>
-                            <div
-                              onClick={() => {
-                                onHandleClickPlus(e?.productid);
-                              }}
-                              className="add"
-                            >
-                              <span>
-                                <AiOutlinePlus />
-                              </span>
+                          </Col>
+                          <Col lg={2}>
+                            <div className="addtocart_title">
+                              <h5>
+                                ₹{" "}
+                                {quantity[e?.productid]
+                                  ? e?.productDetails[0]?.price?.toFixed(0) *
+                                    (e?.quantity + quantity[e?.productid])
+                                  : e?.productDetails[0]?.price?.toFixed(0) *
+                                    e?.quantity}
+                              </h5>
                             </div>
-                          </div>
-                        </Col>
-                        <Col lg={2}>
-                          <div className="addtocart_title">
-                            <h5>
-                              ₹{" "}
-                              {quantity[e?.productid]
-                                ? e?.productDetails[0]?.price?.toFixed(0) *
-                                  (e?.quantity + quantity[e?.productid])
-                                : e?.productDetails[0]?.price?.toFixed(0) *
-                                  e?.quantity}
-                            </h5>
-                          </div>
-                        </Col>
-                        <Col lg={2}>
-                          <div className="addtocart_title">
-                            <RiDeleteBin6Line
-                              className="remove_cart"
-                              onClick={() => {
-                                clickMe(e?.productDetails[0]?._id);
-                              }}
-                            />
-                          </div>
-                        </Col>
-                      </>
-                    );
+                          </Col>
+                          <Col lg={2}>
+                            <div className="addtocart_title">
+                              <RiDeleteBin6Line
+                                className="remove_cart"
+                                onClick={()=>{
+                                  setDeleteId(e?.productid)
+                                  handleShow()
+                                }}
+                              />
+                              <Modal
+                                className="removerfromcart_modal"
+                                aria-labelledby="contained-modal-title-vcenter"
+                                centered
+                                show={show}
+                                onHide={handleClose}
+                              >
+                                <Modal.Header closeButton>
+                                  <Modal.Title>Remove Item</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+                                  Are you sure you want to remove this item ?
+                                </Modal.Body>
+                                <Modal.Footer>
+                                  <Button
+                                    className="cancelbut_removecart"
+                                    variant="secondary"
+                                    onClick={handleClose}
+                                  >
+                                    CANCEL
+                                  </Button>
+                                  <Button
+                                    className="removebut_cart"
+                                    variant="primary"
+                                    onClick={() => {
+                                      clickMe(e?.productDetails[0]?._id);
+                                    }}
+                                  >
+                                    REMOVE
+                                  </Button>
+                                </Modal.Footer>
+                              </Modal>
+                            </div>
+                          </Col>
+                        </>
+                      );
+                    }
                   })}
               </Row>
             </div>
           </Col>
-          {/* <button onClick={handleClick}>Add to Cart</button> */}
           <Col lg={3}>
             <div className="rightpricedetail margin_bottom">
               <div className="addcartpricede_tail margin_bottom ">
@@ -289,7 +327,7 @@ const AddToCartProduct = () => {
               <div className="d-flex justify-content-between margin_bottom">
                 <p className="totalamountright_">Discount</p>
                 <span className="discountpercentage_">
-                  {getDiscountPercentage()}%
+                  {getDiscountPercentage()?.toFixed(0)}%
                 </span>
               </div>
               <div className="d-flex justify-content-between margin_bottom addcart_delivery">
@@ -298,10 +336,12 @@ const AddToCartProduct = () => {
               </div>
               <div className="d-flex justify-content-between margin_bottom addcart_delivery">
                 <h5>Total Amount</h5>
-                <p>₹{getTotalPrice() - getTotalDiscount()}</p>
+                {console.log(getTotalPrice() , getTotalDiscount(),'dwjewdj')}
+                <p>₹{getTotalPrice() - getTotalDiscount()?.toFixed(0)}</p>
               </div>
+              {console.log(getTotalDiscount(), "getTotalDiscount()")}
               <h6 className="discountpercentage_">
-                Your Will save ₹{getTotalDiscount()} on this order
+                Your Will save ₹{getTotalDiscount()?.toFixed(0)} on this order
               </h6>
               <div></div>
               <div className="securityline">

@@ -7,6 +7,7 @@ import Subcaregoryfilter from "./SubcaregoryMobilefilter";
 import { BiChevronRight } from "react-icons/bi";
 import SubCategoryfilter from "./subCategoryfilter";
 import { AllFilterationData } from "../../../Redux/action/allFilterationAction";
+import {BsFillHeartFill} from "react-icons/bs"
 
 const Homecategory = () => {
   const dispatch = useDispatch();
@@ -79,6 +80,9 @@ const Homecategory = () => {
                       >
                         <div className="subcatkitechenmaindiv margin_bottom">
                           <Col lg={3}>
+                          <div className="d-flex justify-content-end mt-2 mx-2">
+                            <BsFillHeartFill style={{ color: "#808080" }} />
+                          </div>
                             <div>
                               <img
                                 className="subcatkitchen_image"

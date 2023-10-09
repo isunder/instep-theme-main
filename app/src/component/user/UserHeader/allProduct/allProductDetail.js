@@ -1,16 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductAction } from "../../../../Redux/action/getProductDetailAction";
 import { Link } from "react-router-dom";
 import { Accordion, Card, Col, Row } from "react-bootstrap";
 import { BiChevronRight } from "react-icons/bi";
 import Subcaregoryfilter from "../../filterbyCategory/SubcaregoryMobilefilter";
+import { BsFillHeartFill } from "react-icons/bs";
 
 const AllProductDetail = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state?.getproductdata?.listdata);
   console.log(data, "aaaaaabbbbbbbbbss");
 
+  const [Wishlist, showwishilist]=useState()
   useEffect(() => {
     dispatch(getProductAction());
   }, []);
@@ -183,13 +185,17 @@ const AllProductDetail = () => {
                     // console.log(e,'jjjjjjjjjjjjjj')
                   }
                   return (
-                    <Col lg={3} md={3}>
+                    <Col lg={3} md={4}>
                       <Link
                         className="card_deco"
                         to={`/productdetail/${e._id}`}
                         onClick={() => productClick(e?._id)}
                       >
-                        <Card className="shopping_card forcatcards_htwd ">
+                        <Card className=" forcatcards_htwd ">
+                          <div className="d-flex justify-content-end mt-2 mx-2">
+                            <BsFillHeartFill style={{ color: "#808080" }} 
+                            onClick={showwishilist}/>
+                          </div>
                           <div className="img_div">
                             <Card.Img
                               variant="top"

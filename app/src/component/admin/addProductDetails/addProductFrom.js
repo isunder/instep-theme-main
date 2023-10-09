@@ -103,6 +103,7 @@ const ProductForm = () => {
       formData.append("images", items);
     });
     formData.append("thumbnail", selectedthumbnalFile);
+    console.log(selectedthumbnalFile, "Sdsdsdsdsdfvsdsvfssvsvs")
     formData.append("userData", JSON.stringify(payload));
     // console.log(payload, "ggg");
     console.log(JSON.parse(formData.getAll("userData")), "data");
@@ -232,14 +233,7 @@ const ProductForm = () => {
                   <div className="margin_bottom">
                     <h5 className="margin_bottom">Subcategory</h5>
                     <div className="d-flex newpeo_div">
-                      {/* <Field
-                        className="addnewproduct_changes right_Addnew"
-                        name="subcategory"
-                        component="select"
-                        // onChange={handleChangesubcat}
-                        // value={subcategoryid}
-                        required
-                      > */}
+
                       <input
                         className="addnewproduct_changes right_Addnew"
                         placeholder=" Select Subcategory"
@@ -277,15 +271,7 @@ const ProductForm = () => {
                   <div className="margin_bottom">
                     <h5>Product Brand</h5>
                     <div className="d-flex newpeo_div">
-                      {/* <Field
-                        className="addnewproduct_changes"
-                        name="brand"
-                        component="select"
-                        placeholder="Brand Name"
-                        onChange={brandChange}
-                        value={brandcategory}
-                        required
-                      > */}
+
 
                       <input
                         className="addnewproduct_changes right_Addnew"
@@ -316,21 +302,9 @@ const ProductForm = () => {
                       </select>
                     </div>
                   </div>
-                  {/* <div className="product_brand ">
-                    <h5>Product Unit</h5>
-                    <div className="">
-                      <Select
-                        name="unit"
-                        defaultValue={selectedOption}
-                        onChange={setSelectedOption}
-                        options={options}
-                      />
-                    </div>
-                  </div> */}
+
                 </div>
-                {/* <Button className="Brandsave_button" variant="success">
-            Save Brand
-          </Button>{" "} */}
+
 
                 <div className="Addnewpeoduct margin_bottom py-4">
                   <div className="margin_bottom">
@@ -427,15 +401,6 @@ const ProductForm = () => {
                       <div>
                         <h3>Price,Stock & Rating</h3>
                       </div>
-                      {/* <Field
-                        className="descirption_box"
-                        name="stock"
-                        component="input"
-                        type="text"
-                        placeholder="Avalaible stocks"
-                        required
-                      /> */}
-
                       <span>Has Variations?</span>
                     </div>
                     <div className="d-flex price_flex">
