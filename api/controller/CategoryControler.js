@@ -1,7 +1,9 @@
 const { response } = require("express")
 const modelcategory = require("../models/categorytable")
-const SUBCATEGORY = require("../models/subcategorytable")
 const brandtable = require("../models/brandSchema")
+const Userproducts = require("../models/ProductsSchema");
+const subcategorytable = require("../models/subcategorytable");
+const categorytable = require("../models/categorytable");
 
 const adddCategory = async (req, res) => {
     console.log(req.body.userData, "data")
@@ -68,31 +70,7 @@ const getcategorydata = async (req, res) => {
 
 }
 
-const deletecategory = async (req, res) => {
 
-    try {
-        const { _id } = req.body;
-
-
-        const deletedcategory = await modelcategory.findByIdAndDelete(_id);
-
-        if (!deletedcategory) {
-            // If the product with the given ID doesn't exist, return an error response
-            return res.status(404).json({ message: "category not found" });
-        }
-
-        // Return the deleted product
-
-        // res.send(deletedcategory)
-        res.status(200).send({ success: true, msg: "category data delete", data: deletedcategory })
-
-
-        console.log("delete done category");
-    } catch (error) {
-        // Handle any errors that occurred during the delete process
-        res.status(500).json({ message: "Server error" });
-    }
-}
 
 const filtercategory = async (req, res) => {
     const { category_id, subcategory_id } = req.body;
@@ -107,7 +85,7 @@ const filtercategory = async (req, res) => {
             }
         } else if (category_id) {
             console.log("sssssssssssssss");
-            const filter = await SUBCATEGORY.find({
+            const filter = await subcategorytable.find({
                 category_id: category_id,
             });
             console.log(filter, "filter");
@@ -133,6 +111,43 @@ const filtercategory = async (req, res) => {
 };
 
 
+// api of delete category and subcategory ,brand , products
+const categoryfull = async (req, res) => {
+    try {
+        if (req.body && req.body.categoryid) {
+            const categoryId = req.body.categoryid;
+
+
+            const sabID = await subcategorytable.find({ category_id: categoryId })
+
+            console.log(sabID._id, "Dddddddddddd")
+            let subcategoryid;
+            sabID.forEach(subcategory => {
+                console.log(subcategory._id, "Dddddddddddd");
+                subcategoryid = subcategory._id
+            });
+            await brandtable.deleteMany({ subcategory_id: subcategoryid });
+
+
+            await subcategorytable.deleteMany({ category_id: categoryId });
+
+
+            await categorytable.deleteMany({ _id: categoryId });
+
+
+            const productDlt = await Userproducts.deleteMany({ category: categoryId });
+
+
+            res.status(200).send({ result: productDlt, success: true });
+        } else {
+            res.status(400).send({ error: "Invalid request" });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ error: "An error occurred while deleting categories and associated items" });
+    }
+}
+
 module.exports = {
-    adddCategory, filtercategory, getcategorydata, deletecategory
+    adddCategory, filtercategory, getcategorydata, categoryfull
 }
