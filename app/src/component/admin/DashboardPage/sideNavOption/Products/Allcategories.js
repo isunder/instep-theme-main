@@ -44,7 +44,7 @@ const Allcategories = () => {
     dispatch(allCategoryList());
   }, []);
   const handleImgeFile = (e) => {
-    const files = e.target.files;
+    const files = e.target.files; 
     const uniqueId = Date.now();
     let name = e.target.files[0].name;
     const filename = uniqueId + "_" + name;
@@ -140,7 +140,7 @@ s
                       </div>
                     </div>
                     <div>
-                      <div className="buttons">
+                      <div className="buttons d-flex justify-content-end">
                         <button className="addcatsubit_button" type="submit">
                           Submit
                         </button>

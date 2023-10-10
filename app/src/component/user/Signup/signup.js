@@ -42,8 +42,8 @@ const SignUp = () => {
       errors.email = "Required";
     }
 
-    if (!values.phoneNumber) {
-      errors.phoneNumber = "Required";
+    if (!values.number) {
+      errors.number = "Required";
     }
     if (!values.password) {
       errors.password = "Required";
@@ -58,7 +58,7 @@ const SignUp = () => {
 
   const initialValues = {
     username: "",
-    phoneNumber: "",
+    number: "",
     email: "",
     password: "",
     confirmpassword: "",
@@ -110,7 +110,7 @@ const SignUp = () => {
                           </div>
                         )}
                       </Field>
-                      <Field name="phoneNumber">
+                      <Field name="number">
                         {({ input, meta }) => (
                           <div className="mb-4">
                             {/* <label>Your name</label> */}

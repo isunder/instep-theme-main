@@ -75,60 +75,19 @@ const Home = () => {
 
   return (
     <>
-      <div className="container">
+      <div className="container-fluid">
         <div className=" slider_col margin_bottom">
           <div className="slider bvbvbvbvbvb">
-            <Carousel>
-              {/* <Carousel.Item interval={1000}>
-                <Row>
-                  <Col lg={6}>
-                    <div className="slider_left_cont">
-                      <div>
-                        <h5>100% genuine product</h5>
-                        <h1>Click & Collect</h1>
-                      </div>
-                      <Button className="slider_leftbutton" variant="light">
-                        Explore Now
-                      </Button>
-                      <Link to="/aboutus">
-                        <Button className="slider_rightbutton" variant="light">
-                          About Us
-                        </Button>
-                      </Link>
-                    </div>
-                  </Col>
-                  <Col lg={6}>
-                    <img
-                      className="slide_img"
-                      src=" https://freepngimg.com/thumb/ecommerce/12-2-ecommerce-png-picture.png"
-                      alt="First slide"
-                    />
-                  </Col>
-                </Row>
-              </Carousel.Item> */}
-              {/* {Array.isArray(dataslider) &&
-                dataslider.map((item, index) => {
-                  return (
-                    <Carousel.Item key={index}>
-                      <img
-                        className="abcccc slide_img"
-                        src={
-                          item?.images
-                            ? item?.images
-                            : `http://localhost:5000/uploads/1693806012738-Capture.PNG/${item.name}`
-                        }
-                        alt="Slide"
-                      />
-                    </Carousel.Item>
-                  );
-                })} */}
-              {dataslider &&
-                dataslider.length > 0 &&
-                dataslider?.map((item, index) => {
-                  return (
-                    <Carousel.Item interval={500}>
-                      <Row>
-                        <Col lg={6}>
+            <Row>
+              <Col lg={12}>
+                <Carousel>
+                  {" "}
+                  {dataslider &&
+                    dataslider.length > 0 &&
+                    dataslider?.map((item, index) => {
+                      return (
+                        <Carousel.Item interval={1000}>
+                          {/* <Col lg={6}>
                           <div className="slider_left_cont">
                             <div>
                               <p>100% genuine product</p>
@@ -149,53 +108,21 @@ const Home = () => {
                               </Button>
                             </Link>
                           </div>
-                        </Col>
-
-                        <Col lg={6}>
-                          {" "}
-                          <p>{item.name}</p>
-                          <img
-                            className="slide_img"
-                            src={`http://localhost:5000/slider/${item?.images[0]}`}
-                            alt="Second sslide"
-                          />
-                        </Col>
-                      </Row>
-                    </Carousel.Item>
-                  );
-                })}
-              {/* <Carousel.Item>
-                <Row>
-                  <Col lg={6}>
-                    <div className="slider_left_cont">
-                      <div>
-                        <p>100% genuine product</p>
-                        <h1>Click & Collect</h1>
-                      </div>
-                      <Button className="slider_leftbutton" variant="light">
-                        Explore Now{" "}
-                      </Button>
-                      <Link to="/aboutus">
-                        <Button className="slider_rightbutton" variant="light">
-                          About Us{" "}
-                        </Button>
-                      </Link>
-                    </div>
-                  </Col>
-                  <Col lg={6}>
-                    <img
-                      className="slide_img"
-                      src="https://www.pngall.com/wp-content/uploads/2016/06/Ecommerce-PNG-File.png"
-                      alt="Third slide 1st"
-                    />
-                  </Col>
-                  <Col lg={6}>
-                    <img className="slide_img" src="" alt="Third slide 2nd" />
-                  </Col>
-                </Row>
-                <Carousel.Caption></Carousel.Caption>
-              </Carousel.Item>{" "} */}
-            </Carousel>
+                        </Col> */}
+                          {/* <p>{item.name}</p> */}
+                          <div className="margin_bottom">
+                            <img
+                              className="slide_img"
+                              src={`http://localhost:5000/slider/${item?.images[0]}`}
+                              alt="Second sslide"
+                            />
+                          </div>
+                        </Carousel.Item>
+                      );
+                    })}
+                </Carousel>
+              </Col>
+            </Row>
           </div>
           <div>
             <Row>
@@ -207,36 +134,36 @@ const Home = () => {
                   <div className="category_borderdiv">
                     <Row>
                       {allcatgorydata.slice(0, 6).map((e) => {
-                        return (<>
-                          <Col lg={2} md={4}>
-                            <Link
-                              className="carddecorationnone_cat"
-                              to={`/category/${e._id}`}
-                            >
-                              <Card className="cat_card_homep">
-                                <div className="hoveron_arrow">
-                                  <div className="top_catcard">
-                                    <div className="pos_catimage">
-                                      <img
-                                        className="topcatimage_home"
-                                        src={`http://localhost:5000/categoryimg/${e.images}`
-
-                                        }
-                                        alt=""
-                                      />
+                        return (
+                          <>
+                            <Col lg={2} md={4} sm={4}>
+                              <Link
+                                className="carddecorationnone_cat"
+                                to={`/category/${e._id}`}
+                              >
+                                <Card className="cat_card_homep ">
+                                  <div className="hoveron_arrow">
+                                    <div className="top_catcard">
+                                      <div className="pos_catimage">
+                                        <img
+                                          className="topcatimage_home"
+                                          src={`http://localhost:5000/categoryimg/${e.images}`}
+                                          alt=""
+                                        />
+                                      </div>
+                                      <p>{e?.category}</p>
                                     </div>
-                                    <p>{e?.category}</p>
-                                  </div>
-                                  <div className="hoverarrow_direc">
-                                    <div className="right_bottomborder">
-                                      <FiArrowUpRight className="arrow-icon" />
+                                    <div className="hoverarrow_direc">
+                                      <div className="right_bottomborder">
+                                        <FiArrowUpRight className="arrow-icon" />
+                                      </div>
                                     </div>
                                   </div>
-                                </div>
-                              </Card>
-                            </Link>
-                          </Col>
-                        </>)
+                                </Card>
+                              </Link>
+                            </Col>
+                          </>
+                        );
                       })}
                     </Row>
                   </div>
@@ -250,7 +177,7 @@ const Home = () => {
             {banner?.map((item, index) => {
               return (
                 <>
-                  <Col lg={4}>
+                  <Col lg={4} md={4} sm={4}>
                     <div className="banner margin_bottom" key={index}>
                       <div>
                         <div>
@@ -302,7 +229,7 @@ const Home = () => {
               <Col lg={10}>
                 <Swiper
                   modules={[Navigation]}
-                  spaceBetween={5}
+                  spaceBetween={10}
                   slidesPerView={4}
                   navigation
                   pagination={{ clickable: true }}
@@ -328,8 +255,8 @@ const Home = () => {
                                       item?.image
                                         ? item?.image
                                         : item?.thumbnail.split(":").length > 1
-                                          ? item?.thumbnail
-                                          : `http://localhost:5000/uploads/${item.thumbnail}`
+                                        ? item?.thumbnail
+                                        : `http://localhost:5000/uploads/${item.thumbnail}`
                                     }
                                   />
                                 </div>
@@ -425,8 +352,8 @@ const Home = () => {
                                     e?.image
                                       ? e?.image
                                       : e?.thumbnail.split(":").length > 1
-                                        ? e?.thumbnail
-                                        : `http://localhost:5000/uploads/${e.thumbnail}`
+                                      ? e?.thumbnail
+                                      : `http://localhost:5000/uploads/${e.thumbnail}`
                                   }
                                 />
                               </div>
@@ -457,7 +384,7 @@ const Home = () => {
           </div>
           <div className="my-4">
             <Row>
-              <Col lg={4}>
+              <Col lg={4} md={4}>
                 <div className="homefashion_border">
                   <div className="d-flex justify-content-between ">
                     <h4>Men's Top Fashion</h4>
@@ -467,7 +394,7 @@ const Home = () => {
                     {/* {data.map((e) => {
                     if (e.category === "home&kitchen") {
                       return ( */}
-                    <Col lg={6}>
+                    <Col lg={6} md={6}>
                       <div className="my-2">
                         <div className="hometop_fashionbo_der">
                           <img
@@ -485,7 +412,7 @@ const Home = () => {
                         </div>
                       </div>
                     </Col>
-                    <Col lg={6}>
+                    <Col lg={6} md={6}>
                       <div className="my-2">
                         <div className="hometop_fashionbo_der">
                           <img
@@ -508,7 +435,7 @@ const Home = () => {
                   })} */}
                   </Row>
                   <Row>
-                    <Col lg={6}>
+                    <Col lg={6} md={6}>
                       <div className="my-2">
                         <div className="hometop_fashionbo_der">
                           <img
@@ -526,7 +453,7 @@ const Home = () => {
                         </div>
                       </div>
                     </Col>
-                    <Col lg={6}>
+                    <Col lg={6} md={6}>
                       <div className="my-2">
                         <div className="hometop_fashionbo_der">
                           <img
@@ -547,7 +474,7 @@ const Home = () => {
                   </Row>
                 </div>
               </Col>
-              <Col lg={4}>
+              <Col lg={4} md={4}>
                 <div className="homefashion_border">
                   <div className="d-flex justify-content-between ">
                     <h4>Women's Top Fashion</h4>
@@ -557,7 +484,7 @@ const Home = () => {
                     {/* {data.map((e) => {
                     if (e.category === "home&kitchen") {
                       return ( */}
-                    <Col lg={6}>
+                    <Col lg={6} md={6}>
                       <div className="my-2">
                         <div className="hometop_fashionbo_der">
                           <img
@@ -575,7 +502,7 @@ const Home = () => {
                         </div>
                       </div>
                     </Col>
-                    <Col lg={6}>
+                    <Col lg={6} md={6}>
                       <div className="my-2">
                         <div className="hometop_fashionbo_der">
                           <img
@@ -598,7 +525,7 @@ const Home = () => {
                   })} */}
                   </Row>
                   <Row>
-                    <Col lg={6}>
+                    <Col lg={6} md={6}>
                       <div className="my-2">
                         <div className="hometop_fashionbo_der">
                           <img
@@ -616,7 +543,7 @@ const Home = () => {
                         </div>
                       </div>
                     </Col>
-                    <Col lg={6}>
+                    <Col lg={6} md={6}>
                       <div className="my-2">
                         <div className="hometop_fashionbo_der">
                           <img
@@ -637,7 +564,7 @@ const Home = () => {
                   </Row>
                 </div>
               </Col>
-              <Col lg={4}>
+              <Col lg={4} md={4} >
                 <div className="sports_bannerhomepage">
                   <div className="sportscontent_align">
                     <div>

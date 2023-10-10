@@ -93,14 +93,14 @@ const Usernavbar = () => {
             <Row>
               <Col lg={12}>
                 <div className="subnewbar_nav">
-                  <div>
+                  <div className="intcrt">
                     <p>Welcome to our Instep Store</p>
                   </div>
-                  <div>
+                  <div className="intcrt">
                     <AiOutlineMail />
                     instepcart@mail.com
-                    <p></p>
                   </div>
+                  <div className="onmobiled-show">INSTEPCART</div>
                   <div className="subnewbar_content">
                     <div>
                       <div className="navbarhead_prop">
@@ -213,7 +213,7 @@ const Usernavbar = () => {
                       </div>
                       <div className="Nav_link">
                         {userData && userLogin ? (
-                          <Link  to="/addtocart">
+                          <Link to="/addtocart">
                             <HiOutlineShoppingCart className="navbar_new_icon" />
                             <span className="navbar_new_icon_length">
                               {console.log(myCartL, "TRIGGERED")}
@@ -296,15 +296,22 @@ const Usernavbar = () => {
                       <div className="mid_navnewconent mid_offcanvas mobile_mid_navnewconent">
                         <div className="Nav_link">
                           <Accordion defaultActiveKey={[""]} alwaysOpen>
-                            <Accordion.Item eventKey="">
+                            <Accordion.Item eventKey="1">
                               <Accordion.Header>Category</Accordion.Header>
                               <Accordion.Body>
-                                <p>Electronics</p>
-                                <p>Men</p>
-                                <p>Women</p>
-                                <p>Home & Kitchen</p>
-                                <p>Appliances</p>
-                                <p>Sports & More</p>
+                                {navcategorydata &&
+                                  navcategorydata.map((e) => {
+                                    return (
+                                      <>
+                                        <Link
+                                          className="navcat_deco"
+                                          to={`/category/${e._id}`}
+                                        >
+                                          <p key={e}>{e?.category}</p>
+                                        </Link>
+                                      </>
+                                    );
+                                  })}
                               </Accordion.Body>
                             </Accordion.Item>
                           </Accordion>
@@ -314,9 +321,25 @@ const Usernavbar = () => {
                             </ul>
                           </div>
                         </div>
-                        <div className="Nav_link">Home</div>
-                        <div className="Nav_link">Products</div>
-                        <div className="Nav_link">Pages</div>
+                        <div className="Nav_link">
+                          {" "}
+                          <Link
+                            className="Nav_link carddecorationnone_cat"
+                            to="/"
+                          >
+                            Home
+                          </Link>
+                        </div>
+                        <div className="Nav_link">
+                          {" "}
+                          <Link
+                            className="Nav_link carddecorationnone_cat"
+                            to="/allproduct"
+                          >
+                            Products
+                          </Link>
+                        </div>
+                        {/* <div className="Nav_link">Pages</div> */}
                       </div>
                     </Offcanvas.Body>
                   </Offcanvas>

@@ -55,39 +55,41 @@ function Categorywise() {
               </Row>
             </div>
           </Col>{" "}
-          <Table>
-            <thead>
-              <tr>
-                <th>S/L</th>
-                <th>Category Name </th>
-                <th className="table_colmn">Total Sales</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>Fresh organic</td>
-                <td className="table_colmn num_bers">80</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Fresh fruit</td>
-                <td className="table_colmn num_bers">67</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>vegetable </td>
-                <td className="table_colmn num_bers">70</td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>Breakfast </td>
-                <td className="table_colmn num_bers">60</td>
-              </tr>
-            </tbody>
-          </Table>
-          Showing 1-15 of 15 results
+          <Col>
+            <Table>
+              <thead>
+                <tr>
+                  <th>S/L</th>
+                  <th>Category Name </th>
+                  <th className="table_colmn">Total Sales</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Fresh organic</td>
+                  <td className="table_colmn num_bers">80</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Fresh fruit</td>
+                  <td className="table_colmn num_bers">67</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>vegetable </td>
+                  <td className="table_colmn num_bers">70</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>Breakfast </td>
+                  <td className="table_colmn num_bers">60</td>
+                </tr>
+              </tbody>
+            </Table>
+          </Col>
           <div className="table_pageination">
+            <div>Showing 1-30 of 36 results</div>
             <Pagination>{items}</Pagination>
           </div>
         </Row>
