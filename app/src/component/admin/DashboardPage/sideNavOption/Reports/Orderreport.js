@@ -194,9 +194,9 @@ function Orderreport() {
               </tr>
             </tbody>
           </Table>
-          Showing 1-15 of 29 results
         </Col>
         <div className="table_pageination">
+          <div>Showing 1-30 of 36 results</div>
           <Pagination>{items}</Pagination>
         </div>
       </Row>
