@@ -4,6 +4,7 @@ const brandtable = require("../models/brandSchema")
 const Userproducts = require("../models/ProductsSchema");
 const subcategorytable = require("../models/subcategorytable");
 const categorytable = require("../models/categorytable");
+const typeofsubcategorytable = require("../models/typesubcarte");
 
 const adddCategory = async (req, res) => {
     console.log(req.body.userData, "data")
@@ -70,6 +71,33 @@ const getcategorydata = async (req, res) => {
 
 }
 
+//  api for filter subvcategory
+const getcategoryfind = async (req, res) => {
+
+    if (!req.body.category_id) {
+        const categories = await modelcategory.find();
+        if (categories.length > 0) {
+            res.send(categories);
+        } else {
+            res.send({ result: "No categories found" });
+        }
+    } else if ( req.body.category_id ) {
+
+        try {
+            const getdata = await subcategorytable.find({ category_id: req.body.category_id });
+            if (getdata.length > 0) {
+                res.send(getdata);
+            } else {
+                res.send({ result: "no category  found" });
+            }
+
+        } catch (error) {
+            res.status(400).send({ succes: false, msg: error.message })
+
+        }
+    }
+
+}
 
 
 const filtercategory = async (req, res) => {
@@ -94,17 +122,26 @@ const filtercategory = async (req, res) => {
             } catch (error) {
                 res.send({ result: "no category_id found" });
             }
-        } else if (subcategory_id) {
-            console.log(subcategory_id, "ggggggg")
-            const filter = await brandtable.find({ subcategory_id: subcategory_id })
-            console.log(filter, "filter");
-            try {
-                res.send(filter);
-            } catch (error) {
-                res.send({ result: "no subcategory id found" });
-            }
+        } else
+            if (subcategory_id) {
+                console.log(subcategory_id, "ggggggg")
+                let data = []
+                const filter = await typeofsubcategorytable.find({ subcategory_id: subcategory_id })
+                if (filter?.length == 0) {
+                    data = [filter]
+                } else {
+                const filter = await brandtable.find({ subcategory_id: subcategory_id })
 
-        }
+                    data = [filter]
+                }
+                console.log(filter, "filter");
+                try {
+                    res.send(filter);
+                } catch (error) {
+                    res.send({ result: "no subcategory id found" });
+                }
+
+            }
     } catch (error) {
         res.status(500).send({ error: "An error occurred while fetching categories" });
     }
@@ -118,24 +155,20 @@ const categoryfull = async (req, res) => {
             const categoryId = req.body.categoryid;
 
 
-            const sabID = await subcategorytable.find({ category_id: categoryId })
+          
 
-            console.log(sabID._id, "Dddddddddddd")
-            let subcategoryid;
-            sabID.forEach(subcategory => {
-                console.log(subcategory._id, "Dddddddddddd");
-                subcategoryid = subcategory._id
-            });
-            await brandtable.deleteMany({ subcategory_id: subcategoryid });
+           
+            await brandtable.deleteMany({ category_id: categoryId });
+            await typeofsubcategorytable.deleteMany({ category_id: categoryId });
 
 
             await subcategorytable.deleteMany({ category_id: categoryId });
+            await Userproducts.deleteMany({ category: categoryId });
+
+            
 
 
-            await categorytable.deleteMany({ _id: categoryId });
-
-
-            const productDlt = await Userproducts.deleteMany({ category: categoryId });
+            const productDlt = await categorytable.findByIdAndDelete({ _id: categoryId });
 
 
             res.status(200).send({ result: productDlt, success: true });
@@ -149,5 +182,5 @@ const categoryfull = async (req, res) => {
 }
 
 module.exports = {
-    adddCategory, filtercategory, getcategorydata, categoryfull
+    adddCategory, filtercategory, getcategorydata, categoryfull, getcategoryfind
 }

@@ -22,7 +22,7 @@ const addnewcategory = require("./router/categoryRought");
 const addnewSubcategory = require("./router/subCategory");
 const addnewbrand = require("./router/BrandRought");
 const addtocart = require("./router/addtocartRought");
-
+const typesubcategory=require("./router/typeSubcat")
 dotenv.config();
 
 const DB =
@@ -53,6 +53,8 @@ server.use("/api", addnewSubcategory);
 server.use("/api", addnewbrand);
 // addto cart api
 server.use("/api", addtocart);
+server.use("/api", typesubcategory);
+
 
 // server.post("/api/register", async (req, res) => {
 //   const { email, password, username } = req.body;

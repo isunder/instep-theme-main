@@ -1,6 +1,10 @@
 
+const brandtable = require("../models/brandSchema");
 const SUBCATEGORY = require("../models/subcategorytable")
 const subcategorytable = require("../models/subcategorytable");
+const typeofsubcategorytable = require("../models/typesubcarte");
+const Userproducts = require("../models/ProductsSchema");
+
 
 const create_subcategory = async (req, res) => {
 
@@ -52,18 +56,16 @@ const deletesubcategory = async (req, res) => {
 
         if (req.body && req.body.subcategoryid) {
 
-
             const subcategoryId = req.body.subcategoryid;
-           
+            await Userproducts.deleteMany({ subcategory: subcategoryId });
             await brandtable.deleteMany({ subcategory_id: subcategoryId });
-
-            await subcategorytable.deleteMany({ subcategory_id: subcategoryId });
-            
-
-            const productDlt = await Userproducts.deleteMany({ subcategory: subcategoryId });
+            await typeofsubcategorytable.deleteMany({ subcategory_id: subcategoryId });
 
 
-            res.status(200).send({ result: productDlt, success: true });
+            const productDlt = await subcategorytable.findByIdAndDelete({ _id: subcategoryId });
+
+
+            res.status(200).send({ result: productDlt, success: true, msg: "subcategory dlt,typesubcategorydlt , brand dlt and products" });
 
 
 
@@ -78,6 +80,33 @@ const deletesubcategory = async (req, res) => {
     }
 }
 
+
+//  api for filter typesubcategory
+const findtypesub = async (req, res) => {
+    console.log("test")
+    if (req.body.subcategory_id) {
+        console.log(req.body.subcategory_id, "ggggggg")
+        let data = []
+        const filtertypesucat = await typeofsubcategorytable.find({ subcategory_id: req.body.subcategory_id })
+        const filterbrand = await brandtable.find({ subcategory_id: req.body.subcategory_id })
+        if (filtertypesucat?.length == 0) {
+            data = [filterbrand]
+        } else {
+
+            data = [filtertypesucat]
+
+        }
+        console.log(data, "filter");
+        try {
+            res.send(data);
+        } catch (error) {
+            res.send({ result: "no subcategory id found" });
+        }
+
+    }
+
+
+}
 module.exports = {
-    create_subcategory, subcategorydata, deletesubcategory
+    create_subcategory, subcategorydata, deletesubcategory, findtypesub
 }
