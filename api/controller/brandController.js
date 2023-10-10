@@ -1,58 +1,44 @@
+const Userproducts = require("../models/ProductsSchema");
+const brandtable = require("../models/brandSchema");
 const brands = require("../models/brandSchema")
+
+
 const create_brand = async (req, res) => {
     try {
-        const check_sub = await brands.find({ subcategory_id: req.body.subcategory_id, })
-        console.log(check_sub, "dddddddddddd")
-        const savebrand = new brands({
-            // category_id: req.body.category_id,
+        const filter = {
+            category_id: req.body.category_id,
             subcategory_id: req.body.subcategory_id,
-            brand: req.body.brand
-        })
-        const brand_cat_data = await savebrand.save()
-        res.status(200).send({ sucess: true, msg: "brand details", data: brand_cat_data })
+        };
 
-        // if (check_sub.length > 0) {
+        if (req.body.typesubcategory_id) {
+            filter.type_subcategory_id = req.body.typesubcategory_id;
+            filter.brand = req.body.brand;
+        } else if (req.body.brand) {
+            filter.brand = req.body.brand;
+        } else {
+            console.log("nothing")
+        }
 
-        //     let checking = false
-        //     for (let i = 0; i < check_sub.length; i++) {
-        //         console.log(req.body.brand, "Ddddddddddddddddd")
+        console.log(req.body.typesubcategory_id, req.body.brand, "dddddddddddd")
+        // Check if a brand with the same subcategory_id already exists.
+        const existingBrand = await brands.findOne({ brand: req.body.brand });
+        // console.log(existingBrand, "exist")
 
-
-        //         if (check_sub[i]['brand'].toLowerCase() === req.body.brand.toLowerCase()) {
-        //             checking = true;
-        //             break;
-        //         }
-
-        //     }
-        //     if (checking === false) {
-
-
-        //         const savebrand = new brands({
-        //             // category_id: req.body.category_id,
-        //             subcategory_id: req.body.subcategory_id,
-        //             brand: req.body.brand
-        //         })
-        //         const brand_cat_data = await savebrand.save()
-        //         res.status(200).send({ sucess: true, msg: "brand details", data: brand_cat_data })
-
-        //     } else {
-        //         res.status(200).send({ sucess: true, msg: "this brand (" + req.body.brand + ") is exist", })
-
-
-        //     }
-        // } else {
-
-
-        // }
-
-
-
+        if (existingBrand) {
+            // If a brand with the same subcategory_id exists, return a response indicating it already exists.
+            res.status(200).send({ success: false, msg: "Brand with the same subcategory already exists", data: existingBrand });
+        } else {
+            // If no brand with the same subcategory_id is found, create a new brand.
+            const newBrand = new brands(filter);
+            const brand_cat_data = await newBrand.save();
+            res.status(200).send({ success: true, msg: "Brand details created", data: brand_cat_data });
+        }
     } catch (error) {
-
-        res.status(400).send({ sucess: false, msg: error.message })
-
+        res.status(400).send({ success: false, msg: error.message });
     }
-}
+};
+
+
 const brandgetdata = async (req, res) => {
     try {
         const getdata = await brands.find();
@@ -70,31 +56,42 @@ const brandgetdata = async (req, res) => {
 }
 
 const deletebrand = async (req, res) => {
-
     try {
         const { _id } = req.body;
 
-
-        const deletedbrand = await brands.findByIdAndDelete(_id);
-
-        if (!deletedbrand) {
-            // If the product with the given ID doesn't exist, return an error response
-            return res.status(404).json({ message: "brand not found" });
+        if (!_id) {
+            return res.status(400).json({ error: "Invalid request, provide _id for brand deletion" });
         }
 
-        // Return the deleted product
+        // Assuming Userproducts and brands are properly defined or imported
+        await Userproducts.deleteMany({ brand: _id });
+        const deletedBrand = await brands.findByIdAndDelete(_id);
 
-        // res.send(deletedcategory)
-        res.status(200).send({ success: true, msg: "brand data delete", data: deletedbrand })
+        if (!deletedBrand) {
+            return res.status(404).json({ error: "Brand not found", data: deletedBrand });
+        }
 
-
-        console.log("delete done category");
+        res.status(200).json({ success: true, msg: "Deleted brand and related user products" });
     } catch (error) {
-        // Handle any errors that occurred during the delete process
-        res.status(500).json({ message: "Server error" });
+        // Handle specific errors here, e.g., validation error or database error
+        res.status(500).json({ error: error.message });
+    }
+};
+
+const filtertypesubbrand = async (req, res) => {
+    console.log("test");
+    try {
+        console.log(req.body.typesubcategory_id, "ssssssssssss");
+
+        // Assuming brandtable.find returns a promise
+        const filter = await brandtable.find({ type_subcategory_id: req.body.typesubcategory_id });
+
+        res.status(200).send({ success: true, data: filter });
+    } catch (error) {
+        res.status(400).send({ success: false, msg: error.message });
     }
 }
 
 module.exports = {
-    create_brand, brandgetdata, deletebrand
+    create_brand, brandgetdata, deletebrand, filtertypesubbrand
 }
