@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Container, Dropdown, Form, Navbar, Offcanvas } from "react-bootstrap";
+import { Container, Dropdown, Navbar, Offcanvas } from "react-bootstrap";
 import { BsGlobe2 } from "react-icons/bs";
-import { FiSearch } from "react-icons/fi";
 import { IoMdPerson } from "react-icons/io";
 import { MdOutlineNotificationsActive } from "react-icons/md";
 import { useNavigate } from "react-router";
@@ -42,34 +41,14 @@ function Mainheader() {
                     <Navbar.Brand className="" href="#">
                       INSTEPCART{" "}
                     </Navbar.Brand>
-                    {/* <Form className="d-flex Navsearch_bar">
-                  <FiSearch className="allproduct_searchicon " />{" "}
-                  <Form.Control
-                    type="text"
-                    placeholder="Search..."
-                    className=" mr-sm-2 navsearch"
-                  />
-                  <Button variant="outline-success">Search</Button>
-                </Form> */}
-                    <Button
-                      variant="primary"
-                      className="offcanvas_toggole_btn for_mobile"
-                      onClick={handleShow}
-                    >
-                      <span className="navbar-toggler-icon"></span>
-                    </Button>
                   </div>
+
                   <div className="Navbaricons hide_for_mobile">
                     <div className="navicon_heading">
                       <BsGlobe2 className="navicons" /> visit store
                     </div>
 
                     <MdOutlineNotificationsActive className="navicons" />
-                    {/* <img
-                    className="profile_img"
-                    src="https://grostore.themetags.com/public/uploads/media/65bad2tYppDLFCZ2JzveKJtJX7NiX6sznq5VmUS1.jpg"
-                    alt=""
-                  /> */}
                     <Dropdown data-bs-theme="">
                       <Dropdown.Toggle
                         id="dropdown-button-dark-example1"
@@ -94,12 +73,18 @@ function Mainheader() {
                           <GoSignOut />
                           Sign Out
                         </Dropdown.Item>
-                        {/* <Dropdown.Divider /> */}
-                        {/* <Dropdown.Item href="#/action-4">
-                        Separated link
-                      </Dropdown.Item> */}
                       </Dropdown.Menu>
                     </Dropdown>
+                  </div>
+                  <div>
+                    {" "}
+                    <Button
+                      variant="primary"
+                      className="offcanvas_toggole_btn for_mobile"
+                      onClick={handleShow}
+                    >
+                      <span className="navbar-toggler-icon"></span>
+                    </Button>
                   </div>
                   <Button
                     variant="primary"
@@ -116,14 +101,12 @@ function Mainheader() {
                     </Offcanvas.Header>
                     <Offcanvas.Body className="offcanvas_inner_body">
                       <div className="Navbaricons for_only_mobile">
-                        <div>
+                        {/* <div>
                           <Button onClick={() => SignClick()}>sigin</Button>
-                        </div>
+                        </div> */}
                         <div className="navicon_heading">
                           <BsGlobe2 className="navicons" /> visit store
                         </div>
-
-                        <MdOutlineNotificationsActive className="navicons" />
                         <img
                           className="profile_img"
                           src="https://grostore.themetags.com/public/uploads/media/65bad2tYppDLFCZ2JzveKJtJX7NiX6sznq5VmUS1.jpg"

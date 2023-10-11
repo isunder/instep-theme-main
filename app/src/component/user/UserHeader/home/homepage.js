@@ -291,7 +291,6 @@ const Home = () => {
               </Col>
             </Row>
           </div>
-
           <div className="homeelectnics_carouse ">
             <Row>
               <Col lg={2} className="fistcardof_elct">
