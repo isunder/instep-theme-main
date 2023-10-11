@@ -22,6 +22,10 @@ const AllProductDetail = () => {
   console.log(filterAll, "filterAll");
 
   const [Wishlist, showwishilist] = useState();
+  
+  const click = (color) =>{
+    showwishilist(color)
+  }
   useEffect(() => {
     dispatch(getProductAction());
     dispatch(AllFilterationData());
@@ -74,12 +78,13 @@ const AllProductDetail = () => {
   return (
     <form className="container-fluid  slider_col ">
       <Row>
-        <Subcaregoryfilter
+        // <Subcaregoryfilter
         // onCategoryChange={handleCategoryChange}
         // onPriceRangeChange={handlePriceRangeChange}
         // onBrandChange={handleBrandChange}
-        />
-        <Col lg={2}>
+        // />
+        // <Col lg={2}>
+        <Col lg={2} md={2} sm={2}>
           {" "}
           <Subcaregoryfilter />
           <div className="leftfilter_bar">
@@ -224,7 +229,7 @@ const AllProductDetail = () => {
             </div>
           </div>
         </Col>
-        <Col lg={10}>
+        <Col lg={10} md={10} sm={10}>
           <div className="subcarhide margin_bottom">
             <div className="subcategory_topcontent">
               <div>

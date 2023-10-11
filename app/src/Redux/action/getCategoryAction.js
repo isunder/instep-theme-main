@@ -12,7 +12,7 @@ export const axiosInstance = axios.create({
 export const allCategoryList = createAsyncThunk(
   "getcategoryonly",
   async (payload) => {
-    const data1 = await axiosInstance.get(`/getOnlycategory`, payload);
+    const data1 = await axiosInstance.post(`/getOnlycategory`, payload);
     return data1.data;
   }
 );

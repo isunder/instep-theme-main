@@ -101,7 +101,7 @@ function Allproducts(params) {
                 />
               </div>
               <div className="btngroup">
-                <Dropdown>
+                {/* <Dropdown>
                   <Dropdown.Toggle
                     className="select_button"
                     variant="success"
@@ -136,7 +136,7 @@ function Allproducts(params) {
                       Something else
                     </Dropdown.Item>
                   </Dropdown.Menu>
-                </Dropdown>
+                </Dropdown> */}
                 <Button className="select_button " type="submit">
                   {" "}
                   <AiOutlineSearch /> search

@@ -8,13 +8,13 @@ import {
 } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { BiSolidStarHalf } from "react-icons/bi";
-import { getToken } from '../../../utils/auth'
+import { getUserId } from "../../../utils/auth";  
 
 const Delieverydetail = () => {
   const [showCol, setShowCol] = useState("login");
 
-  const userLogin = getToken()
-  console.log(userLogin,"gopllaaaa")
+  const userLogin = getUserId();
+  console.log(userLogin, "gopllaaaa");
 
   return (
     <>
@@ -33,7 +33,7 @@ const Delieverydetail = () => {
                       </p>
                     </div>
                     <div className="individual_info">
-                      <p>Name</p>
+                      <p>{userLogin.username}</p>
                       <p>Contact No.</p>
                     </div>
                   </div>

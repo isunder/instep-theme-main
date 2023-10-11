@@ -9,8 +9,8 @@ router.post("/addcategory", categoeyupload.fields([
     { name: "images", maxCount: 1 },
 ]), CategoryControlermain.adddCategory);
 router.post("/getcategory", CategoryControlermain.filtercategory);
-router.get("/getOnlycategory", CategoryControlermain.getcategorydata);
-// router.post("/Deletecategory", CategoryControlermain.deletecategory);
+router.post("/getOnlycategory", CategoryControlermain.getcategorydata);
+router.post("/getcategoryfind", CategoryControlermain.getcategoryfind);
 router.post("/Deletecategory", CategoryControlermain.categoryfull);
 
 

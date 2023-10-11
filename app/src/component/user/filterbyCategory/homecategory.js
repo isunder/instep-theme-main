@@ -7,7 +7,7 @@ import Subcaregoryfilter from "./SubcaregoryMobilefilter";
 import { BiChevronRight } from "react-icons/bi";
 import SubCategoryfilter from "./subCategoryfilter";
 import { AllFilterationData } from "../../../Redux/action/allFilterationAction";
-import {BsFillHeartFill} from "react-icons/bs"
+import { BsFillHeartFill } from "react-icons/bs";
 
 const Homecategory = () => {
   const dispatch = useDispatch();
@@ -28,14 +28,14 @@ const Homecategory = () => {
 
   return (
     <>
-      <div className="slider_col ">
+      <div className="container-fluid pt-5">
         <Row>
-          <Col lg={2}>
+          <Col lg={2} md={3} sm={4}>
             {" "}
             <Subcaregoryfilter />
             <SubCategoryfilter />
           </Col>
-          <Col lg={10}>
+          <Col lg={10} md={9} sm={8}>
             <div className="subcarhide">
               <div className="subcategory_topcontent">
                 <div>
@@ -79,10 +79,10 @@ const Homecategory = () => {
                         to={`/productdetail/${item._id}`}
                       >
                         <div className="subcatkitechenmaindiv margin_bottom">
-                          <Col lg={3}>
-                          <div className="d-flex justify-content-end mt-2 mx-2">
-                            <BsFillHeartFill style={{ color: "#808080" }} />
-                          </div>
+                          <Col lg={4} md={4} sm={4}>
+                            <div className="d-flex justify-content-end mt-2 mx-2">
+                              <BsFillHeartFill style={{ color: "#808080" }} />
+                            </div>
                             <div>
                               <img
                                 className="subcatkitchen_image"
@@ -99,7 +99,7 @@ const Homecategory = () => {
                               />
                             </div>
                           </Col>
-                          <Col lg={6}>
+                          <Col lg={6} md={6} sm={4}>
                             <div className="p-4">
                               <div className="subcatitem_cont">
                                 {" "}
@@ -111,7 +111,7 @@ const Homecategory = () => {
                               </div>
                             </div>
                           </Col>
-                          <Col lg={3}>
+                          <Col lg={2} md={2} snm={4}>
                             <div className="p-4">
                               <h5> ₹{item?.price}</h5>
                             </div>
