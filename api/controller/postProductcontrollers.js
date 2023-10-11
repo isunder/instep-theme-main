@@ -60,52 +60,93 @@ const postproduct = expressAsyncHandler(async (req, res) => {
 // get all products
 const getproduct = expressAsyncHandler(async (req, res) => {
   try {
-    const page = parseInt(req.body.page) || 1; // Default to page 1
-    const perPage = parseInt(req.body.perPage) || 10; // Default to 10 items per page
+    const page = parseInt(req.body.page) ; // Default to page 1
+    const perPage = parseInt(req.body.perPage) ; // Default to 10 items per page
 
     const skip = (page - 1) * perPage;
 
-    const products = await Userproducts.aggregate([
-      {
-        $lookup: {
-          from: "categorytables",
-          localField: "category",
-          foreignField: "_id",
-          as: "category"
+    if (page && perPage) {
+      const products = await Userproducts.aggregate([
+        {
+          $lookup: {
+            from: "categorytables",
+            localField: "category",
+            foreignField: "_id",
+            as: "category"
+          }
+        },
+        {
+          $lookup: {
+            from: "subcategorytables",
+            localField: "subcategory",
+            foreignField: "_id",
+            as: "subcategory"
+          }
+        },
+        {
+          $lookup: {
+            from: "brandtables",
+            localField: "brand",
+            foreignField: "_id",
+            as: "brand"
+          }
+        },
+        {
+          $skip: skip // Skip items based on the page number
+        },
+        {
+          $limit: perPage // Limit the number of items per page
         }
-      },
-      {
-        $lookup: {
-          from: "subcategorytables",
-          localField: "subcategory",
-          foreignField: "_id",
-          as: "subcategory"
-        }
-      },
-      {
-        $lookup: {
-          from: "brandtables",
-          localField: "brand",
-          foreignField: "_id",
-          as: "brand"
-        }
-      },
-      {
-        $skip: skip // Skip items based on the page number
-      },
-      {
-        $limit: perPage // Limit the number of items per page
+      ]);
+
+      // Log the products to inspect the results
+      console.log("Products:", JSON.stringify(products, null, 2));
+
+      if (products.length > 0) {
+        res.status(200).json(products);
+      } else {
+        res.status(404).json({ result: "No products found" });
       }
-    ]);
 
-    // Log the products to inspect the results
-    console.log("Products:", JSON.stringify(products, null, 2));
-
-    if (products.length > 0) {
-      res.status(200).json(products);
     } else {
-      res.status(404).json({ result: "No products found" });
+      const products = await Userproducts.aggregate([
+        {
+          $lookup: {
+            from: "categorytables",
+            localField: "category",
+            foreignField: "_id",
+            as: "category"
+          }
+        },
+        {
+          $lookup: {
+            from: "subcategorytables",
+            localField: "subcategory",
+            foreignField: "_id",
+            as: "subcategory"
+          }
+        },
+        {
+          $lookup: {
+            from: "brandtables",
+            localField: "brand",
+            foreignField: "_id",
+            as: "brand"
+          }
+        }
+      ]);
+
+      // Log the products to inspect the results
+      console.log("Products:", JSON.stringify(products, null, 2));
+
+      if (products.length > 0) {
+        res.status(200).json(products);
+      } else {
+        res.status(404).json({ result: "No products found" });
+      }
+
     }
+
   } catch (error) {
     res
       .status(500)

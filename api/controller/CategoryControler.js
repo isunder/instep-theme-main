@@ -57,12 +57,32 @@ const adddCategory = async (req, res) => {
 
 const getcategorydata = async (req, res) => {
     try {
-        const getdata = await modelcategory.find();
-        if (getdata.length > 0) {
-            res.send(getdata);
+
+        const page = parseInt(req.body.page); // Default to page 1
+        const perPage = parseInt(req.body.perPage); // Default to 10 items per page
+
+        const skip = (page - 1) * perPage;
+        if (perPage && page) {
+
+            const getdata = await modelcategory.find().skip(skip).limit(perPage);
+            if (getdata.length > 0) {
+                res.send(getdata);
+            } else {
+                res.send({ result: "no category  found" });
+            }
         } else {
-            res.send({ result: "no category  found" });
+
+            const getdata = await modelcategory.find();
+            if (getdata.length > 0) {
+                res.send(getdata);
+            } else {
+                res.send({ result: "no category  found" });
+            }
         }
+
+
+
+
 
     } catch (error) {
         res.status(400).send({ succes: false, msg: error.message })
@@ -81,7 +101,7 @@ const getcategoryfind = async (req, res) => {
         } else {
             res.send({ result: "No categories found" });
         }
-    } else if ( req.body.category_id ) {
+    } else if (req.body.category_id) {
 
         try {
             const getdata = await subcategorytable.find({ category_id: req.body.category_id });
@@ -130,7 +150,7 @@ const filtercategory = async (req, res) => {
                 if (filter?.length == 0) {
                     data = [filter]
                 } else {
-                const filter = await brandtable.find({ subcategory_id: subcategory_id })
+                    const filter = await brandtable.find({ subcategory_id: subcategory_id })
 
                     data = [filter]
                 }
@@ -155,9 +175,9 @@ const categoryfull = async (req, res) => {
             const categoryId = req.body.categoryid;
 
 
-          
 
-           
+
+
             await brandtable.deleteMany({ category_id: categoryId });
             await typeofsubcategorytable.deleteMany({ category_id: categoryId });
 
@@ -165,7 +185,7 @@ const categoryfull = async (req, res) => {
             await subcategorytable.deleteMany({ category_id: categoryId });
             await Userproducts.deleteMany({ category: categoryId });
 
-            
+
 
 
             const productDlt = await categorytable.findByIdAndDelete({ _id: categoryId });

@@ -41,12 +41,29 @@ const create_brand = async (req, res) => {
 
 const brandgetdata = async (req, res) => {
     try {
-        const getdata = await brands.find();
-        if (getdata.length > 0) {
-            res.send(getdata);
+        const page = parseInt(req.body.page); // Default to page 1
+        const perPage = parseInt(req.body.perPage); // Default to 10 items per page
+
+        const skip = (page - 1) * perPage;
+        
+        if (page && perPage) {
+
+            const getdata = await brands.find().skip(skip).limit(perPage);
+            if (getdata.length > 0) {
+                res.send(getdata);
+            } else {
+                res.send({ result: "no brands  found" });
+            }
         } else {
-            res.send({ result: "no brands  found" });
+
+            const getdata = await brands.find()
+            if (getdata.length > 0) {
+                res.send(getdata);
+            } else {
+                res.send({ result: "no brands  found" });
+            }
         }
+
 
     } catch (error) {
         res.status(400).send({ succes: false, msg: error.message })
