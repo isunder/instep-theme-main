@@ -65,8 +65,8 @@ const ProductDetails = () => {
         <Row>
           <Col className="singlecard_posit" lg={4}>
             <Card className="shoppingcard_bor">
-              <div className="margin_bottom ">
-                <ReactImageMagnify
+              <div className="margin_bottom magni_fieralign">
+                <ReactImageMagnify 
                   {...{
                     smallImage: {
                       alt: "Wristwatch by Ted Baker London",
@@ -188,7 +188,7 @@ const ProductDetails = () => {
                   </p>
                   <p>View 10 more offers</p>
                 </Card.Subtitle>
-                <div className="delivery_code">
+                <div className="delivery_code margin_bottom">
                   <h5>Delivery</h5>
                   <div>
                     <CiLocationOn className="deliverylocationcode" />
