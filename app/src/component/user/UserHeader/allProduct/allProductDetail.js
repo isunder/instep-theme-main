@@ -6,27 +6,84 @@ import { Accordion, Card, Col, Row } from "react-bootstrap";
 import { BiChevronRight } from "react-icons/bi";
 import Subcaregoryfilter from "../../filterbyCategory/SubcaregoryMobilefilter";
 import { BsFillHeartFill } from "react-icons/bs";
+import { AllFilterationData } from "../../../../Redux/action/allFilterationAction";
 
 const AllProductDetail = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state?.getproductdata?.listdata);
   console.log(data, "aaaaaabbbbbbbbbss");
 
-  const [Wishlist, showwishilist]=useState()
+  const [filteredData, setFilteredData] = useState(data); // State to hold filtered data
+  const [filterCriteria, setFilterCriteria] = useState({}); // State to hold filter criteria
+
+  const filterAll = useSelector(
+    (state) => state?.filterationalltype?.listdata?.data
+  );
+  console.log(filterAll, "filterAll");
+
+  const [Wishlist, showwishilist] = useState();
+  
   const click = (color) =>{
     showwishilist(color)
   }
   useEffect(() => {
     dispatch(getProductAction());
+    dispatch(AllFilterationData());
   }, []);
 
   const productClick = (_id) => {
     console.log(_id, "hh/ddhhjjjjjjjjjjj");
     // dispatch(updateProduct({ _id }));
   };
+
+  const filterProducts = (products, filters) => {
+    // If there are no filters applied, return the original product data.
+    if (
+      !filters ||
+      (Object.keys(filters).length === 0 && filters.constructor === Object)
+    ) {
+      return products;
+    }
+
+    // Initialize a variable to hold the filtered products.
+    let filteredProducts = [...products];
+
+    // Apply filters based on your filter data.
+
+    // Filter by category
+    if (filters.category) {
+      filteredProducts = filteredProducts.filter(
+        (product) => product.category === filters.category
+      );
+    }
+
+    // Filter by price range
+    if (filters.minPrice && filters.maxPrice) {
+      filteredProducts = filteredProducts.filter(
+        (product) =>
+          product.price >= filters.minPrice && product.price <= filters.maxPrice
+      );
+    }
+
+    // Filter by brands (assuming brands is an array)
+    if (filters.brands && filters.brands.length > 0) {
+      filteredProducts = filteredProducts.filter((product) =>
+        filters.brands.includes(product.brand)
+      );
+    }
+
+    return filteredProducts;
+  };
+
   return (
-    <div className="container-fluid  slider_col ">
+    <form className="container-fluid  slider_col ">
       <Row>
+        // <Subcaregoryfilter
+        // onCategoryChange={handleCategoryChange}
+        // onPriceRangeChange={handlePriceRangeChange}
+        // onBrandChange={handleBrandChange}
+        // />
+        // <Col lg={2}>
         <Col lg={2} md={2} sm={2}>
           {" "}
           <Subcaregoryfilter />
@@ -37,6 +94,15 @@ const AllProductDetail = () => {
             <div className="categorieslefftfilter margin_bottom">
               CATEGORIES
             </div>
+            <select className="categorieslefftfilter margin_bottom">
+              <option>select categoryss</option>
+              <option>select categoryss 1</option>
+              <option>select categoryss 2</option>
+            </select>
+            <select>
+              <option value="">All Subcategories</option>
+              <option value="">All Subcategories</option>
+            </select>
             <div>
               <div className="pricealign margin_bottom">
                 <div>Price</div>
@@ -44,7 +110,13 @@ const AllProductDetail = () => {
               </div>
               <div className="d-flex  margin_bottom">
                 <div className="leftpricefilter_wid">
-                  <select className="pricefilter_left" name="cars" id="cars">
+                  <select
+                    className="pricefilter_left"
+                    // value={minPrice}
+                    // onChange={handlePriceRangeChange}
+                    name="cars"
+                    id="cars"
+                  >
                     <option value="">Min</option>
                     <option value="">100</option>
                     <option value="">500</option>
@@ -53,7 +125,13 @@ const AllProductDetail = () => {
                 </div>
                 <div className="priceoption"> to</div>
                 <div className="leftpricefilter_wid">
-                  <select className="pricefilter_left" name="cars" id="cars">
+                  <select
+                    // value={maxPrice}
+                    // onChange={handlePriceRangeChange}
+                    className="pricefilter_left"
+                    name="cars"
+                    id="cars"
+                  >
                     <option value="">700</option>
                     <option value="">1500</option>
                     <option value="">1999</option>
@@ -65,7 +143,11 @@ const AllProductDetail = () => {
             <div>
               <div className="brands_filters">
                 <Accordion defaultActiveKey={["0"]} alwaysOpen>
-                  <Accordion.Item eventKey="0">
+                  <Accordion.Item
+                    // value={brandFilter}
+                    // onChange={handleBrandChange}
+                    eventKey="0"
+                  >
                     <Accordion.Header className="leftbrand_filter">
                       BRAND
                     </Accordion.Header>
@@ -152,7 +234,7 @@ const AllProductDetail = () => {
             <div className="subcategory_topcontent">
               <div>
                 <Link className="home_link" to="/">
-                  Home{" "}
+                  Home
                 </Link>
                 <BiChevronRight />
               </div>
@@ -196,8 +278,10 @@ const AllProductDetail = () => {
                       >
                         <Card className=" forcatcards_htwd ">
                           <div className="d-flex justify-content-end mt-2 mx-2">
-                            <BsFillHeartFill style={{ color: "#808080" }} 
-                            onClick={showwishilist}/>
+                            <BsFillHeartFill
+                              style={{ color: "#808080" }}
+                              onClick={showwishilist}
+                            />
                           </div>
                           <div className="img_div">
                             <Card.Img
@@ -237,7 +321,7 @@ const AllProductDetail = () => {
           </div>
         </Col>
       </Row>
-    </div>
+    </form>
   );
 };
 
