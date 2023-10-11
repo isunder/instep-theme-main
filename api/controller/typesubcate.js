@@ -41,20 +41,40 @@ const create_typesubcategory = async (req, res) => {
 const get_typesubcategory = async (req, res) => {
 
     try {
-        const dataoftypesub = await typeofsubcategorytable.find()
+        const page = parseInt(req.body.page); // Default to page 1
+        const perPage = parseInt(req.body.perPage); // Default to 10 items per page
 
-        if (dataoftypesub?.length > 0) {
+        const skip = (page - 1) * perPage;
+        if (page && perPage) {
+            const dataoftypesub = await typeofsubcategorytable.find().skip(skip).limit(perPage)
 
-            res.status(200).send({ sucess: true, data: dataoftypesub })
+            if (dataoftypesub?.length > 0) {
+
+                res.status(200).send({ sucess: true, data: dataoftypesub })
 
 
+
+            } else {
+                res.status(400).send({ sucess: false, msg: "give me page and  perPage " })
+            }
 
         } else {
+            const dataoftypesub = await typeofsubcategorytable.find()
+            if (dataoftypesub?.length > 0) {
 
-            res.status(400).send({ sucess: false, msg: "give me categoryid " })
+                res.status(200).send({ sucess: true, data: dataoftypesub })
 
+
+
+            } else {
+
+                res.status(400).send({ sucess: false, msg: "some is error " })
+
+
+            }
 
         }
+
 
 
 
