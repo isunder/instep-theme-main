@@ -6,11 +6,12 @@ import { allCategoryList } from "../../../../../Redux/action/getCategoryAction";
 import { Col, Dropdown, Row, Table } from "react-bootstrap";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { allSubCategoryList } from "../../../../../Redux/action/getSubcategoryAction";
+import { typesubcategoryget, typesubcategorypost } from "../../../../../Redux/action/typesubcatpost";
 
 const Allsubcategory = () => {
   const dispatch = useDispatch();
   const [selectedsubCategoryId, setselectedsubCategoryId] = useState("")
-  const [SelectedsubCategory, setSelectedsubCategory] = useState("")
+  // const [SelectedsubCategory, setSelectedsubCategory] = useState("")
   const [selectedCategoryId, setSelectedCategoryId] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(""); // State to store the selected category
 
@@ -20,10 +21,13 @@ const Allsubcategory = () => {
     (state) => state?.getsubsategorylistdata?.listdata
   );
 
+
   const getsubcate = useSelector(
     (state) => state?.getsubsategorylistdata?.listdata
   );
-  console.log(getsubcat, "gaets");
+
+  const typesubcatgory = useSelector((state) => state?.typesubcategory?.typesublist?.data?.data)
+  console.log(typesubcatgory, "typesubcatgory");
 
   const onSubmit = (values) => {
     console.log(values.subcategory, "dddddddddddd");
@@ -43,6 +47,7 @@ const Allsubcategory = () => {
     dispatch(allCategoryList());
     dispatch(allSubCategoryList());
     dispatch(allSubCategoryList());
+    dispatch(typesubcategoryget())
   }, []);
 
   console.log(selectedCategoryId, "selectedCategoryId");
@@ -54,14 +59,33 @@ const Allsubcategory = () => {
       getscat.find((i) => i._id === selectedId)?.category || "";
     setSelectedCategory(selectedLabel);
   };
-  const handlesubCategoryChange = (event) => {
-    const selectedId = event.target.value;
+  var selectedId;
+  const handleCategoryChange2 = (event) => {
+    selectedId = event.target.value;
     setselectedsubCategoryId(selectedId);
+  };
+  console.log(selectedsubCategoryId, "selectedSubcategoryId", selectedCategoryId);
 
-    const selectedLabel = getscat.find((i) => i._id === selectedId)?.category || "";
-    SelectedsubCategory(selectedLabel);
-}
+  const onSubmittype = (value) => {
+    console.log(value, "dssdsdsS")
 
+    let typesub = {
+      category_id: selectedCategoryId,
+      subcategory_id: selectedsubCategoryId,
+      typesubcategory: value.typesubcategory
+    }
+    dispatch(typesubcategorypost(typesub)).then(res => {
+      // console.log(res.payload.data.sucess ,"Dddddddddddd")
+
+      if (res.payload.data.sucess) {
+        dispatch(typesubcategoryget())
+      }
+    })
+
+
+
+
+  }
 
   return (
     <>
@@ -177,8 +201,8 @@ const Allsubcategory = () => {
       <Row>
         <Col lg={8}>
           <Form
-            onSubmit={onSubmit}
-            initialValues={{ subcategory: "" }}
+            onSubmit={onSubmittype}
+            initialValues={{}}
             render={({ handleSubmit, form, submitting, pristine }) => (
               <form onSubmit={handleSubmit}>
                 <div className="cat_select">
@@ -201,7 +225,7 @@ const Allsubcategory = () => {
                   <div>
                     <select
                       className="subcategory_drop margin_bottom"
-                      onChange={handlesubCategoryChange}
+                      onChange={handleCategoryChange2}
                       value={selectedsubCategoryId}
                     >
                       <option value="">Select a subcategory</option>
@@ -246,34 +270,33 @@ const Allsubcategory = () => {
                 </tr>
               </thead>
               <tbody>
-                {getsubcat &&
-                  getsubcat.map((e, i) => {
-                    return (
-                      <>
-                        <tr>
-                          <td>{i + 1}</td>
-                          <td>{e.subcategory}</td>
-                          <td className="d-flex justify-content-end">
-                            <Dropdown>
-                              <Dropdown.Toggle
-                                variant=""
-                                id="dropdown-basic"
-                                className="focusotoggle"
-                              >
-                                <BiDotsVerticalRounded className="threedot_tog_gle" />
-                              </Dropdown.Toggle>
-                              <Dropdown.Menu>
+                {typesubcatgory && typesubcatgory.length > 0 && (
+                  <>
+                    {typesubcatgory.map((e, i) => (
+                      <tr key={i}>
+                        <td>{i + 1}</td>
+                        <td>{e.typesubcategory}</td>
+                        <td className="d-flex justify-content-end">
+                          <Dropdown>
+                            <Dropdown.Toggle
+                              variant=""
+                              id="dropdown-basic"
+                              className="focusotoggle"
+                            >
+                              <BiDotsVerticalRounded className="threedot_tog_gle" />
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                              <Dropdown.Item href="#/action-2">
+                                Delete
+                              </Dropdown.Item>
+                            </Dropdown.Menu>
+                          </Dropdown>
+                        </td>
+                      </tr>
+                    ))}
+                  </>
+                )}
 
-                                <Dropdown.Item href="#/action-2">
-                                  Delete
-                                </Dropdown.Item>
-                              </Dropdown.Menu>
-                            </Dropdown>
-                          </td>
-                        </tr>
-                      </>
-                    );
-                  })}
               </tbody>
             </Table>
           </div>
