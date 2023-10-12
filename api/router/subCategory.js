@@ -8,6 +8,6 @@ router.post("/getOnlysubcategory", Subcategory.subcategorydata);
 router.post("/Deletesubcategory", Subcategory.deletesubcategory);
 // api for find typesubcategory
 router.post("/findtypesubcategory", Subcategory.findtypesub);
-
+router.post("/findsubcategory", Subcategory.findsubacetgory);
 
 module.exports = router;
