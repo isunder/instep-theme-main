@@ -4,7 +4,7 @@ import { GoSortDesc } from "react-icons/go";
 import { Col, Offcanvas, Row } from "react-bootstrap";
 import { CiLocationOn } from "react-icons/ci";
 
-function Subcaregoryfilter() {
+function Subcategorymobilefilter() {
   const [bottomOffcanvassort, setBottomOffcanvassort] = useState(false);
   const [bottomOffcanvasfilter, setBottomOffcanvasfilter] = useState(false);
   const sort = [
@@ -214,7 +214,10 @@ function Subcaregoryfilter() {
                     Category
                   </button>
                 </div>
-                <div className="tab-content  mobilefilter_style" id="v-pills-tabContent">
+                <div
+                  className="tab-content  mobilefilter_style"
+                  id="v-pills-tabContent"
+                >
                   <div
                     className="tab-pane fade show active"
                     id="v-pills-price"
@@ -382,7 +385,7 @@ function Subcaregoryfilter() {
           </Offcanvas>
         </div>
       </Col>
-       {/* <Col lg={4} md={4} sm={4} xs={4} className="ftgret">
+      {/* <Col lg={4} md={4} sm={4} xs={4} className="ftgret">
       <div className="filter_leftbutton margin_bottom">
           <button className="hidebuttonfor_mob" onClick={handleShowprice}>
            Rating
@@ -404,4 +407,4 @@ function Subcaregoryfilter() {
     </Row>
   );
 }
-export default Subcaregoryfilter;
+export default Subcategorymobilefilter;
