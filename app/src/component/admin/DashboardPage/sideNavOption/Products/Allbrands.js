@@ -6,11 +6,17 @@ import { allSubCategoryList } from "../../../../../Redux/action/getSubcategoryAc
 import { Col, Dropdown, Row, Table } from "react-bootstrap";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { allBrandsList } from "../../../../../Redux/action/getAllBrandListAction";
+import { allCategoryList } from "../../../../../Redux/action/getCategoryAction";
+import { typesubcategoryget } from "../../../../../Redux/action/typesubcatpost";
 
 const Allsubcategory = () => {
   const dispatch = useDispatch();
+  const [selected, setselectedcat] = useState()
+  const [selecttypesubid, setselecttypesubid] = useState()
   const [selectedSubcategoryId, setSelectedSubcategoryId] = useState("");
   const [selectedBrand, setSelectedBrands] = useState("");
+  const getscat = useSelector((state) => state?.getcategorylistdata?.listdata);
+  const typesubcatgory = useSelector((state) => state?.typesubcategory?.typesublist?.data?.data)
 
   const getbrand = useSelector(
     (state) => state?.getsubsategorylistdata?.listdata
@@ -27,13 +33,19 @@ const Allsubcategory = () => {
     // let scategorynew = { brand: "values" };
 
     let asd = {
+      category_id: selected,
       subcategory_id: selectedSubcategoryId,
+      typesubcategory_id: selecttypesubid,  
       brand: values.brand,
     };
 
     dispatch(addbrands(asd));
   };
   useEffect(() => {
+    dispatch(allCategoryList());
+    dispatch(typesubcategoryget())
+
+
     dispatch(allSubCategoryList());
     dispatch(allBrandsList());
   }, []);
@@ -45,6 +57,23 @@ const Allsubcategory = () => {
     setSelectedSubcategoryId(selectedId);
   };
   console.log(selectedSubcategoryId, "selectedSubcategoryId");
+
+  var selectcatid
+  const handleCategoryChange = (event) => {
+    selectcatid = event.target.value;
+    // console.log(selectcatid, "ssssss");
+    setselectedcat(selectcatid)
+    // console.log(selected,"ddddddddd")
+  }
+  var typesubid
+  const handletypesubCategoryChange = (event) => {
+    typesubid = event.target.value
+    // console.log(typesubid,"asadasdsa")
+    setselecttypesubid(typesubid)
+    // console.log(selecttypesubid, "dsdsxss")
+
+  }
+
 
   return (
     <>
@@ -67,6 +96,18 @@ const Allsubcategory = () => {
                 <div>
                   <select
                     className="subcategory_drop margin_bottom"
+                    onChange={handleCategoryChange}
+                  // value={selectedCategoryId}
+                  >
+                    <option value="">Select a category</option>
+                    {getscat?.map((i) => (
+                      <option name="option" key={i._id} value={i._id}>
+                        {i.category}
+                      </option>
+                    ))}
+                  </select>
+                  <select
+                    className="subcategory_drop margin_bottom"
                     onChange={handleCategoryChange2}
                     value={selectedSubcategoryId}
                   >
@@ -77,12 +118,19 @@ const Allsubcategory = () => {
                       </option>
                     ))}
                   </select>
-                  {/* <input
-                    type="text"
-                    value={selectedBrand}
-                    readOnly
-                    className="addnewproduct_changes right_Addnew"
-                  /> */}
+                  <select
+                    className="subcategory_drop margin_bottom"
+                    onChange={handletypesubCategoryChange}
+                  // value={selectedCategoryId}
+                  >
+                    <option value="">Select a category</option>
+                    {typesubcatgory?.map((i) => (
+                      <option name="option" key={i._id} value={i._id}>
+                        {i.typesubcategory}
+                      </option>
+                    ))}
+                  </select>
+
                   <div className="mb-2">
                     <Field
                       className="subcategory_drop"
@@ -94,6 +142,8 @@ const Allsubcategory = () => {
                     />
                   </div>
                 </div>
+
+
                 <div className="d-flex justify-content-end margin_bottom">
                   <button type="submit" className="addcatsubit_button">
                     Submit
@@ -134,7 +184,7 @@ const Allsubcategory = () => {
                                 <BiDotsVerticalRounded className="threedot_tog_gle" />
                               </Dropdown.Toggle>
                               <Dropdown.Menu>
-                             
+
                                 <Dropdown.Item href="#/action-2">
                                   Delete
                                 </Dropdown.Item>
