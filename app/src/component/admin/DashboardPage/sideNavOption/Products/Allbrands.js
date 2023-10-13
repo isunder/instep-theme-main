@@ -11,19 +11,23 @@ import { typesubcategoryget } from "../../../../../Redux/action/typesubcatpost";
 
 const Allsubcategory = () => {
   const dispatch = useDispatch();
-  const [selected, setselectedcat] = useState()
-  const [selecttypesubid, setselecttypesubid] = useState()
+  const [selected, setselectedcat] = useState();
+  const [selecttypesubid, setselecttypesubid] = useState();
   const [selectedSubcategoryId, setSelectedSubcategoryId] = useState("");
   const [selectedBrand, setSelectedBrands] = useState("");
-  const getscat = useSelector((state) => state?.getcategorylistdata?.listdata);
-  const typesubcatgory = useSelector((state) => state?.typesubcategory?.typesublist?.data?.data)
-
+  const getscat = useSelector(
+    (state) => state?.getcategorylistdata?.listdata?.data
+  );
+  const typesubcatgory = useSelector(
+    (state) => state?.typesubcategory?.typesublist?.data?.data
+  );
+  console.log(getscat, "getscat");
   const getbrand = useSelector(
-    (state) => state?.getsubsategorylistdata?.listdata
+    (state) => state?.getsubsategorylistdata?.listdata?.data
   );
 
   const getbrandlist = useSelector(
-    (state) => state?.getbrandslistdata?.listdata
+    (state) => state?.getbrandslistdata?.listdata?.data
   );
   console.log(getbrandlist, "1111");
 
@@ -35,7 +39,7 @@ const Allsubcategory = () => {
     let asd = {
       category_id: selected,
       subcategory_id: selectedSubcategoryId,
-      typesubcategory_id: selecttypesubid,  
+      typesubcategory_id: selecttypesubid,
       brand: values.brand,
     };
 
@@ -43,8 +47,7 @@ const Allsubcategory = () => {
   };
   useEffect(() => {
     dispatch(allCategoryList());
-    dispatch(typesubcategoryget())
-
+    dispatch(typesubcategoryget());
 
     dispatch(allSubCategoryList());
     dispatch(allBrandsList());
@@ -58,22 +61,16 @@ const Allsubcategory = () => {
   };
   console.log(selectedSubcategoryId, "selectedSubcategoryId");
 
-  var selectcatid
+  var selectcatid;
   const handleCategoryChange = (event) => {
     selectcatid = event.target.value;
-    // console.log(selectcatid, "ssssss");
-    setselectedcat(selectcatid)
-    // console.log(selected,"ddddddddd")
-  }
-  var typesubid
+    setselectedcat(selectcatid);
+  };
+  var typesubid;
   const handletypesubCategoryChange = (event) => {
-    typesubid = event.target.value
-    // console.log(typesubid,"asadasdsa")
-    setselecttypesubid(typesubid)
-    // console.log(selecttypesubid, "dsdsxss")
-
-  }
-
+    typesubid = event.target.value;
+    setselecttypesubid(typesubid);
+  };
 
   return (
     <>
@@ -97,7 +94,6 @@ const Allsubcategory = () => {
                   <select
                     className="subcategory_drop margin_bottom"
                     onChange={handleCategoryChange}
-                  // value={selectedCategoryId}
                   >
                     <option value="">Select a category</option>
                     {getscat?.map((i) => (
@@ -121,7 +117,7 @@ const Allsubcategory = () => {
                   <select
                     className="subcategory_drop margin_bottom"
                     onChange={handletypesubCategoryChange}
-                  // value={selectedCategoryId}
+                    // value={selectedCategoryId}
                   >
                     <option value="">Select a category</option>
                     {typesubcatgory?.map((i) => (
@@ -142,7 +138,6 @@ const Allsubcategory = () => {
                     />
                   </div>
                 </div>
-
 
                 <div className="d-flex justify-content-end margin_bottom">
                   <button type="submit" className="addcatsubit_button">
@@ -184,7 +179,6 @@ const Allsubcategory = () => {
                                 <BiDotsVerticalRounded className="threedot_tog_gle" />
                               </Dropdown.Toggle>
                               <Dropdown.Menu>
-
                                 <Dropdown.Item href="#/action-2">
                                   Delete
                                 </Dropdown.Item>
