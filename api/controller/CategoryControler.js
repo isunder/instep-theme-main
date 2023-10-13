@@ -57,39 +57,35 @@ const adddCategory = async (req, res) => {
 
 const getcategorydata = async (req, res) => {
     try {
-
-        const page = parseInt(req.body.page); // Default to page 1
-        const perPage = parseInt(req.body.perPage); // Default to 10 items per page
-
+        const page = parseInt(req.body.page) ; // Default to page 1
+        const perPage = parseInt(req.body.perPage) ; // Default to 10 items per page
         const skip = (page - 1) * perPage;
-        if (perPage && page) {
 
-            const getdata = await modelcategory.find().skip(skip).limit(perPage);
+        const query = modelcategory.find();
+        const totalDocs = await modelcategory.countDocuments(); // Count total documents
+
+        if (perPage && page) {
+            const getdata = await query.skip(skip).limit(perPage).exec();
+
             if (getdata.length > 0) {
-                res.send(getdata);
+                res.send({ data: getdata, totalDocs: totalDocs });
             } else {
-                res.send({ result: "no category  found" });
+                res.send({ result: "No categories found", totalDocs: totalDocs });
             }
         } else {
+            const getdata = await query.exec();
 
-            const getdata = await modelcategory.find();
             if (getdata.length > 0) {
-                res.send(getdata);
+                res.send({ data: getdata, totalDocs: totalDocs });
             } else {
-                res.send({ result: "no category  found" });
+                res.send({ result: "No categories found", totalDocs: totalDocs });
             }
         }
-
-
-
-
-
     } catch (error) {
-        res.status(400).send({ succes: false, msg: error.message })
-
+        res.status(400).send({ success: false, msg: error.message });
     }
-
 }
+
 
 //  api for filter subvcategory
 const getcategoryfind = async (req, res) => {

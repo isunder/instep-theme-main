@@ -102,12 +102,9 @@ const Allcategories = () => {
                         required
                       />
                       <div className="buttons">
-                        {/* <button className="addcatsubit_button" type="submit">
-                          Submit
-                        </button> */}
+                        
                       </div>
                     </div>
-                    {/* <div className="category_item"> */}
                     <div className="margin_bottom">
                       <h4>Upload image</h4>
                       <div>
@@ -117,26 +114,7 @@ const Allcategories = () => {
                           className="form-control signup_form_input margin_bottom"
                           onChange={handleImgeFile}
                         />
-                        {/* {selectedImages?.length > 0 && (
-                          <div>
-                            <h4>Selected Images:</h4>
-                            <ul className="row">
-                              {selectedImages?.map((imageUrl, index) => (
-                                <li
-                                  key={index}
-                                  className=" productupload_item col-md-3"
-                                >
-                                  <img
-                                    className="productupload_image"
-                                    src={imageUrl}
-                                    alt={`Image ${index}`}
-                                  />
-s
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        )} */}
+                   
                       </div>
                     </div>
                     <div>
