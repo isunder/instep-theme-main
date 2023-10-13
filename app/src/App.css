@@ -82,6 +82,9 @@ css * {
 .offcanvas_toggole_btn {
   display: none !important;
 }
+.MobileScreenBtn{
+  display: none !important;
+}
 .for_only_mobile {
   visibility: hidden;
 }
@@ -91,6 +94,9 @@ css * {
 }
 @media (max-width: 992px) {
   .offcanvas_toggole_btn.for_tablet {
+    display: block !important;
+  }
+  .MobileScreenBtn{
     display: block !important;
   }
   .offcanvas_toggole_btn.for_mobile {
@@ -134,7 +140,7 @@ css * {
   .Navbaricons {
     gap: 20px !important;
     margin: 0;
-    justify-content: unset;
+    justify-content: flex-end !important;
   }
 }
 @media (max-width: 380px) {
@@ -336,6 +342,9 @@ div p {
 /* -------------------------Recent Orders-------------------------- */
 
 /* -----------------------------------------------------------------------------all procducts-------------------------------------------------------------------------------- */
+
+
+
 .searchbutton {
   justify-content: space-between;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
@@ -352,7 +361,7 @@ div p {
 .allproduct_searchicon {
   height: 30px;
   width: 30px;
-  margin-top: 10px;
+  margin-right: 5px;
 }
 .adminsearch_bar.form-control {
   width: 100% !important;
@@ -2978,6 +2987,26 @@ input[type="range"]::-moz-range-progress {
       display: none;
     }
   }
+
+  @media (max-width:789px){
+    .descripmob{
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space:nowrap;
+    }
+
+    .subcatitem_cont{
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    }
+
+    @media (max-width:789px) and (min-width:573px){
+      .subcatkitchen_image{
+        height: 100%;
+      }
+    }
 /* ------------------------------------home page subcategory------------------------------------ */
 
 /* ------------------------------------backgroundimage_aboutus----------------------------------- */

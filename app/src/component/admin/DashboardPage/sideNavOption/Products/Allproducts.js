@@ -10,14 +10,11 @@ import Form from "react-bootstrap/Form";
 import Dropdown from "react-bootstrap/Dropdown";
 import { FiSearch } from "react-icons/fi";
 import { BiDotsVerticalRounded } from "react-icons/bi";
-import { Pagination, Table } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import { LuEdit3 } from "react-icons/lu";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import {
-  initializeUseSelector,
-  useSelector,
-} from "react-redux/es/hooks/useSelector";
+import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useNavigate } from "react-router-dom";
 // import ConfirmationModal from "../../../admin/confirmModel";
 import { toast, ToastContainer } from "react-toastify";
@@ -26,6 +23,7 @@ import ConfirmationModal from "../../../addProductDetails/confirmModel";
 import { updateProduct } from "../../../../../Redux/action/updateProductAction";
 import { allAdminProductList } from "../../../../../Redux/action/getAllProductListing";
 import { deleteProduct } from "../../../../../Redux/action/deleteProductAction";
+import Allpagination from "../../../Pagination/pagination";
 
 function Allproducts(params) {
   const navigate = useNavigate();
@@ -36,11 +34,22 @@ function Allproducts(params) {
     (state) => state?.GetAdminProductAllListData?.listdata
   );
 
+  const listCount = useSelector(
+    (state) => state?.GetAdminProductAllListData?.listdata?.count
+  );
+
+  console.log(data, "fwkenfljn");
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postPerPage, setPostPerPage] = useState(5);
+
+  const [readMoreState, setReadMoreState] = useState(null);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(allAdminProductList());
-  }, []);
+    dispatch(allAdminProductList({ page: currentPage, perPage: postPerPage }));
+  }, [currentPage]);
   const handleProduct = () => {
     navigate("/product");
   };
@@ -71,6 +80,7 @@ function Allproducts(params) {
     console.log("wwww");
   };
   const handleClose = () => setShow(false);
+
   return (
     <>
       <div className="admin_toppadding ">
@@ -157,16 +167,40 @@ function Allproducts(params) {
               </thead>
               <tbody>
                 {data &&
-                  data?.map((product, index) => {
-                    console.log(product, "asdasdasdasd")
+                  data?.products?.map((product, index) => {
+                    console.log(product, "asdasdasdasd");
                     return (
                       <>
                         <tr key={index}>
-                          <td></td>
-                          <td>{product.title}</td>
+                          <td>
+                            {(currentPage - 1) * postPerPage + (index + 1)}
+                          </td>
+                          <td>
+                            {product.title.substring(
+                              0,
+                              readMoreState === product?._id
+                                ? product?.title?.length
+                                : 50
+                            )}
+                            {
+                              <p
+                                onClick={() => {
+                                  if (readMoreState === product?._id) {
+                                    setReadMoreState(null);
+                                  } else {
+                                    setReadMoreState(product?._id);
+                                  }
+                                }}
+                              >
+                                read{" "}
+                                {readMoreState === product?._id
+                                  ? "Less"
+                                  : "More"}
+                              </p>
+                            }
+                          </td>
                           <td>{product?.brand[0]?.brand}</td>
                           <td>{product?.category[0]?.category}</td>
-                          {/* <td>{product?.subcategory[0]?.subcategory}</td> */}
                           <td>{product.price}</td>
 
                           <td>
@@ -206,18 +240,14 @@ function Allproducts(params) {
                   })}
               </tbody>
             </Table>
-            <div className="table_pageination">
-              <Pagination>
-                <Pagination.Prev />
-                <Pagination.Item>{1}</Pagination.Item>
-                <Pagination.Item>{2}</Pagination.Item>
-                <Pagination.Item>{3}</Pagination.Item>
-                <Pagination.Item>{4}</Pagination.Item>
-                <Pagination.Item disabled>{5}</Pagination.Item>
-                <Pagination.Ellipsis />
-                <Pagination.Item>{20}</Pagination.Item>
-                <Pagination.Next />
-              </Pagination>
+            <div className="d-flex justify-content-end">
+              <Allpagination
+                currentPage={currentPage}
+                postPerPage={postPerPage}
+                setPostPerPage={setPostPerPage}
+                setCurrentPage={setCurrentPage}
+                listCount={listCount}
+              />
             </div>
           </Col>
         </Row>

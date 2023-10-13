@@ -25,8 +25,8 @@ const ProductDetails = () => {
 
   //   const details = useSelector((state) => state.slicedetails.listdata);
 
-  const productDetail = useSelector((state) => state.singleproduct?.listdata);
-  console.log(productDetail, "www");
+  const productDetail = useSelector((state) => state?.singleproduct?.listdata);
+  console.log(productDetail, "sdsdsdsds");
 
   // const Check = useSelector((state) => state?.updateProductData);
   // console.log(Check, "check");
@@ -66,7 +66,7 @@ const ProductDetails = () => {
           <Col className="singlecard_posit" lg={4}>
             <Card className="shoppingcard_bor">
               <div className="margin_bottom magni_fieralign">
-                <ReactImageMagnify 
+                <ReactImageMagnify
                   {...{
                     smallImage: {
                       alt: "Wristwatch by Ted Baker London",
@@ -77,7 +77,6 @@ const ProductDetails = () => {
                           ? imageState
                           : `http://localhost:5000/uploads/${imageState}`
                         : productDetail?.images?.length > 0 &&
-                          // productDetail?.images?.length[0] > 0 &&
                           (productDetail?.images[0].split("http").length > 1
                             ? productDetail?.images[0]
                             : `http://localhost:5000/uploads/${productDetail?.images[0]}`),
@@ -88,7 +87,6 @@ const ProductDetails = () => {
                           ? imageState
                           : `http://localhost:5000/uploads/${imageState}`
                         : productDetail?.images?.length > 0 &&
-                          // productDetail?.images?.length[0] > 0 &&
                           (productDetail?.images[0].split("http").length > 1
                             ? productDetail?.images[0]
                             : `http://localhost:5000/uploads/${productDetail?.images[0]}`),
@@ -115,7 +113,6 @@ const ProductDetails = () => {
                             key={index}
                             className="subphotof_main"
                             src={
-                              // Array.isArray(item) &&
                               item?.split("https").length > 1
                                 ? item
                                 : `http://localhost:5000/uploads/${item}`
