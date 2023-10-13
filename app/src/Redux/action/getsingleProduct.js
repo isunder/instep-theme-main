@@ -10,7 +10,7 @@ export const axiosInstance = axios.create({
 });
 
 export const singleproduct = createAsyncThunk(
-  "pospadminproduct",
+  "singleproduct",
   async (payload, id) => {
     const data1 = await axiosInstance.post(`singleproduct`, payload);
     return data1.data;

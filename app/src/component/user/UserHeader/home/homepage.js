@@ -237,13 +237,12 @@ const Home = () => {
                   onSlideChange={() => console.log("slide change")}
                 >
                   {categorydata &&
-                    categorydata?.map((item, index) => {
+                    categorydata?.products?.map((item, index) => {
                       if (item?.category?.[0]?.category === "electronics") {
                         return (
                           <SwiperSlide className="shopping_card" key={index}>
                             <Link
                               className="card_deco"
-                              // to={`/subcategory/${item?.subcategory}`}
                               to={`/productdetail/${item._id}`}
                               onClick={() => productClick(item?._id)}
                             >
@@ -261,22 +260,10 @@ const Home = () => {
                                   />
                                 </div>
                                 <Card.Body>
-                                  {/* <div className="item_rating">
-                                  <p className="homerating_cat">
-                                    {" "}
-                                    {item?.rating}
-                                  </p>
-                                  <p className="homerating_cat">
-                                    {" "}
-                                    {item.category}
-                                  </p>
-                                </div> */}
                                   <Card.Title className="crad_text">
                                     {item?.title}
                                   </Card.Title>
-                                  {/* <Card.Text className="crad_text">
-                                  {item?.description}
-                                </Card.Text> */}
+
                                   <Card.Text className="crad_text">
                                     <h6> ₹ {item?.price}</h6>
                                   </Card.Text>
@@ -333,13 +320,12 @@ const Home = () => {
                   onSwiper={(swiper) => console.log(swiper)}
                   onSlideChange={() => console.log("slide change")}
                 >
-                  {data?.map((e) => {
+                  {data?.products?.map((e) => {
                     if (e?.category?.[0]?.category === "Home & Kitchen") {
                       return (
                         <SwiperSlide className="shopping_card" key={e?.id}>
                           <Link
                             className="card_deco"
-                            // to={`/subcategory/${e.subcategory}`}
                             to={`/productdetail/${e._id}`}
                             onClick={() => productClick(e?._id)}
                           >
@@ -357,16 +343,10 @@ const Home = () => {
                                 />
                               </div>
                               <Card.Body>
-                                {/* <div className="item_rating">
-                              <p className="homerating_cat"> {e?.rating}</p>
-                              <p className="homerating_cat"> {e?.category}</p>
-                            </div> */}
                                 <Card.Title className="crad_text">
                                   {e?.title}
                                 </Card.Title>
-                                {/* <Card.Text className="crad_text">
-                              {e?.description}
-                            </Card.Text> */}
+
                                 <Card.Text className="crad_text">
                                   <h6> ₹ {e?.price}</h6>
                                 </Card.Text>
@@ -563,7 +543,7 @@ const Home = () => {
                   </Row>
                 </div>
               </Col>
-              <Col lg={4} md={4} >
+              <Col lg={4} md={4}>
                 <div className="sports_bannerhomepage">
                   <div className="sportscontent_align">
                     <div>

@@ -15,7 +15,7 @@ import Modal from "react-bootstrap/Modal";
 
 const AddToCartProduct = () => {
   const [quantity, setQuantity] = useState({});
-  const [deleteId,setDeleteId] = useState("")
+  const [deleteId, setDeleteId] = useState("");
   const [deleteState, SetDeleteState] = useState([]);
   const userData = getUserId();
   const userLogin = localStorage.getItem("token");
@@ -94,12 +94,15 @@ const AddToCartProduct = () => {
     let count = 0;
     if (myCartL && myCartL.length > 0) {
       count = myCartL.reduce((accumulator, currentValue, index) => {
-        console.log(currentValue.productDetails[0].discountpercentage,'fwkoejoiwejl')
+        console.log(
+          currentValue.productDetails[0].discountpercentage,
+          "fwkoejoiwejl"
+        );
         return accumulator + currentValue.productDetails[0].discountpercentage;
       }, 0);
-      
-      console.log(count/myCartL?.length,'ekrfioejroij');
-      return count/myCartL?.length;
+
+      console.log(count / myCartL?.length, "ekrfioejroij");
+      return count / myCartL?.length;
     }
   };
 
@@ -140,7 +143,7 @@ const AddToCartProduct = () => {
                 <Col lg={2} className="addtocart_padding">
                   <div className="addtocarthead">
                     <p>U. Price</p>
-                  </div> 
+                  </div>
                 </Col>
                 <Col lg={2} className="addtocart_padding">
                   <div className="addtocarthead">
@@ -169,35 +172,40 @@ const AddToCartProduct = () => {
                   myCartL?.map((e, index) => {
                     console.log(e, "adasdasdasdasdasda");
 
-                    if (e.image) {
+                    if (e.productid) {
                     }
                     if (!deleteState.includes(e?.productid)) {
                       return (
                         <>
-                          <Col lg={2}>
-                            <div>
-                              <img
-                                className="addtocart_img"
-                                variant="top"
-                                src={
-                                  e?.productDetails[0]?.image
-                                    ? e?.productDetails[0]?.image
-                                    : e?.productDetails[0]?.thumbnail?.split(
-                                        ":"
-                                      ).length > 1
-                                    ? e?.productDetails[0]?.thumbnail
-                                    : `http://localhost:5000/uploads/${e?.productDetails[0]?.thumbnail}`
-                                }
-                                alt=""
-                              />
-                            </div>
+                          <Col lg={2} md={2} sm={2}>
+                            <Link
+                              className="card_deco"
+                              to={`/productdetail/${e.productid}`}
+                            >
+                              <div>
+                                <img
+                                  className="addtocart_img"
+                                  variant="top"
+                                  src={
+                                    e?.productDetails[0]?.image
+                                      ? e?.productDetails[0]?.image
+                                      : e?.productDetails[0]?.thumbnail?.split(
+                                          ":"
+                                        ).length > 1
+                                      ? e?.productDetails[0]?.thumbnail
+                                      : `http://localhost:5000/uploads/${e?.productDetails[0]?.thumbnail}`
+                                  }
+                                  alt=""
+                                />
+                              </div>
+                            </Link>
                           </Col>
-                          <Col lg={2}>
+                          <Col lg={2} md={2} sm={2}>
                             <div className="addtocart_title">
                               {e?.productDetails[0]?.title}
                             </div>
                           </Col>
-                          <Col lg={2}>
+                          <Col lg={2} md={2} sm={2}>
                             <div className="addtocart_title">
                               <h5>
                                 {" "}
@@ -205,7 +213,7 @@ const AddToCartProduct = () => {
                               </h5>
                             </div>
                           </Col>
-                          <Col lg={2}>
+                          <Col lg={2} md={2} sm={3}>
                             <div className="addcart_quantity">
                               <div
                                 style={{ width: "25px" }}
@@ -253,7 +261,7 @@ const AddToCartProduct = () => {
                               </div>
                             </div>
                           </Col>
-                          <Col lg={2}>
+                          <Col lg={2} md={2} sm={2}>
                             <div className="addtocart_title">
                               <h5>
                                 ₹{" "}
@@ -265,13 +273,13 @@ const AddToCartProduct = () => {
                               </h5>
                             </div>
                           </Col>
-                          <Col lg={2}>
+                          <Col lg={2} md={2} sm={1}>
                             <div className="addtocart_title">
                               <RiDeleteBin6Line
                                 className="remove_cart"
-                                onClick={()=>{
-                                  setDeleteId(e?.productid)
-                                  handleShow()
+                                onClick={() => {
+                                  setDeleteId(e?.productid);
+                                  handleShow();
                                 }}
                               />
                               <Modal
@@ -336,7 +344,7 @@ const AddToCartProduct = () => {
               </div>
               <div className="d-flex justify-content-between margin_bottom addcart_delivery">
                 <h5>Total Amount</h5>
-                {console.log(getTotalPrice() , getTotalDiscount(),'dwjewdj')}
+                {console.log(getTotalPrice(), getTotalDiscount(), "dwjewdj")}
                 <p>₹{getTotalPrice() - getTotalDiscount()?.toFixed(0)}</p>
               </div>
               {console.log(getTotalDiscount(), "getTotalDiscount()")}
