@@ -6,27 +6,32 @@ import { allCategoryList } from "../../../../../Redux/action/getCategoryAction";
 import { Col, Dropdown, Row, Table } from "react-bootstrap";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { allSubCategoryList } from "../../../../../Redux/action/getSubcategoryAction";
-import { typesubcategoryget, typesubcategorypost } from "../../../../../Redux/action/typesubcatpost";
+import {
+  typesubcategoryget,
+  typesubcategorypost,
+} from "../../../../../Redux/action/typesubcatpost";
 
 const Allsubcategory = () => {
   const dispatch = useDispatch();
-  const [selectedsubCategoryId, setselectedsubCategoryId] = useState("")
-  // const [SelectedsubCategory, setSelectedsubCategory] = useState("")
+  const [selectedsubCategoryId, setselectedsubCategoryId] = useState("");
   const [selectedCategoryId, setSelectedCategoryId] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(""); // State to store the selected category
 
-  const getscat = useSelector((state) => state?.getcategorylistdata?.listdata);
+  const getscat = useSelector(
+    (state) => state?.getcategorylistdata?.listdata.data
+  );
 
   const getsubcat = useSelector(
-    (state) => state?.getsubsategorylistdata?.listdata
+    (state) => state?.getsubsategorylistdata?.listdata?.data
   );
-
 
   const getsubcate = useSelector(
-    (state) => state?.getsubsategorylistdata?.listdata
+    (state) => state?.getsubsategorylistdata?.listdata?.data
   );
 
-  const typesubcatgory = useSelector((state) => state?.typesubcategory?.typesublist?.data?.data)
+  const typesubcatgory = useSelector(
+    (state) => state?.typesubcategory?.typesublist?.data?.data
+  );
   console.log(typesubcatgory, "typesubcatgory");
 
   const onSubmit = (values) => {
@@ -47,7 +52,7 @@ const Allsubcategory = () => {
     dispatch(allCategoryList());
     dispatch(allSubCategoryList());
     dispatch(allSubCategoryList());
-    dispatch(typesubcategoryget())
+    dispatch(typesubcategoryget());
   }, []);
 
   console.log(selectedCategoryId, "selectedCategoryId");
@@ -64,28 +69,27 @@ const Allsubcategory = () => {
     selectedId = event.target.value;
     setselectedsubCategoryId(selectedId);
   };
-  console.log(selectedsubCategoryId, "selectedSubcategoryId", selectedCategoryId);
+  console.log(
+    selectedsubCategoryId,
+    "selectedSubcategoryId",
+    selectedCategoryId
+  );
 
   const onSubmittype = (value) => {
-    console.log(value, "dssdsdsS")
+    console.log(value, "dssdsdsS");
 
     let typesub = {
       category_id: selectedCategoryId,
       subcategory_id: selectedsubCategoryId,
-      typesubcategory: value.typesubcategory
-    }
-    dispatch(typesubcategorypost(typesub)).then(res => {
-      // console.log(res.payload.data.sucess ,"Dddddddddddd")
+      typesubcategory: value.typesubcategory,
+    };
+    dispatch(typesubcategorypost(typesub)).then((res) => {
 
       if (res.payload.data.sucess) {
-        dispatch(typesubcategoryget())
+        dispatch(typesubcategoryget());
       }
-    })
-
-
-
-
-  }
+    });
+  };
 
   return (
     <>
@@ -170,7 +174,6 @@ const Allsubcategory = () => {
                                 <BiDotsVerticalRounded className="threedot_tog_gle" />
                               </Dropdown.Toggle>
                               <Dropdown.Menu>
-
                                 <Dropdown.Item href="#/action-2">
                                   Delete
                                 </Dropdown.Item>
@@ -187,7 +190,6 @@ const Allsubcategory = () => {
         </Col>
       </Row>
       {/* typesubcateory */}
-
 
       <Row>
         <Col lg={12}>
@@ -296,7 +298,6 @@ const Allsubcategory = () => {
                     ))}
                   </>
                 )}
-
               </tbody>
             </Table>
           </div>

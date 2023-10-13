@@ -77,7 +77,7 @@ const Usernavbar = () => {
   const myCartL = useSelector((state) => state?.cartdetails?.listdata);
   console.log(myCartL, "dddddddddddddddd");
   const navcategorydata = useSelector(
-    (state) => state?.getcategorylistdata?.listdata
+    (state) => state?.getcategorylistdata?.listdata?.data
   );
   console.log(navcategorydata, "rahulllllll");
 
@@ -300,7 +300,7 @@ const Usernavbar = () => {
                               <Accordion.Header>Category</Accordion.Header>
                               <Accordion.Body>
                                 {navcategorydata &&
-                                  navcategorydata.map((e) => {
+                                  navcategorydata?.map((e) => {
                                     return (
                                       <>
                                         <Link

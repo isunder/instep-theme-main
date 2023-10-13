@@ -6,6 +6,7 @@ import { Col, Dropdown, Row, Table } from "react-bootstrap";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { allCategoryList } from "../../../../../Redux/action/getCategoryAction";
 import { toast } from "react-toastify";
+import Allpagination from "../../../Pagination/pagination";
 
 const Allcategories = () => {
   const [selectedImagesforpost, setselectedImagesforpost] = useState();
@@ -13,8 +14,19 @@ const Allcategories = () => {
 
   const dispatch = useDispatch();
 
-  const data = useSelector((state) => state?.getcategorylistdata?.listdata);
+  const data = useSelector(
+    (state) => state?.getcategorylistdata?.listdata?.data
+  );
   console.log(data, "adat");
+
+  const listCount = useSelector(
+    (state) => state.GetAdminProductAllListData?.listdata?.count
+  );
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postPerPage, setPostPerPage] = useState(5);
+
+  const [readMoreState, setReadMoreState] = useState(null);
 
   const onSubmit = (values) => {
     var formData = new FormData();
@@ -41,10 +53,10 @@ const Allcategories = () => {
   };
 
   useEffect(() => {
-    dispatch(allCategoryList());
+    dispatch(allCategoryList({ page: currentPage, perpage: postPerPage }));
   }, []);
   const handleImgeFile = (e) => {
-    const files = e.target.files; 
+    const files = e.target.files;
     const uniqueId = Date.now();
     let name = e.target.files[0].name;
     const filename = uniqueId + "_" + name;
@@ -101,9 +113,7 @@ const Allcategories = () => {
                         placeholder="category"
                         required
                       />
-                      <div className="buttons">
-                        
-                      </div>
+                      <div className="buttons"></div>
                     </div>
                     <div className="margin_bottom">
                       <h4>Upload image</h4>
@@ -114,7 +124,6 @@ const Allcategories = () => {
                           className="form-control signup_form_input margin_bottom"
                           onChange={handleImgeFile}
                         />
-                   
                       </div>
                     </div>
                     <div>
@@ -144,10 +153,10 @@ const Allcategories = () => {
               </thead>
               <tbody>
                 {data &&
-                  data.map((e, i) => {
+                  data.map((e, index) => {
                     return (
                       <tr>
-                        <td>{i + 1}</td>
+                        <td>{(currentPage - 1) * postPerPage + (index + 1)}</td>
                         <td>{e.category}</td>
                         <td className="d-flex justify-content-end">
                           <Dropdown>
@@ -170,6 +179,15 @@ const Allcategories = () => {
                   })}
               </tbody>
             </Table>
+            <div className="d-flex justify-content-end">
+              <Allpagination
+                currentPage={currentPage}
+                postPerPage={postPerPage}
+                setPostPerPage={setPostPerPage}
+                setCurrentPage={setCurrentPage}
+                listCount={listCount}
+              />
+            </div>
           </div>
         </Col>
       </Row>
