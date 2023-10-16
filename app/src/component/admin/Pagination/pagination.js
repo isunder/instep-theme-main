@@ -13,7 +13,6 @@ const Allpagination = (props) => {
   let active = currentPage;
   let items = [];
   for (let number = 1; number <= Math.ceil(listCount / postPerPage); number++) {
-    console.log(Math.abs(number - currentPage), "fcowjfiel");
     if (
       number === currentPage ||
       Math.abs(number - currentPage) === 1 ||

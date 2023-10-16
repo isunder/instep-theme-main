@@ -54,11 +54,14 @@ const SidebarFun = () => {
                   <Link to={"/allproduct"}>- All Products</Link>{" "}
                 </Nav.Item>
                 <Nav.Item eventKey="2-2">
-                  {" "}
+                  {" "} 
                   <Link to={"/Allcategories"}>- All Categories</Link>
                 </Nav.Item>
                 <Nav.Item eventKey="2-3">
                   <Link to={"/allsubcategory"}>- All Subcategory</Link>
+                </Nav.Item>
+                <Nav.Item eventKey="2-3">
+                  <Link to={"/allsubtypecategory"}>- All Subtypecategory</Link>
                 </Nav.Item>
                 <Nav.Item eventKey="2-4">
                   <Link to={"/Allbrands"}>- All Brands</Link>
