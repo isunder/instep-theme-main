@@ -161,7 +161,6 @@ const Home = () => {
           </div>
           <Row>
             <h2 className="ourtopcategories_home"> Top Trending Products</h2>
-
             {banner?.map((item, index) => {
               return (
                 <>
@@ -218,11 +217,25 @@ const Home = () => {
                 <Swiper
                   modules={[Navigation]}
                   spaceBetween={10}
-                  slidesPerView={4}
+                  // slidesPerView={4}
                   navigation
                   pagination={{ clickable: true }}
                   onSwiper={(swiper) => console.log(swiper)}
                   onSlideChange={() => console.log("slide change")}
+                  breakpoints={{
+                    320: {
+                      slidesPerView: 1,
+                    },
+                    480: {
+                      slidesPerView: 2,
+                    },
+                    768: {
+                      slidesPerView: 3,
+                    },
+                    1024: {
+                      slidesPerView: 4,
+                    },
+                  }}
                 >
                   {categorydata &&
                     categorydata?.products?.map((item, index) => {
@@ -277,7 +290,7 @@ const Home = () => {
                       </Card.Text>
                       <Link
                         className="carddecorationnone_cat"
-                        to={`/category/${"home&kitchen"}`}
+                        to={`/category/${"651e84c0ad6a72ae9d37db57"}`}
                       >
                         <button
                           className="electrnicswiewall_button"

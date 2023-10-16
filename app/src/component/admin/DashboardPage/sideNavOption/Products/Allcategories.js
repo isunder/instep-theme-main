@@ -20,13 +20,14 @@ const Allcategories = () => {
   console.log(data, "adat");
 
   const listCount = useSelector(
-    (state) => state.GetAdminProductAllListData?.listdata?.count
+    (state) => state.getcategorylistdata?.listdata?.totalDocs
   );
+  console.log(listCount, "Cddsdsd");
 
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage, setPostPerPage] = useState(5);
 
-  const [readMoreState, setReadMoreState] = useState(null);
+  // const [readMoreState, setReadMoreState] = useState(null);
 
   const onSubmit = (values) => {
     var formData = new FormData();
@@ -52,9 +53,11 @@ const Allcategories = () => {
     });
   };
 
+  const isLoading = useSelector((state)=>state?.getcategorylistdata?.isLoading)
+
   useEffect(() => {
-    dispatch(allCategoryList({ page: currentPage, perpage: postPerPage }));
-  }, []);
+    dispatch(allCategoryList({ page: currentPage, perPage: postPerPage }));
+  }, [currentPage]);
   const handleImgeFile = (e) => {
     const files = e.target.files;
     const uniqueId = Date.now();
@@ -77,7 +80,7 @@ const Allcategories = () => {
       reader.readAsDataURL(files[i]);
     }
   };
-  console.log(selectedImagesforpost, "forssssssssss post");
+  console.log(isLoading, "forssssssssss post");
 
   return (
     <>
@@ -94,8 +97,6 @@ const Allcategories = () => {
             <div className="leftcategory_add">
               <Form
                 onSubmit={onSubmit}
-                // initialValues={sxsszs}
-                // validate={validate}
                 render={({
                   handleSubmit,
                   form,
@@ -152,7 +153,7 @@ const Allcategories = () => {
                 </tr>
               </thead>
               <tbody>
-                {data &&
+                {isLoading ? <p>Loading...</p> : (data &&
                   data.map((e, index) => {
                     return (
                       <tr>
@@ -176,7 +177,7 @@ const Allcategories = () => {
                         </td>
                       </tr>
                     );
-                  })}
+                  }))}
               </tbody>
             </Table>
             <div className="d-flex justify-content-end">

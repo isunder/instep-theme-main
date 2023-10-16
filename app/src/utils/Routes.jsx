@@ -41,6 +41,7 @@ import TermsofuseDetail from "../component/user/termofuseDetail/termsDetail";
 import Security from "../component/user/securityDetail/security";
 import Privacy from "../component/user/privacyDetail/privacy";
 import Sliderpost from "../component/admin/dashboardPage/sideNavOption/Products/Sliderpost";
+import Alltypesubcategory from "../component/admin/dashboardPage/sideNavOption/Products/Alltypesubcategory";
 
 const role = getUserId() ? getUserId()?.userRole : null;
 // console.log(role, "aaasdfgfds");
@@ -84,6 +85,7 @@ const protects = {
         { path: "/subscriber", element: <Subscribeuser /> },
         { path: "/allcategories", element: <Allcategories /> },
         { path: "/allsubcategory", element: <Allsubcategory /> },
+        { path: "/allsubtypecategory", element: <Alltypesubcategory /> },
         { path: "/allbrands", element: <Allbrands /> },
         // { path: "/allunit", element: <Allunit /> },
         // { path: "/alltaxes", element: <Alltaxes /> },

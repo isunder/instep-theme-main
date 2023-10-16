@@ -8,16 +8,24 @@ import { BiDotsVerticalRounded } from "react-icons/bi";
 import { allBrandsList } from "../../../../../Redux/action/getAllBrandListAction";
 import { allCategoryList } from "../../../../../Redux/action/getCategoryAction";
 import { typesubcategoryget } from "../../../../../Redux/action/typesubcatpost";
+import Allpagination from "../../../Pagination/pagination";
 
 const Allsubcategory = () => {
   const dispatch = useDispatch();
   const [selected, setselectedcat] = useState();
   const [selecttypesubid, setselecttypesubid] = useState();
   const [selectedSubcategoryId, setSelectedSubcategoryId] = useState("");
-  const [selectedBrand, setSelectedBrands] = useState("");
+  // const [selectedBrand, setSelectedBrands] = useState("");
+
+  const listCount = useSelector(
+    (state) => state?.getbrandslistdata?.listdata?.totalDocs
+  );
   const getscat = useSelector(
     (state) => state?.getcategorylistdata?.listdata?.data
   );
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postPerPage, setPostPerPage] = useState(10);
   const typesubcatgory = useSelector(
     (state) => state?.typesubcategory?.typesublist?.data?.data
   );
@@ -34,7 +42,6 @@ const Allsubcategory = () => {
   console.log(getbrand, "zzz");
   const onSubmit = (values) => {
     console.log(values.brand, "dddddddddddd");
-    // let scategorynew = { brand: "values" };
 
     let asd = {
       category_id: selected,
@@ -50,8 +57,8 @@ const Allsubcategory = () => {
     dispatch(typesubcategoryget());
 
     dispatch(allSubCategoryList());
-    dispatch(allBrandsList());
-  }, []);
+    dispatch(allBrandsList({ page: currentPage, perPage: postPerPage }));
+  }, [currentPage]);
 
   var selectedId;
   const handleCategoryChange2 = (event) => {
@@ -162,12 +169,14 @@ const Allsubcategory = () => {
               </thead>
               <tbody>
                 {getbrandlist &&
-                  getbrandlist?.map((e, i) => {
+                  getbrandlist?.map((e, index) => {
                     console.log(e, "brnds");
                     return (
                       <>
                         <tr>
-                          <td>{i + 1}</td>
+                          <td>
+                            {(currentPage - 1) * postPerPage + (index + 1)}
+                          </td>
                           <td>{e.brand}</td>
                           <td className="d-flex justify-content-end">
                             <Dropdown>
@@ -191,6 +200,15 @@ const Allsubcategory = () => {
                   })}
               </tbody>
             </Table>
+            <div className="d-flex justify-content-end">
+              <Allpagination
+                currentPage={currentPage}
+                postPerPage={postPerPage}
+                setPostPerPage={setPostPerPage}
+                setCurrentPage={setCurrentPage}
+                listCount={listCount}
+              />
+            </div>
           </div>
         </Col>
       </Row>
