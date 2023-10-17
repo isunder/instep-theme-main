@@ -15,6 +15,15 @@ const Allsubcategory = () => {
   const [selected, setselectedcat] = useState();
   const [selecttypesubid, setselecttypesubid] = useState();
   const [selectedSubcategoryId, setSelectedSubcategoryId] = useState("");
+  const [selectedCategoryId, setSelectedCategoryId] = useState("");
+
+  const getcategorylist = useSelector(
+    (state) => state?.getcategorylistdata?.listdata
+  );
+  console.log(getcategorylist, "sherowali");
+
+  const getsubcat = useSelector(
+    (state) => state?.getsubsategorylistdata?.listdata
   // const [selectedBrand, setSelectedBrands] = useState("");
 
   const listCount = useSelector(
@@ -33,18 +42,18 @@ const Allsubcategory = () => {
   const getbrand = useSelector(
     (state) => state?.getsubsategorylistdata?.listdata?.data
   );
+  console.log(getsubcat, "zzz");
 
   const getbrandlist = useSelector(
     (state) => state?.getbrandslistdata?.listdata?.data
   );
   console.log(getbrandlist, "1111");
 
-  console.log(getbrand, "zzz");
   const onSubmit = (values) => {
     console.log(values.brand, "dddddddddddd");
 
     let asd = {
-      category_id: selected,
+      category_id: selectedCategoryId,
       subcategory_id: selectedSubcategoryId,
       typesubcategory_id: selecttypesubid,
       brand: values.brand,
@@ -54,11 +63,16 @@ const Allsubcategory = () => {
   };
   useEffect(() => {
     dispatch(allCategoryList());
-    dispatch(typesubcategoryget());
-
     dispatch(allSubCategoryList());
-    dispatch(allBrandsList({ page: currentPage, perPage: postPerPage }));
-  }, [currentPage]);
+    dispatch(allBrandsList());
+  }, []);
+  var selectedId;
+  const handleCategoryChangeCat = (e) => {
+    selectedId = e.target.value;
+    console.log(selectedId, "selectedcategoryId");
+    setSelectedCategoryId(selectedId);
+  };
+
 
   var selectedId;
   const handleCategoryChange2 = (event) => {
@@ -100,14 +114,16 @@ const Allsubcategory = () => {
                 <div>
                   <select
                     className="subcategory_drop margin_bottom"
-                    onChange={handleCategoryChange}
+                    onChange={handleCategoryChangeCat}
+                    value={selectedCategoryId}
                   >
-                    <option value="">Select a category</option>
-                    {getscat?.map((i) => (
-                      <option name="option" key={i._id} value={i._id}>
-                        {i.category}
-                      </option>
-                    ))}
+                    <option value="">Select Category</option>
+                    {getcategorylist &&
+                      getcategorylist?.map((i) => (
+                        <option key={i._id} value={i._id}>
+                          {i.category}
+                        </option>
+                      ))}
                   </select>
                   <select
                     className="subcategory_drop margin_bottom"
@@ -115,7 +131,7 @@ const Allsubcategory = () => {
                     value={selectedSubcategoryId}
                   >
                     <option value="">Select a Subcategory</option>
-                    {getbrand?.map((i) => (
+                    {getsubcat?.map((i) => (
                       <option key={i._id} value={i._id}>
                         {i.subcategory}
                       </option>

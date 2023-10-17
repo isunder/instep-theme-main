@@ -29,7 +29,10 @@ import GetSliderDataReducer from "../reducer/getSliderSlice";
 import singleProductDataReducer from "../reducer/singleproduct";
 import removeFromCartSliceReducer from "../reducer/removeFromCartSlice";
 import FilterationAllTypeReducer from "../reducer/allFilterationSlice";
-import typesubcategorysliceReducer from "../reducer/typesubcatpost"
+import typesubcategorysliceReducer from "../reducer/typesubcatpost";
+import findSubcategoryFilterByIdReducer from "../reducer/findFilterSlice";
+import findTypeSubcategoryFilterById from "../reducer/findTypeSubcategorySlice";
+import findBrandFilterByIdReducer from "../reducer/filterBrandAdd";
 
 export const store = configureStore({
   reducer: {
@@ -63,6 +66,9 @@ export const store = configureStore({
     getsliderdata: GetSliderDataReducer,
     removefromcart: removeFromCartSliceReducer,
     filterationalltype: FilterationAllTypeReducer,
-    typesubcategory:typesubcategorysliceReducer,
+    typesubcategory: typesubcategorysliceReducer,
+    findsubcategoryfilter: findSubcategoryFilterByIdReducer,
+    findtypesubcategoryfilter: findTypeSubcategoryFilterById,
+    findbrandAdd: findBrandFilterByIdReducer,
   },
 });

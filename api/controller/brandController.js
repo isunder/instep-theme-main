@@ -100,7 +100,7 @@ const filtertypesubbrand = async (req, res) => {
         console.log(req.body.typesubcategory_id, "ssssssssssss");
 
         // Assuming brandtable.find returns a promise
-        const filter = await brandtable.find({ type_subcategory_id: req.body.typesubcategory_id });
+        const filter = await brandtable.find({ subcategory_id: req.body.typesubcategory_id });
 
         res.status(200).send({ success: true, data: filter });
     } catch (error) {
