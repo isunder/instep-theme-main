@@ -46,17 +46,17 @@ const Home = () => {
     {
       value: "Shop Now ",
       bannerImage:
-        "https://global-uploads.webflow.com/6185b708a2657014268d2eaf/6204941a794503795772a4a1_combatant-gentlemen-menswear-ecommerce-site.png",
+        "https://lh3.googleusercontent.com/p/AF1QipOIpf8JlYXIwJFw8A0a7FLgwvvkoGsSpgbvMGAF=w1080-h608-p-no-v0",
     },
     {
       value: "Shop Now ",
       bannerImage:
-        "https://global-uploads.webflow.com/6185b708a2657014268d2eaf/6204941a794503795772a4a1_combatant-gentlemen-menswear-ecommerce-site.png",
+        "https://trends.co/wp-content/uploads/2021/06/trends_deal_directory_shareable.png",
     },
     {
       value: "Shop Now ",
       bannerImage:
-        "https://global-uploads.webflow.com/6185b708a2657014268d2eaf/6204941a794503795772a4a1_combatant-gentlemen-menswear-ecommerce-site.png",
+        "https://braze-images.com/appboy/communication/assets/image_assets/images/642cb57fffb3180b8c80c73a/original.png?1680651647",
     },
   ];
 
@@ -64,7 +64,7 @@ const Home = () => {
     <>
       <div className="container-fluid">
         <div className=" slider_col margin_bottom">
-          <div className="slider bvbvbvbvbvb">
+          <div className="slider">
             <Row>
               <Col lg={12}>
                 <Carousel>
@@ -313,13 +313,26 @@ const Home = () => {
               <Col lg={10}>
                 <Swiper
                   modules={[Navigation]}
-                  x
-                  spaceBetween={5}
-                  slidesPerView={4}
+                  spaceBetween={10}
+                  // slidesPerView={4}
                   navigation
                   pagination={{ clickable: true }}
                   onSwiper={(swiper) => console.log(swiper)}
                   onSlideChange={() => console.log("slide change")}
+                  breakpoints={{
+                    320: {
+                      slidesPerView: 1,
+                    },
+                    480: {
+                      slidesPerView: 2,
+                    },
+                    768: {
+                      slidesPerView: 3,
+                    },
+                    1024: {
+                      slidesPerView: 4,
+                    },
+                  }}
                 >
                   {data?.products?.map((e) => {
                     if (e?.category?.[0]?.category === "Home & Kitchen") {
