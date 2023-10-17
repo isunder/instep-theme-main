@@ -32,7 +32,6 @@ const Allpagination = (props) => {
   return (
     <>
       <div>
-        {" "}
         <Pagination>
           <Pagination.First onClick={() => setCurrentPage(1)} />
           <Pagination.Prev
