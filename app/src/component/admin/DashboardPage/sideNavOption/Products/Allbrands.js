@@ -6,27 +6,34 @@ import { allSubCategoryList } from "../../../../../Redux/action/getSubcategoryAc
 import { Col, Dropdown, Row, Table } from "react-bootstrap";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { allBrandsList } from "../../../../../Redux/action/getAllBrandListAction";
+import { allCategoryList } from "../../../../../Redux/action/getCategoryAction";
 
 const Allsubcategory = () => {
   const dispatch = useDispatch();
   const [selectedSubcategoryId, setSelectedSubcategoryId] = useState("");
-  const [selectedBrand, setSelectedBrands] = useState("");
+  const [selectedCategoryId, setSelectedCategoryId] = useState("");
 
-  const getbrand = useSelector(
+  const getcategorylist = useSelector(
+    (state) => state?.getcategorylistdata?.listdata
+  );
+  console.log(getcategorylist, "sherowali");
+
+  const getsubcat = useSelector(
     (state) => state?.getsubsategorylistdata?.listdata
   );
+  console.log(getsubcat, "zzz");
 
   const getbrandlist = useSelector(
     (state) => state?.getbrandslistdata?.listdata
   );
   console.log(getbrandlist, "1111");
 
-  console.log(getbrand, "zzz");
   const onSubmit = (values) => {
     console.log(values.brand, "dddddddddddd");
     // let scategorynew = { brand: "values" };
 
     let asd = {
+      category_id: selectedCategoryId,
       subcategory_id: selectedSubcategoryId,
       brand: values.brand,
     };
@@ -34,9 +41,16 @@ const Allsubcategory = () => {
     dispatch(addbrands(asd));
   };
   useEffect(() => {
+    dispatch(allCategoryList());
     dispatch(allSubCategoryList());
     dispatch(allBrandsList());
   }, []);
+  var selectedId;
+  const handleCategoryChangeCat = (e) => {
+    selectedId = e.target.value;
+    console.log(selectedId, "selectedcategoryId");
+    setSelectedCategoryId(selectedId);
+  };
 
   var selectedId;
   const handleCategoryChange2 = (event) => {
@@ -67,11 +81,24 @@ const Allsubcategory = () => {
                 <div>
                   <select
                     className="subcategory_drop margin_bottom"
+                    onChange={handleCategoryChangeCat}
+                    value={selectedCategoryId}
+                  >
+                    <option value="">Select Category</option>
+                    {getcategorylist &&
+                      getcategorylist?.map((i) => (
+                        <option key={i._id} value={i._id}>
+                          {i.category}
+                        </option>
+                      ))}
+                  </select>
+                  <select
+                    className="subcategory_drop margin_bottom"
                     onChange={handleCategoryChange2}
                     value={selectedSubcategoryId}
                   >
                     <option value="">Select a Subcategory</option>
-                    {getbrand?.map((i) => (
+                    {getsubcat?.map((i) => (
                       <option key={i._id} value={i._id}>
                         {i.subcategory}
                       </option>
@@ -134,7 +161,6 @@ const Allsubcategory = () => {
                                 <BiDotsVerticalRounded className="threedot_tog_gle" />
                               </Dropdown.Toggle>
                               <Dropdown.Menu>
-                             
                                 <Dropdown.Item href="#/action-2">
                                   Delete
                                 </Dropdown.Item>

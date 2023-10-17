@@ -8,11 +8,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import { MdCancel } from "react-icons/md";
 import "react-toastify/dist/ReactToastify.css";
-import {
-  selectBrandFilter,
-  selectCategoryFilter,
-  selectSubcategoryFilter,
-} from "../../../Redux/action/filterByCategory";
+import { selectCategoryFilter } from "../../../Redux/action/filterByCategory";
+import { selectSubCategoryFilter } from "../../../Redux/action/filterBySubcategory";
+import { selectTypesubcategoryFilter } from "../../../Redux/action/filterByTypeSubcategory";
+import { findbrandfilter } from "../../../Redux/action/typesubcatpost";
 
 const ProductForm = () => {
   const dispatch = useDispatch();
@@ -21,30 +20,30 @@ const ProductForm = () => {
   const [imgupload, setImgupload] = useState("");
 
   const [selectedCategoryId, setSelectedCategoryId] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState(""); // State to store the selected category
+  const [selectedCategory, setSelectedCategory] = useState("");
   console.log(selectedCategory, "dsjhhf");
   const [subcategory, setSubcategory] = useState("");
   const [subcategoryid, setSubcategoryid] = useState("");
   const [brandcategory, setBrandcategory] = useState("");
   const [brand, setbrand] = useState("");
+  const [typsubcat, setTypSubcat] = useState("");
+  const [typsubcatId, setTypSubcatId] = useState("");
   console.log(brandcategory, "zzzz");
 
   const [selectedthumbnalFile, setselectedthumbnalFile] = useState([]);
   const [thumbnail, setthumbnail] = useState("");
   const [subcategorydata, setsubcategorydata] = useState("");
+
   const handlethumbnalfile = (e) => {
     const files = e.target.files;
     const uniqueId = Date.now();
     let name = e.target.files[0].name;
     const filename = uniqueId + "_" + name;
-
     let file = new File(files, filename);
-
     setselectedthumbnalFile(file);
     // console.log(file, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 
     let imagesArray = [];
-    // Iterate through the selected files again to read and display them as previews
     for (let i = 0; i < files.length; i++) {
       const reader = new FileReader();
       reader.onload = (event) => {
@@ -81,21 +80,22 @@ const ProductForm = () => {
       reader.readAsDataURL(files[i]);
     }
   };
+
   const onSubmit = (values) => {
-    // console.log(values, imgupload, "dddd");
     var formData = new FormData();
 
     const payload = {
       description: values?.description,
-      category_id: selectedCategoryId,
-      subcategory_id: subcategoryid,
+      category_id: values?.category,
+      subcategory_id: values?.subcategory,
       title: values?.title,
       price: values?.price,
-      brand_id: brandcategory,
+      brand_id: values?.brand,
       discountpercentage: values?.discountpercentage,
       stock: values?.stock,
       rating: values?.rating,
       image: selectedImagesforpost,
+      typesubcategory_id: values[`type subcategory`],
     };
 
     // console.log("shar", payload);
@@ -103,7 +103,7 @@ const ProductForm = () => {
       formData.append("images", items);
     });
     formData.append("thumbnail", selectedthumbnalFile);
-    console.log(selectedthumbnalFile, "Sdsdsdsdsdfvsdsvfssvsvs")
+    console.log(selectedthumbnalFile, "Sdsdsdsdsdfvsdsvfssvsvs");
     formData.append("userData", JSON.stringify(payload));
     // console.log(payload, "ggg");
     console.log(JSON.parse(formData.getAll("userData")), "data");
@@ -130,18 +130,28 @@ const ProductForm = () => {
   const filterdata = useSelector(
     (state) => state?.selectcategoryfilterbyid?.listdata
   );
+  console.log(filterdata, "filter");
 
   const filterdatasubcat = useSelector(
-    (state) => state?.subcategoryfilter?.listdata
+    (state) => state?.findsubcategoryfilter?.listdata
   );
-  const filterbrand = useSelector((state) => state?.brandfilter?.listdata);
-  console.log(filterbrand, "dddddddddddddddddddddddddfdfd");
+  console.log(filterdatasubcat, "gvdgsvdsg");
+
+  const filterdatatypesubcat = useSelector(
+    (state) => state?.findtypesubcategoryfilter?.listdata
+  );
+  console.log(filterdatatypesubcat, "typesub");
+
+  const filterbrand = useSelector(
+    (state) => state?.findbrandAdd?.listdata?.data?.data
+  );
+  console.log(filterbrand, "22222");
 
   const handleChangehandleChange = (e) => {
     console.log("Category selected", e.target.value);
   };
   console.log(selectedCategoryId, "selectedCategoryId");
-  const handleChange = (event) => {
+  const handleChangecat = (event) => {
     const selectedId = event.target.value;
     setSelectedCategoryId(selectedId);
 
@@ -150,7 +160,7 @@ const ProductForm = () => {
     setSelectedCategory(selectedLabel);
   };
   console.log(filterdata, selectedCategory, "asdasdddddddddddd");
-
+  console.log(filterdata, "ddddddddddsdfs");
   // subcategory change
 
   const handleChangesubcat = (event) => {
@@ -158,38 +168,100 @@ const ProductForm = () => {
     setSubcategoryid(selectedId);
 
     const selectedLabel =
-      filterdatasubcat.find((i) => i._id === selectedId)?.subcategory || "";
+      filterdatasubcat?.find((i) => i._id === selectedId)?.subcategory || "";
     setSubcategory(selectedLabel);
   };
 
-  const brandChange = (event) => {
+  const handleChangeTypesubcat = (event) => {
+    dispatch(
+      selectTypesubcategoryFilter({ subcategory_id: event.target.value })
+    );
     const selectedId = event.target.value;
-    setBrandcategory(selectedId);
+    setTypSubcatId(selectedId);
 
     const selectedLabel =
-      filterbrand.find((i) => i._id === selectedId)?.brand || "";
-    setbrand(selectedLabel);
+      filterdatatypesubcat.find((i) => i._id === selectedId)?.typesubcategory ||
+      "";
+    setTypSubcat(selectedLabel);
+    console.log(selectedLabel, "aaaaaaaaaaaa");
   };
-  useEffect(() => {
-    console.log(selectedCategoryId, subcategoryid, brandcategory, "idds");
-    if (subcategoryid) {
-      dispatch(selectBrandFilter({ subcategory_id: subcategoryid }));
-    } else if (selectedCategoryId) {
-      dispatch(selectSubcategoryFilter({ category_id: selectedCategoryId }));
-    } else {
-      dispatch(selectCategoryFilter());
-    }
-  }, [selectedCategoryId, subcategoryid, brandcategory]);
 
-  console.log(subcategoryid, "subcategorydata");
+  // const brandChange = (event) => {
+  //   dispatch(findbrandfilter({ brand: event.target.value }));
+
+  //   const selectedId = event.target.value;
+  //   setBrandcategory(selectedId);
+
+  //   const selectedLabel =
+  //     filterbrand.find((i) => i._id === selectedId)?.brand || "";
+  //   setbrand(selectedLabel);
+  //   console.log(event, "saaaaaaaassaas");
+  // };
+  // useEffect(() => {
+  //   let payload = {
+  //     category_id: "",
+  //   };
+  //   dispatch(selectSubCategoryFilter(payload));
+  // }, ["abc"]);
+  useEffect(() => {
+    console.log(
+      selectedCategoryId,
+      subcategoryid,
+      brandcategory,
+      typsubcatId,
+      "idds"
+    );
+    // if (subcategoryid) {
+    //   dispatch(selectBrandFilter({ type_subcategory_id: typsubcatId }));
+    // }
+    // if (subcategoryid) {
+    //   dispatch(selectTypesubcategoryFilter({ subcategory_id: subcategoryid }));
+    // } else if (selectedCategoryId) {
+    //   // dispatch(selectSubCategoryFilter({ category_id: selectedCategoryId }));
+    // } else {
+    dispatch(selectCategoryFilter());
+    // }
+  }, [selectedCategoryId, subcategoryid, brandcategory, typsubcatId]);
+
+  console.log(
+    selectedCategoryId,
+    subcategoryid,
+    brandcategory,
+    typsubcatId,
+    "subcategorydata"
+  );
+
+  const handleChange = (e) => {
+    console.log("handlechangecalled");
+    dispatch(selectSubCategoryFilter({ category_id: e.target.value }));
+  };
+
+  const handlesubcategory = (e) => {
+    console.log("handlesubchangecalled");
+    console.log(e, "fwoiehiuf");
+    dispatch(selectTypesubcategoryFilter({ subcategory_id: e.target.value }));
+  };
+
+  const brandChange = (e) => {
+    console.log("handletypesubchangecalled");
+    dispatch(findbrandfilter({ typesubcategory_id: e.target.value }));
+  };
+  console.log(
+    filterdata,
+    filterdatasubcat,
+    filterdatatypesubcat,
+    filterbrand,
+    "iddsub"
+  );
   return (
     <>
       <FinalForm
         onSubmit={onSubmit}
         // validate={validate}
         // initialValues={initialValues}
-        render={({ handleSubmit }) => (
+        render={({ handleSubmit, values }) => (
           <form onSubmit={handleSubmit} enctype="multipart/form-data">
+            {console.log(values, "diuuwhaeud")}
             <Row>
               <Col className="Admin_dashboard margin_bottom" lg={12}>
                 <h3> Add Product</h3>
@@ -202,7 +274,36 @@ const ProductForm = () => {
                   <div className="margin_bottom">
                     <h5 className="margin_bottom">Product Categories</h5>
                     <div className="d-flex newpeo_div">
-                      <input
+                      <Field name="category">
+                        {({ input, meta }) => (
+                          <select
+                            className="addnewproduct_changes right_Addnew"
+                            {...input}
+                            component="select"
+                            onChange={(e) => {
+                              input.onChange(e);
+                              handleChange(e);
+                            }}
+                          >
+                            {filterdata &&
+                              filterdata?.map((e) => {
+                                console.log(e?.category, "eeeeeeeee");
+                                return (
+                                  <>
+                                    <option
+                                      name="option"
+                                      key={e._id}
+                                      value={e._id}
+                                    >
+                                      {e.category}
+                                    </option>
+                                  </>
+                                );
+                              })}
+                          </select>
+                        )}
+                      </Field>
+                      {/* <input
                         type="text"
                         placeholder="select category"
                         className="addnewproduct_changes"
@@ -212,13 +313,19 @@ const ProductForm = () => {
                         className="addnewproduct_changes right_Addnew"
                         name="category"
                         component="select"
-                        onChange={handleChange}
-                        value={selectedCategoryId}
+                        // onChange={handleChangecat}
+                        onChange={(e) => {
+                          // input.onChange(e)
+                          // handleChangecat(e)
+                          testfunction1(e);
+                        }}
+                        // value={selectedCategoryId}
                         required
                       >
                         <option>Select Category</option>
                         {filterdata &&
-                          filterdata.map((e) => {
+                          filterdata?.map((e) => {
+                            console.log(e?.category, "eeeeeeeee");
                             return (
                               <>
                                 <option name="option" key={e._id} value={e._id}>
@@ -227,14 +334,46 @@ const ProductForm = () => {
                               </>
                             );
                           })}
-                      </select>
+                      </select> */}
                     </div>
                   </div>
                   <div className="margin_bottom">
                     <h5 className="margin_bottom">Subcategory</h5>
                     <div className="d-flex newpeo_div">
-
-                      <input
+                      <Field name="subcategory">
+                        {({ input, meta }) => (
+                          <select
+                            className="addnewproduct_changes right_Addnew"
+                            {...input}
+                            component="select"
+                            onChange={(e) => {
+                              input.onChange(e);
+                              // handleChangesubcat(e);
+                              handlesubcategory(e);
+                              brandChange(e);
+                            }}
+                          >
+                            <option>Select Subcategory</option>
+                            {filterdatasubcat &&
+                              filterdatasubcat?.data?.length > 0 &&
+                              filterdatasubcat?.data?.map((e) => {
+                                console.log(e?.category, "eeeeeeeee");
+                                return (
+                                  <>
+                                    <option
+                                      name="option"
+                                      key={e?._id}
+                                      value={e?._id}
+                                    >
+                                      {e?.subcategory}
+                                    </option>
+                                  </>
+                                );
+                              })}
+                          </select>
+                        )}
+                      </Field>
+                      {/* <input
                         className="addnewproduct_changes right_Addnew"
                         placeholder=" Select Subcategory"
                         type="text"
@@ -250,46 +389,142 @@ const ProductForm = () => {
                       >
                         <option>Select Subcategory</option>
                         {filterdatasubcat &&
-                          filterdatasubcat.map((e) => {
+                          filterdatasubcat?.map((e) => {
                             return (
                               <>
                                 <option
                                   name="option"
-                                  key={e.subcategory_id}
-                                  value={e._id}
+                                  key={e?.subcategory_id}
+                                  value={e?._id}
                                 >
-                                  {e.subcategory}
+                                  {e?.subcategory}
                                 </option>
                               </>
                             );
                           })}
-                      </select>
+                      </select> */}
                     </div>
+                  </div>
+                </div>
+                <div className="margin_bottom">
+                  <h5 className="margin_bottom">Type Subcategory</h5>
+                  <div className="d-flex newpeo_div">
+                    <Field name="type subcategory">
+                      {({ input, meta }) => (
+                        <select
+                          className="addnewproduct_changes right_Addnew"
+                          {...input}
+                          component="select"
+                          onChange={(e) => {
+                            input.onChange(e);
+                            // brandChange(e);
+                          }}
+                        >
+                          <option>Select TypeSubcategory</option>
+                          {filterdatatypesubcat &&
+                            filterdatatypesubcat?.map((e) => {
+                              console.log(e, "eeeeeeeee");
+                              return (
+                                <>
+                                  <option
+                                    name="option"
+                                    key={e?._id}
+                                    value={e?._id}
+                                  >
+                                    {e?.typesubcategory}
+                                  </option>
+                                </>
+                              );
+                            })}
+                        </select>
+                      )}
+                    </Field>
+                    {/* <input
+                      className="addnewproduct_changes right_Addnew"
+                      placeholder=" Select TypeSubcategory"
+                      type="text"
+                      value={typsubcat}
+                    ></input>
+                    <select
+                      className="addnewproduct_changes right_Addnew"
+                      name="typsubcategory"
+                      component="select"
+                      onChange={handleChangeTypesubcat}
+                      value={typsubcatId}
+                      required
+                    >
+                      <option>Select TypeSubcategory</option>
+                      {filterdatatypesubcat &&
+                        filterdatatypesubcat.map((e) => {
+                          console.log(e, "eeeeeeeeeeeee");
+                          return (
+                            <>
+                              <option
+                                name="option"
+                                key={e.type_subcategory_id}
+                                value={e._id}
+                              >
+                                {e?.typesubcategory}
+                              </option>
+                            </>
+                          );
+                        })}
+                    </select> */}
                   </div>
                 </div>
                 <div className="Addnewpeoduct margin_bottom py-4">
                   <div className="margin_bottom">
                     <h5>Product Brand</h5>
                     <div className="d-flex newpeo_div">
+                      <Field name="brand">
+                        {({ input, meta }) => (
+                          <select
+                            className="addnewproduct_changes right_Addnew"
+                            name="brand"
+                            {...input}
+                            component="select"
+                            onChange={(e) => {
+                              input.onChange(e);
+                              // brandChange(e);
+                            }}
+                          >
+                            <option>Select Brand</option>
+                            {filterbrand &&
+                              filterbrand?.map((e) => {
+                                console.log(e, "eeee");
+                                return (
+                                  <>
+                                    <option
+                                      name="option"
+                                      key={e._id}
+                                      value={e._id}
+                                    >
+                                      {e.brand}
+                                    </option>
+                                  </>
+                                );
+                              })}
+                          </select>
+                        )}
+                      </Field>
 
-
-                      <input
+                      {/* <input
                         className="addnewproduct_changes right_Addnew"
                         placeholder=" Select Brand"
                         type="text"
-                        value={brand}
+                        // value={brand}
                       ></input>
                       <select
                         className="addnewproduct_changes right_Addnew"
-                        name="subcategory"
+                        name="brand"
                         component="select"
-                        onChange={brandChange}
+                        // onChange={brandChange}
                         value={brandcategory}
                         required
                       >
                         <option>Select Brand</option>
                         {filterbrand &&
-                          filterbrand.map((e) => {
+                          filterbrand?.map((e) => {
                             console.log(e, "eeee");
                             return (
                               <>
@@ -299,12 +534,10 @@ const ProductForm = () => {
                               </>
                             );
                           })}
-                      </select>
+                      </select> */}
                     </div>
                   </div>
-
                 </div>
-
 
                 <div className="Addnewpeoduct margin_bottom py-4">
                   <div className="margin_bottom">
