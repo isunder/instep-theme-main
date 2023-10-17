@@ -28,30 +28,35 @@ const create_subcategory = async (req, res) => {
 
 const subcategorydata = async (req, res) => {
   try {
-    const page = parseInt(req.body.page); // Default to page 1
-    const perPage = parseInt(req.body.perPage); // Default to 10 items per page
-
+    const page = parseInt(req.body.page) ; // Default to page 1
+    const perPage = parseInt(req.body.perPage) ; // Default to 10 items per page
     const skip = (page - 1) * perPage;
+
+    const query = SUBCATEGORY.find();
+    const totalDocs = await SUBCATEGORY.countDocuments(); // Count total documents
+
     if (perPage && page) {
-      const getdata = await SUBCATEGORY.find().skip(skip).limit(perPage);
+      const getdata = await query.skip(skip).limit(perPage).exec();
 
       if (getdata.length > 0) {
-        res.send(getdata);
+        res.send({ data: getdata, totalDocs: totalDocs });
       } else {
-        res.send({ result: "No SUBCATEGORY found for this page" });
+        res.send({ result: "No SUBCATEGORY found for this page", totalDocs: totalDocs });
       }
     } else {
-      const getdata = await SUBCATEGORY.find();
+      const getdata = await query.exec();
+
       if (getdata.length > 0) {
-        res.send(getdata);
+        res.send({ data: getdata, totalDocs: totalDocs });
       } else {
-        res.send({ result: "No SUBCATEGORY found for this page" });
+        res.send({ result: "No SUBCATEGORY found for this page", totalDocs: totalDocs });
       }
     }
   } catch (error) {
     res.status(400).send({ success: false, msg: error.message });
   }
 };
+
 
 const deletesubcategory = async (req, res) => {
   try {

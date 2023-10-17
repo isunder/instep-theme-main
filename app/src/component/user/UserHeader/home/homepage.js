@@ -1,15 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { signUpAction } from "../../Redux/action/signUpAction";
-import { Card, Row, Col, Badge, Button } from "react-bootstrap";
-import { useNavigate } from "react-router";
+import { Card, Row, Col, Button } from "react-bootstrap";
 import { Carousel } from "react-bootstrap";
-// import { productAction } from "../../Redux/action/productAction";
 import { Link } from "react-router-dom";
 import { FiArrowUpRight } from "react-icons/fi";
 import { getProductAction } from "../../../../Redux/action/getProductDetailAction";
 import { Swiper } from "swiper/react";
-import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
+import { Navigation } from "swiper/modules";
 import { SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -18,21 +15,16 @@ import "swiper/css/scrollbar";
 import { AiFillRightCircle } from "react-icons/ai";
 import { allCategoryList } from "../../../../Redux/action/getCategoryAction";
 import { adminGetSlider } from "../../../../Redux/action/getSliderAction";
-// import { index } from "realm";
 
 const Home = () => {
-  const navigate = useNavigate();
-  // const [apiData, setApiData] = useState();
-  // const [category, setCategory] = useState();
   const dispatch = useDispatch();
   const data = useSelector((state) => state?.getproductdata?.listdata);
-  // console.log(data, "aaaaaabbbbbbbbbss");
 
   const categorydata = useSelector((state) => state?.getproductdata?.listdata);
   console.log(categorydata, "categorydata");
 
   const allcatgorydata = useSelector(
-    (state) => state.getcategorylistdata.listdata
+    (state) => state?.getcategorylistdata?.listdata?.data
   );
   console.log(allcatgorydata, "jjjjjjjj");
   const dataslider = useSelector(
@@ -46,11 +38,6 @@ const Home = () => {
     dispatch(adminGetSlider());
   }, []);
 
-  // console.log(category, "json");
-  const handleClick = () => {
-    navigate("/addcart");
-  };
-
   const productClick = (_id) => {
     console.log(_id, "hh/ddhhjjjjjjjjjjj");
   };
@@ -59,17 +46,17 @@ const Home = () => {
     {
       value: "Shop Now ",
       bannerImage:
-        "https://global-uploads.webflow.com/6185b708a2657014268d2eaf/6204941a794503795772a4a1_combatant-gentlemen-menswear-ecommerce-site.png",
+        "https://lh3.googleusercontent.com/p/AF1QipOIpf8JlYXIwJFw8A0a7FLgwvvkoGsSpgbvMGAF=w1080-h608-p-no-v0",
     },
     {
       value: "Shop Now ",
       bannerImage:
-        "https://global-uploads.webflow.com/6185b708a2657014268d2eaf/6204941a794503795772a4a1_combatant-gentlemen-menswear-ecommerce-site.png",
+        "https://trends.co/wp-content/uploads/2021/06/trends_deal_directory_shareable.png",
     },
     {
       value: "Shop Now ",
       bannerImage:
-        "https://global-uploads.webflow.com/6185b708a2657014268d2eaf/6204941a794503795772a4a1_combatant-gentlemen-menswear-ecommerce-site.png",
+        "https://braze-images.com/appboy/communication/assets/image_assets/images/642cb57fffb3180b8c80c73a/original.png?1680651647",
     },
   ];
 
@@ -77,7 +64,7 @@ const Home = () => {
     <>
       <div className="container-fluid">
         <div className=" slider_col margin_bottom">
-          <div className="slider bvbvbvbvbvb">
+          <div className="slider">
             <Row>
               <Col lg={12}>
                 <Carousel>
@@ -133,38 +120,39 @@ const Home = () => {
                   </h2>
                   <div className="category_borderdiv">
                     <Row>
-                      {allcatgorydata.slice(0, 6).map((e) => {
-                        return (
-                          <>
-                            <Col lg={2} md={4} sm={4}>
-                              <Link
-                                className="carddecorationnone_cat"
-                                to={`/category/${e._id}`}
-                              >
-                                <Card className="cat_card_homep ">
-                                  <div className="hoveron_arrow">
-                                    <div className="top_catcard">
-                                      <div className="pos_catimage">
-                                        <img
-                                          className="topcatimage_home"
-                                          src={`http://localhost:5000/categoryimg/${e.images}`}
-                                          alt=""
-                                        />
+                      {allcatgorydata &&
+                        allcatgorydata?.slice(0, 6).map((e) => {
+                          return (
+                            <>
+                              <Col lg={2} md={4} sm={4}>
+                                <Link
+                                  className="carddecorationnone_cat"
+                                  to={`/category/${e._id}`}
+                                >
+                                  <Card className="cat_card_homep ">
+                                    <div className="hoveron_arrow">
+                                      <div className="top_catcard">
+                                        <div className="pos_catimage">
+                                          <img
+                                            className="topcatimage_home"
+                                            src={`http://localhost:5000/categoryimg/${e.images}`}
+                                            alt=""
+                                          />
+                                        </div>
+                                        <p>{e?.category}</p>
                                       </div>
-                                      <p>{e?.category}</p>
-                                    </div>
-                                    <div className="hoverarrow_direc">
-                                      <div className="right_bottomborder">
-                                        <FiArrowUpRight className="arrow-icon" />
+                                      <div className="hoverarrow_direc">
+                                        <div className="right_bottomborder">
+                                          <FiArrowUpRight className="arrow-icon" />
+                                        </div>
                                       </div>
                                     </div>
-                                  </div>
-                                </Card>
-                              </Link>
-                            </Col>
-                          </>
-                        );
-                      })}
+                                  </Card>
+                                </Link>
+                              </Col>
+                            </>
+                          );
+                        })}
                     </Row>
                   </div>
                 </div>
@@ -173,7 +161,6 @@ const Home = () => {
           </div>
           <Row>
             <h2 className="ourtopcategories_home"> Top Trending Products</h2>
-
             {banner?.map((item, index) => {
               return (
                 <>
@@ -230,20 +217,33 @@ const Home = () => {
                 <Swiper
                   modules={[Navigation]}
                   spaceBetween={10}
-                  slidesPerView={4}
+                  // slidesPerView={4}
                   navigation
                   pagination={{ clickable: true }}
                   onSwiper={(swiper) => console.log(swiper)}
                   onSlideChange={() => console.log("slide change")}
+                  breakpoints={{
+                    320: {
+                      slidesPerView: 1,
+                    },
+                    480: {
+                      slidesPerView: 2,
+                    },
+                    768: {
+                      slidesPerView: 3,
+                    },
+                    1024: {
+                      slidesPerView: 4,
+                    },
+                  }}
                 >
                   {categorydata &&
-                    categorydata?.map((item, index) => {
+                    categorydata?.products?.map((item, index) => {
                       if (item?.category?.[0]?.category === "electronics") {
                         return (
                           <SwiperSlide className="shopping_card" key={index}>
                             <Link
                               className="card_deco"
-                              // to={`/subcategory/${item?.subcategory}`}
                               to={`/productdetail/${item._id}`}
                               onClick={() => productClick(item?._id)}
                             >
@@ -261,22 +261,10 @@ const Home = () => {
                                   />
                                 </div>
                                 <Card.Body>
-                                  {/* <div className="item_rating">
-                                  <p className="homerating_cat">
-                                    {" "}
-                                    {item?.rating}
-                                  </p>
-                                  <p className="homerating_cat">
-                                    {" "}
-                                    {item.category}
-                                  </p>
-                                </div> */}
                                   <Card.Title className="crad_text">
                                     {item?.title}
                                   </Card.Title>
-                                  {/* <Card.Text className="crad_text">
-                                  {item?.description}
-                                </Card.Text> */}
+
                                   <Card.Text className="crad_text">
                                     <h6> ₹ {item?.price}</h6>
                                   </Card.Text>
@@ -302,7 +290,7 @@ const Home = () => {
                       </Card.Text>
                       <Link
                         className="carddecorationnone_cat"
-                        to={`/category/${"home&kitchen"}`}
+                        to={`/category/${"651e84c0ad6a72ae9d37db57"}`}
                       >
                         <button
                           className="electrnicswiewall_button"
@@ -325,21 +313,33 @@ const Home = () => {
               <Col lg={10}>
                 <Swiper
                   modules={[Navigation]}
-                  x
-                  spaceBetween={5}
-                  slidesPerView={4}
+                  spaceBetween={10}
+                  // slidesPerView={4}
                   navigation
                   pagination={{ clickable: true }}
                   onSwiper={(swiper) => console.log(swiper)}
                   onSlideChange={() => console.log("slide change")}
+                  breakpoints={{
+                    320: {
+                      slidesPerView: 1,
+                    },
+                    480: {
+                      slidesPerView: 2,
+                    },
+                    768: {
+                      slidesPerView: 3,
+                    },
+                    1024: {
+                      slidesPerView: 4,
+                    },
+                  }}
                 >
-                  {data?.map((e) => {
+                  {data?.products?.map((e) => {
                     if (e?.category?.[0]?.category === "Home & Kitchen") {
                       return (
                         <SwiperSlide className="shopping_card" key={e?.id}>
                           <Link
                             className="card_deco"
-                            // to={`/subcategory/${e.subcategory}`}
                             to={`/productdetail/${e._id}`}
                             onClick={() => productClick(e?._id)}
                           >
@@ -357,16 +357,10 @@ const Home = () => {
                                 />
                               </div>
                               <Card.Body>
-                                {/* <div className="item_rating">
-                              <p className="homerating_cat"> {e?.rating}</p>
-                              <p className="homerating_cat"> {e?.category}</p>
-                            </div> */}
                                 <Card.Title className="crad_text">
                                   {e?.title}
                                 </Card.Title>
-                                {/* <Card.Text className="crad_text">
-                              {e?.description}
-                            </Card.Text> */}
+
                                 <Card.Text className="crad_text">
                                   <h6> ₹ {e?.price}</h6>
                                 </Card.Text>
@@ -390,9 +384,6 @@ const Home = () => {
                     <AiFillRightCircle className="topcategoies_icon" />
                   </div>
                   <Row>
-                    {/* {data.map((e) => {
-                    if (e.category === "home&kitchen") {
-                      return ( */}
                     <Col lg={6} md={6}>
                       <div className="my-2">
                         <div className="hometop_fashionbo_der">
@@ -429,9 +420,6 @@ const Home = () => {
                         </div>
                       </div>
                     </Col>
-                    {/* );
-                    }
-                  })} */}
                   </Row>
                   <Row>
                     <Col lg={6} md={6}>
@@ -480,9 +468,6 @@ const Home = () => {
                     <AiFillRightCircle className="topcategoies_icon" />
                   </div>
                   <Row>
-                    {/* {data.map((e) => {
-                    if (e.category === "home&kitchen") {
-                      return ( */}
                     <Col lg={6} md={6}>
                       <div className="my-2">
                         <div className="hometop_fashionbo_der">
@@ -519,9 +504,6 @@ const Home = () => {
                         </div>
                       </div>
                     </Col>
-                    {/* );
-                    }
-                  })} */}
                   </Row>
                   <Row>
                     <Col lg={6} md={6}>
@@ -563,7 +545,7 @@ const Home = () => {
                   </Row>
                 </div>
               </Col>
-              <Col lg={4} md={4} >
+              <Col lg={4} md={4}>
                 <div className="sports_bannerhomepage">
                   <div className="sportscontent_align">
                     <div>

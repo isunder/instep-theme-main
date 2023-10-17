@@ -41,36 +41,35 @@ const create_brand = async (req, res) => {
 
 const brandgetdata = async (req, res) => {
     try {
-        const page = parseInt(req.body.page); // Default to page 1
-        const perPage = parseInt(req.body.perPage); // Default to 10 items per page
-
+        const page = parseInt(req.body.page) ; // Default to page 1
+        const perPage = parseInt(req.body.perPage) ; // Default to 10 items per page
         const skip = (page - 1) * perPage;
-        
-        if (page && perPage) {
 
-            const getdata = await brands.find().skip(skip).limit(perPage);
+        const query = brands.find();
+        const totalDocs = await brands.countDocuments(); // Count total documents
+
+        if (page && perPage) {
+            const getdata = await query.skip(skip).limit(perPage).exec();
+
             if (getdata.length > 0) {
-                res.send(getdata);
+                res.status(200).send({ success: true, data: getdata, totalDocs: totalDocs });
             } else {
-                res.send({ result: "no brands  found" });
+                res.status(400).send({ success: false, msg: "No brands found for this page", totalDocs: totalDocs });
             }
         } else {
+            const getdata = await query.exec();
 
-            const getdata = await brands.find()
             if (getdata.length > 0) {
-                res.send(getdata);
+                res.status(200).send({ success: true, data: getdata, totalDocs: totalDocs });
             } else {
-                res.send({ result: "no brands  found" });
+                res.status(400).send({ success: false, msg: "No brands found", totalDocs: totalDocs });
             }
         }
-
-
     } catch (error) {
-        res.status(400).send({ succes: false, msg: error.message })
-
+        res.status(400).send({ success: false, msg: error.message });
     }
+};
 
-}
 
 const deletebrand = async (req, res) => {
     try {

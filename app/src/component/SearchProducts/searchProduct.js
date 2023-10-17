@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Subcaregoryfilter from "../user/filterbyCategory/SubcaregoryMobilefilter";
 import SubCategoryfilter from "../user/filterbyCategory/subCategoryfilter";
+import { BsFillHeartFill } from "react-icons/bs";
 
 function Searchproduct() {
   const item = useSelector((state) => state?.Searchproduct?.listdata);
@@ -28,6 +29,12 @@ function Searchproduct() {
                         to={`/productdetail/${item._id}`}
                       >
                         <Card className=" forcatcards_htwd">
+                        <div className="d-flex justify-content-end mt-2 mx-2">
+                            <BsFillHeartFill
+                              style={{ color: "#808080" }}
+                              // onClick={showwishilist}
+                            />
+                          </div>
                           <div className="img_div">
                             <Card.Img
                               variant="top"

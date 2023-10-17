@@ -7,9 +7,13 @@ import { Col, Dropdown, Row, Table } from "react-bootstrap";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { allBrandsList } from "../../../../../Redux/action/getAllBrandListAction";
 import { allCategoryList } from "../../../../../Redux/action/getCategoryAction";
+import { typesubcategoryget } from "../../../../../Redux/action/typesubcatpost";
+import Allpagination from "../../../Pagination/pagination";
 
 const Allsubcategory = () => {
   const dispatch = useDispatch();
+  const [selected, setselectedcat] = useState();
+  const [selecttypesubid, setselecttypesubid] = useState();
   const [selectedSubcategoryId, setSelectedSubcategoryId] = useState("");
   const [selectedCategoryId, setSelectedCategoryId] = useState("");
 
@@ -20,21 +24,38 @@ const Allsubcategory = () => {
 
   const getsubcat = useSelector(
     (state) => state?.getsubsategorylistdata?.listdata
+  // const [selectedBrand, setSelectedBrands] = useState("");
+
+  const listCount = useSelector(
+    (state) => state?.getbrandslistdata?.listdata?.totalDocs
+  );
+  const getscat = useSelector(
+    (state) => state?.getcategorylistdata?.listdata?.data
+  );
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postPerPage, setPostPerPage] = useState(10);
+  const typesubcatgory = useSelector(
+    (state) => state?.typesubcategory?.typesublist?.data?.data
+  );
+  console.log(getscat, "getscat");
+  const getbrand = useSelector(
+    (state) => state?.getsubsategorylistdata?.listdata?.data
   );
   console.log(getsubcat, "zzz");
 
   const getbrandlist = useSelector(
-    (state) => state?.getbrandslistdata?.listdata
+    (state) => state?.getbrandslistdata?.listdata?.data
   );
   console.log(getbrandlist, "1111");
 
   const onSubmit = (values) => {
     console.log(values.brand, "dddddddddddd");
-    // let scategorynew = { brand: "values" };
 
     let asd = {
       category_id: selectedCategoryId,
       subcategory_id: selectedSubcategoryId,
+      typesubcategory_id: selecttypesubid,
       brand: values.brand,
     };
 
@@ -52,6 +73,7 @@ const Allsubcategory = () => {
     setSelectedCategoryId(selectedId);
   };
 
+
   var selectedId;
   const handleCategoryChange2 = (event) => {
     selectedId = event.target.value;
@@ -59,6 +81,17 @@ const Allsubcategory = () => {
     setSelectedSubcategoryId(selectedId);
   };
   console.log(selectedSubcategoryId, "selectedSubcategoryId");
+
+  var selectcatid;
+  const handleCategoryChange = (event) => {
+    selectcatid = event.target.value;
+    setselectedcat(selectcatid);
+  };
+  var typesubid;
+  const handletypesubCategoryChange = (event) => {
+    typesubid = event.target.value;
+    setselecttypesubid(typesubid);
+  };
 
   return (
     <>
@@ -104,12 +137,19 @@ const Allsubcategory = () => {
                       </option>
                     ))}
                   </select>
-                  {/* <input
-                    type="text"
-                    value={selectedBrand}
-                    readOnly
-                    className="addnewproduct_changes right_Addnew"
-                  /> */}
+                  <select
+                    className="subcategory_drop margin_bottom"
+                    onChange={handletypesubCategoryChange}
+                    // value={selectedCategoryId}
+                  >
+                    <option value="">Select a category</option>
+                    {typesubcatgory?.map((i) => (
+                      <option name="option" key={i._id} value={i._id}>
+                        {i.typesubcategory}
+                      </option>
+                    ))}
+                  </select>
+
                   <div className="mb-2">
                     <Field
                       className="subcategory_drop"
@@ -121,6 +161,7 @@ const Allsubcategory = () => {
                     />
                   </div>
                 </div>
+
                 <div className="d-flex justify-content-end margin_bottom">
                   <button type="submit" className="addcatsubit_button">
                     Submit
@@ -144,12 +185,14 @@ const Allsubcategory = () => {
               </thead>
               <tbody>
                 {getbrandlist &&
-                  getbrandlist?.map((e, i) => {
+                  getbrandlist?.map((e, index) => {
                     console.log(e, "brnds");
                     return (
                       <>
                         <tr>
-                          <td>{i + 1}</td>
+                          <td>
+                            {(currentPage - 1) * postPerPage + (index + 1)}
+                          </td>
                           <td>{e.brand}</td>
                           <td className="d-flex justify-content-end">
                             <Dropdown>
@@ -173,6 +216,15 @@ const Allsubcategory = () => {
                   })}
               </tbody>
             </Table>
+            <div className="d-flex justify-content-end">
+              <Allpagination
+                currentPage={currentPage}
+                postPerPage={postPerPage}
+                setPostPerPage={setPostPerPage}
+                setCurrentPage={setCurrentPage}
+                listCount={listCount}
+              />
+            </div>
           </div>
         </Col>
       </Row>

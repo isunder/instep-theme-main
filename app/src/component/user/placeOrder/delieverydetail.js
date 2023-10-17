@@ -8,7 +8,8 @@ import {
 } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { BiSolidStarHalf } from "react-icons/bi";
-import { getUserId } from "../../../utils/auth";  
+import { getUserId } from "../../../utils/auth";
+import { BsPlusCircleFill } from "react-icons/bs";
 
 const Delieverydetail = () => {
   const [showCol, setShowCol] = useState("login");
@@ -252,6 +253,18 @@ const Delieverydetail = () => {
                       </>
                     )}
                   </div>
+                  <Row>
+                    <Col lg={12}>
+                      <div className="addnew_address">
+                        <div>
+                          <BsPlusCircleFill className="logindetail_icon" />
+                        </div>
+                        <div>
+                          <p>Add New</p>
+                        </div>
+                      </div>
+                    </Col>
+                  </Row>
                 </Col>
               </Row>
             </Col>

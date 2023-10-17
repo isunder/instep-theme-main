@@ -6,6 +6,7 @@ import { Col, Dropdown, Row, Table } from "react-bootstrap";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { allCategoryList } from "../../../../../Redux/action/getCategoryAction";
 import { toast } from "react-toastify";
+import Allpagination from "../../../Pagination/pagination";
 
 const Allcategories = () => {
   const [selectedImagesforpost, setselectedImagesforpost] = useState();
@@ -13,8 +14,20 @@ const Allcategories = () => {
 
   const dispatch = useDispatch();
 
-  const data = useSelector((state) => state?.getcategorylistdata?.listdata);
+  const data = useSelector(
+    (state) => state?.getcategorylistdata?.listdata?.data
+  );
   console.log(data, "adat");
+
+  const listCount = useSelector(
+    (state) => state.getcategorylistdata?.listdata?.totalDocs
+  );
+  console.log(listCount, "Cddsdsd");
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postPerPage, setPostPerPage] = useState(5);
+
+  // const [readMoreState, setReadMoreState] = useState(null);
 
   const onSubmit = (values) => {
     var formData = new FormData();
@@ -40,11 +53,13 @@ const Allcategories = () => {
     });
   };
 
+  const isLoading = useSelector((state)=>state?.getcategorylistdata?.isLoading)
+
   useEffect(() => {
-    dispatch(allCategoryList());
-  }, []);
+    dispatch(allCategoryList({ page: currentPage, perPage: postPerPage }));
+  }, [currentPage]);
   const handleImgeFile = (e) => {
-    const files = e.target.files; 
+    const files = e.target.files;
     const uniqueId = Date.now();
     let name = e.target.files[0].name;
     const filename = uniqueId + "_" + name;
@@ -65,7 +80,7 @@ const Allcategories = () => {
       reader.readAsDataURL(files[i]);
     }
   };
-  console.log(selectedImagesforpost, "forssssssssss post");
+  console.log(isLoading, "forssssssssss post");
 
   return (
     <>
@@ -82,8 +97,6 @@ const Allcategories = () => {
             <div className="leftcategory_add">
               <Form
                 onSubmit={onSubmit}
-                // initialValues={sxsszs}
-                // validate={validate}
                 render={({
                   handleSubmit,
                   form,
@@ -101,13 +114,8 @@ const Allcategories = () => {
                         placeholder="category"
                         required
                       />
-                      <div className="buttons">
-                        {/* <button className="addcatsubit_button" type="submit">
-                          Submit
-                        </button> */}
-                      </div>
+                      <div className="buttons"></div>
                     </div>
-                    {/* <div className="category_item"> */}
                     <div className="margin_bottom">
                       <h4>Upload image</h4>
                       <div>
@@ -117,26 +125,6 @@ const Allcategories = () => {
                           className="form-control signup_form_input margin_bottom"
                           onChange={handleImgeFile}
                         />
-                        {/* {selectedImages?.length > 0 && (
-                          <div>
-                            <h4>Selected Images:</h4>
-                            <ul className="row">
-                              {selectedImages?.map((imageUrl, index) => (
-                                <li
-                                  key={index}
-                                  className=" productupload_item col-md-3"
-                                >
-                                  <img
-                                    className="productupload_image"
-                                    src={imageUrl}
-                                    alt={`Image ${index}`}
-                                  />
-s
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        )} */}
                       </div>
                     </div>
                     <div>
@@ -165,11 +153,11 @@ s
                 </tr>
               </thead>
               <tbody>
-                {data &&
-                  data.map((e, i) => {
+                {isLoading ? <p>Loading...</p> : (data &&
+                  data.map((e, index) => {
                     return (
                       <tr>
-                        <td>{i + 1}</td>
+                        <td>{(currentPage - 1) * postPerPage + (index + 1)}</td>
                         <td>{e.category}</td>
                         <td className="d-flex justify-content-end">
                           <Dropdown>
@@ -189,9 +177,18 @@ s
                         </td>
                       </tr>
                     );
-                  })}
+                  }))}
               </tbody>
             </Table>
+            <div className="d-flex justify-content-end">
+              <Allpagination
+                currentPage={currentPage}
+                postPerPage={postPerPage}
+                setPostPerPage={setPostPerPage}
+                setCurrentPage={setCurrentPage}
+                listCount={listCount}
+              />
+            </div>
           </div>
         </Col>
       </Row>

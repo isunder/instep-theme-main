@@ -6,27 +6,42 @@ import { allCategoryList } from "../../../../../Redux/action/getCategoryAction";
 import { Col, Dropdown, Row, Table } from "react-bootstrap";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { allSubCategoryList } from "../../../../../Redux/action/getSubcategoryAction";
-import { typesubcategoryget, typesubcategorypost } from "../../../../../Redux/action/typesubcatpost";
+import {
+  typesubcategoryget,
+  typesubcategorypost,
+} from "../../../../../Redux/action/typesubcatpost";
+import Allpagination from "../../../Pagination/pagination";
 
 const Allsubcategory = () => {
   const dispatch = useDispatch();
-  const [selectedsubCategoryId, setselectedsubCategoryId] = useState("")
-  // const [SelectedsubCategory, setSelectedsubCategory] = useState("")
+  // const [selectedsubCategoryId, setselectedsubCategoryId] = useState("");
   const [selectedCategoryId, setSelectedCategoryId] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState(""); // State to store the selected category
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [loading,setLoading] = useState(false) // State to store the selected category
 
-  const getscat = useSelector((state) => state?.getcategorylistdata?.listdata);
+  const listCount = useSelector(
+    (state) => state?.getsubsategorylistdata?.listdata?.totalDocs
+  );
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postPerPage, setPostPerPage] = useState(5);
+  const getscat = useSelector(
+    (state) => state?.getcategorylistdata?.listdata.data
+  );
 
   const getsubcat = useSelector(
-    (state) => state?.getsubsategorylistdata?.listdata
+    (state) => state?.getsubsategorylistdata?.listdata?.data
   );
 
+  const isLoading = useSelector((state)=>state?.getsubsategorylistdata?.isLoading)
 
-  const getsubcate = useSelector(
-    (state) => state?.getsubsategorylistdata?.listdata
+  // const getsubcate = useSelector(
+  //   (state) => state?.getsubsategorylistdata?.listdata?.data
+  // );
+
+  const typesubcatgory = useSelector(
+    (state) => state?.typesubcategory?.typesublist?.data?.data
   );
-
-  const typesubcatgory = useSelector((state) => state?.typesubcategory?.typesublist?.data?.data)
   console.log(typesubcatgory, "typesubcatgory");
 
   const onSubmit = (values) => {
@@ -44,11 +59,12 @@ const Allsubcategory = () => {
     dispatch(addsubcategory(asd));
   };
   useEffect(() => {
-    dispatch(allCategoryList());
-    dispatch(allSubCategoryList());
-    dispatch(allSubCategoryList());
-    dispatch(typesubcategoryget())
-  }, []);
+    setLoading(true)
+    dispatch(allSubCategoryList({ page: currentPage, perPage: postPerPage })).then((res)=>{
+      // console.log(res,)
+      setLoading(false)
+    });
+  }, [currentPage]);
 
   console.log(selectedCategoryId, "selectedCategoryId");
   const handleCategoryChange = (event) => {
@@ -59,33 +75,33 @@ const Allsubcategory = () => {
       getscat.find((i) => i._id === selectedId)?.category || "";
     setSelectedCategory(selectedLabel);
   };
-  var selectedId;
-  const handleCategoryChange2 = (event) => {
-    selectedId = event.target.value;
-    setselectedsubCategoryId(selectedId);
-  };
-  console.log(selectedsubCategoryId, "selectedSubcategoryId", selectedCategoryId);
+  // var selectedId;
+  // const handleCategoryChange2 = (event) => {
+  //   selectedId = event.target.value;
+  //   setselectedsubCategoryId(selectedId);
+  // };
+  // console.log(
+  //   selectedsubCategoryId,
+  //   "selectedSubcategoryId",
+  //   selectedCategoryId
+  // );
 
-  const onSubmittype = (value) => {
-    console.log(value, "dssdsdsS")
+  // const onSubmittype = (value) => {
+  //   console.log(value, "dssdsdsS");
 
-    let typesub = {
-      category_id: selectedCategoryId,
-      subcategory_id: selectedsubCategoryId,
-      typesubcategory: value.typesubcategory
-    }
-    dispatch(typesubcategorypost(typesub)).then(res => {
-      // console.log(res.payload.data.sucess ,"Dddddddddddd")
+  //   let typesub = {
+  //     category_id: selectedCategoryId,
+  //     subcategory_id: selectedsubCategoryId,
+  //     typesubcategory: value.typesubcategory,
+  //   };
+  //   dispatch(typesubcategorypost(typesub)).then((res) => {
+  //     if (res.payload.data.sucess) {
+  //       dispatch(typesubcategoryget());
+  //     }
+  //   });
+  // };
 
-      if (res.payload.data.sucess) {
-        dispatch(typesubcategoryget())
-      }
-    })
-
-
-
-
-  }
+  console.log(isLoading,loading,'isLoading')
 
   return (
     <>
@@ -153,12 +169,14 @@ const Allsubcategory = () => {
                 </tr>
               </thead>
               <tbody>
-                {getsubcat &&
-                  getsubcat.map((e, i) => {
+                {isLoading ? <p>Loading...</p> : (getsubcat &&
+                  getsubcat?.map((e, index) => {
                     return (
                       <>
                         <tr>
-                          <td>{i + 1}</td>
+                          <td>
+                            {(currentPage - 1) * postPerPage + (index + 1)}
+                          </td>
                           <td>{e.subcategory}</td>
                           <td className="d-flex justify-content-end">
                             <Dropdown>
@@ -170,7 +188,6 @@ const Allsubcategory = () => {
                                 <BiDotsVerticalRounded className="threedot_tog_gle" />
                               </Dropdown.Toggle>
                               <Dropdown.Menu>
-
                                 <Dropdown.Item href="#/action-2">
                                   Delete
                                 </Dropdown.Item>
@@ -180,16 +197,24 @@ const Allsubcategory = () => {
                         </tr>
                       </>
                     );
-                  })}
+                  }))}
               </tbody>
             </Table>
+            <div className="d-flex justify-content-end">
+              <Allpagination
+                currentPage={currentPage}
+                postPerPage={postPerPage}
+                setPostPerPage={setPostPerPage}
+                setCurrentPage={setCurrentPage}
+                listCount={listCount}
+              />
+            </div>
           </div>
         </Col>
       </Row>
       {/* typesubcateory */}
 
-
-      <Row>
+      {/* <Row>
         <Col lg={12}>
           <div className="admin_toppadding ">
             <Col className="Admin_dashboard " lg={12}>
@@ -296,12 +321,11 @@ const Allsubcategory = () => {
                     ))}
                   </>
                 )}
-
               </tbody>
             </Table>
           </div>
         </Col>
-      </Row>
+      </Row> */}
     </>
   );
 };
