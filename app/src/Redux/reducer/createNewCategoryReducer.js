@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addcategory } from "../action/createNewCategoryAction";
+import { addcategory, removeFromCategory } from "../action/createNewCategoryAction";
 
 const initialState = {
   isLoading: false,
@@ -24,6 +24,7 @@ const AddCategory = createSlice({
       state.error = "";
       state.isLoading = false;
     });
+  
   },
 });
 

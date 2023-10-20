@@ -29,3 +29,14 @@ export const findbrandfilter = createAsyncThunk(
     return axiosInstance.post("/filtertypebrand", payload);
   }
 );
+
+
+// 
+export const removeFromTypeSubcategory = createAsyncThunk(
+  "removeFromTypeSubcategory",
+  async (payload) =>{
+    return axiosInstance.post('/deletetypesubcategory', payload)
+  }
+)
+
+

@@ -334,7 +334,7 @@ import { getProductAction } from "../../../../Redux/action/getProductDetailActio
 import { Link } from "react-router-dom";
 import { Card, Col, Row } from "react-bootstrap";
 import { BiChevronRight } from "react-icons/bi";
-import { BsFillHeartFill } from "react-icons/bs";
+import { AiOutlineHeart } from "react-icons/ai";
 import Subcategorymobilefilter from "../../filterbyCategory/SubcaregoryMobilefilter";
 import SubCategoryfilter from "../../filterbyCategory/subCategoryfilter";
 
@@ -400,7 +400,6 @@ const AllProductDetail = () => {
               {data &&
                 data?.products?.map((e) => {
                   if (e.image) {
-                    // console.log(e,'jjjjjjjjjjjjjj')
                   }
                   return (
                     <Col lg={3} md={4}>
@@ -411,8 +410,12 @@ const AllProductDetail = () => {
                       >
                         <Card className=" forcatcards_htwd ">
                           <div className="d-flex justify-content-end mt-2 mx-2">
-                            <BsFillHeartFill
-                              style={{ color: "#808080" }}
+                            <AiOutlineHeart
+                              style={{
+                                color: "#808080",
+                                width: "23px",
+                                height: "23px",
+                              }}
                               onClick={showwishilist}
                             />
                           </div>
@@ -430,7 +433,6 @@ const AllProductDetail = () => {
                           </div>
                           <Card.Body>
                             <div className="item_rating">
-                              {/* <p className="homerating_cat"> {e?.rating}</p>] */}
                               <p className="homerating_cat">
                                 {e?.category[0]?.category}
                               </p>
@@ -438,9 +440,7 @@ const AllProductDetail = () => {
                             <Card.Title className="crad_text">
                               {e?.title}
                             </Card.Title>
-                            <Card.Text className="crad_text">
-                              {/* {e?.description}  */}
-                            </Card.Text>
+                            <Card.Text className="crad_text"></Card.Text>
                             <Card.Text className="crad_text">
                               <h5> ₹ {e?.price}</h5>
                             </Card.Text>

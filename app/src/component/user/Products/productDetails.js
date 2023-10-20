@@ -93,6 +93,7 @@ const ProductDetails = () => {
                       width: 1800,
                       height: 1800,
                     },
+                   
                     enlargedImageContainerStyle: {
                       zIndex: 999,
                     },

@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { Form, Field } from "react-final-form";
 import { useDispatch, useSelector } from "react-redux";
-import { addsubcategory } from "../../../../../Redux/action/createNewSubcategoryAction";
-import { allCategoryList } from "../../../../../Redux/action/getCategoryAction";
-import { Col, Dropdown, Row, Table } from "react-bootstrap";
-import { BiDotsVerticalRounded } from "react-icons/bi";
-import { allSubCategoryList } from "../../../../../Redux/action/getSubcategoryAction";
 import {
-  typesubcategoryget,
-  typesubcategorypost,
-} from "../../../../../Redux/action/typesubcatpost";
+  addsubcategory,
+  removeFromSubcategory,
+} from "../../../../../Redux/action/createNewSubcategoryAction";
+import { Col, Row, Table } from "react-bootstrap";
+import { allSubCategoryList } from "../../../../../Redux/action/getSubcategoryAction";
+
 import Allpagination from "../../../Pagination/pagination";
+import { MdDelete } from "react-icons/md";
+import Delete from "../../../deleteModel/delete";
 
 const Allsubcategory = () => {
   const dispatch = useDispatch();
   // const [selectedsubCategoryId, setselectedsubCategoryId] = useState("");
   const [selectedCategoryId, setSelectedCategoryId] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [loading,setLoading] = useState(false) // State to store the selected category
+  const [loading, setLoading] = useState(false); // State to store the selected category
 
   const listCount = useSelector(
     (state) => state?.getsubsategorylistdata?.listdata?.totalDocs
@@ -33,11 +33,9 @@ const Allsubcategory = () => {
     (state) => state?.getsubsategorylistdata?.listdata?.data
   );
 
-  const isLoading = useSelector((state)=>state?.getsubsategorylistdata?.isLoading)
-
-  // const getsubcate = useSelector(
-  //   (state) => state?.getsubsategorylistdata?.listdata?.data
-  // );
+  const isLoading = useSelector(
+    (state) => state?.getsubsategorylistdata?.isLoading
+  );
 
   const typesubcatgory = useSelector(
     (state) => state?.typesubcategory?.typesublist?.data?.data
@@ -59,10 +57,11 @@ const Allsubcategory = () => {
     dispatch(addsubcategory(asd));
   };
   useEffect(() => {
-    setLoading(true)
-    dispatch(allSubCategoryList({ page: currentPage, perPage: postPerPage })).then((res)=>{
-      // console.log(res,)
-      setLoading(false)
+    setLoading(true);
+    dispatch(
+      allSubCategoryList({ page: currentPage, perPage: postPerPage })
+    ).then((res) => {
+      setLoading(false);
     });
   }, [currentPage]);
 
@@ -75,34 +74,25 @@ const Allsubcategory = () => {
       getscat.find((i) => i._id === selectedId)?.category || "";
     setSelectedCategory(selectedLabel);
   };
-  // var selectedId;
-  // const handleCategoryChange2 = (event) => {
-  //   selectedId = event.target.value;
-  //   setselectedsubCategoryId(selectedId);
-  // };
-  // console.log(
-  //   selectedsubCategoryId,
-  //   "selectedSubcategoryId",
-  //   selectedCategoryId
-  // );
 
-  // const onSubmittype = (value) => {
-  //   console.log(value, "dssdsdsS");
+  const handleClose = () => setShow(false);
 
-  //   let typesub = {
-  //     category_id: selectedCategoryId,
-  //     subcategory_id: selectedsubCategoryId,
-  //     typesubcategory: value.typesubcategory,
-  //   };
-  //   dispatch(typesubcategorypost(typesub)).then((res) => {
-  //     if (res.payload.data.sucess) {
-  //       dispatch(typesubcategoryget());
-  //     }
-  //   });
-  // };
-
-  console.log(isLoading,loading,'isLoading')
-
+  const handleDelete = (id) => {
+    dispatch(removeFromSubcategory({ subcategoryid: id })).then((res) => {
+      if (res?.payload?.success) {
+        dispatch(
+          allSubCategoryList({ page: currentPage, perPage: postPerPage })
+        );
+      }
+      handleClose();
+    });
+  };
+  const [show, setShow] = useState(false);
+  const [categoryid, setCategoryid] = useState(null);
+  const handleShow = (id) => {
+    setCategoryid(id)
+    setShow(true);
+  };
   return (
     <>
       <Row>
@@ -169,7 +159,10 @@ const Allsubcategory = () => {
                 </tr>
               </thead>
               <tbody>
-                {isLoading ? <p>Loading...</p> : (getsubcat &&
+                {isLoading ? (
+                  <p>Loading...</p>
+                ) : (
+                  getsubcat &&
                   getsubcat?.map((e, index) => {
                     return (
                       <>
@@ -178,26 +171,21 @@ const Allsubcategory = () => {
                             {(currentPage - 1) * postPerPage + (index + 1)}
                           </td>
                           <td>{e.subcategory}</td>
-                          <td className="d-flex justify-content-end">
-                            <Dropdown>
-                              <Dropdown.Toggle
-                                variant=""
-                                id="dropdown-basic"
-                                className="focusotoggle"
-                              >
-                                <BiDotsVerticalRounded className="threedot_tog_gle" />
-                              </Dropdown.Toggle>
-                              <Dropdown.Menu>
-                                <Dropdown.Item href="#/action-2">
-                                  Delete
-                                </Dropdown.Item>
-                              </Dropdown.Menu>
-                            </Dropdown>
+                          <td>
+                            <div className="d-flex justify-content-end">
+                              <MdDelete
+                                className="deleteicn_forpro"
+                                onClick={() => {
+                                  handleShow(e?._id);
+                                }}
+                              />
+                            </div>
                           </td>
                         </tr>
                       </>
                     );
-                  }))}
+                  })
+                )}
               </tbody>
             </Table>
             <div className="d-flex justify-content-end">
@@ -212,6 +200,14 @@ const Allsubcategory = () => {
           </div>
         </Col>
       </Row>
+      {show && (
+        <Delete
+          handleDelete={handleDelete}
+          handleClose={handleClose}
+          show={show}
+          categoryId={categoryid}
+        />
+      )}
       {/* typesubcateory */}
 
       {/* <Row>

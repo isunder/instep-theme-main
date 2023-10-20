@@ -104,7 +104,11 @@ const Usernavbar = () => {
                   <div className="subnewbar_content">
                     <div>
                       <div className="navbarhead_prop">
-                        <Navbar.Brand href="#">INSTEPCART</Navbar.Brand>
+                        <Navbar.Brand>
+                          <Link to="/" className="card_deco">
+                            INSTEPCART
+                          </Link>
+                        </Navbar.Brand>
                       </div>
                     </div>
 
