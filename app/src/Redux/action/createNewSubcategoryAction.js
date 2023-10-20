@@ -16,3 +16,13 @@ export const addsubcategory = createAsyncThunk(
     return data1.data;
   }
 );
+
+
+
+export const removeFromSubcategory = createAsyncThunk(
+  "removeFromSubcategory",
+  async (payload) => {
+    const data1 = await axiosInstance.post(`/Deletesubcategory`, payload);
+    return data1.data
+  }
+);

@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Form, Field } from "react-final-form";
 import { useDispatch, useSelector } from "react-redux";
-import { addcategory } from "../../../../../Redux/action/createNewCategoryAction";
-import { Col, Dropdown, Row, Table } from "react-bootstrap";
-import { BiDotsVerticalRounded } from "react-icons/bi";
+import {
+  addcategory,
+  removeFromCategory,
+} from "../../../../../Redux/action/createNewCategoryAction";
+import { Button, Col, Dropdown, Modal, Row, Table } from "react-bootstrap";
+import { MdDelete } from "react-icons/md";
 import { allCategoryList } from "../../../../../Redux/action/getCategoryAction";
 import { toast } from "react-toastify";
 import Allpagination from "../../../Pagination/pagination";
+import Delete from "../../../deleteModel/delete";
 
 const Allcategories = () => {
   const [selectedImagesforpost, setselectedImagesforpost] = useState();
@@ -53,7 +57,9 @@ const Allcategories = () => {
     });
   };
 
-  const isLoading = useSelector((state)=>state?.getcategorylistdata?.isLoading)
+  const isLoading = useSelector(
+    (state) => state?.getcategorylistdata?.isLoading
+  );
 
   useEffect(() => {
     dispatch(allCategoryList({ page: currentPage, perPage: postPerPage }));
@@ -80,8 +86,23 @@ const Allcategories = () => {
       reader.readAsDataURL(files[i]);
     }
   };
-  console.log(isLoading, "forssssssssss post");
+  const handleClose = () => setShow(false);
 
+  const handleDelete = (id) => {
+    dispatch(removeFromCategory({ categoryid: id })).then((res) => {
+      if (res?.payload?.data?.success) {
+        dispatch(allCategoryList({ page: currentPage, perPage: postPerPage }));
+      }
+      handleClose();
+    });
+  };
+
+  const [show, setShow] = useState(false);
+  const [categoryid, setCategoryid] = useState(null);
+  const handleShow = (id) => {
+    setCategoryid(id);
+    setShow(true);
+  };
   return (
     <>
       <Row>
@@ -153,31 +174,30 @@ const Allcategories = () => {
                 </tr>
               </thead>
               <tbody>
-                {isLoading ? <p>Loading...</p> : (data &&
+                {isLoading ? (
+                  <p>Loading...</p>
+                ) : (
+                  data &&
                   data.map((e, index) => {
+                    console.log(e, "fiorjei");
                     return (
                       <tr>
                         <td>{(currentPage - 1) * postPerPage + (index + 1)}</td>
                         <td>{e.category}</td>
-                        <td className="d-flex justify-content-end">
-                          <Dropdown>
-                            <Dropdown.Toggle
-                              variant=""
-                              id="dropdown-basic"
-                              className="focusotoggle"
-                            >
-                              <BiDotsVerticalRounded className="threedot_tog_gle" />
-                            </Dropdown.Toggle>
-                            <Dropdown.Menu>
-                              <Dropdown.Item href="#/action-2">
-                                Delete
-                              </Dropdown.Item>
-                            </Dropdown.Menu>
-                          </Dropdown>
+                        <td>
+                          <div className="d-flex justify-content-end">
+                            <MdDelete
+                              className="deleteicn_forpro"
+                              onClick={() => {
+                                handleShow(e?._id);
+                              }}
+                            />
+                          </div>
                         </td>
                       </tr>
                     );
-                  }))}
+                  })
+                )}
               </tbody>
             </Table>
             <div className="d-flex justify-content-end">
@@ -192,6 +212,12 @@ const Allcategories = () => {
           </div>
         </Col>
       </Row>
+      <Delete
+        handleDelete={handleDelete}
+        handleClose={handleClose}
+        show={show}
+        categoryId={categoryid}
+      />
     </>
   );
 };

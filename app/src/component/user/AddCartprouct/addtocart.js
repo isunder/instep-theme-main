@@ -27,9 +27,9 @@ const AddToCartProduct = () => {
     if (userData && userData.id) dispatch(cartinfo({ userid: userData.id }));
   }, []);
 
-  const initialQuantities = [];
+  // const initialQuantities = [];
 
-  const [quantities, setQuantities] = useState(initialQuantities);
+  // const [quantities, setQuantities] = useState(initialQuantities);
   const onHandleClickPlus = (id) => {
     let apiObject = {
       productid: id,
@@ -109,11 +109,12 @@ const AddToCartProduct = () => {
   console.log(quantity, "fiwbeufbn");
   const handleClose = () => setShow(false);
 
-  const clickMe = (id) => {
+  const handleSubmit = (id) => {
     dispatch(
       removeFromCart({ userId: userData?.id, productIdToRemove: deleteId })
     ).then((res) => {
       SetDeleteState([...deleteState, deleteId]);
+      dispatch(cartinfo({ userid: userData.id }));
       handleClose();
     });
   };
@@ -208,7 +209,6 @@ const AddToCartProduct = () => {
                           <Col lg={2} md={2} sm={2}>
                             <div className="addtocart_title">
                               <h5>
-                                {" "}
                                 ₹ {e?.productDetails[0]?.price?.toFixed(0)}
                               </h5>
                             </div>
@@ -307,7 +307,7 @@ const AddToCartProduct = () => {
                                     className="removebut_cart"
                                     variant="primary"
                                     onClick={() => {
-                                      clickMe(e?.productDetails[0]?._id);
+                                      handleSubmit(e?.productDetails[0]?._id);
                                     }}
                                   >
                                     REMOVE

@@ -341,8 +341,14 @@ div p {
 }
 /* -------------------------Recent Orders-------------------------- */
 
-/* -----------------------------------------------------------------------------all procducts-------------------------------------------------------------------------------- */
+/* -----------------------------------------------------------------------------allprocducts--------------------------------------------------------------------------------*/
 
+.deleteicn_forpro{
+  width: 20px;
+  height: 20px;
+  color: #F70000;
+  cursor: pointer;
+}
 
 
 .searchbutton {
@@ -384,12 +390,10 @@ div p {
   gap: 10px;
 }
 .select_button {
-  /* margin-left: 11px !important; */
   padding: 11px 22px !important;
-  /* font-size: 12px !important; */
   color: #000 !important;
   background-color: #f4f6f8 !important;
-  border: none !important;
+  border: 1px solid #dee2e6 !important;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px !important;
 }
 .table-responsive {
@@ -1033,6 +1037,25 @@ svg.rs-sidenav-item-icon {
   width: 100%;
 }
 /* ---------------------------------------------------orders-------------------------------------------------- */
+
+/* ---------------------------------------------------customer detail-------------------------------------------------------------------------------------------------- */
+
+.custom_bord{
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 10px;
+  padding: 20px 5px;
+}
+
+/* .form-check-input:checked {
+    background-color: #4EB529 !important;
+} */
+
+/* .form-check-input:focus{
+  box-shadow: unset !important;
+  border: 1px solid #000 !important;
+} */
+
+/* ---------------------------------------------------customer detail-------------------------------------------------------------------------------------------------- */
 /*---------------  navbar-firstweb-page-footer ----------- */
 /* footer payment */
 
@@ -1712,6 +1735,7 @@ h5 {
 
 .card_deco {
   text-decoration: none !important;
+  color: #000 !important;
 }
 
 .footer_end {
@@ -1857,7 +1881,7 @@ h5 {
 .magni_fieralign div img {
   width: 100% !important;
   height: 400px !important;
-  object-fit: contain ;
+  object-fit: cover ;
 }
 }
 
@@ -2528,7 +2552,7 @@ footer ul {
 .productupload_image{
 width: 80%;
 height: 200px;
-object-fit: cover;
+object-fit: contain;
 border: 1px solid #fff;
 box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
@@ -2580,6 +2604,9 @@ box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   object-fit: contain;
 }
 
+.magni_fieralign img{
+  object-fit: contain;
+}
 
 .topmain_imageview img[type=smallImage]{
   height: 100%;

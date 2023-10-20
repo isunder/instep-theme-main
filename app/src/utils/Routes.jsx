@@ -42,6 +42,7 @@ import Security from "../component/user/securityDetail/security";
 import Privacy from "../component/user/privacyDetail/privacy";
 import Sliderpost from "../component/admin/dashboardPage/sideNavOption/Products/Sliderpost";
 import Alltypesubcategory from "../component/admin/dashboardPage/sideNavOption/Products/Alltypesubcategory";
+import Customer from "../component/admin/dashboardPage/sideNavOption/customerDetail/customer";
 
 const role = getUserId() ? getUserId()?.userRole : null;
 // console.log(role, "aaasdfgfds");
@@ -99,6 +100,7 @@ const protects = {
         { path: "/possystem", element: <PosSystem /> },
         { path: "/possystem", element: <PosSystem /> },
         { path: "/slider", element: <Sliderpost /> },
+        { path: "/customerdetail", element: <Customer /> },
 
         { path: "*", element: "NO PAGE FOUND" },
       ],

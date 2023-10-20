@@ -54,7 +54,7 @@ const SidebarFun = () => {
                   <Link to={"/allproduct"}>- All Products</Link>{" "}
                 </Nav.Item>
                 <Nav.Item eventKey="2-2">
-                  {" "} 
+                  {" "}
                   <Link to={"/Allcategories"}>- All Categories</Link>
                 </Nav.Item>
                 <Nav.Item eventKey="2-3">
@@ -109,7 +109,12 @@ const SidebarFun = () => {
                 eventKey="8"
                 title="Customer"
                 icon={<HiOutlineUserGroup />}
-              />
+              >
+                {" "}
+                <Nav.Item eventKey="8-1">
+                  <Link to={"/customerdetail"}>Customer Detail </Link>
+                </Nav.Item>{" "}
+              </Nav.Menu>
               <Nav.Menu title="Employee Staff" icon={<FaUserCheck />} />{" "}
               <Nav.Menu eventKey="9" title="Tags" icon={<AiFillTags />} />
               <Nav.Menu eventKey="10" title="Pages" icon={<SiPowerpages />} />
