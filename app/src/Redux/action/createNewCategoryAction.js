@@ -18,15 +18,9 @@ export const addcategory = createAsyncThunk(
   }
 );
 
-export const deleteCategory = createAsyncThunk(
-  "pospadminproduct",
-  async (payload, id) => {
-    console.log(payload, id, "gggggggggggggggggggg");
-    const data1 = await axiosInstance
-      .post(`/productsdlt`, payload)
-      .then((res) => res);
-    console.log(data1, "data1data1");
-    return data1.data;
+export const removeFromCategory = createAsyncThunk(
+  "removeFromCategory",
+  async (payload) =>{
+    return axiosInstance.post('/Deletecategory', payload)
   }
-);
-
+)

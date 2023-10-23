@@ -3,14 +3,16 @@ import { useEffect, useState } from "react";
 import { Form, Field } from "react-final-form";
 import { useDispatch, useSelector } from "react-redux";
 import { allCategoryList } from "../../../../../Redux/action/getCategoryAction";
-import { Col, Dropdown, Row, Table } from "react-bootstrap";
-import { BiDotsVerticalRounded } from "react-icons/bi";
+import { Col, Row, Table } from "react-bootstrap";
 import { allSubCategoryList } from "../../../../../Redux/action/getSubcategoryAction";
 import {
+  removeFromTypeSubcategory,
   typesubcategoryget,
   typesubcategorypost,
 } from "../../../../../Redux/action/typesubcatpost";
 import Allpagination from "../../../Pagination/pagination";
+import { MdDelete } from "react-icons/md";
+import Delete from "../../../deleteModel/delete";
 const Alltypesubcategory = () => {
   const dispatch = useDispatch();
   const [selectedsubCategoryId, setselectedsubCategoryId] = useState("");
@@ -80,6 +82,28 @@ const Alltypesubcategory = () => {
         dispatch(typesubcategoryget());
       }
     });
+  };
+
+  const handleClose = () => setShow(false);
+
+  const handleDelete = (id) => {
+    dispatch(removeFromTypeSubcategory({ typesubcategory_id: id })).then(
+      (res) => {
+        if (res?.payload?.data?.success) {
+          dispatch(
+            typesubcategoryget({ page: currentPage, perPage: postPerPage })
+          );
+        }
+        handleClose();
+      }
+    );
+  };
+
+  const [show, setShow] = useState(false);
+  const [categoryid, setCategoryid] = useState(null);
+  const handleShow = (id) => {
+    setCategoryid(id);
+    setShow(true);
   };
   return (
     <div>
@@ -171,21 +195,15 @@ const Alltypesubcategory = () => {
                       <tr key={index}>
                         <td>{(currentPage - 1) * postPerPage + (index + 1)}</td>
                         <td>{e.typesubcategory}</td>
-                        <td className="d-flex justify-content-end">
-                          <Dropdown>
-                            <Dropdown.Toggle
-                              variant=""
-                              id="dropdown-basic"
-                              className="focusotoggle"
-                            >
-                              <BiDotsVerticalRounded className="threedot_tog_gle" />
-                            </Dropdown.Toggle>
-                            <Dropdown.Menu>
-                              <Dropdown.Item href="#/action-2">
-                                Delete
-                              </Dropdown.Item>
-                            </Dropdown.Menu>
-                          </Dropdown>
+                        <td>
+                          <div className="d-flex justify-content-end">
+                            <MdDelete
+                              className="deleteicn_forpro"
+                              onClick={() => {
+                                handleShow(e?._id);
+                              }}
+                            />
+                          </div>
                         </td>
                       </tr>
                     ))}
@@ -205,6 +223,14 @@ const Alltypesubcategory = () => {
           </div>
         </Col>
       </Row>
+      {show && (
+        <Delete
+          handleDelete={handleDelete}
+          handleClose={handleClose}
+          show={show}
+          categoryId={categoryid}
+        />
+      )}
     </div>
   );
 };

@@ -246,6 +246,9 @@ const Delieverydetail = () => {
                           <button
                             value="use my current location"
                             className="addresslocation"
+                            onClick={() => {
+                              setShowCol(null);
+                            }}
                           >
                             SAVE AND DELIVER HERE
                           </button>
@@ -255,7 +258,12 @@ const Delieverydetail = () => {
                   </div>
                   <Row>
                     <Col lg={12}>
-                      <div className="addnew_address">
+                      <div
+                        className="addnew_address"
+                        onClick={() => {
+                          setShowCol("delivery");
+                        }}
+                      >
                         <div>
                           <BsPlusCircleFill className="logindetail_icon" />
                         </div>

@@ -207,8 +207,9 @@ function Allproducts(params) {
                             {" "}
                             <Dropdown>
                               <Dropdown.Toggle
-                                variant="success"
+                                variant=""
                                 id="dropdown-basic"
+                                // className="focusotoggle"
                               >
                                 <BiDotsVerticalRounded />
                               </Dropdown.Toggle>

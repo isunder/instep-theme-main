@@ -13,3 +13,11 @@ export const addbrands = createAsyncThunk("brands", async (payload) => {
   const data1 = await axiosInstance.post(`/addbrand`, payload);
   return data1.data;
 });
+
+export const removeFromBrand = createAsyncThunk(
+  "removeFromBrand",
+  async (payload) => {
+    const data1 = await axiosInstance.post(`/Deletebrand`, payload);
+    return data1.data;
+  }
+);

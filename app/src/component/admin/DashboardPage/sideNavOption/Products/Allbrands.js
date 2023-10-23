@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Form, Field } from "react-final-form";
 import { useDispatch, useSelector } from "react-redux";
-import { addbrands } from "../../../../../Redux/action/createNewBrandsAction";
+import {
+  addbrands,
+  removeFromBrand,
+} from "../../../../../Redux/action/createNewBrandsAction";
 import { allSubCategoryList } from "../../../../../Redux/action/getSubcategoryAction";
-import { Col, Dropdown, Row, Table } from "react-bootstrap";
-import { BiDotsVerticalRounded } from "react-icons/bi";
+import { Col,Row, Table } from "react-bootstrap";
 import { allBrandsList } from "../../../../../Redux/action/getAllBrandListAction";
 import { allCategoryList } from "../../../../../Redux/action/getCategoryAction";
 import Allpagination from "../../../Pagination/pagination";
+import { MdDelete } from "react-icons/md";
+import Delete from "../../../deleteModel/delete";
 
 const Allsubcategory = () => {
   const dispatch = useDispatch();
@@ -70,6 +74,22 @@ const Allsubcategory = () => {
   };
   console.log(selectedSubcategoryId, "selectedSubcategoryId");
 
+  const handleClose = () => setShow(false);
+
+  const handleDelete = (id) => {
+    dispatch(removeFromBrand({ _id: id })).then((res) => {
+      dispatch(allBrandsList({ page: currentPage, perPage: postPerPage }));
+      if (res?.payload?.data?.success) {
+      }
+      handleClose();
+    });
+  };
+  const [show, setShow] = useState(false);
+  const [categoryid, setCategoryid] = useState(null);
+  const handleShow = (id) => {
+    setCategoryid(id);
+    setShow(true);
+  };
   return (
     <>
       <Row>
@@ -156,21 +176,15 @@ const Allsubcategory = () => {
                             {(currentPage - 1) * postPerPage + (index + 1)}
                           </td>
                           <td>{e.brand}</td>
-                          <td className="d-flex justify-content-end">
-                            <Dropdown>
-                              <Dropdown.Toggle
-                                variant=""
-                                id="dropdown-basic"
-                                className="focusotoggle"
-                              >
-                                <BiDotsVerticalRounded className="threedot_tog_gle" />
-                              </Dropdown.Toggle>
-                              <Dropdown.Menu>
-                                <Dropdown.Item href="#/action-2">
-                                  Delete
-                                </Dropdown.Item>
-                              </Dropdown.Menu>
-                            </Dropdown>
+                          <td>
+                            <div className="d-flex justify-content-end">
+                              <MdDelete
+                                className="deleteicn_forpro"
+                                onClick={() => {
+                                  handleShow(e?._id);
+                                }}
+                              />
+                            </div>
                           </td>
                         </tr>
                       </>
@@ -190,6 +204,14 @@ const Allsubcategory = () => {
           </div>
         </Col>
       </Row>
+      {show && (
+        <Delete
+          handleDelete={handleDelete}
+          handleClose={handleClose}
+          show={show}
+          categoryId={categoryid}
+        />
+      )}
     </>
   );
 };
