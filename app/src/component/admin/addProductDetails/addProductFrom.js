@@ -140,12 +140,12 @@ const ProductForm = () => {
   const filterdatatypesubcat = useSelector(
     (state) => state?.findtypesubcategoryfilter?.listdata
   );
-  console.log(filterdatatypesubcat, "typesub");
+  console.log(filterdatatypesubcat, "filterdatatypesubcat");
 
   const filterbrand = useSelector(
-    (state) => state?.findbrandAdd?.listdata?.data?.data
+    (state) => state?.findbrandAdd?.listdata?.data
   );
-  console.log(filterbrand, "22222");
+  console.log(filterbrand, "filterbrand");
 
   const handleChangehandleChange = (e) => {
     console.log("Category selected", e.target.value);
@@ -284,7 +284,8 @@ const ProductForm = () => {
                               input.onChange(e);
                               handleChange(e);
                             }}
-                          >
+                          >   
+                            <option>Select Category</option>
                             {filterdata &&
                               filterdata?.map((e) => {
                                 console.log(e?.category, "eeeeeeeee");
