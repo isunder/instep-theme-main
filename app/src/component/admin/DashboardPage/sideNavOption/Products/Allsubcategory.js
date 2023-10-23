@@ -28,6 +28,7 @@ const Allsubcategory = () => {
   const getscat = useSelector(
     (state) => state?.getcategorylistdata?.listdata.data
   );
+  console.log(getscat, "getscat");
 
   const getsubcat = useSelector(
     (state) => state?.getsubsategorylistdata?.listdata?.data
@@ -36,6 +37,10 @@ const Allsubcategory = () => {
   const isLoading = useSelector(
     (state) => state?.getsubsategorylistdata?.isLoading
   );
+  
+  // const getsubcate = useSelector(
+  //   (state) => state?.getsubsategorylistdata?.listdata?.data
+  // );
 
   const typesubcatgory = useSelector(
     (state) => state?.typesubcategory?.typesublist?.data?.data
@@ -56,11 +61,17 @@ const Allsubcategory = () => {
 
     dispatch(addsubcategory(asd));
   };
+
+  useEffect(() => {
+    dispatch(allCategoryList());
+  }, []);
+
   useEffect(() => {
     setLoading(true);
     dispatch(
       allSubCategoryList({ page: currentPage, perPage: postPerPage })
     ).then((res) => {
+      // console.log(res,)
       setLoading(false);
     });
   }, [currentPage]);
@@ -71,11 +82,9 @@ const Allsubcategory = () => {
     setSelectedCategoryId(selectedId);
 
     const selectedLabel =
-      getscat.find((i) => i._id === selectedId)?.category || "";
+      getscat.find((i) => i?._id === selectedId)?.category || "";
     setSelectedCategory(selectedLabel);
   };
-
-  const handleClose = () => setShow(false);
 
   const handleDelete = (id) => {
     dispatch(removeFromSubcategory({ subcategoryid: id })).then((res) => {
@@ -119,11 +128,12 @@ const Allsubcategory = () => {
                       value={selectedCategoryId}
                     >
                       <option value="">Select a category</option>
-                      {getscat?.map((i) => (
-                        <option name="option" key={i._id} value={i._id}>
-                          {i.category}
-                        </option>
-                      ))}
+                      {getscat &&
+                        getscat?.map((i) => (
+                          <option name="option" key={i?._id} value={i?._id}>
+                            {i?.category}
+                          </option>
+                        ))}
                     </select>
                   </div>
                 </div>

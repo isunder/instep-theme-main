@@ -42,6 +42,7 @@ import Security from "../component/user/securityDetail/security";
 import Privacy from "../component/user/privacyDetail/privacy";
 import Sliderpost from "../component/admin/dashboardPage/sideNavOption/Products/Sliderpost";
 import Alltypesubcategory from "../component/admin/dashboardPage/sideNavOption/Products/Alltypesubcategory";
+import Payments from "../component/user/placeOrder/startpayment";
 import Customer from "../component/admin/dashboardPage/sideNavOption/customerDetail/customer";
 
 const role = getUserId() ? getUserId()?.userRole : null;
@@ -69,6 +70,7 @@ const protects = {
         { path: "/termofuse", element: <TermsofuseDetail /> },
         { path: "/paymentsecurity", element: <Security /> },
         { path: "/privacypolicy", element: <Privacy /> },
+        { path: "/payment", element: <Payments /> },
         { path: "*", element: "NO PAGE FOUND" },
       ],
     },
@@ -126,6 +128,7 @@ const protects = {
         { path: "/termofuse", element: <TermsofuseDetail /> },
         { path: "/paymentsecurity", element: <Security /> },
         { path: "/privacypolicy", element: <Privacy /> },
+        { path: "/payment", element: <Payments /> },
         { path: "*", element: "NO PAGE FOUND" },
       ],
     },

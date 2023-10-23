@@ -18,8 +18,6 @@ export const addcategory = createAsyncThunk(
   }
 );
 
-
-
 export const removeFromCategory = createAsyncThunk(
   "removeFromCategory",
   async (payload) =>{
