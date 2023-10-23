@@ -27,34 +27,43 @@ const create_subcategory = async (req, res) => {
 };
 
 const subcategorydata = async (req, res) => {
-  try {
-    const page = parseInt(req.body.page) ; // Default to page 1
-    const perPage = parseInt(req.body.perPage) ; // Default to 10 items per page
-    const skip = (page - 1) * perPage;
+  if(req.body.category_id){
 
-    const query = SUBCATEGORY.find();
-    const totalDocs = await SUBCATEGORY.countDocuments(); // Count total documents
+    const data = await SUBCATEGORY.find({category_id:req?.body?.category_id})
 
-    if (perPage && page) {
-      const getdata = await query.skip(skip).limit(perPage).exec();
+    res.send({ data: data,sucess:true });
 
-      if (getdata.length > 0) {
-        res.send({ data: getdata, totalDocs: totalDocs });
+  }else{
+    try {
+      const page = parseInt(req.body.page) ; // Default to page 1
+      const perPage = parseInt(req.body.perPage) ; // Default to 10 items per page
+      const skip = (page - 1) * perPage;
+  
+      const query = SUBCATEGORY.find();
+      const totalDocs = await SUBCATEGORY.countDocuments(); // Count total documents
+  
+      if (perPage && page) {
+        const getdata = await query.skip(skip).limit(perPage).exec();
+  
+        if (getdata.length > 0) {
+          res.send({ data: getdata, totalDocs: totalDocs });
+        } else {
+          res.send({ result: "No SUBCATEGORY found for this page", totalDocs: totalDocs });
+        }
       } else {
-        res.send({ result: "No SUBCATEGORY found for this page", totalDocs: totalDocs });
+        const getdata = await query.exec();
+  
+        if (getdata.length > 0) {
+          res.send({ data: getdata, totalDocs: totalDocs });
+        } else {
+          res.send({ result: "No SUBCATEGORY found for this page", totalDocs: totalDocs });
+        }
       }
-    } else {
-      const getdata = await query.exec();
-
-      if (getdata.length > 0) {
-        res.send({ data: getdata, totalDocs: totalDocs });
-      } else {
-        res.send({ result: "No SUBCATEGORY found for this page", totalDocs: totalDocs });
-      }
+    } catch (error) {
+      res.status(400).send({ success: false, msg: error.message });
     }
-  } catch (error) {
-    res.status(400).send({ success: false, msg: error.message });
   }
+ 
 };
 
 

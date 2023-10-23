@@ -38,45 +38,56 @@ const create_typesubcategory = async (req, res) => {
   }
 };
 const get_typesubcategory = async (req, res) => {
-  try {
-    const page = parseInt(req.body.page); // Default to page 1
-    const perPage = parseInt(req.body.perPage); // Default to 10 items per page
-    const skip = (page - 1) * perPage;
-
-    const query = typeofsubcategorytable.find();
-    const totalDocs = await typeofsubcategorytable.countDocuments(); // Count total documents
-
-    if (page && perPage) {
-      const dataoftypesub = await query.skip(skip).limit(perPage).exec();
-
-      if (dataoftypesub?.length > 0) {
-        res
-          .status(200)
-          .send({ success: true, data: dataoftypesub, totalDocs: totalDocs });
-      } else {
-        res.status(400).send({
-          success: false,
-          msg: "Please provide a valid page and perPage",
-          totalDocs: totalDocs,
-        });
-      }
-    } else {
-      const dataoftypesub = await query.exec();
-      if (dataoftypesub?.length > 0) {
-        res
-          .status(200)
-          .send({ success: true, data: dataoftypesub, totalDocs: totalDocs });
-      } else {
-        res.status(400).send({
-          success: false,
-          msg: "Some error occurred",
-          totalDocs: totalDocs,
-        });
-      }
+  if (req.body.subcategory_id) {
+    try {
+      const dataof = await typeofsubcategorytable.find({ subcategory_id: req.body.subcategory_id });
+      res.status(200).send({ success: true, data: dataof });
+    } catch (error) {
+      res.status(400).send({ success: false, msg: error.message });
     }
-  } catch (error) {
-    res.status(400).send({ success: false, msg: error.message });
+  }  else {
+    
+    try {
+      const page = parseInt(req.body.page); // Default to page 1
+      const perPage = parseInt(req.body.perPage); // Default to 10 items per page
+      const skip = (page - 1) * perPage;
+
+      const query = typeofsubcategorytable.find();
+      const totalDocs = await typeofsubcategorytable.countDocuments(); // Count total documents
+
+      if (page && perPage) {
+        const dataoftypesub = await query.skip(skip).limit(perPage).exec();
+
+        if (dataoftypesub?.length > 0) {
+          res
+            .status(200)
+            .send({ success: true, data: dataoftypesub, totalDocs: totalDocs });
+        } else {
+          res.status(400).send({
+            success: false,
+            msg: "Please provide a valid page and perPage",
+            totalDocs: totalDocs,
+          });
+        }
+      } else {
+        const dataoftypesub = await query.exec();
+        if (dataoftypesub?.length > 0) {
+          res
+            .status(200)
+            .send({ success: true, data: dataoftypesub, totalDocs: totalDocs });
+        } else {
+          res.status(400).send({
+            success: false,
+            msg: "Some error occurred",
+            totalDocs: totalDocs,
+          });
+        }
+      }
+    } catch (error) {
+      res.status(400).send({ success: false, msg: error.message });
+    }
   }
+
 };
 
 const delete_typesubcat = async (req, res) => {
