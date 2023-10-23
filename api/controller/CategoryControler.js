@@ -40,12 +40,10 @@ const adddCategory = async (req, res) => {
           .status(200)
           .send({ success: true, msg: "category data", data: cat_data });
       } else {
-        res
-          .status(200)
-          .send({
-            success: true,
-            msg: "this category (" + userData?.category + ") is already exist.",
-          });
+        res.status(200).send({
+          success: true,
+          msg: "this category (" + userData?.category + ") is already exist.",
+        });
       }
     } else {
       const savecategory = new modelcategory({
@@ -147,7 +145,7 @@ const filtercategory = async (req, res) => {
         subcategory_id: subcategory_id,
       });
       if (filter?.length == 0) {
-        data = [filter];
+        data = filter;
       } else {
         const filter = await brandtable.find({
           subcategory_id: subcategory_id,
@@ -191,12 +189,9 @@ const categoryfull = async (req, res) => {
     }
   } catch (error) {
     console.error(error);
-    res
-      .status(500)
-      .send({
-        error:
-          "An error occurred while deleting categories and associated items",
-      });
+    res.status(500).send({
+      error: "An error occurred while deleting categories and associated items",
+    });
   }
 };
 

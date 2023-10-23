@@ -55,7 +55,7 @@ const Usernavbar = () => {
   console.log(filterdata, "filterdatafilterdata");
 
   useEffect(() => {
-    dispatch(filterByCategory());
+    // dispatch(filterByCategory());
     if (userData && userData.id) {
       dispatch(cartinfo({ userid: userData.id })).then((res) => {
         console.log("TRIGGERED", res);

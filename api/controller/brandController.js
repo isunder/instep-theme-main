@@ -118,16 +118,17 @@ const deletebrand = async (req, res) => {
 };
 
 const filtertypesubbrand = async (req, res) => {
-  console.log("test");
+  console.log("filtertypesubbrand");
   try {
     console.log(req.body.typesubcategory_id, "ssssssssssss");
 
-    // Assuming brandtable.find returns a promise
     const filter = await brandtable.find({
       subcategory_id: req.body.typesubcategory_id,
     });
+    console.log(filter, "filterfilterfilterfilter");
 
-    res.status(200).send({ success: true, data: filter });
+    // res.status(200).send({ success: true, data: filter });
+    res.status(200).send(filter);
   } catch (error) {
     res.status(400).send({ success: false, msg: error.message });
   }

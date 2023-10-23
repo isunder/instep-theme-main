@@ -19,6 +19,7 @@ const Alltypesubcategory = () => {
   const [selectedCategoryId, setSelectedCategoryId] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(""); // State to store the selected category
 
+  console.log(selectedCategoryId, "cdcdcd");
   const listCount = useSelector(
     (state) => state?.typesubcategory?.typesublist?.data?.totalDocs
   );
@@ -26,7 +27,7 @@ const Alltypesubcategory = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage, setPostPerPage] = useState(5);
   const getscat = useSelector(
-    (state) => state?.getcategorylistdata?.listdata.data
+    (state) => state?.getcategorylistdata?.listdata?.data
   );
 
   // const getsubcat = useSelector(
@@ -44,8 +45,11 @@ const Alltypesubcategory = () => {
 
   useEffect(() => {
     dispatch(allCategoryList());
+    if (selectedCategoryId) {
+      dispatch(allSubCategoryList({ category_id: selectedCategoryId }));
+    }
     dispatch(allSubCategoryList());
-    dispatch(allSubCategoryList());
+
     dispatch(typesubcategoryget({ page: currentPage, perPage: postPerPage }));
   }, [currentPage]);
 
@@ -57,6 +61,9 @@ const Alltypesubcategory = () => {
     const selectedLabel =
       getscat.find((i) => i._id === selectedId)?.category || "";
     setSelectedCategory(selectedLabel);
+    // if (selectedCategoryId) {
+    dispatch(allSubCategoryList({ category_id: event.target.value }));
+    // }
   };
   var selectedId;
   const handleCategoryChange2 = (event) => {
@@ -126,18 +133,25 @@ const Alltypesubcategory = () => {
               <form onSubmit={handleSubmit}>
                 <div className="cat_select">
                   <div>
-                    <select
-                      className="subcategory_drop margin_bottom"
-                      onChange={handleCategoryChange}
-                      value={selectedCategoryId}
-                    >
-                      <option value="">Select a category</option>
-                      {getscat?.map((i) => (
-                        <option name="option" key={i._id} value={i._id}>
-                          {i.category}
-                        </option>
-                      ))}
-                    </select>
+                    <Field name="xyz">
+                      {({ input, meta }) => (
+                        <select
+                          className="subcategory_drop margin_bottom"
+                          onChange={(e) => {
+                            input.onChange(e);
+                            handleCategoryChange(e);
+                          }}
+                          // value={selectedCategoryId}
+                        >
+                          <option value="">Select a category</option>
+                          {getscat?.map((i) => (
+                            <option name="option" key={i._id} value={i._id}>
+                              {i.category}
+                            </option>
+                          ))}
+                        </select>
+                      )}
+                    </Field>
                   </div>
                 </div>
                 <div className="cat_select">

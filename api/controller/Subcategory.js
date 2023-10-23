@@ -123,9 +123,9 @@ const findtypesub = async (req, res) => {
       subcategory_id: req.body.subcategory_id,
     });
     if (filtertypesucat?.length == 0) {
-      data = [filterbrand];
+      data = filterbrand;
     } else {
-      data = [filtertypesucat];
+      data = filtertypesucat;
     }
     console.log(data, "filter");
     try {

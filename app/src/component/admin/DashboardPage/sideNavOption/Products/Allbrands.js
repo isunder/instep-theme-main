@@ -73,6 +73,9 @@ const Allsubcategory = () => {
     selectedId = e.target.value;
     console.log(selectedId, "selectedcategoryId");
     setSelectedCategoryId(selectedId);
+    if (selectedId) {
+      dispatch(allSubCategoryList({ category_id: selectedId }));
+    }
   };
 
   var selectedId;
@@ -80,6 +83,9 @@ const Allsubcategory = () => {
     selectedId = event.target.value;
     console.log(selectedId, "selectedSubcategoryId");
     setSelectedSubcategoryId(selectedId);
+    if (selectedId) {
+      dispatch(typesubcategoryget({ subcategory_id: event?.target?.value }));
+    }
   };
   console.log(selectedSubcategoryId, "selectedSubcategoryId");
 
