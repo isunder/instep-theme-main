@@ -11,6 +11,7 @@ import { allSubCategoryList } from "../../../../../Redux/action/getSubcategoryAc
 import Allpagination from "../../../Pagination/pagination";
 import { MdDelete } from "react-icons/md";
 import Delete from "../../../deleteModel/delete";
+import { allCategoryList } from "../../../../../Redux/action/getCategoryAction";
 
 const Allsubcategory = () => {
   const dispatch = useDispatch();
@@ -37,7 +38,7 @@ const Allsubcategory = () => {
   const isLoading = useSelector(
     (state) => state?.getsubsategorylistdata?.isLoading
   );
-  
+
   // const getsubcate = useSelector(
   //   (state) => state?.getsubsategorylistdata?.listdata?.data
   // );
@@ -86,6 +87,8 @@ const Allsubcategory = () => {
     setSelectedCategory(selectedLabel);
   };
 
+  const handleClose = () => setShow(false);
+
   const handleDelete = (id) => {
     dispatch(removeFromSubcategory({ subcategoryid: id })).then((res) => {
       if (res?.payload?.success) {
@@ -99,7 +102,7 @@ const Allsubcategory = () => {
   const [show, setShow] = useState(false);
   const [categoryid, setCategoryid] = useState(null);
   const handleShow = (id) => {
-    setCategoryid(id)
+    setCategoryid(id);
     setShow(true);
   };
   return (
