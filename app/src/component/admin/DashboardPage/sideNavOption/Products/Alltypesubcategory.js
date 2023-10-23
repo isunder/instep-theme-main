@@ -169,7 +169,7 @@ const Alltypesubcategory = () => {
                   <>
                     {typesubcatgory.map((e, index) => (
                       <tr key={index}>
-                        <td>{(currentPage -1) * postPerPage +(index + 1)}</td>
+                        <td>{(currentPage - 1) * postPerPage + (index + 1)}</td>
                         <td>{e.typesubcategory}</td>
                         <td className="d-flex justify-content-end">
                           <Dropdown>

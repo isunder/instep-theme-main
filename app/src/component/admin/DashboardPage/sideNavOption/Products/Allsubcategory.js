@@ -17,7 +17,7 @@ const Allsubcategory = () => {
   // const [selectedsubCategoryId, setselectedsubCategoryId] = useState("");
   const [selectedCategoryId, setSelectedCategoryId] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [loading,setLoading] = useState(false) // State to store the selected category
+  const [loading, setLoading] = useState(false); // State to store the selected category
 
   const listCount = useSelector(
     (state) => state?.getsubsategorylistdata?.listdata?.totalDocs
@@ -28,12 +28,15 @@ const Allsubcategory = () => {
   const getscat = useSelector(
     (state) => state?.getcategorylistdata?.listdata.data
   );
+  console.log(getscat, "getscat");
 
   const getsubcat = useSelector(
     (state) => state?.getsubsategorylistdata?.listdata?.data
   );
 
-  const isLoading = useSelector((state)=>state?.getsubsategorylistdata?.isLoading)
+  const isLoading = useSelector(
+    (state) => state?.getsubsategorylistdata?.isLoading
+  );
 
   // const getsubcate = useSelector(
   //   (state) => state?.getsubsategorylistdata?.listdata?.data
@@ -58,11 +61,18 @@ const Allsubcategory = () => {
 
     dispatch(addsubcategory(asd));
   };
+
   useEffect(() => {
-    setLoading(true)
-    dispatch(allSubCategoryList({ page: currentPage, perPage: postPerPage })).then((res)=>{
+    dispatch(allCategoryList());
+  }, []);
+
+  useEffect(() => {
+    setLoading(true);
+    dispatch(
+      allSubCategoryList({ page: currentPage, perPage: postPerPage })
+    ).then((res) => {
       // console.log(res,)
-      setLoading(false)
+      setLoading(false);
     });
   }, [currentPage]);
 
@@ -72,7 +82,7 @@ const Allsubcategory = () => {
     setSelectedCategoryId(selectedId);
 
     const selectedLabel =
-      getscat.find((i) => i._id === selectedId)?.category || "";
+      getscat.find((i) => i?._id === selectedId)?.category || "";
     setSelectedCategory(selectedLabel);
   };
   // var selectedId;
@@ -101,7 +111,7 @@ const Allsubcategory = () => {
   //   });
   // };
 
-  console.log(isLoading,loading,'isLoading')
+  console.log(isLoading, loading, "isLoading");
 
   return (
     <>
@@ -129,11 +139,12 @@ const Allsubcategory = () => {
                       value={selectedCategoryId}
                     >
                       <option value="">Select a category</option>
-                      {getscat?.map((i) => (
-                        <option name="option" key={i._id} value={i._id}>
-                          {i.category}
-                        </option>
-                      ))}
+                      {getscat &&
+                        getscat?.map((i) => (
+                          <option name="option" key={i?._id} value={i?._id}>
+                            {i?.category}
+                          </option>
+                        ))}
                     </select>
                   </div>
                 </div>
@@ -169,7 +180,10 @@ const Allsubcategory = () => {
                 </tr>
               </thead>
               <tbody>
-                {isLoading ? <p>Loading...</p> : (getsubcat &&
+                {isLoading ? (
+                  <p>Loading...</p>
+                ) : (
+                  getsubcat &&
                   getsubcat?.map((e, index) => {
                     return (
                       <>
@@ -197,7 +211,8 @@ const Allsubcategory = () => {
                         </tr>
                       </>
                     );
-                  }))}
+                  })
+                )}
               </tbody>
             </Table>
             <div className="d-flex justify-content-end">
