@@ -28,7 +28,7 @@ const AddToCartProduct = () => {
   }, []);
 
   // const initialQuantities = [];
-
+// 
   // const [quantities, setQuantities] = useState(initialQuantities);
   const onHandleClickPlus = (id) => {
     let apiObject = {
@@ -36,7 +36,7 @@ const AddToCartProduct = () => {
       userid: userData?.id,
       quantity: 1,
     };
-    dispatch(addToCartAction(apiObject)).then((res) => {
+    dispatch(addToCartAction(apiObject)).then((res) => {  
       console.log(res.payload.success, "dispstch");
       if (res.payload.success) {
         dispatch(cartinfo({ userid: userData.id }));
@@ -65,7 +65,7 @@ const AddToCartProduct = () => {
       count = myCartL?.reduce((accumulator, currentValue, index) => {
         return (
           accumulator +
-          currentValue.productDetails[0].price * currentValue.quantity
+          currentValue?.productDetails[0]?.price * currentValue?.quantity
         );
       }, 0);
     }
@@ -79,9 +79,9 @@ const AddToCartProduct = () => {
     if (myCartL && myCartL.length > 0) {
       count = myCartL?.reduce((accumulator, currentValue, index) => {
         let discountprice =
-          (currentValue.productDetails[0].discountpercentage / 100) *
-          currentValue.productDetails[0].price *
-          currentValue.quantity;
+          (currentValue?.productDetails[0]?.discountpercentage / 100) *
+          currentValue?.productDetails[0]?.price *
+          currentValue?.quantity;
         console.log(discountprice, "disc");
         return accumulator + discountprice;
       }, 0);
@@ -93,12 +93,12 @@ const AddToCartProduct = () => {
   const getDiscountPercentage = () => {
     let count = 0;
     if (myCartL && myCartL.length > 0) {
-      count = myCartL.reduce((accumulator, currentValue, index) => {
+      count = myCartL?.reduce((accumulator, currentValue, index) => {
         console.log(
-          currentValue.productDetails[0].discountpercentage,
+          currentValue?.productDetails[0]?.discountpercentage,
           "fwkoejoiwejl"
         );
-        return accumulator + currentValue.productDetails[0].discountpercentage;
+        return accumulator + currentValue?.productDetails[0]?.discountpercentage;
       }, 0);
 
       console.log(count / myCartL?.length, "ekrfioejroij");
