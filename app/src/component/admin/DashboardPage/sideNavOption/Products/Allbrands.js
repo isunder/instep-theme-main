@@ -6,18 +6,24 @@ import {
   removeFromBrand,
 } from "../../../../../Redux/action/createNewBrandsAction";
 import { allSubCategoryList } from "../../../../../Redux/action/getSubcategoryAction";
-import { Col,Row, Table } from "react-bootstrap";
+import { Col, Row, Table } from "react-bootstrap";
 import { allBrandsList } from "../../../../../Redux/action/getAllBrandListAction";
 import { allCategoryList } from "../../../../../Redux/action/getCategoryAction";
 import Allpagination from "../../../Pagination/pagination";
 import { MdDelete } from "react-icons/md";
 import Delete from "../../../deleteModel/delete";
+import { typesubcategoryget } from "../../../../../Redux/action/typesubcatpost";
 
 const Allsubcategory = () => {
   const dispatch = useDispatch();
   const [selectedSubcategoryId, setSelectedSubcategoryId] = useState("");
   const [selectedCategoryId, setSelectedCategoryId] = useState("");
+  const [typeSubCategory, SetTypeSubCategory] = useState("");
 
+  const getAllTypeSub = useSelector(
+    (State) => State?.typesubcategory?.listdata.data
+  );
+  console.log(getAllTypeSub, "dddddddddfd");
   const getcategorylist = useSelector(
     (state) => state?.getcategorylistdata?.listdata?.data
   );
@@ -49,6 +55,7 @@ const Allsubcategory = () => {
     let asd = {
       category_id: selectedCategoryId,
       subcategory_id: selectedSubcategoryId,
+      typesubcategory_id: typeSubCategory,
       brand: values.brand,
     };
 
@@ -57,8 +64,10 @@ const Allsubcategory = () => {
   useEffect(() => {
     dispatch(allCategoryList());
     dispatch(allSubCategoryList());
+    dispatch(typesubcategoryget());
     dispatch(allBrandsList({ page: currentPage, perPage: postPerPage }));
   }, [currentPage]);
+
   var selectedId;
   const handleCategoryChangeCat = (e) => {
     selectedId = e.target.value;
@@ -74,12 +83,18 @@ const Allsubcategory = () => {
   };
   console.log(selectedSubcategoryId, "selectedSubcategoryId");
 
+  var selectedId;
+  const handleCategoryChange3 = (e) => {
+    selectedId = e?.target?.value;
+    SetTypeSubCategory(selectedId);
+  };
+
   const handleClose = () => setShow(false);
 
   const handleDelete = (id) => {
     dispatch(removeFromBrand({ _id: id })).then((res) => {
       dispatch(allBrandsList({ page: currentPage, perPage: postPerPage }));
-      if (res?.payload?.data?.success) {
+      if (res?.data?.success) {
       }
       handleClose();
     });
@@ -130,6 +145,18 @@ const Allsubcategory = () => {
                     {getsubcat?.map((i) => (
                       <option key={i?._id} value={i?._id}>
                         {i?.subcategory}
+                      </option>
+                    ))}
+                  </select>
+                  <select
+                    className="subcategory_drop margin_bottom"
+                    onChange={handleCategoryChange3}
+                    value={typeSubCategory}
+                  >
+                    <option value="">Select a typesubcategory</option>
+                    {typesubcatgory?.map((i) => (
+                      <option key={i?._id} value={i?._id}>
+                        {i?.typesubcategory}
                       </option>
                     ))}
                   </select>
