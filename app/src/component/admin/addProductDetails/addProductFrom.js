@@ -284,7 +284,7 @@ const ProductForm = () => {
                               input.onChange(e);
                               handleChange(e);
                             }}
-                          >   
+                          >
                             <option>Select Category</option>
                             {filterdata &&
                               filterdata?.map((e) => {
@@ -406,41 +406,40 @@ const ProductForm = () => {
                       </select> */}
                     </div>
                   </div>
-                </div>
-                <div className="margin_bottom">
-                  <h5 className="margin_bottom">Type Subcategory</h5>
-                  <div className="d-flex newpeo_div">
-                    <Field name="type subcategory">
-                      {({ input, meta }) => (
-                        <select
-                          className="addnewproduct_changes right_Addnew"
-                          {...input}
-                          component="select"
-                          onChange={(e) => {
-                            input.onChange(e);
-                            // brandChange(e);
-                          }}
-                        >
-                          <option>Select TypeSubcategory</option>
-                          {filterdatatypesubcat &&
-                            filterdatatypesubcat?.map((e) => {
-                              console.log(e, "eeeeeeeee");
-                              return (
-                                <>
-                                  <option
-                                    name="option"
-                                    key={e?._id}
-                                    value={e?._id}
-                                  >
-                                    {e?.typesubcategory}
-                                  </option>
-                                </>
-                              );
-                            })}
-                        </select>
-                      )}
-                    </Field>
-                    {/* <input
+                  <div className="margin_bottom">
+                    <h5 className="margin_bottom">Type Subcategory</h5>
+                    <div className="d-flex newpeo_div">
+                      <Field name="type subcategory">
+                        {({ input, meta }) => (
+                          <select
+                            className="addnewproduct_changes right_Addnew"
+                            {...input}
+                            component="select"
+                            onChange={(e) => {
+                              input.onChange(e);
+                              // brandChange(e);
+                            }}
+                          >
+                            <option>Select TypeSubcategory</option>
+                            {filterdatatypesubcat &&
+                              filterdatatypesubcat?.map((e) => {
+                                console.log(e, "eeeeeeeee");
+                                return (
+                                  <>
+                                    <option
+                                      name="option"
+                                      key={e?._id}
+                                      value={e?._id}
+                                    >
+                                      {e?.typesubcategory}
+                                    </option>
+                                  </>
+                                );
+                              })}
+                          </select>
+                        )}
+                      </Field>
+                      {/* <input
                       className="addnewproduct_changes right_Addnew"
                       placeholder=" Select TypeSubcategory"
                       type="text"
@@ -471,6 +470,7 @@ const ProductForm = () => {
                           );
                         })}
                     </select> */}
+                    </div>
                   </div>
                 </div>
                 <div className="Addnewpeoduct margin_bottom py-4">

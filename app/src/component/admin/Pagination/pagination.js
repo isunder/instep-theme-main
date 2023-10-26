@@ -40,16 +40,19 @@ const Allpagination = (props) => {
               setCurrentPage(currentPage - 1);
             }}
           />
-          {currentPage !== 1 && currentPage !== 2 && currentPage !== 3 && (
-            <Pagination.Ellipsis />
+          {currentPage > 3 && (
+            <Pagination.Ellipsis
+              onClick={() => setCurrentPage(currentPage - 2)}
+            />
           )}
           {items?.map((item, index) => {
             return item;
           })}
-          {currentPage !== Math.ceil(listCount / postPerPage) &&
-            currentPage !== Math.ceil(listCount / postPerPage) - 1 && (
-              <Pagination.Ellipsis />
-            )}
+          {currentPage < Math.ceil(listCount / postPerPage) - 2 && (
+            <Pagination.Ellipsis
+              onClick={() => setCurrentPage(currentPage + 2)}
+            />
+          )}
           <Pagination.Next
             disabled={currentPage === Math.ceil(listCount / postPerPage)}
             onClick={() => {
