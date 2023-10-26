@@ -23,6 +23,7 @@ function Mainheader() {
   const logoutClick = () => {
     localStorage.clear();
     window.location.reload();
+    navigate("/signin");
   };
 
   return (

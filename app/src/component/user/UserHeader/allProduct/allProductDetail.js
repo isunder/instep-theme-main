@@ -343,10 +343,8 @@ const AllProductDetail = () => {
   const data = useSelector((state) => state?.getproductdata?.listdata);
   console.log(data, "aaaaaabbbbbbbbbss");
 
-  const [Wishlist, showwishilist] = useState();
-  const click = (color) => {
-    showwishilist(color);
-  };
+  const [Wishlist, setwishilist] = useState();
+  
   useEffect(() => {
     dispatch(getProductAction());
   }, []);
@@ -416,7 +414,7 @@ const AllProductDetail = () => {
                                 width: "23px",
                                 height: "23px",
                               }}
-                              onClick={showwishilist}
+                              onClick={setwishilist}
                             />
                           </div>
                           <div className="img_div">

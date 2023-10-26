@@ -33,7 +33,7 @@ const Allsubcategory = () => {
   );
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [postPerPage, setPostPerPage] = useState(10);
+  const [postPerPage, setPostPerPage] = useState(5);
   const typesubcatgory = useSelector(
     (state) => state?.typesubcategory?.typesublist?.data?.data
   );

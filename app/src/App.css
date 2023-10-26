@@ -2440,7 +2440,7 @@ footer ul {
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
   background-color: #f9f9f9;
-  /* padding: 24px 10px; */
+  padding: 7px 10px;
   width: 100%;
   /* border-right: none;  */
 }
@@ -3282,6 +3282,15 @@ color: #FF7C08;
     padding-right: 60px;
   }
 }
+
+
+@media (max-width: 1310px){
+  .commentsection{
+    height: auto;
+    position: unset;
+    width: auto;
+  }
+}
 /* ------------------------------------backgroundimage_aboutus----------------------------------- */
 
 /* ------------------------------------user profile---------------------------------------------- */
@@ -3464,12 +3473,16 @@ padding-left: 1px;
     border-left: 1px solid #797878;
     padding: 5px;
     border-radius: 100%;
+  cursor: pointer;
+
 }
 
 .subtract{
   border-right: 1px solid #797878;
   padding: 5px;
   border-radius: 100%;
+  cursor: pointer;
+
 }
 
 .quantityval_ue{

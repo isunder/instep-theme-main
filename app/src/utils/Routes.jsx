@@ -44,6 +44,7 @@ import Sliderpost from "../component/admin/dashboardPage/sideNavOption/Products/
 import Alltypesubcategory from "../component/admin/dashboardPage/sideNavOption/Products/Alltypesubcategory";
 import Payments from "../component/user/placeOrder/startpayment";
 import Customer from "../component/admin/dashboardPage/sideNavOption/customerDetail/customer";
+import ProductSpecification from "../component/admin/addProductDetails/productSpecification";
 
 const role = getUserId() ? getUserId()?.userRole : null;
 // console.log(role, "aaasdfgfds");
@@ -103,6 +104,7 @@ const protects = {
         { path: "/possystem", element: <PosSystem /> },
         { path: "/slider", element: <Sliderpost /> },
         { path: "/customerdetail", element: <Customer /> },
+        { path: "/productspecification", element: <ProductSpecification /> },
 
         { path: "*", element: "NO PAGE FOUND" },
       ],
