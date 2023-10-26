@@ -7,6 +7,7 @@ const categorytable = require("../models/categorytable");
 const subcategorytable = require("../models/subcategorytable");
 const brandtable = require("../models/brandSchema");
 const { default: mongoose } = require("mongoose");
+const spacifecation = require("../models/spacifecationSchema");
 
 dotenv.config();
 
@@ -417,8 +418,6 @@ const getSingleProduct = expressAsyncHandler(async (req, res) => {
   try {
 
 
-
-
     const product = await Userproducts.aggregate([
       {
         $match: { _id: new mongoose.Types.ObjectId(productId) }, // Match the product by ID
@@ -445,6 +444,13 @@ const getSingleProduct = expressAsyncHandler(async (req, res) => {
           localField: "brand",
           foreignField: "_id",
           as: "brand",
+        },
+      },{
+        $lookup: {
+          from: "spacifecations",
+          localField: "spacifecations",
+          foreignField: "_id",
+          as: "spacifecations",
         },
       },
     ]);
@@ -560,4 +566,133 @@ const filterall = expressAsyncHandler(async (req, res) => {
     res.status(500).json({ error: error.message, message: 'Server error' });
   }
 });
-module.exports = { postproduct, getproduct, getfilter, categoryfilter, subcategoryfilter, updateproduct, getSingleProduct, filterall };
+
+// spacifeaction create
+
+const spacifeactionpost = expressAsyncHandler(async (req, res) => {
+  // console.log("test");
+
+  if (req.body.ProductID) {
+    try {
+      // Destructure the values from req.body
+      const {
+        ProductID,
+        color,
+        size,
+        Material,
+        SizeChart,
+        DesignStyle,
+        KeyFeatures,
+        TechnicalSpacifecation,
+        DimensionsWeight,
+        Display,
+        BatteryPower,
+        Connectivity,
+        Camera,
+        WarrantySupport,
+        IncludedAccessories,
+        Storage,
+        UsageInstructions,
+        PowerRequirements,
+        InstallationRequirements,
+        EnvironmentalImpact,
+        AdditionalInformation,
+        DimensionsSize,
+        AssemblyInstructions
+      } = req.body;
+
+      // Create a new instance of your Mongoose model
+      const infoofproducts = new spacifecation({
+        ProductID: ProductID,
+        color: color,
+        size: size,
+        Material: Material,
+        SizeChart: SizeChart,
+        DesignStyle: DesignStyle,
+        KeyFeatures: KeyFeatures,
+        TechnicalSpacifecation: TechnicalSpacifecation,
+        DimensionsWeight: DimensionsWeight,
+        Display: Display,
+        BatteryPower: BatteryPower,
+        Connectivity: Connectivity,
+        Camera: Camera,
+        WarrantySupport: WarrantySupport,
+        IncludedAccessories: IncludedAccessories,
+        Storage: Storage,
+        UsageInstructions: UsageInstructions,
+        PowerRequirements: PowerRequirements,
+        InstallationRequirements: InstallationRequirements,
+        EnvironmentalImpact: EnvironmentalImpact,
+        AdditionalInformation: EnvironmentalImpact,
+        DimensionsSize: DimensionsSize,
+        AssemblyInstructions: AssemblyInstructions,
+      });
+
+      // Save the data to the database
+      await infoofproducts.save();
+
+      res.status(201).json({ message: "Product specification saved successfully" });
+    } catch (error) {
+      // Handle any errors that might occur during processing.
+      console.error(error);
+      res.status(500).json({ message: "An error occurred" });
+    }
+  } else {
+    res.status(400).json({ message: "Invalid request. Missing ProductID." });
+  }
+});
+
+// spacifeaction update
+
+const updateProductspacifeaction = expressAsyncHandler(async (req, res) => {
+  try {
+    const productId = req.body.ProducttableID;
+
+    const updateFields = {
+      ProductID: req.body.ProductID,
+      color: req.body.color,
+      size: req.body.size,
+      Material: req.body.Material,
+      SizeChart: req.body.SizeChart,
+      DesignStyle: req.body.DesignStyle,
+      KeyFeatures: req.body.KeyFeatures,
+      TechnicalSpacifecation: req.body.TechnicalSpacifecation,
+      DimensionsWeight: req.body.DimensionsWeight,
+      Display: req.body.Display,
+      BatteryPower: req.body.BatteryPower,
+      Connectivity: req.body.Connectivity,
+      Camera: req.body.Camera,
+      WarrantySupport: req.body.WarrantySupport,
+      IncludedAccessories: req.body.IncludedAccessories,
+      Storage: req.body.Storage,
+      UsageInstructions: req.body.UsageInstructions,
+      PowerRequirements: req.body.PowerRequirements,
+      InstallationRequirements: req.body.InstallationRequirements,
+      EnvironmentalImpact: req.body.EnvironmentalImpact,
+      AdditionalInformation: req.body.AdditionalInformation,
+      DimensionsSize: req.body.DimensionsSize,
+      AssemblyInstructions: req.body.AssemblyInstructions
+    };
+
+    const product = await spacifecation.findByIdAndUpdate(
+      { _id: productId },
+      updateFields,
+      { new: true }
+    );
+
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    res.status(200).json({ message: "Product information updated successfully", updatedProduct: product });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "An error occurred" });
+  }
+});
+
+
+//  get spacifeaction
+
+
+module.exports = { postproduct, getproduct, getfilter, categoryfilter, subcategoryfilter, updateproduct, getSingleProduct, filterall, spacifeactionpost, updateProductspacifeaction };
