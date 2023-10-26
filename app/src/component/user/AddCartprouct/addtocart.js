@@ -28,7 +28,7 @@ const AddToCartProduct = () => {
   }, []);
 
   // const initialQuantities = [];
-// 
+  //
   // const [quantities, setQuantities] = useState(initialQuantities);
   const onHandleClickPlus = (id) => {
     let apiObject = {
@@ -36,7 +36,7 @@ const AddToCartProduct = () => {
       userid: userData?.id,
       quantity: 1,
     };
-    dispatch(addToCartAction(apiObject)).then((res) => {  
+    dispatch(addToCartAction(apiObject)).then((res) => {
       console.log(res.payload.success, "dispstch");
       if (res.payload.success) {
         dispatch(cartinfo({ userid: userData.id }));
@@ -98,7 +98,9 @@ const AddToCartProduct = () => {
           currentValue?.productDetails[0]?.discountpercentage,
           "fwkoejoiwejl"
         );
-        return accumulator + currentValue?.productDetails[0]?.discountpercentage;
+        return (
+          accumulator + currentValue?.productDetails[0]?.discountpercentage
+        );
       }, 0);
 
       console.log(count / myCartL?.length, "ekrfioejroij");

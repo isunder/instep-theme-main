@@ -22,7 +22,9 @@ const addnewcategory = require("./router/categoryRought");
 const addnewSubcategory = require("./router/subCategory");
 const addnewbrand = require("./router/BrandRought");
 const addtocart = require("./router/addtocartRought");
-const typesubcategory=require("./router/typeSubcat")
+const typesubcategory = require("./router/typeSubcat");
+const razerpay = require("./router/razerpay");
+
 dotenv.config();
 
 const DB =
@@ -54,7 +56,8 @@ server.use("/api", addnewbrand);
 // addto cart api
 server.use("/api", addtocart);
 server.use("/api", typesubcategory);
-
+// /razerpay
+server.use("/api", razerpay);
 
 // server.post("/api/register", async (req, res) => {
 //   const { email, password, username } = req.body;
@@ -521,7 +524,6 @@ server.post(
   "/api/sliderpost",
   uploadForImages.fields([{ name: "sliderimg", maxCount: 4 }]),
   async (req, res) => {
-
     try {
       const imagesFilenames = req.files["sliderimg"].map(
         (file) => file.filename
