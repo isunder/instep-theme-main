@@ -7,7 +7,7 @@ const categorytable = require("../models/categorytable");
 const subcategorytable = require("../models/subcategorytable");
 const brandtable = require("../models/brandSchema");
 const { default: mongoose } = require("mongoose");
-const spacifecation = require("../models/spacifecationSchema");
+const specification = require("../models/specificationSchema");
 
 dotenv.config();
 
@@ -569,7 +569,7 @@ const filterall = expressAsyncHandler(async (req, res) => {
 
 // spacifeaction create
 
-const spacifeactionpost = expressAsyncHandler(async (req, res) => {
+const specificationpost = expressAsyncHandler(async (req, res) => {
   // console.log("test");
 
   if (req.body.ProductID) {
@@ -602,7 +602,7 @@ const spacifeactionpost = expressAsyncHandler(async (req, res) => {
       } = req.body;
 
       // Create a new instance of your Mongoose model
-      const infoofproducts = new spacifecation({
+      const infoofproducts = new specification({
         ProductID: ProductID,
         color: color,
         size: size,
@@ -644,7 +644,7 @@ const spacifeactionpost = expressAsyncHandler(async (req, res) => {
 
 // spacifeaction update
 
-const updateProductspacifeaction = expressAsyncHandler(async (req, res) => {
+const updateProductspecificationpost = expressAsyncHandler(async (req, res) => {
   try {
     const productId = req.body.ProducttableID;
 
@@ -674,7 +674,7 @@ const updateProductspacifeaction = expressAsyncHandler(async (req, res) => {
       AssemblyInstructions: req.body.AssemblyInstructions
     };
 
-    const product = await spacifecation.findByIdAndUpdate(
+    const product = await specification.findByIdAndUpdate(
       { _id: productId },
       updateFields,
       { new: true }
@@ -695,4 +695,4 @@ const updateProductspacifeaction = expressAsyncHandler(async (req, res) => {
 //  get spacifeaction
 
 
-module.exports = { postproduct, getproduct, getfilter, categoryfilter, subcategoryfilter, updateproduct, getSingleProduct, filterall, spacifeactionpost, updateProductspacifeaction };
+module.exports = { postproduct, getproduct, getfilter, categoryfilter, subcategoryfilter, updateproduct, getSingleProduct, filterall, specificationpost, updateProductspecificationpost };
