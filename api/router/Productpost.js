@@ -23,9 +23,9 @@ router.post("/updateproducts", upload.fields([
 router.post("/singleproduct",postproductcontroller.getSingleProduct)
 router.post("/filteralldata",postproductcontroller.filterall)
 // spacifeactionpost
-router.post("/productinfo",postproductcontroller.spacifeactionpost)
+router.post("/productinfo",postproductcontroller.specificationpost)
 // update
-router.post("/productupdateinfo",postproductcontroller.updateProductspacifeaction)
+router.post("/productupdateinfo",postproductcontroller.updateProductspecificationpost)
 
 
 

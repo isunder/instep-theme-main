@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const spacifecationSchema = new mongoose.Schema({
+const specificationSchema = new mongoose.Schema({
     ProductID: {
         type: mongoose.Schema.ObjectId,
         required: true,
@@ -65,7 +65,7 @@ const spacifecationSchema = new mongoose.Schema({
 
 });
 
-spacifecationSchema.set("spacifeactionofproducts", true);
+specificationSchema.set("specificationofproducts", true);
 
-const spacifecation = mongoose.model("spacifecation", spacifecationSchema);
-module.exports = spacifecation;
+const specification = mongoose.model("specification", specificationSchema);
+module.exports = specification;
