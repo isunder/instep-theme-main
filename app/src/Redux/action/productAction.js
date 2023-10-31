@@ -16,3 +16,11 @@ export const productAction = createAsyncThunk(
     return data1.data;
   }
 );
+
+export const spacificAction = createAsyncThunk(
+  "productspacificdata",
+  async (payload) => {
+    const data1 = await axiosInstance.post(`spacificadd`, payload);
+    return data1.data;
+  }
+);

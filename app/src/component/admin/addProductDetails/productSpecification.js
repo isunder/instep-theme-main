@@ -3,27 +3,42 @@ import { Button, Col, Row } from "react-bootstrap";
 // import { ToastContainer, toast } from "react-toastify";
 // import "react-toastify/dist/ReactToastify.css";
 import { Field, Form as FinalForm } from "react-final-form";
+import { useDispatch, useSelector } from "react-redux";
+import { spacificAction } from "../../../Redux/action/productAction";
+import { useParams } from "react-router-dom";
+
 const ProductSpecification = () => {
+  const dispatch = useDispatch();
+  const params = useParams();
 
-    const handleSubmit = (values) => {
-       
-    }
+  const data1 = useSelector((state) => state?.spacificationdata?.listdata);
+  console.log(data1, "datacheck");
 
-    const validate = (values) => {}
+  const data = useSelector((state) => state?.spacificationdata?.listdata);
+  console.log(data, "spacificationdata");
 
-    // toast.success("Successfully !", {
-    //     position: toast.POSITION.TOP_RIGHT,
-    //   });
+  const handleSubmit = (values) => {
+    values.ProductID = params.id;
+    dispatch(spacificAction(values));
+    // dispatch(spacificAction({ ProductID: res?.payload?.data?.product?._id }));
+    // console.log(values, "spacificationdata");
+  };
+
+  const validate = (values) => {};
+
+  // toast.success("Successfully !", {
+  //     position: toast.POSITION.TOP_RIGHT,
+  //   });
   return (
     <>
       <FinalForm
-       onSubmit={handleSubmit}
-       validate={validate}
+        onSubmit={handleSubmit}
+        validate={validate}
         render={({ handleSubmit, values }) => (
           <form onSubmit={handleSubmit} enctype="multipart/form-data">
             <Row>
               <Col className="Admin_dashboard margin_bottom" lg={12}>
-                <h3>  Product Specification</h3>
+                <h3> Product Specification</h3>
               </Col>
             </Row>
             <Row>
@@ -33,7 +48,31 @@ const ProductSpecification = () => {
                   <div className="margin_bottom">
                     <h5 className="margin_bottom">Specification</h5>
                     <div className="d-flex newpeo_div">
-                      <Field name="category">
+                      {/* <Field
+                        // className="descirption_box"
+                        name="ProductID"
+                        component="input"
+                        type="hidden"
+                        value="{params.id}"
+                      /> */}
+                      {/* <Field name="ProductID">
+                        {({ input, meta }) => (
+                          <select
+                            className="addnewproduct_changes right_Addnew"
+                            component="select"
+                            type="text"
+                            onChange={(e) => {
+                              input.onChange(e);
+                            }}
+                          >
+                            <option>1</option>
+                            <option>{params.id}</option>
+                          </select>
+                        )}
+                      </Field> */}
+                    </div>
+                    <div className="d-flex newpeo_div">
+                      <Field name="color">
                         {({ input, meta }) => (
                           <select
                             className="addnewproduct_changes right_Addnew"
@@ -47,7 +86,119 @@ const ProductSpecification = () => {
                           </select>
                         )}
                       </Field>
-                    </div>  
+                    </div>
+                    <div className="d-flex newpeo_div">
+                      <Field name="size">
+                        {({ input, meta }) => (
+                          <select
+                            className="addnewproduct_changes right_Addnew"
+                            component="select"
+                            onChange={(e) => {}}
+                          >
+                            <option>1</option>
+                            <option>1</option>
+                            <option>1</option>
+                            <option>1</option>
+                          </select>
+                        )}
+                      </Field>
+                    </div>
+                    <div className="d-flex newpeo_div">
+                      <Field name="Material">
+                        {({ input, meta }) => (
+                          <select
+                            className="addnewproduct_changes right_Addnew"
+                            component="select"
+                            onChange={(e) => {}}
+                          >
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                          </select>
+                        )}
+                      </Field>
+                    </div>
+                    <div className="d-flex newpeo_div">
+                      <Field name="SizeChart">
+                        {({ input, meta }) => (
+                          <select
+                            className="addnewproduct_changes right_Addnew"
+                            component="select"
+                            onChange={(e) => {}}
+                          >
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                          </select>
+                        )}
+                      </Field>
+                    </div>
+                    <div className="d-flex newpeo_div">
+                      <Field name="DesignStyle">
+                        {({ input, meta }) => (
+                          <select
+                            className="addnewproduct_changes right_Addnew"
+                            component="select"
+                            onChange={(e) => {}}
+                          >
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                          </select>
+                        )}
+                      </Field>
+                    </div>
+                    <div className="d-flex newpeo_div">
+                      <Field name="category">
+                        {({ input, meta }) => (
+                          <select
+                            className="addnewproduct_changes right_Addnew"
+                            component="select"
+                            onChange={(e) => {}}
+                          >
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                          </select>
+                        )}
+                      </Field>
+                    </div>
+                    <div className="d-flex newpeo_div">
+                      <Field name="category">
+                        {({ input, meta }) => (
+                          <select
+                            className="addnewproduct_changes right_Addnew"
+                            component="select"
+                            onChange={(e) => {}}
+                          >
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                          </select>
+                        )}
+                      </Field>
+                    </div>
+                    <div className="d-flex newpeo_div">
+                      <Field name="category">
+                        {({ input, meta }) => (
+                          <select
+                            className="addnewproduct_changes right_Addnew"
+                            component="select"
+                            onChange={(e) => {}}
+                          >
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                          </select>
+                        )}
+                      </Field>
+                    </div>
                   </div>
                   {/* <div className="margin_bottom">
                     <h5 className="margin_bottom">2</h5>
