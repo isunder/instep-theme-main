@@ -30,11 +30,11 @@ router.post(
 router.post("/singleproduct", postproductcontroller.getSingleProduct);
 router.post("/filteralldata", postproductcontroller.filterall);
 // spacifeactionpost
-router.post("/spacificadd", postproductcontroller.spacifeactionpost);
+router.post("/spacificadd", postproductcontroller.specificationpost);
 // update
 router.post(
   "/spacifictionupdate",
-  postproductcontroller.updateProductspacifeaction
+  postproductcontroller.updateProductspecificationpost
 );
 
 module.exports = router;

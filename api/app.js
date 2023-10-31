@@ -23,7 +23,8 @@ const addnewSubcategory = require("./router/subCategory");
 const addnewbrand = require("./router/BrandRought");
 const addtocart = require("./router/addtocartRought");
 const typesubcategory = require("./router/typeSubcat");
-const razerpay = require("./router/razerpay");
+const razorpay = require("./router/razorpay");
+const address = require("./router/addressroute")
 
 dotenv.config();
 
@@ -57,7 +58,9 @@ server.use("/api", addnewbrand);
 server.use("/api", addtocart);
 server.use("/api", typesubcategory);
 // /razerpay
-server.use("/api", razerpay);
+server.use("/api", razorpay);
+// address 
+server.use("/api", address);
 
 // server.post("/api/register", async (req, res) => {
 //   const { email, password, username } = req.body;
