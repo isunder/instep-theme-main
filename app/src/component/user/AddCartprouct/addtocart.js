@@ -27,9 +27,6 @@ const AddToCartProduct = () => {
     if (userData && userData.id) dispatch(cartinfo({ userid: userData.id }));
   }, []);
 
-  // const initialQuantities = [];
-  //
-  // const [quantities, setQuantities] = useState(initialQuantities);
   const onHandleClickPlus = (id) => {
     let apiObject = {
       productid: id,
