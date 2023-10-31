@@ -104,7 +104,7 @@ const protects = {
         { path: "/possystem", element: <PosSystem /> },
         { path: "/slider", element: <Sliderpost /> },
         { path: "/customerdetail", element: <Customer /> },
-        { path: "/productspecification", element: <ProductSpecification /> },
+        { path: "/productspecification/:id", element: <ProductSpecification /> },
 
         { path: "*", element: "NO PAGE FOUND" },
       ],

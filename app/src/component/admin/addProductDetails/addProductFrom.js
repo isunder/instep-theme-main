@@ -12,9 +12,12 @@ import { selectCategoryFilter } from "../../../Redux/action/filterByCategory";
 import { selectSubCategoryFilter } from "../../../Redux/action/filterBySubcategory";
 import { selectTypesubcategoryFilter } from "../../../Redux/action/filterByTypeSubcategory";
 import { findbrandfilter } from "../../../Redux/action/typesubcatpost";
+import { spacificAction } from "../../../Redux/action/productAction";
+import { useNavigate } from "react-router-dom";
 
 const ProductForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const data = useSelector((state) => state);
 
   const [imgupload, setImgupload] = useState("");
@@ -107,9 +110,13 @@ const ProductForm = () => {
     formData.append("userData", JSON.stringify(payload));
     // console.log(payload, "ggg");
     console.log(JSON.parse(formData.getAll("userData")), "data");
-    dispatch(adminPostProduct(formData)).then((res) =>
-      console.log(res, "Response from dispatch")
-    );
+    dispatch(adminPostProduct(formData)).then((res) => {
+      console.log(res?.payload?.data?.product?._id, "Response");
+      if (res?.payload?.data?.product?._id) {
+        navigate(`/productspecification/${res?.payload?.data?.product?._id}`);
+        // dispatch(spacificAction({ProductID:res?.payload?.data?.product?._id}))
+      }
+    });
 
     toast.success("Successfully !", {
       position: toast.POSITION.TOP_RIGHT,
