@@ -45,6 +45,7 @@ import Alltypesubcategory from "../component/admin/dashboardPage/sideNavOption/P
 import Payments from "../component/user/placeOrder/startpayment";
 import Customer from "../component/admin/dashboardPage/sideNavOption/customerDetail/customer";
 import ProductSpecification from "../component/admin/addProductDetails/productSpecification";
+import OrderConfirmation from "../component/user/placeOrder/orderConfirm/orderConfirmation";
 
 const role = getUserId() ? getUserId()?.userRole : null;
 // console.log(role, "aaasdfgfds");
@@ -72,6 +73,7 @@ const protects = {
         { path: "/paymentsecurity", element: <Security /> },
         { path: "/privacypolicy", element: <Privacy /> },
         { path: "/payment", element: <Payments /> },
+        { path: "/orderconfirmation", element: <OrderConfirmation /> },
         { path: "*", element: "NO PAGE FOUND" },
       ],
     },
