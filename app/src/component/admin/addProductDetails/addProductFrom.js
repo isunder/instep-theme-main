@@ -12,9 +12,12 @@ import { selectCategoryFilter } from "../../../Redux/action/filterByCategory";
 import { selectSubCategoryFilter } from "../../../Redux/action/filterBySubcategory";
 import { selectTypesubcategoryFilter } from "../../../Redux/action/filterByTypeSubcategory";
 import { findbrandfilter } from "../../../Redux/action/typesubcatpost";
+import { spacificAction } from "../../../Redux/action/productAction";
+import { useNavigate } from "react-router-dom";
 
 const ProductForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const data = useSelector((state) => state);
 
   const [imgupload, setImgupload] = useState("");
@@ -121,6 +124,15 @@ const ProductForm = () => {
         setselectedthumbnalFile("");
         // handleImgeFile("")
       }
+      console.log(res?.payload?.data?.product?._id, "Response");
+      if (res?.payload?.data?.product?._id) {
+        navigate(`/productspecification/${res?.payload?.data?.product?._id}`);
+        // dispatch(spacificAction({ProductID:res?.payload?.data?.product?._id}))
+      }
+    });
+
+    toast.success("Successfully !", {
+      position: toast.POSITION.TOP_RIGHT,
     });
 
     // console.log(values, "aaaaaaaaaaaaaaaa");

@@ -11,9 +11,20 @@ import { getUserId } from "../../../utils/auth";
 import { BsPlusCircleFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { Form, Field } from "react-final-form";
+import { deliveryaddress } from "../../../Redux/action/deliveryAddress";
 
 const Delieverydetail = () => {
   const [showCol, setShowCol] = useState("login");
+
+  const dispatch = useDispatch();
+
+  const data = useSelector((state) => state?.deliveraddress?.listdata);
+  console.log(data, "address");
+
+  const addressClick = (e) => {
+    dispatch(deliveryaddress());
+    console.log(e, "addressClick");
+  };
 
   const userLogin = getUserId();
   console.log(userLogin, "gopllaaaa");
@@ -127,6 +138,7 @@ const Delieverydetail = () => {
                           </div>
                         </div>
                         {/* <div>
+
                         <button
                           className="infochange_button"
                           value="change"
@@ -401,9 +413,7 @@ const Delieverydetail = () => {
                             type="submit"
                             value="use my current location"
                             className="addresslocation"
-                            // onClick={() => {
-                            //   setShowCol(null);
-                            // }}
+                            onClick={(e) => addressClick()}
                           >
                             SAVE AND DELIVER HERE
                           </button>
@@ -449,7 +459,6 @@ const Delieverydetail = () => {
                   </Col>
                 </Row>
               </Col>
-
               <Col lg={3}>
                 <div className="rightpricedetail margin_bottom">
                   <div className="addcartpricede_tail margin_bottom ">
