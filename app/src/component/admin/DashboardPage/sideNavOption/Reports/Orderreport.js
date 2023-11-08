@@ -24,74 +24,74 @@ function Orderreport() {
       </Row>
       <Row className="searchbutton">
         <Col lg={12}>
-          <div className="delieverystatusdate_col margin_bottom">
-            <div className="leftorderreport_edit">
-              <Flatpickr
-                className="order_date"
-                ref={startDateRef}
-                options={{
-                  dateFormat: "m/d/Y",
-                  onClose: (_, selectedDates) => {
-                    // Set the minimum date for the end date calendar
-                    if (selectedDates.length > 0) {
-                      endDateRef.current.flatpickr.set(
-                        "minDate",
-                        selectedDates[0]
-                      );
-                    }
-                  },
-                }}
-                placeholder="Start Date"
-              />
-              <span className="date-range-separator  m-3">to</span>
-              <Flatpickr
-                className="order_date"
-                ref={endDateRef}
-                options={{
-                  dateFormat: "m/d/Y",
-                  onClose: (_, selectedDates) => {
-                    // Set the maximum date for the start date calendar
-                    if (selectedDates.length > 0) {
-                      startDateRef.current.flatpickr.set(
-                        "maxDate",
-                        selectedDates[0]
-                      );
-                    }
-                  },
-                }}
-                placeholder="End Date"
-              />
-            </div>
-            <div className="orderrightbuttons">
-              <div>
-                {" "}
-                <Form.Select className="order_payment_status">
-                  <option>Payment Status</option>
-                  <option>Paid</option>
-                  <option>Unpaid</option>
-                </Form.Select>
-              </div>
-              <div className="orderpayemnt_sec">
-                <Form.Select className="order_payment_status">
-                  <option>Delivery Status</option>
-                  <option>Order Placed </option>
-                  <option>Pending</option>
-                  <option>Processing</option>
-                  <option>Delivered</option>
-                  <option>Cancelled</option>
-                </Form.Select>{" "}
-              </div>
-              <div className="btngroup  alllocation_button">
-                <Button className="select_button" type="submit">
-                  {" "}
-                  <AiOutlineSearch /> search
-                </Button>
-              </div>
-            </div>
+          <div className=" margin_bottom">
+            <Row>
+              <Col lg={4}>
+                <div className="leftorderreport_edit">
+                  <Flatpickr
+                    className="order_date"
+                    ref={startDateRef}
+                    options={{
+                      dateFormat: "m/d/Y",
+                      onClose: (_, selectedDates) => {
+                        // Set the minimum date for the end date calendar
+                        if (selectedDates.length > 0) {
+                          endDateRef.current.flatpickr.set(
+                            "minDate",
+                            selectedDates[0]
+                          );
+                        }
+                      },
+                    }}
+                    placeholder="Start Date"
+                  />
+                  <span className="date-range-separator">to</span>
+                  <Flatpickr
+                    className="order_date"
+                    ref={endDateRef}
+                    options={{
+                      dateFormat: "m/d/Y",
+                      onClose: (_, selectedDates) => {
+                        // Set the maximum date for the start date calendar
+                        if (selectedDates.length > 0) {
+                          startDateRef.current.flatpickr.set(
+                            "maxDate",
+                            selectedDates[0]
+                          );
+                        }
+                      },
+                    }}
+                    placeholder="End Date"
+                  />
+                </div>
+              </Col>
+              <Col lg={5}>
+                <div className="d-flex">
+                  {/* <Form.Select className="order_payment_status  mx-3 ">
+                    <option>Payment Status</option>
+                    <option>Paid</option>
+                    <option>Unpaid</option>
+                  </Form.Select>
+                  <Form.Select className="order_payment_status mx-3">
+                    <option>Delivery Status</option>
+                    <option>Order Placed </option>
+                    <option>Pending</option>
+                    <option>Processing</option>
+                    <option>Delivered</option>
+                    <option>Cancelled</option>
+                  </Form.Select> */}
+                  <div className="">
+                    <Button className="select_button" type="submit">
+                      <AiOutlineSearch /> search
+                    </Button>
+                  </div>
+                </div>
+              </Col>
+            </Row>
+            {/* <div className="orderrightbuttons"></div> */}
           </div>
         </Col>
         <Col>
-          {" "}
           <Table responsive="sm">
             <thead>
               <tr>
