@@ -16,7 +16,6 @@ const postproduct = expressAsyncHandler(async (req, res) => {
   const userData = JSON.parse(req.body.userData);
 
   try {
-
     const userData = JSON.parse(req.body.userData);
 
     const imagesFilenames = req.files["images"].map((file) => file.filename); // Array of image filenames
@@ -24,10 +23,7 @@ const postproduct = expressAsyncHandler(async (req, res) => {
 
     const thumbnailFilename = req.files.thumbnail[0].filename;
 
-
-    console.log(userData, "ggggggggggg")
-
-
+    console.log(userData, "ggggggggggg");
 
     const productadd = new Userproducts({
       category: userData.category_id,
@@ -41,21 +37,18 @@ const postproduct = expressAsyncHandler(async (req, res) => {
       thumbnail: thumbnailFilename,
       stock: userData.stock,
       discountpercentage: userData.discountpercentage,
-
     });
 
     await productadd.save();
 
     // Send a JSON response indicating success
-    res.status(200).json({ message: "Success: Product uploaded.", product: productadd });
+    res
+      .status(200)
+      .json({ message: "Success: Product uploaded.", product: productadd });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: error.message });
   }
-
-
-
-
 });
 
 // get all products
@@ -67,12 +60,10 @@ const getproduct = expressAsyncHandler(async (req, res) => {
     const skip = (page - 1) * perPage;
 
     if (page && perPage) {
-
-
       const countQuery = [
         {
-          $count: "totalCount"
-        }
+          $count: "totalCount",
+        },
       ];
 
       const productsQuery = [
@@ -81,36 +72,36 @@ const getproduct = expressAsyncHandler(async (req, res) => {
             from: "categorytables",
             localField: "category",
             foreignField: "_id",
-            as: "category"
-          }
+            as: "category",
+          },
         },
         {
           $lookup: {
             from: "subcategorytables",
             localField: "subcategory",
             foreignField: "_id",
-            as: "subcategory"
-          }
+            as: "subcategory",
+          },
         },
         {
           $lookup: {
             from: "brandtables",
             localField: "brand",
             foreignField: "_id",
-            as: "brand"
-          }
+            as: "brand",
+          },
         },
         {
-          $skip: skip // Skip items based on the page number
+          $skip: skip, // Skip items based on the page number
         },
         {
-          $limit: perPage // Limit the number of items per page
-        }
+          $limit: perPage, // Limit the number of items per page
+        },
       ];
 
       const [countResult, productsResult] = await Promise.all([
         Userproducts.aggregate(countQuery),
-        Userproducts.aggregate(productsQuery)
+        Userproducts.aggregate(productsQuery),
       ]);
 
       const totalCount = countResult.length > 0 ? countResult[0].totalCount : 0;
@@ -123,7 +114,6 @@ const getproduct = expressAsyncHandler(async (req, res) => {
       } else {
         res.status(404).json({ result: "No products found" });
       }
-
     } else {
       const products = await Userproducts.aggregate([
         {
@@ -131,25 +121,25 @@ const getproduct = expressAsyncHandler(async (req, res) => {
             from: "categorytables",
             localField: "category",
             foreignField: "_id",
-            as: "category"
-          }
+            as: "category",
+          },
         },
         {
           $lookup: {
             from: "subcategorytables",
             localField: "subcategory",
             foreignField: "_id",
-            as: "subcategory"
-          }
+            as: "subcategory",
+          },
         },
         {
           $lookup: {
             from: "brandtables",
             localField: "brand",
             foreignField: "_id",
-            as: "brand"
-          }
-        }
+            as: "brand",
+          },
+        },
       ]);
 
       // Log the products to inspect the results
@@ -163,9 +153,7 @@ const getproduct = expressAsyncHandler(async (req, res) => {
       } else {
         res.status(404).json({ result: "No products found" });
       }
-
     }
-
   } catch (error) {
     res
       .status(500)
@@ -222,7 +210,6 @@ const updateproduct = expressAsyncHandler(async (req, res) => {
 
 // api category and subcategory,brand for admin filter
 const getfilter = expressAsyncHandler(async (req, res) => {
-
   const {
     category,
     description,
@@ -273,16 +260,13 @@ const getfilter = expressAsyncHandler(async (req, res) => {
       res.send({ result: "no products found" });
     }
   }
-
-})
+});
 // category find onlyyyyyy filter
 // 25/08 category/id
 const categoryfilter = expressAsyncHandler(async (req, res) => {
-
   try {
-
     const categoryId = req.params.category; // Assuming you're using "categoryid" as the parameter name
-    console.log(categoryId, 'categoryId')
+    console.log(categoryId, "categoryId");
     // Use the Mongoose model for Userproducts
     const products = await Userproducts.aggregate([
       {
@@ -292,63 +276,59 @@ const categoryfilter = expressAsyncHandler(async (req, res) => {
       },
       {
         $lookup: {
-          from: 'categorytables',
-          localField: 'category',
-          foreignField: '_id',
-          as: 'category',
+          from: "categorytables",
+          localField: "category",
+          foreignField: "_id",
+          as: "category",
         },
       },
       {
         $lookup: {
-          from: 'subcategorytables',
-          localField: 'subcategory',
-          foreignField: '_id',
-          as: 'subcategory',
+          from: "subcategorytables",
+          localField: "subcategory",
+          foreignField: "_id",
+          as: "subcategory",
         },
       },
       {
         $lookup: {
-          from: 'brandtables',
-          localField: 'brand',
-          foreignField: '_id',
-          as: 'brand',
+          from: "brandtables",
+          localField: "brand",
+          foreignField: "_id",
+          as: "brand",
         },
       },
     ]);
-    console.log(products, "ddd")
+    console.log(products, "ddd");
     if (products.length > 0) {
       // Assuming you want to return the first product found
       const product = products;
-      console.log(product,)
+      console.log(product);
       // Extract category, subcategory, and brand
       const category = product.category;
       const subcategory = product.subcategory;
       const brand = product.brand;
 
       // Merge the extracted data into a single object
-      const result = [
-        ...product,
-        category,
-        subcategory,
-        brand,
-      ];
+      const result = [...product, category, subcategory, brand];
 
       res.status(200).json(product);
     } else {
-      res.status(404).json({ message: 'No products found for the given category ID' });
+      res
+        .status(404)
+        .json({ message: "No products found for the given category ID" });
     }
   } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ error: error.message, message: 'Server error' });
+    console.error("Error:", error);
+    res.status(500).json({ error: error.message, message: "Server error" });
   }
 });
 
 // subcategory find onlyyyyyy filter
 const subcategoryfilter = expressAsyncHandler(async (req, res) => {
-
   try {
     const subcategoryId = req.params.subcategory; // Assuming you're using "categoryid" as the parameter name
-    console.log(subcategoryId, 'categoryId')
+    console.log(subcategoryId, "categoryId");
     // Use the Mongoose model for Userproducts
     const products = await Userproducts.aggregate([
       {
@@ -358,30 +338,30 @@ const subcategoryfilter = expressAsyncHandler(async (req, res) => {
       },
       {
         $lookup: {
-          from: 'categorytables',
-          localField: 'category',
-          foreignField: '_id',
-          as: 'category',
+          from: "categorytables",
+          localField: "category",
+          foreignField: "_id",
+          as: "category",
         },
       },
       {
         $lookup: {
-          from: 'subcategorytables',
-          localField: 'subcategory',
-          foreignField: '_id',
-          as: 'subcategory',
+          from: "subcategorytables",
+          localField: "subcategory",
+          foreignField: "_id",
+          as: "subcategory",
         },
       },
       {
         $lookup: {
-          from: 'brandtables',
-          localField: 'brand',
-          foreignField: '_id',
-          as: 'brand',
+          from: "brandtables",
+          localField: "brand",
+          foreignField: "_id",
+          as: "brand",
         },
       },
     ]);
-    console.log(products, "ddd")
+    console.log(products, "ddd");
     if (products.length > 0) {
       // Assuming you want to return the first product found
       const product = products;
@@ -401,23 +381,22 @@ const subcategoryfilter = expressAsyncHandler(async (req, res) => {
 
       res.status(200).json(result);
     } else {
-      res.status(404).json({ message: 'No products found for the given subcategory ID' });
+      res
+        .status(404)
+        .json({ message: "No products found for the given subcategory ID" });
     }
   } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ error: error.message, message: 'Server error' });
+    console.error("Error:", error);
+    res.status(500).json({ error: error.message, message: "Server error" });
   }
-})
+});
 
-
-// getSingleProduct 
+// getSingleProduct
 const getSingleProduct = expressAsyncHandler(async (req, res) => {
   const productId = req.body._id; // Assuming the product ID is in the URL params
   console.log(productId, "product ID");
 
   try {
-
-
     const product = await Userproducts.aggregate([
       {
         $match: { _id: new mongoose.Types.ObjectId(productId) }, // Match the product by ID
@@ -445,7 +424,8 @@ const getSingleProduct = expressAsyncHandler(async (req, res) => {
           foreignField: "_id",
           as: "brand",
         },
-      },{
+      },
+      {
         $lookup: {
           from: "spacifecations",
           localField: "spacifecations",
@@ -484,7 +464,7 @@ const getSingleProduct = expressAsyncHandler(async (req, res) => {
   }
 });
 
-// filter 
+// filter
 const filterall = expressAsyncHandler(async (req, res) => {
   try {
     const categoryId = req.query.categoryId; // Query parameter for category
@@ -497,11 +477,9 @@ const filterall = expressAsyncHandler(async (req, res) => {
     // Build the filter object based on the query parameters
     const filter = {};
 
-
     if (categoryId) {
       filter.category = new mongoose.Types.ObjectId(categoryId);
     }
-
 
     if (subcategoryId) {
       filter.subcategory = new mongoose.Types.ObjectId(subcategoryId);
@@ -523,7 +501,7 @@ const filterall = expressAsyncHandler(async (req, res) => {
         $gte: minDiscount,
       };
     }
-    console.log(filter, "ddddddddd")
+    console.log(filter, "ddddddddd");
     // Use the Mongoose model for Userproducts to apply the filter
     const products = await Userproducts.aggregate([
       {
@@ -531,26 +509,26 @@ const filterall = expressAsyncHandler(async (req, res) => {
       },
       {
         $lookup: {
-          from: 'categorytables',
-          localField: 'category',
-          foreignField: '_id',
-          as: 'category',
+          from: "categorytables",
+          localField: "category",
+          foreignField: "_id",
+          as: "category",
         },
       },
       {
         $lookup: {
-          from: 'subcategorytables',
-          localField: 'subcategory',
-          foreignField: '_id',
-          as: 'subcategory',
+          from: "subcategorytables",
+          localField: "subcategory",
+          foreignField: "_id",
+          as: "subcategory",
         },
       },
       {
         $lookup: {
-          from: 'brandtables',
-          localField: 'brand',
-          foreignField: '_id',
-          as: 'brand',
+          from: "brandtables",
+          localField: "brand",
+          foreignField: "_id",
+          as: "brand",
         },
       },
     ]);
@@ -559,11 +537,13 @@ const filterall = expressAsyncHandler(async (req, res) => {
       // Return the filtered products
       res.status(200).json(products);
     } else {
-      res.status(404).json({ message: 'No products found for the given filters' });
+      res
+        .status(404)
+        .json({ message: "No products found for the given filters" });
     }
   } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ error: error.message, message: 'Server error' });
+    console.error("Error:", error);
+    res.status(500).json({ error: error.message, message: "Server error" });
   }
 });
 
@@ -598,7 +578,7 @@ const specificationpost = expressAsyncHandler(async (req, res) => {
         EnvironmentalImpact,
         AdditionalInformation,
         DimensionsSize,
-        AssemblyInstructions
+        AssemblyInstructions,
       } = req.body;
 
       // Create a new instance of your Mongoose model
@@ -631,7 +611,9 @@ const specificationpost = expressAsyncHandler(async (req, res) => {
       // Save the data to the database
       await infoofproducts.save();
 
-      res.status(201).json({ message: "Product specification saved successfully" });
+      res
+        .status(201)
+        .json({ message: "Product specification saved successfully" });
     } catch (error) {
       // Handle any errors that might occur during processing.
       console.error(error);
@@ -671,7 +653,7 @@ const updateProductspecificationpost = expressAsyncHandler(async (req, res) => {
       EnvironmentalImpact: req.body.EnvironmentalImpact,
       AdditionalInformation: req.body.AdditionalInformation,
       DimensionsSize: req.body.DimensionsSize,
-      AssemblyInstructions: req.body.AssemblyInstructions
+      AssemblyInstructions: req.body.AssemblyInstructions,
     };
 
     const product = await specification.findByIdAndUpdate(
@@ -684,15 +666,27 @@ const updateProductspecificationpost = expressAsyncHandler(async (req, res) => {
       return res.status(404).json({ message: "Product not found" });
     }
 
-    res.status(200).json({ message: "Product information updated successfully", updatedProduct: product });
+    res.status(200).json({
+      message: "Product information updated successfully",
+      updatedProduct: product,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "An error occurred" });
   }
 });
 
-
 //  get spacifeaction
 
-
-module.exports = { postproduct, getproduct, getfilter, categoryfilter, subcategoryfilter, updateproduct, getSingleProduct, filterall, specificationpost, updateProductspecificationpost };
+module.exports = {
+  postproduct,
+  getproduct,
+  getfilter,
+  categoryfilter,
+  subcategoryfilter,
+  updateproduct,
+  getSingleProduct,
+  filterall,
+  specificationpost,
+  updateProductspecificationpost,
+};

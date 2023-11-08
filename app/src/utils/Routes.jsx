@@ -66,7 +66,7 @@ const protects = {
         { path: "/profile", element: <Profile /> },
         { path: "/allproduct", element: <AllProductDetail /> },
         { path: "/aboutus", element: <Aboutus /> },
-        { path: "/deliverydetail", element: <Delieverydetail /> },
+        { path: "/deliverydetail/:_id", element: <Delieverydetail /> },
         { path: "/paymentdetail", element: <Payment /> },
         { path: "/shippingdetail", element: <Shipping /> },
         { path: "/termofuse", element: <TermsofuseDetail /> },
