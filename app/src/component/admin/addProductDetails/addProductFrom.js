@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { Field } from "react-final-form";
-import { Form as FinalForm } from "react-final-form";
+import { Form as FinalForm, reset } from "react-final-form";
 
 import { adminPostProduct } from "../../../Redux/action/adminPostProductAction";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,9 +12,12 @@ import { selectCategoryFilter } from "../../../Redux/action/filterByCategory";
 import { selectSubCategoryFilter } from "../../../Redux/action/filterBySubcategory";
 import { selectTypesubcategoryFilter } from "../../../Redux/action/filterByTypeSubcategory";
 import { findbrandfilter } from "../../../Redux/action/typesubcatpost";
+import { spacificAction } from "../../../Redux/action/productAction";
+import { useNavigate } from "react-router-dom";
 
 const ProductForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const data = useSelector((state) => state);
 
   const [imgupload, setImgupload] = useState("");
@@ -81,6 +84,8 @@ const ProductForm = () => {
     }
   };
 
+  let formRef;
+
   const onSubmit = (values) => {
     var formData = new FormData();
 
@@ -107,9 +112,24 @@ const ProductForm = () => {
     formData.append("userData", JSON.stringify(payload));
     // console.log(payload, "ggg");
     console.log(JSON.parse(formData.getAll("userData")), "data");
-    dispatch(adminPostProduct(formData)).then((res) =>
-      console.log(res, "Response from dispatch")
-    );
+    dispatch(adminPostProduct(formData)).then((res) => {
+      if (res) {
+        formRef.reset();
+        toast.success("Successfully !", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+        setSelectedImages("");
+        setselectedImagesforpost("");
+        setthumbnail("");
+        setselectedthumbnalFile("");
+        // handleImgeFile("")
+      }
+      console.log(res?.payload?.data?.product?._id, "Response");
+      if (res?.payload?.data?.product?._id) {
+        navigate(`/productspecification/${res?.payload?.data?.product?._id}`);
+        // dispatch(spacificAction({ProductID:res?.payload?.data?.product?._id}))
+      }
+    });
 
     toast.success("Successfully !", {
       position: toast.POSITION.TOP_RIGHT,
@@ -253,58 +273,61 @@ const ProductForm = () => {
     filterbrand,
     "iddsub"
   );
+
   return (
     <>
       <FinalForm
         onSubmit={onSubmit}
         // validate={validate}
         // initialValues={initialValues}
-        render={({ handleSubmit, values }) => (
-          <form onSubmit={handleSubmit} enctype="multipart/form-data">
-            {console.log(values, "diuuwhaeud")}
-            <Row>
-              <Col className="Admin_dashboard margin_bottom" lg={12}>
-                <h3> Add Product</h3>
-              </Col>
-            </Row>
-            <Row>
-              <Col lg={9}>
-                <div className=" Addnewpeoduct margin_bottom">
-                  <h3 className="margin_bottom"> Basic Information</h3>
-                  <div className="margin_bottom">
-                    <h5 className="margin_bottom">Product Categories</h5>
-                    <div className="d-flex newpeo_div">
-                      <Field name="category">
-                        {({ input, meta }) => (
-                          <select
-                            className="addnewproduct_changes right_Addnew"
-                            {...input}
-                            component="select"
-                            onChange={(e) => {
-                              input.onChange(e);
-                              handleChange(e);
-                            }}
-                          >
-                            <option>Select Category</option>
-                            {filterdata &&
-                              filterdata?.map((e) => {
-                                console.log(e?.category, "eeeeeeeee");
-                                return (
-                                  <>
-                                    <option
-                                      name="option"
-                                      key={e._id}
-                                      value={e._id}
-                                    >
-                                      {e.category}
-                                    </option>
-                                  </>
-                                );
-                              })}
-                          </select>
-                        )}
-                      </Field>
-                      {/* <input
+        render={({ handleSubmit, values, form }) => {
+          formRef = form;
+          return (
+            <form onSubmit={handleSubmit} enctype="multipart/form-data">
+              {console.log(values, "diuuwhaeud")}
+              <Row>
+                <Col className="Admin_dashboard margin_bottom" lg={12}>
+                  <h3>Add Product</h3>
+                </Col>
+              </Row>
+              <Row>
+                <Col lg={9}>
+                  <div className=" Addnewpeoduct margin_bottom">
+                    <h3 className="margin_bottom"> Basic Information</h3>
+                    <div className="margin_bottom">
+                      <h5 className="margin_bottom">Product Categories</h5>
+                      <div className="d-flex newpeo_div">
+                        <Field name="category">
+                          {({ input, meta }) => (
+                            <select
+                              className="addnewproduct_changes right_Addnew"
+                              {...input}
+                              component="select"
+                              onChange={(e) => {
+                                input.onChange(e);
+                                handleChange(e);
+                              }}
+                            >
+                              <option>Select Category</option>
+                              {filterdata &&
+                                filterdata?.map((e) => {
+                                  console.log(e?.category, "eeeeeeeee");
+                                  return (
+                                    <>
+                                      <option
+                                        name="option"
+                                        key={e._id}
+                                        value={e._id}
+                                      >
+                                        {e.category}
+                                      </option>
+                                    </>
+                                  );
+                                })}
+                            </select>
+                          )}
+                        </Field>
+                        {/* <input
                         type="text"
                         placeholder="select category"
                         className="addnewproduct_changes"
@@ -336,45 +359,45 @@ const ProductForm = () => {
                             );
                           })}
                       </select> */}
+                      </div>
                     </div>
-                  </div>
-                  <div className="margin_bottom">
-                    <h5 className="margin_bottom">Subcategory</h5>
-                    <div className="d-flex newpeo_div">
-                      <Field name="subcategory">
-                        {({ input, meta }) => (
-                          <select
-                            className="addnewproduct_changes right_Addnew"
-                            {...input}
-                            component="select"
-                            onChange={(e) => {
-                              input.onChange(e);
-                              // handleChangesubcat(e);
-                              handlesubcategory(e);
-                              brandChange(e);
-                            }}
-                          >
-                            <option>Select Subcategory</option>
-                            {filterdatasubcat &&
-                              filterdatasubcat?.data?.length > 0 &&
-                              filterdatasubcat?.data?.map((e) => {
-                                console.log(e?.category, "eeeeeeeee");
-                                return (
-                                  <>
-                                    <option
-                                      name="option"
-                                      key={e?._id}
-                                      value={e?._id}
-                                    >
-                                      {e?.subcategory}
-                                    </option>
-                                  </>
-                                );
-                              })}
-                          </select>
-                        )}
-                      </Field>
-                      {/* <input
+                    <div className="margin_bottom">
+                      <h5 className="margin_bottom">Subcategory</h5>
+                      <div className="d-flex newpeo_div">
+                        <Field name="subcategory">
+                          {({ input, meta }) => (
+                            <select
+                              className="addnewproduct_changes right_Addnew"
+                              {...input}
+                              component="select"
+                              onChange={(e) => {
+                                input.onChange(e);
+                                // handleChangesubcat(e);
+                                handlesubcategory(e);
+                                brandChange(e);
+                              }}
+                            >
+                              <option>Select Subcategory</option>
+                              {filterdatasubcat &&
+                                filterdatasubcat?.data?.length > 0 &&
+                                filterdatasubcat?.data?.map((e) => {
+                                  console.log(e?.category, "eeeeeeeee");
+                                  return (
+                                    <>
+                                      <option
+                                        name="option"
+                                        key={e?._id}
+                                        value={e?._id}
+                                      >
+                                        {e?.subcategory}
+                                      </option>
+                                    </>
+                                  );
+                                })}
+                            </select>
+                          )}
+                        </Field>
+                        {/* <input
                         className="addnewproduct_changes right_Addnew"
                         placeholder=" Select Subcategory"
                         type="text"
@@ -404,42 +427,42 @@ const ProductForm = () => {
                             );
                           })}
                       </select> */}
+                      </div>
                     </div>
-                  </div>
-                  <div className="margin_bottom">
-                    <h5 className="margin_bottom">Type Subcategory</h5>
-                    <div className="d-flex newpeo_div">
-                      <Field name="type subcategory">
-                        {({ input, meta }) => (
-                          <select
-                            className="addnewproduct_changes right_Addnew"
-                            {...input}
-                            component="select"
-                            onChange={(e) => {
-                              input.onChange(e);
-                              // brandChange(e);
-                            }}
-                          >
-                            <option>Select TypeSubcategory</option>
-                            {filterdatatypesubcat &&
-                              filterdatatypesubcat?.map((e) => {
-                                console.log(e, "eeeeeeeee");
-                                return (
-                                  <>
-                                    <option
-                                      name="option"
-                                      key={e?._id}
-                                      value={e?._id}
-                                    >
-                                      {e?.typesubcategory}
-                                    </option>
-                                  </>
-                                );
-                              })}
-                          </select>
-                        )}
-                      </Field>
-                      {/* <input
+                    <div className="margin_bottom">
+                      <h5 className="margin_bottom">Type Subcategory</h5>
+                      <div className="d-flex newpeo_div">
+                        <Field name="type subcategory">
+                          {({ input, meta }) => (
+                            <select
+                              className="addnewproduct_changes right_Addnew"
+                              {...input}
+                              component="select"
+                              onChange={(e) => {
+                                input.onChange(e);
+                                // brandChange(e);
+                              }}
+                            >
+                              <option>Select TypeSubcategory</option>
+                              {filterdatatypesubcat &&
+                                filterdatatypesubcat?.map((e) => {
+                                  console.log(e, "eeeeeeeee");
+                                  return (
+                                    <>
+                                      <option
+                                        name="option"
+                                        key={e?._id}
+                                        value={e?._id}
+                                      >
+                                        {e?.typesubcategory}
+                                      </option>
+                                    </>
+                                  );
+                                })}
+                            </select>
+                          )}
+                        </Field>
+                        {/* <input
                       className="addnewproduct_changes right_Addnew"
                       placeholder=" Select TypeSubcategory"
                       type="text"
@@ -470,46 +493,46 @@ const ProductForm = () => {
                           );
                         })}
                     </select> */}
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="Addnewpeoduct margin_bottom py-4">
-                  <div className="margin_bottom">
-                    <h5>Product Brand</h5>
-                    <div className="d-flex newpeo_div">
-                      <Field name="brand">
-                        {({ input, meta }) => (
-                          <select
-                            className="addnewproduct_changes right_Addnew"
-                            name="brand"
-                            {...input}
-                            component="select"
-                            onChange={(e) => {
-                              input.onChange(e);
-                              // brandChange(e);
-                            }}
-                          >
-                            <option>Select Brand</option>
-                            {filterbrand &&
-                              filterbrand?.map((e) => {
-                                console.log(e, "eeee");
-                                return (
-                                  <>
-                                    <option
-                                      name="option"
-                                      key={e._id}
-                                      value={e._id}
-                                    >
-                                      {e.brand}
-                                    </option>
-                                  </>
-                                );
-                              })}
-                          </select>
-                        )}
-                      </Field>
+                  <div className="Addnewpeoduct margin_bottom py-4">
+                    <div className="margin_bottom">
+                      <h5>Product Brand</h5>
+                      <div className="d-flex newpeo_div">
+                        <Field name="brand">
+                          {({ input, meta }) => (
+                            <select
+                              className="addnewproduct_changes right_Addnew"
+                              name="brand"
+                              {...input}
+                              component="select"
+                              onChange={(e) => {
+                                input.onChange(e);
+                                // brandChange(e);
+                              }}
+                            >
+                              <option>Select Brand</option>
+                              {filterbrand &&
+                                filterbrand?.map((e) => {
+                                  console.log(e, "eeee");
+                                  return (
+                                    <>
+                                      <option
+                                        name="option"
+                                        key={e._id}
+                                        value={e._id}
+                                      >
+                                        {e.brand}
+                                      </option>
+                                    </>
+                                  );
+                                })}
+                            </select>
+                          )}
+                        </Field>
 
-                      {/* <input
+                        {/* <input
                         className="addnewproduct_changes right_Addnew"
                         placeholder=" Select Brand"
                         type="text"
@@ -536,45 +559,82 @@ const ProductForm = () => {
                             );
                           })}
                       </select> */}
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <div className="Addnewpeoduct margin_bottom py-4">
-                  <div className="margin_bottom">
-                    <h5 className="margin_bottom">Title </h5>
-                    <Field
-                      className="descirption_box"
-                      name="title"
-                      component="input"
-                      type="text"
-                      placeholder="Title"
-                      required
-                    />
-                  </div>
-                </div>
-              </Col>
-            </Row>
-            <Row>
-              <Col lg={9}>
-                <div className=" Addnewpeoduct margin_bottom py-4">
-                  <div>
-                    <h5 className="margin_bottom"> Images</h5>
-
+                  <div className="Addnewpeoduct margin_bottom py-4">
                     <div className="margin_bottom">
-                      <h4>Upload image</h4>
+                      <h5 className="margin_bottom">Title </h5>
+                      <Field
+                        className="descirption_box"
+                        name="title"
+                        component="input"
+                        type="text"
+                        placeholder="Title"
+                        required
+                      />
+                    </div>
+                  </div>
+                </Col>
+              </Row>
+              <Row>
+                <Col lg={9}>
+                  <div className=" Addnewpeoduct margin_bottom py-4">
+                    <div>
+                      <h5 className="margin_bottom"> Images</h5>
+
+                      <div className="margin_bottom">
+                        <h4>Upload image</h4>
+                        <div>
+                          <input
+                            name="images"
+                            type="file"
+                            className="form-control signup_form_input margin_bottom"
+                            onChange={handleImgeFile}
+                          />
+                          {selectedImages?.length > 0 && (
+                            <div>
+                              <h4>Selected Images:</h4>
+                              <ul className="row">
+                                {selectedImages?.map((imageUrl, index) => (
+                                  <li
+                                    key={index}
+                                    className=" productupload_item col-md-3"
+                                  >
+                                    <img
+                                      className="productupload_image"
+                                      src={imageUrl}
+                                      alt={`Image ${index}`}
+                                    />
+                                    <p
+                                      className="addimagecncel_icon"
+                                      onClick={() => {
+                                        deleteimage(index);
+                                      }}
+                                    >
+                                      <MdCancel className="cancelicon_addproduct" />
+                                    </p>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                        </div>
+                      </div>
                       <div>
+                        <h4>Upload thumbnail</h4>
                         <input
                           name="images"
                           type="file"
-                          className="form-control signup_form_input margin_bottom"
-                          onChange={handleImgeFile}
+                          className="form-control signup_form_input"
+                          onChange={handlethumbnalfile}
                         />
-                        {selectedImages?.length > 0 && (
+                        {thumbnail?.length > 0 && (
                           <div>
-                            <h4>Selected Images:</h4>
+                            <h2>Selected Images:</h2>
                             <ul className="row">
-                              {selectedImages?.map((imageUrl, index) => (
+                              {thumbnail?.map((imageUrl, index) => (
                                 <li
                                   key={index}
                                   className=" productupload_item col-md-3"
@@ -584,14 +644,6 @@ const ProductForm = () => {
                                     src={imageUrl}
                                     alt={`Image ${index}`}
                                   />
-                                  <p
-                                    className="addimagecncel_icon"
-                                    onClick={() => {
-                                      deleteimage(index);
-                                    }}
-                                  >
-                                    <MdCancel className="cancelicon_addproduct" />
-                                  </p>
                                 </li>
                               ))}
                             </ul>
@@ -599,114 +651,86 @@ const ProductForm = () => {
                         )}
                       </div>
                     </div>
-                    <div>
-                      <h4>Upload thumbnail</h4>
-                      <input
-                        name="images"
-                        type="file"
-                        className="form-control signup_form_input"
-                        onChange={handlethumbnalfile}
-                      />
-                      {thumbnail?.length > 0 && (
+                  </div>
+                  <div className="Addnewpeoduct margin_bottom py-4">
+                    <Row>
+                      <div className="sku_stok_price">
                         <div>
-                          <h2>Selected Images:</h2>
-                          <ul className="row">
-                            {thumbnail?.map((imageUrl, index) => (
-                              <li
-                                key={index}
-                                className=" productupload_item col-md-3"
-                              >
-                                <img
-                                  className="productupload_image"
-                                  src={imageUrl}
-                                  alt={`Image ${index}`}
-                                />
-                              </li>
-                            ))}
-                          </ul>
+                          <h3>Price,Stock & Rating</h3>
                         </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-                <div className="Addnewpeoduct margin_bottom py-4">
-                  <Row>
-                    <div className="sku_stok_price">
-                      <div>
-                        <h3>Price,Stock & Rating</h3>
+                        <span>Has Variations?</span>
                       </div>
-                      <span>Has Variations?</span>
-                    </div>
-                    <div className="d-flex price_flex">
-                      <Col lg={3}>
-                        <h6>Price</h6>
-                        <Field
-                          className="descirption_box price_flex"
-                          name="price"
-                          component="input"
-                          type="number"
-                          step="0.01"
-                          placeholder="$"
-                          required
-                        />
-                      </Col>
-                      <Col lg={3}>
-                        <h6>Stock</h6>
-                        <Field
-                          className="descirption_box price_flex"
-                          name="stock"
-                          component="input"
-                          type="number"
-                          placeholder="Avalaible stocks"
-                          required
-                        />
-                      </Col>
-                      <Col lg={3}>
-                        <label htmlFor="rating">Rating:</label>
-                        <Field
-                          className="descirption_box price_flex"
-                          name="rating"
-                          component="input"
-                          type="number"
-                          placeholder="Rating:"
-                          required
-                        />
-                      </Col>
-                      <Col lg={3}>
-                        <h6>Discount</h6>
-                        <Field
-                          className="descirption_box price_flex"
-                          name="discountpercentage"
-                          component="input"
-                          type="text"
-                          placeholder="discount percentage"
-                          required
-                        />
-                      </Col>
-                    </div>
-                  </Row>
-                </div>
-                <div className="Addnewpeoduct margin_bottom">
-                  <div className="margin_bottom">
-                    <h5 className="margin_bottom">Short Description</h5>
-                    <Field
-                      className="descirption_box"
-                      name="description"
-                      component="textarea"
-                      type="text"
-                      placeholder="description"
-                      required
-                    />
+                      <div className="d-flex price_flex">
+                        <Col lg={3}>
+                          <h6>Price</h6>
+                          <Field
+                            className="descirption_box price_flex"
+                            name="price"
+                            component="input"
+                            type="number"
+                            step="0.01"
+                            placeholder="$"
+                            required
+                          />
+                        </Col>
+                        <Col lg={3}>
+                          <h6>Stock</h6>
+                          <Field
+                            className="descirption_box price_flex"
+                            name="stock"
+                            component="input"
+                            type="number"
+                            placeholder="Avalaible stocks"
+                            required
+                          />
+                        </Col>
+                        <Col lg={3}>
+                          <label htmlFor="rating">Rating:</label>
+                          <Field
+                            className="descirption_box price_flex"
+                            name="rating"
+                            component="input"
+                            type="number"
+                            placeholder="Rating:"
+                            required
+                          />
+                        </Col>
+                        <Col lg={3}>
+                          <h6>Discount</h6>
+                          <Field
+                            className="descirption_box price_flex"
+                            name="discountpercentage"
+                            component="input"
+                            type="text"
+                            placeholder="discount percentage"
+                            required
+                          />
+                        </Col>
+                      </div>
+                    </Row>
                   </div>
-                </div>
-              </Col>
-            </Row>
-            <Button className="addproduct_button margin_bottom" type="submit">
-              Add product
-            </Button>
-            <ToastContainer />
-          </form>
-        )}
+                  <div className="Addnewpeoduct margin_bottom">
+                    <div className="margin_bottom">
+                      <h5 className="margin_bottom">Short Description</h5>
+                      <Field
+                        className="descirption_box"
+                        name="description"
+                        component="textarea"
+                        type="text"
+                        placeholder="description"
+                        required
+                      />
+                    </div>
+                  </div>
+                </Col>
+              </Row>
+              <Button className="addproduct_button margin_bottom" type="submit">
+                Add product
+              </Button>
+              <ToastContainer />
+            </form>
+          );
+        }}
       />
     </>
   );

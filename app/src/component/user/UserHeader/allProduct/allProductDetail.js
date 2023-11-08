@@ -337,14 +337,16 @@ import { BiChevronRight } from "react-icons/bi";
 import { AiOutlineHeart } from "react-icons/ai";
 import Subcategorymobilefilter from "../../filterbyCategory/SubcaregoryMobilefilter";
 import SubCategoryfilter from "../../filterbyCategory/subCategoryfilter";
+import Spinner from "../../loader/spinner";
 
 const AllProductDetail = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state?.getproductdata?.listdata);
-  console.log(data, "aaaaaabbbbbbbbbss");
+
+  const loading = useSelector((state) => state?.getproductdata?.isLoading);
 
   const [Wishlist, setwishilist] = useState();
-  
+
   useEffect(() => {
     dispatch(getProductAction());
   }, []);
@@ -354,105 +356,114 @@ const AllProductDetail = () => {
     // dispatch(updateProduct({ _id }));
   };
   return (
-    <div className="container-fluid  slider_col ">
-      <Row>
-        <Col lg={2} md={4} sm={4}>
-          <Subcategorymobilefilter />
-          <SubCategoryfilter />
-        </Col>
-        <Col lg={10} md={8} sm={8}>
-          <div className="subcarhide margin_bottom">
-            <div className="subcategory_topcontent">
-              <div>
-                <Link className="home_link" to="/">
-                  Home{" "}
-                </Link>
-                <BiChevronRight />
-              </div>
-            </div>
-            <div className="margin_bottom">
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book. It has
-                survived not only five centuries, but also the leap into
-                electronic typesetting, remaining essentially unchanged. It was
-                popularised in the 1960s with the release of Letraset sheets
-                containing Lorem Ipsum passages, and more recently with desktop
-                publishing software like Aldus PageMaker including versions of
-                Lorem Ipsum.
-              </p>
-            </div>
-            <div></div>
-            <div className="righthome_filter">
-              <h4>Sort By</h4>
-              <h4>Popularity</h4>
-              <h4>Price--Low to High</h4>
-              <h4>Price--High to Low </h4>
-              <h4>Newest First </h4>
-            </div>
-          </div>
-          <div className="margin_bottom">
+    <>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <>
+          <div className="container-fluid  slider_col ">
             <Row>
-              {data &&
-                data?.products?.map((e) => {
-                  if (e.image) {
-                  }
-                  return (
-                    <Col lg={3} md={4}>
-                      <Link
-                        className="card_deco"
-                        to={`/productdetail/${e._id}`}
-                        onClick={() => productClick(e?._id)}
-                      >
-                        <Card className=" forcatcards_htwd ">
-                          <div className="d-flex justify-content-end mt-2 mx-2">
-                            <AiOutlineHeart
-                              style={{
-                                color: "#808080",
-                                width: "23px",
-                                height: "23px",
-                              }}
-                              onClick={setwishilist}
-                            />
-                          </div>
-                          <div className="img_div">
-                            <Card.Img
-                              variant="top"
-                              src={
-                                e?.image
-                                  ? e?.image
-                                  : e?.thumbnail.split(":").length > 1
-                                  ? e?.thumbnail
-                                  : `http://localhost:5000/uploads/${e.thumbnail}`
-                              }
-                            />
-                          </div>
-                          <Card.Body>
-                            <div className="item_rating">
-                              <p className="homerating_cat">
-                                {e?.category[0]?.category}
-                              </p>
-                            </div>
-                            <Card.Title className="crad_text">
-                              {e?.title}
-                            </Card.Title>
-                            <Card.Text className="crad_text"></Card.Text>
-                            <Card.Text className="crad_text">
-                              <h5> ₹ {e?.price}</h5>
-                            </Card.Text>
-                          </Card.Body>
-                        </Card>
+              <Col lg={2} md={4} sm={4}>
+                <Subcategorymobilefilter />
+                <SubCategoryfilter />
+              </Col>
+              <Col lg={10} md={8} sm={8}>
+                <div className="subcarhide margin_bottom">
+                  <div className="subcategory_topcontent">
+                    <div>
+                      <Link className="home_link" to="/">
+                        Home
                       </Link>
-                    </Col>
-                  );
-                })}
+                      <BiChevronRight />
+                    </div>
+                  </div>
+                  <div className="margin_bottom">
+                    <p>
+                      Lorem Ipsum is simply dummy text of the printing and
+                      typesetting industry. Lorem Ipsum has been the industry's
+                      standard dummy text ever since the 1500s, when an unknown
+                      printer took a galley of type and scrambled it to make a
+                      type specimen book. It has survived not only five
+                      centuries, but also the leap into electronic typesetting,
+                      remaining essentially unchanged. It was popularised in the
+                      1960s with the release of Letraset sheets containing Lorem
+                      Ipsum passages, and more recently with desktop publishing
+                      software like Aldus PageMaker including versions of Lorem
+                      Ipsum.
+                    </p>
+                  </div>
+                  <div></div>
+                  <div className="righthome_filter">
+                    <h4>Sort By</h4>
+                    <h4>Popularity</h4>
+                    <h4>Price--Low to High</h4>
+                    <h4>Price--High to Low </h4>
+                    <h4>Newest First </h4>
+                  </div>
+                </div>
+                <div className="margin_bottom">
+                  <Row>
+                    {data &&
+                      data?.products?.map((e) => {
+                        if (e.image) {
+                        }
+                        return (
+                          <Col lg={3} md={4}>
+                            <Link
+                              className="card_deco"
+                              to={`/productdetail/${e._id}`}
+                              onClick={() => productClick(e?._id)}
+                            >
+                              <Card className=" forcatcards_htwd ">
+                                <div className="d-flex justify-content-end mt-2 mx-2">
+                                  <AiOutlineHeart
+                                    style={{
+                                      color: "#808080",
+                                      width: "23px",
+                                      height: "23px",
+                                    }}
+                                    onClick={setwishilist}
+                                  />
+                                </div>
+                                <div className="img_div">
+                                  <Card.Img
+                                    variant="top"
+                                    src={
+                                      e?.image
+                                        ? e?.image
+                                        : e?.thumbnail.split(":").length > 1
+                                        ? e?.thumbnail
+                                        : `http://localhost:5000/uploads/${e.thumbnail}`
+                                    }
+                                  />
+                                </div>
+                                <Card.Body>
+                                  <div className="item_rating">
+                                    <p className="homerating_cat">
+                                      {e?.category[0]?.category}
+                                    </p>
+                                  </div>
+                                  <Card.Title className="crad_text">
+                                    {e?.title}
+                                  </Card.Title>
+                                  <Card.Text className="crad_text"></Card.Text>
+                                  <Card.Text className="crad_text">
+                                    <h5> ₹ {e?.price}</h5>
+                                  </Card.Text>
+                                </Card.Body>
+                              </Card>
+                            </Link>
+                          </Col>
+                        );
+                      })}
+                  </Row>
+                </div>
+              </Col>
             </Row>
           </div>
-        </Col>
-      </Row>
-    </div>
+        </>
+      )}
+    </>
   );
 };
 

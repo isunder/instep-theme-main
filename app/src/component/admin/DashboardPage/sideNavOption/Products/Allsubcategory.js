@@ -185,14 +185,14 @@ const Allsubcategory = () => {
                           </td>
                           <td>{e.subcategory}</td>
                           <td>
-                            <div className="d-flex justify-content-end">
-                              <MdDelete
-                                className="deleteicn_forpro"
-                                onClick={() => {
-                                  handleShow(e?._id);
-                                }}
-                              />
-                            </div>
+                              <div className="d-flex justify-content-end">
+                                <MdDelete
+                                  className="deleteicn_forpro"
+                                  onClick={() => {
+                                    handleShow(e?._id);
+                                  }}
+                                />
+                              </div>
                           </td>
                         </tr>
                       </>

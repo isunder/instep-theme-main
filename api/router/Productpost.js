@@ -10,7 +10,7 @@ router.post(
     { name: "images", maxCount: 4 },
     { name: "thumbnail", maxCount: 1 },
   ]),
-  postproductcontroller.postproduct,
+  postproductcontroller.postproduct
 );
 router.post("/Getproducts", postproductcontroller.getproduct)
 router.post("/FilterProducts", postproductcontroller.getfilter)
@@ -28,12 +28,4 @@ router.post("/productinfo", postproductcontroller.specificationpost)
 router.post("/productupdateinfo", postproductcontroller.updateProductspecificationpost)
 //  after   DELIVERY ADDRESS done
 router.post("/orderSummary", postproductcontroller.orderSummary)
-
-
-
-
-
-
-
-
 module.exports = router;

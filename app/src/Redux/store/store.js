@@ -33,6 +33,8 @@ import typesubcategorysliceReducer from "../reducer/typesubcatpost";
 import findSubcategoryFilterByIdReducer from "../reducer/findFilterSlice";
 import findTypeSubcategoryFilterById from "../reducer/findTypeSubcategorySlice";
 import findBrandFilterByIdReducer from "../reducer/filterBrandAdd";
+import SpacificationReducer from "../reducer/spacificSlice";
+import deliverAddressReducer from "../reducer/deliveryAddressSlice";
 
 export const store = configureStore({
   reducer: {
@@ -70,5 +72,7 @@ export const store = configureStore({
     findsubcategoryfilter: findSubcategoryFilterByIdReducer,
     findtypesubcategoryfilter: findTypeSubcategoryFilterById,
     findbrandAdd: findBrandFilterByIdReducer,
+    spacificationdata: SpacificationReducer,
+    deliveraddress: deliverAddressReducer,
   },
 });
