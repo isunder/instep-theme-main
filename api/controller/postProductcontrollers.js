@@ -8,6 +8,7 @@ const subcategorytable = require("../models/subcategorytable");
 const brandtable = require("../models/brandSchema");
 const { default: mongoose } = require("mongoose");
 const specification = require("../models/specificationSchema");
+const SchemaOrder = require("../models/OrderSummary");
 
 dotenv.config();
 
@@ -424,8 +425,7 @@ const getSingleProduct = expressAsyncHandler(async (req, res) => {
           foreignField: "_id",
           as: "brand",
         },
-      },
-      {
+      }, {
         $lookup: {
           from: "spacifecations",
           localField: "spacifecations",
@@ -629,6 +629,7 @@ const specificationpost = expressAsyncHandler(async (req, res) => {
 const updateProductspecificationpost = expressAsyncHandler(async (req, res) => {
   try {
     const productId = req.body.ProducttableID;
+    console.log(productId, "Dddddddddddddfdfds")
 
     const updateFields = {
       ProductID: req.body.ProductID,
@@ -676,17 +677,83 @@ const updateProductspecificationpost = expressAsyncHandler(async (req, res) => {
   }
 });
 
-//  get spacifeaction
 
-module.exports = {
-  postproduct,
-  getproduct,
-  getfilter,
-  categoryfilter,
-  subcategoryfilter,
-  updateproduct,
-  getSingleProduct,
-  filterall,
-  specificationpost,
-  updateProductspecificationpost,
-};
+
+
+//  after   DELIVERY ADDRESS done
+
+const orderSummary = expressAsyncHandler(async (req, res) => {
+  try {
+    console.log("test orderSummary");
+
+    const { userid, deliveryAddress, products } = req.body;
+
+    if (userid) {
+      console.log(products)
+      // Assuming 'Userproducts' is a mongoose model, use the 'findById' method like this:
+      const productPromises = products.map(async (item) => {
+        console.log(item.productID, "Dfdf");
+        const product = await Userproducts.findById(item.productID);
+        return product;
+      });
+
+      const prices = []; 
+      const pricestotal = []
+      Promise.all(productPromises)
+        .then((products) => {
+
+          products.forEach((product) => {
+            if (product) {
+              prices.push(product.price);
+              // console.log(`Price for product ${product._id}: ${product.price}`);
+            } else {
+              console.log("Product not found");
+            }
+          });
+
+          const totalPrice = prices.reduce((acc, curr) => acc + curr, 0);
+          console.log("Total Price: ", totalPrice);
+          pricestotal.push(totalPrice)
+        })
+        .catch((error) => {
+          console.error("Error fetching products:", error);
+        });
+
+
+
+      if (!products) {
+        return res.status(404).json({ message: "Product not found" });
+      } else {
+
+        const order = new SchemaOrder({
+          userid: userid,
+          deliveryAddress: deliveryAddress,
+
+          products: products.map((items) => {
+            return { productID: items.productID, quantity: items.quantity }
+          })
+        });
+
+
+        await order.save();
+
+
+        res.status(200).json({ message: "Order created successfully", order, costing: prices, totalrpice: pricestotal });
+      }
+
+
+
+      // Save the order to the database (you need to await this if using async operations):
+
+
+    } else {
+      res.status(400).json({ message: "userid is missing" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "An error occurred", error: error.message });
+  }
+});
+
+
+
+module.exports = { postproduct, getproduct, getfilter, categoryfilter, subcategoryfilter, updateproduct, getSingleProduct, filterall, specificationpost, updateProductspecificationpost, orderSummary };

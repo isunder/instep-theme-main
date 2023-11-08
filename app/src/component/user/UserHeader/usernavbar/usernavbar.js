@@ -6,7 +6,6 @@ import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { Accordion, Col, Row } from "react-bootstrap";
 import { React, useEffect, useState } from "react";
-import { filterByCategory } from "../../../../Redux/action/getFilterCategoryAction";
 import {
   getProductAction,
   myCartList,
@@ -33,6 +32,7 @@ const Usernavbar = () => {
   const userLogin = localStorage.getItem("token");
 
   const mycart = useSelector((selectCart) => selectCart?.addToCartFile?.mycart);
+
   useEffect(() => {
     if (userData?.id) {
       dispatch(myCartList({ userid: userData.id }));
@@ -68,6 +68,24 @@ const Usernavbar = () => {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const handlehome = () => {
+    navigate("/");
+    setShow(false);
+  };  
+  const handlecategory = (e) => {
+    navigate(`/category/${e._id}`);
+    setShow(false);
+  };
+
+  const handleProducts = () => {
+    navigate("/allproduct");
+    setShow(false);
+  };
+  const handleAboutUs = () => {
+    navigate("/aboutus");
+    setShow(false);
+  };
 
   const handleSearch = () => {
     dispatch(searchAction({ name: searchQuery }));
@@ -269,12 +287,11 @@ const Usernavbar = () => {
                           wants, and desires.
                         </p>
                         <Link to="/aboutus">
-                          {" "}
-                          <Button
+                          <Button onClick={handleAboutUs}
                             className="slider_rightbutton"
                             variant="light"
                           >
-                            About Us{" "}
+                            About Us
                           </Button>
                         </Link>
                         <ul className="">
@@ -286,14 +303,13 @@ const Usernavbar = () => {
                         <ul>
                           <h5> Registered Office Address:</h5>
                           <p>
-                            {" "}
                             Tricity Plaza, Office No. 14
                             <br />
                             Ground, Peer Muchalla <br />
                             Zirakpur, Punjab 140603
                           </p>
                           <p className="tele">
-                            Telephone: <span>000-000-0000</span>{" "}
+                            Telephone: <span>000-000-0000</span>
                           </p>
                         </ul>
                       </div>
@@ -307,12 +323,12 @@ const Usernavbar = () => {
                                   navcategorydata?.map((e) => {
                                     return (
                                       <>
-                                        <Link
+                                        <div
                                           className="navcat_deco"
-                                          to={`/category/${e._id}`}
+                                          onClick={() => handlecategory(e)}
                                         >
                                           <p key={e}>{e?.category}</p>
-                                        </Link>
+                                        </div>
                                       </>
                                     );
                                   })}
@@ -326,24 +342,21 @@ const Usernavbar = () => {
                           </div>
                         </div>
                         <div className="Nav_link">
-                          {" "}
-                          <Link
+                          <p
+                            onClick={handlehome}
                             className="Nav_link carddecorationnone_cat"
-                            to="/"
                           >
                             Home
-                          </Link>
+                          </p>
                         </div>
                         <div className="Nav_link">
-                          {" "}
-                          <Link
+                          <p
+                            onClick={handleProducts}
                             className="Nav_link carddecorationnone_cat"
-                            to="/allproduct"
                           >
                             Products
-                          </Link>
+                          </p>
                         </div>
-                        {/* <div className="Nav_link">Pages</div> */}
                       </div>
                     </Offcanvas.Body>
                   </Offcanvas>
