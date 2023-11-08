@@ -20,12 +20,15 @@ router.post("/updateproducts", upload.fields([
   { name: "images", maxCount: 4 },
   { name: "thumbnail", maxCount: 1 },
 ]), postproductcontroller.updateproduct)
-router.post("/singleproduct",postproductcontroller.getSingleProduct)
-router.post("/filteralldata",postproductcontroller.filterall)
+router.post("/singleproduct", postproductcontroller.getSingleProduct)
+router.post("/filteralldata", postproductcontroller.filterall)
 // spacifeactionpost
-router.post("/productinfo",postproductcontroller.specificationpost)
+router.post("/productinfo", postproductcontroller.specificationpost)
 // update
-router.post("/productupdateinfo",postproductcontroller.updateProductspecificationpost)
+router.post("/productupdateinfo", postproductcontroller.updateProductspecificationpost)
+//  after   DELIVERY ADDRESS done
+router.post("/orderSummary", postproductcontroller.orderSummary)
+
 
 
 
