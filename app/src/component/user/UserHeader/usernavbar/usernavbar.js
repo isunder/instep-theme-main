@@ -14,7 +14,7 @@ import { getUserId } from "../../../../utils/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineMail, AiTwotoneHeart } from "react-icons/ai";
-import { BiSearch, BiSolidPurchaseTag } from "react-icons/bi";
+import { BiLogOut, BiSearch, BiSolidPurchaseTag } from "react-icons/bi";
 import { MdAccountCircle, MdOutlineAccountCircle } from "react-icons/md";
 import { HiOutlineShoppingCart } from "react-icons/hi";
 import { searchAction } from "../../../../Redux/action/searchProductAction";
@@ -46,6 +46,7 @@ const Usernavbar = () => {
   const logoutClick = () => {
     localStorage.clear();
     window.location.reload();
+    navigate("/");
   };
 
   const filterdata = useSelector(
@@ -72,7 +73,7 @@ const Usernavbar = () => {
   const handlehome = () => {
     navigate("/");
     setShow(false);
-  };  
+  };
   const handlecategory = (e) => {
     navigate(`/category/${e._id}`);
     setShow(false);
@@ -97,6 +98,7 @@ const Usernavbar = () => {
   const navcategorydata = useSelector(
     (state) => state?.getcategorylistdata?.listdata?.data
   );
+
   console.log(navcategorydata, "rahulllllll");
 
   useEffect(() => {
@@ -134,22 +136,31 @@ const Usernavbar = () => {
                       <div className="mid_navnewconent desktop_mid_navnewconent">
                         <div className="Nav_link">
                           Category
-                          <div className="nav_Filter">
+                          <div className="nav_Filter nav_filterchanges">
                             <ul>
-                              {navcategorydata &&
-                                navcategorydata?.map((item, index) => {
-                                  console.log(item?.category, "qweqweqweqwewq");
-                                  return (
-                                    <>
-                                      <Link
-                                        className="navcat_deco"
-                                        to={`/category/${item._id}`}
+                              <Row>
+                                {navcategorydata &&
+                                  navcategorydata?.map((item, index) => {
+                                    console.log(
+                                      item?.category,
+                                      "qweqweqweqwewq"
+                                    );
+
+                                    return (
+                                      <Col
+                                        md={6}
+                                        className="navfilter_colalign"
                                       >
-                                        <li key={index}>{item?.category}</li>
-                                      </Link>
-                                    </>
-                                  );
-                                })}
+                                        <Link
+                                          className="navcat_deco"
+                                          to={`/category/${item._id}`}
+                                        >
+                                          <li key={index}>{item?.category}</li>
+                                        </Link>
+                                      </Col>
+                                    );
+                                  })}
+                              </Row>
                             </ul>
                           </div>
                         </div>
@@ -214,7 +225,7 @@ const Usernavbar = () => {
                                 onClick={() => logoutClick()}
                                 className="sign_hover"
                               >
-                                <AiTwotoneHeart />
+                                <BiLogOut />
                                 Logout
                               </li>
                             </ul>
@@ -287,7 +298,8 @@ const Usernavbar = () => {
                           wants, and desires.
                         </p>
                         <Link to="/aboutus">
-                          <Button onClick={handleAboutUs}
+                          <Button
+                            onClick={handleAboutUs}
                             className="slider_rightbutton"
                             variant="light"
                           >

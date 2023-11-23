@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Accordion, Button, Col, Row } from "react-bootstrap";
+import { Accordion, Col, Row } from "react-bootstrap";
 import { TiTick } from "react-icons/ti";
 import { FaTruckLoading } from "react-icons/fa";
 import { MdOutlineNotificationsActive } from "react-icons/md";
@@ -101,7 +101,13 @@ const Delieverydetail = () => {
       deliveryGetAction({
         userID: dataId,
       })
-    );
+    ).then((res) => {
+      if (res && res.payload && res.payload.success) {
+        setFormVisible(false);
+      } else {
+        setFormVisible(true);
+      }
+    });
   }, [dataId]);
 
   const handleSubmit = (values) => {
@@ -258,7 +264,6 @@ const Delieverydetail = () => {
                     </Accordion.Body>
                   </Accordion.Item>
                 </div>
-
                 <Row>
                   <Col lg={12}>
                     <div className="margin_bottom">
@@ -287,46 +292,43 @@ const Delieverydetail = () => {
                                 use my current location
                               </button>
                             </div> */}
-
                           {addressdata &&
                             addressdata?.map((e) => {
                               console.log(e, "mnsdnsfnsj");
                               return (
                                 <>
-                                  <div>
-                                    <input
-                                      className="form-check-input"
-                                      type="radio"
-                                      name="addresstype"
-                                      value="Home"
-                                      id="flexRadioDefault1"
-                                      checked={selectedAddressType === "Home"}
-                                      onChange={() => handleRadioChange(e)}
-                                    />
-                                    <Card style={{ width: "18rem" }}>
-                                      <Card.Body>
-                                        <Card.Title>{e.name}</Card.Title>
-                                        <Card.Title>
-                                          {e.AlternateNumber}
-                                        </Card.Title>
-                                        <Card.Subtitle className="mb-2 text-muted">
-                                          {e.Locality}
-                                        </Card.Subtitle>
-                                        <Card.Text>{e.address}</Card.Text>
-                                        <p>{e.addresstype}</p>
+                                  <div className="d-flex mb-3 ">
+                                    <div className="">
+                                      <input
+                                        className="form-check-input"
+                                        type="radio"
+                                        name="addresstype"
+                                        value="Home"
+                                        id="flexRadioDefault1"
+                                        checked={selectedAddressType === "Home"}
+                                        onChange={() => handleRadioChange(e)}
+                                      />
+                                    </div>
+                                    <div>
+                                      <div className="selectadressdetail">
+                                        <p>{e.name}</p>
+                                        <div>{e.addresstype}</div>
                                         <p>{e.mobilenumber}</p>
-                                        <p>{e.pincode}</p>
-                                        <Card.Link href="#">
-                                          {e.landmark}
-                                        </Card.Link>
-                                        <Card.Link href="#">
-                                          {e.state}
-                                        </Card.Link>
-                                        <Button onClick={() => deliverClick()}>
-                                          Delivery Here
-                                        </Button>
-                                      </Card.Body>
-                                    </Card>
+                                        {/* {e.AlternateNumber} */}
+                                      </div>
+                                      <div className="bottomdivaddress">
+                                        <p>{e.address}</p>
+                                        <p>{e.pincode}</p>,<p>{e.landmark}</p>,
+                                        <p>{e.Locality}</p>
+                                        <p>{e.state}</p>,
+                                      </div>
+                                      <button
+                                        className="readbuttommore mt-2"
+                                        onClick={() => deliverClick()}
+                                      >
+                                        Delivery Here
+                                      </button>
+                                    </div>
                                   </div>
                                   {/* <div className="form-check">
                                     <input
@@ -606,9 +608,9 @@ const Delieverydetail = () => {
                               )}
                             />
                           )}
-
+                          {/* </div> */}
                           <Row>
-                            <Col lg={12}>
+                            <Col>
                               <div
                                 className="addnew_address"
                                 onClick={() => setFormVisible(!isFormVisible)}
@@ -622,8 +624,6 @@ const Delieverydetail = () => {
                               </div>
                             </Col>
                           </Row>
-
-                          {/* </div> */}
                         </Accordion.Body>
                       </Accordion.Item>
                     </div>
@@ -636,6 +636,9 @@ const Delieverydetail = () => {
                           <div className="loginmain_align">
                             <div className="d-flex my-3">
                               <div className="logindetail">3</div>
+                              <div className="d-flex mx-2">
+                                <p>ORDER SUMMARY </p>
+                              </div>
                             </div>
                           </div>
                         </Accordion.Header>
@@ -643,107 +646,87 @@ const Delieverydetail = () => {
                         <Accordion.Body>
                           <Row>
                             <Col lg={4}>
-                              {dData?.images && (
-                                <>
-                                  <div className="main_image">
-                                    {dData?.images?.map((item, index) => {
-                                      if (item) {
-                                        return (
-                                          <img
-                                            key={index}
-                                            className="subphotof_main"
-                                            src={
-                                              item?.split("https").length > 1
-                                                ? item
-                                                : `http://localhost:5000/uploads/${item}`
-                                            }
-                                            onMouseEnter={() =>
-                                              setImageState(item)
-                                            }
-                                            alt=""
-                                          />
-                                        );
-                                      }
-                                    })}
-                                  </div>
-                                </>
-                              )}
+                              <img
+                                className="subcatkitchen_image"
+                                variant="top"
+                                // src={item?.image || item?.thumbnail}
+                                src={
+                                  dData.thumbnail
+                                    ? `http://localhost:5000/uploads/${dData.thumbnail}`
+                                    : ""
+                                }
+                                alt=""
+                              />
                             </Col>
                             <Col lg={8}>
-                              <Col lg={8}>
-                                <Card className="shoppingcard_bor">
-                                  <Card.Body>
-                                    <Card.Title>
-                                      <h4>{dData.title}</h4>
-                                    </Card.Title>
-                                    <Card.Subtitle className="mb-2 text-muted">
-                                      <h5>
-                                        Extra ₹ {dData.discountPercentage}..Off
-                                      </h5>
-                                    </Card.Subtitle>
-                                    <Card.Subtitle className="mb-2">
-                                      <h1>₹ {dData.price}</h1>
-                                    </Card.Subtitle>
-                                    <Card.Subtitle className="mb-2 discriptionoffers_product text-muted">
-                                      <h6> Available offers</h6>
-                                      <p>
-                                        {" "}
-                                        <BsTags className="validpffers_icon" />
-                                        <span>Bank Offer10%</span> off on Axis
-                                        Bank Credit Card and EMI Transactions,
-                                        up to ₹1000, on orders of ₹5,000 and
-                                        above
-                                        <span>T&C</span>
-                                      </p>
-                                      <p>
-                                        {" "}
-                                        <BsTags className="validpffers_icon" />
-                                        <span>Special Price</span>Get extra
-                                        ₹15901 off (price inclusive of
-                                        cashback/coupon)<span>T&C</span>
-                                      </p>
-                                      <p>View 10 more offers</p>
-                                    </Card.Subtitle>
-                                    <div className="delivery_code margin_bottom">
-                                      <h5>Delivery</h5>
-                                      <div>
-                                        <CiLocationOn className="deliverylocationcode" />
-                                        <input
-                                          type="text"
-                                          placeholder="Enter Delivery Pincode"
-                                          className="pincode_bar"
-                                        />
-                                      </div>
+                              <Card className="shoppingcard_bor">
+                                <Card.Body>
+                                  <Card.Title>
+                                    <h4>{dData.title}</h4>
+                                  </Card.Title>
+                                  <Card.Subtitle className="mb-2 text-muted">
+                                    <h5>
+                                      Extra ₹ {dData.discountPercentage}..Off
+                                    </h5>
+                                  </Card.Subtitle>
+                                  <Card.Subtitle className="mb-2">
+                                    <h1>₹ {dData.price}</h1>
+                                  </Card.Subtitle>
+                                  {/* <Card.Subtitle className="mb-2 discriptionoffers_product text-muted">
+                                    <h6> Available offers</h6>
+                                    <p>
+                                      {" "}
+                                      <BsTags className="validpffers_icon" />
+                                      <span>Bank Offer10%</span> off on Axis
+                                      Bank Credit Card and EMI Transactions, up
+                                      to ₹1000, on orders of ₹5,000 and above
+                                      <span>T&C</span>
+                                    </p>
+                                    <p>
+                                      {" "}
+                                      <BsTags className="validpffers_icon" />
+                                      <span>Special Price</span>Get extra ₹15901
+                                      off (price inclusive of cashback/coupon)
+                                      <span>T&C</span>
+                                    </p>
+                                    <p>View 10 more offers</p>
+                                  </Card.Subtitle> */}
+                                  {/* <div className="delivery_code margin_bottom">
+                                    <h5>Delivery</h5>
+                                    <div>
+                                      <CiLocationOn className="deliverylocationcode" />
+                                      <input
+                                        type="text"
+                                        placeholder="Enter Delivery Pincode"
+                                        className="pincode_bar"
+                                      />
                                     </div>
-                                    <Card.Text>
-                                      <div className="d-flex ">
-                                        <h6 className=" ">Description:</h6>
-                                        <p className="mainpro_rightdescrip margin_bottom">
-                                          {dData.description}
-                                        </p>
-                                      </div>
-                                    </Card.Text>
+                                  </div> */}
+                                  <Card.Text>
                                     <div className="d-flex ">
-                                      <h6>Highlights</h6>
-                                      <div className="d-flex px-5">
-                                        <ul className="specification">
-                                          <td>{dData?.brand?.[0]?.brand}</td>
-                                          <td>
-                                            {dData?.category?.[0]?.category}
-                                          </td>
-                                          <td>
-                                            {
-                                              dData?.subcategory?.[0]
-                                                ?.subcategory
-                                            }
-                                          </td>
-                                          <li>{dData.title}</li>
-                                        </ul>
-                                      </div>
+                                      <h6 className=" ">Description:</h6>
+                                      <p className="mainpro_rightdescrip margin_bottom">
+                                        {dData.description}
+                                      </p>
                                     </div>
-                                  </Card.Body>
-                                </Card>
-                              </Col>
+                                  </Card.Text>
+                                  <div className="d-flex ">
+                                    <h6>Highlights</h6>
+                                    <div className="d-flex px-5">
+                                      <ul className="specification">
+                                        <td>{dData?.brand?.[0]?.brand}</td>
+                                        <td>
+                                          {dData?.category?.[0]?.category}
+                                        </td>
+                                        <td>
+                                          {dData?.subcategory?.[0]?.subcategory}
+                                        </td>
+                                        <li>{dData.title}</li>
+                                      </ul>
+                                    </div>
+                                  </div>
+                                </Card.Body>
+                              </Card>
                             </Col>
                           </Row>
                         </Accordion.Body>
@@ -752,7 +735,7 @@ const Delieverydetail = () => {
                     {/* <div className="borderforall_detail"> */}
 
                     {/* </div> */}
-                    <Row>
+                    {/* <Row>
                       <Col lg={12}>
                         <div
                           className="addnew_address"
@@ -768,7 +751,7 @@ const Delieverydetail = () => {
                           </div>
                         </div>
                       </Col>
-                    </Row>
+                    </Row> */}
                   </Col>
                 </Row>
               </Col>

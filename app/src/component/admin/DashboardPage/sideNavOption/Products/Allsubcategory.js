@@ -5,7 +5,7 @@ import {
   addsubcategory,
   removeFromSubcategory,
 } from "../../../../../Redux/action/createNewSubcategoryAction";
-import { Col, Row, Table } from "react-bootstrap";
+import { Col, Row, Spinner, Table } from "react-bootstrap";
 import { allSubCategoryList } from "../../../../../Redux/action/getSubcategoryAction";
 
 import Allpagination from "../../../Pagination/pagination";
@@ -163,7 +163,7 @@ const Allsubcategory = () => {
       <Row>
         <Col lg={8}>
           <div className="categoryadd_new margin_bottom">
-            <Table responsive="md">
+            <Table responsive="md" className="position-relative">
               <thead>
                 <tr>
                   <th>S/L</th>
@@ -173,7 +173,9 @@ const Allsubcategory = () => {
               </thead>
               <tbody>
                 {isLoading ? (
-                  <p>Loading...</p>
+                  <div className="table_Spinner">
+                    <Spinner animation="border" variant="dark" />
+                  </div>
                 ) : (
                   getsubcat &&
                   getsubcat?.map((e, index) => {
@@ -185,14 +187,14 @@ const Allsubcategory = () => {
                           </td>
                           <td>{e.subcategory}</td>
                           <td>
-                              <div className="d-flex justify-content-end">
-                                <MdDelete
-                                  className="deleteicn_forpro"
-                                  onClick={() => {
-                                    handleShow(e?._id);
-                                  }}
-                                />
-                              </div>
+                            <div className="d-flex justify-content-end">
+                              <MdDelete
+                                className="deleteicn_forpro"
+                                onClick={() => {
+                                  handleShow(e?._id);
+                                }}
+                              />
+                            </div>
                           </td>
                         </tr>
                       </>

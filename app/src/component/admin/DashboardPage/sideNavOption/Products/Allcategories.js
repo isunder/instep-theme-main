@@ -5,7 +5,15 @@ import {
   addcategory,
   removeFromCategory,
 } from "../../../../../Redux/action/createNewCategoryAction";
-import { Button, Col, Dropdown, Modal, Row, Table } from "react-bootstrap";
+import {
+  Button,
+  Col,
+  Dropdown,
+  Modal,
+  Row,
+  Spinner,
+  Table,
+} from "react-bootstrap";
 import { MdDelete } from "react-icons/md";
 import { allCategoryList } from "../../../../../Redux/action/getCategoryAction";
 import { toast } from "react-toastify";
@@ -175,7 +183,9 @@ const Allcategories = () => {
               </thead>
               <tbody>
                 {isLoading ? (
-                  <p>Loading...</p>
+                  <div className="table_Spinner">
+                    <Spinner animation="border" variant="dark" />
+                  </div>
                 ) : (
                   data &&
                   data.map((e, index) => {
