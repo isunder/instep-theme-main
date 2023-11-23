@@ -29,7 +29,6 @@ const Delieverydetail = () => {
   const userLogin = getUserId();
   console.log(userLogin, "gopllaaaa");
 
-  const dispatch = useDispatch();
   const myCartL = useSelector((state) => state?.cartdetails.listdata);
 
   const getTotalPrice = () => {
@@ -424,7 +423,7 @@ const Delieverydetail = () => {
                     <div className=" margin_bottom">
                       <Accordion.Item eventKey="2">
                         <Accordion.Header>
-                        <div className="loginmain_align">
+                          <div className="loginmain_align">
                             <div className="d-flex my-3">
                               <div className="logindetail">3</div>
                               <div className="d-flex mx-2">
