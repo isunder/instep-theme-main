@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Card, Row, Col, Button } from "react-bootstrap";
 import { Carousel } from "react-bootstrap";
@@ -16,12 +16,14 @@ import { AiFillRightCircle } from "react-icons/ai";
 import { allCategoryList } from "../../../../Redux/action/getCategoryAction";
 import { adminGetSlider } from "../../../../Redux/action/getSliderAction";
 import Spinner from "../../loader/spinner";
+import Scrolltotopbutton from "../../ScoolToTop/scrolltotopbutton";
 
 const Home = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state?.getproductdata?.listdata);
 
   const loading = useSelector((state) => state?.getproductdata?.isLoading);
+
   const categorydata = useSelector((state) => state?.getproductdata?.listdata);
   console.log(categorydata, "categorydata");
 
@@ -242,7 +244,7 @@ const Home = () => {
                   >
                     {categorydata &&
                       categorydata?.products?.map((item, index) => {
-                        if (item?.category?.[0]?.category === "electronics") {
+                        if (item?.category?.[0]?.category === "Electronics") {
                           return (
                             <SwiperSlide className="shopping_card" key={index}>
                               <Link
@@ -338,7 +340,7 @@ const Home = () => {
                     }}
                   >
                     {data?.products?.map((e) => {
-                      if (e?.category?.[0]?.category === "Home & Kitchen") {
+                      if (e?.category?.[0]?.category === "Home &Furniture") {
                         return (
                           <SwiperSlide className="shopping_card" key={e?.id}>
                             <Link
@@ -378,9 +380,9 @@ const Home = () => {
                 </Col>
               </Row>
             </div>
-            <div className="my-4">
+            <div className="my-2">
               <Row>
-                <Col lg={4} md={4}>
+                <Col lg={4} md={6}>
                   <div className="homefashion_border">
                     <div className="d-flex justify-content-between ">
                       <h5>Men's Top Fashion</h5>
@@ -464,7 +466,7 @@ const Home = () => {
                     </Row>
                   </div>
                 </Col>
-                <Col lg={4} md={4}>
+                <Col lg={4} md={6}>
                   <div className="homefashion_border">
                     <div className="d-flex justify-content-between ">
                       <h5>Women's Top Fashion</h5>
@@ -548,7 +550,7 @@ const Home = () => {
                     </Row>
                   </div>
                 </Col>
-                <Col lg={4} md={4}>
+                <Col lg={4} md={12}>
                   <div className="homefashion_border">
                     <div className="sportscontent_align">
                       <div>
@@ -577,6 +579,7 @@ const Home = () => {
               </Row>
             </div>
           </div>
+          <Scrolltotopbutton />
         </div>
       )}
     </>
