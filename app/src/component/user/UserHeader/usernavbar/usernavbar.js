@@ -6,7 +6,6 @@ import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { Accordion, Col, Row } from "react-bootstrap";
 import { React, useEffect, useState } from "react";
-import { filterByCategory } from "../../../../Redux/action/getFilterCategoryAction";
 import {
   getProductAction,
   myCartList,
@@ -15,7 +14,7 @@ import { getUserId } from "../../../../utils/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineMail, AiTwotoneHeart } from "react-icons/ai";
-import { BiSearch, BiSolidPurchaseTag } from "react-icons/bi";
+import { BiLogOut, BiSearch, BiSolidPurchaseTag } from "react-icons/bi";
 import { MdAccountCircle, MdOutlineAccountCircle } from "react-icons/md";
 import { HiOutlineShoppingCart } from "react-icons/hi";
 import { searchAction } from "../../../../Redux/action/searchProductAction";
@@ -33,6 +32,7 @@ const Usernavbar = () => {
   const userLogin = localStorage.getItem("token");
 
   const mycart = useSelector((selectCart) => selectCart?.addToCartFile?.mycart);
+
   useEffect(() => {
     if (userData?.id) {
       dispatch(myCartList({ userid: userData.id }));
@@ -46,6 +46,7 @@ const Usernavbar = () => {
   const logoutClick = () => {
     localStorage.clear();
     window.location.reload();
+    navigate("/");
   };
 
   const filterdata = useSelector(
@@ -69,6 +70,24 @@ const Usernavbar = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const handlehome = () => {
+    navigate("/");
+    setShow(false);
+  };
+  const handlecategory = (e) => {
+    navigate(`/category/${e._id}`);
+    setShow(false);
+  };
+
+  const handleProducts = () => {
+    navigate("/allproduct");
+    setShow(false);
+  };
+  const handleAboutUs = () => {
+    navigate("/aboutus");
+    setShow(false);
+  };
+
   const handleSearch = () => {
     dispatch(searchAction({ name: searchQuery }));
     navigate("/search");
@@ -79,6 +98,7 @@ const Usernavbar = () => {
   const navcategorydata = useSelector(
     (state) => state?.getcategorylistdata?.listdata?.data
   );
+
   console.log(navcategorydata, "rahulllllll");
 
   useEffect(() => {
@@ -116,22 +136,31 @@ const Usernavbar = () => {
                       <div className="mid_navnewconent desktop_mid_navnewconent">
                         <div className="Nav_link">
                           Category
-                          <div className="nav_Filter">
+                          <div className="nav_Filter nav_filterchanges">
                             <ul>
-                              {navcategorydata &&
-                                navcategorydata?.map((item, index) => {
-                                  console.log(item?.category, "qweqweqweqwewq");
-                                  return (
-                                    <>
-                                      <Link
-                                        className="navcat_deco"
-                                        to={`/category/${item._id}`}
+                              <Row>
+                                {navcategorydata &&
+                                  navcategorydata?.map((item, index) => {
+                                    console.log(
+                                      item?.category,
+                                      "qweqweqweqwewq"
+                                    );
+
+                                    return (
+                                      <Col
+                                        md={6}
+                                        className="navfilter_colalign"
                                       >
-                                        <li key={index}>{item?.category}</li>
-                                      </Link>
-                                    </>
-                                  );
-                                })}
+                                        <Link
+                                          className="navcat_deco"
+                                          to={`/category/${item._id}`}
+                                        >
+                                          <li key={index}>{item?.category}</li>
+                                        </Link>
+                                      </Col>
+                                    );
+                                  })}
+                              </Row>
                             </ul>
                           </div>
                         </div>
@@ -196,7 +225,7 @@ const Usernavbar = () => {
                                 onClick={() => logoutClick()}
                                 className="sign_hover"
                               >
-                                <AiTwotoneHeart />
+                                <BiLogOut />
                                 Logout
                               </li>
                             </ul>
@@ -269,12 +298,12 @@ const Usernavbar = () => {
                           wants, and desires.
                         </p>
                         <Link to="/aboutus">
-                          {" "}
                           <Button
+                            onClick={handleAboutUs}
                             className="slider_rightbutton"
                             variant="light"
                           >
-                            About Us{" "}
+                            About Us
                           </Button>
                         </Link>
                         <ul className="">
@@ -286,14 +315,13 @@ const Usernavbar = () => {
                         <ul>
                           <h5> Registered Office Address:</h5>
                           <p>
-                            {" "}
                             Tricity Plaza, Office No. 14
                             <br />
                             Ground, Peer Muchalla <br />
                             Zirakpur, Punjab 140603
                           </p>
                           <p className="tele">
-                            Telephone: <span>000-000-0000</span>{" "}
+                            Telephone: <span>000-000-0000</span>
                           </p>
                         </ul>
                       </div>
@@ -307,12 +335,12 @@ const Usernavbar = () => {
                                   navcategorydata?.map((e) => {
                                     return (
                                       <>
-                                        <Link
+                                        <div
                                           className="navcat_deco"
-                                          to={`/category/${e._id}`}
+                                          onClick={() => handlecategory(e)}
                                         >
                                           <p key={e}>{e?.category}</p>
-                                        </Link>
+                                        </div>
                                       </>
                                     );
                                   })}
@@ -326,24 +354,21 @@ const Usernavbar = () => {
                           </div>
                         </div>
                         <div className="Nav_link">
-                          {" "}
-                          <Link
+                          <p
+                            onClick={handlehome}
                             className="Nav_link carddecorationnone_cat"
-                            to="/"
                           >
                             Home
-                          </Link>
+                          </p>
                         </div>
                         <div className="Nav_link">
-                          {" "}
-                          <Link
+                          <p
+                            onClick={handleProducts}
                             className="Nav_link carddecorationnone_cat"
-                            to="/allproduct"
                           >
                             Products
-                          </Link>
+                          </p>
                         </div>
-                        {/* <div className="Nav_link">Pages</div> */}
                       </div>
                     </Offcanvas.Body>
                   </Offcanvas>

@@ -16,3 +16,11 @@ export const deliveryaddress = createAsyncThunk(
     return data1.data;
   }
 );
+
+export const deliveryGetAction = createAsyncThunk(
+  "newaddressget",
+  async (payload) => {
+    const data1 = await axiosInstance.post(`/addressget`, payload);
+    return data1.data;
+  }
+);

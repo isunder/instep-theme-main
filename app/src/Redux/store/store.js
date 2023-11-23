@@ -35,6 +35,7 @@ import findTypeSubcategoryFilterById from "../reducer/findTypeSubcategorySlice";
 import findBrandFilterByIdReducer from "../reducer/filterBrandAdd";
 import SpacificationReducer from "../reducer/spacificSlice";
 import deliverAddressReducer from "../reducer/deliveryAddressSlice";
+import deliveryaddressGetReducer from "../reducer/deliveryGetSlice";
 
 export const store = configureStore({
   reducer: {
@@ -74,5 +75,6 @@ export const store = configureStore({
     findbrandAdd: findBrandFilterByIdReducer,
     spacificationdata: SpacificationReducer,
     deliveraddress: deliverAddressReducer,
+    deliveryaddressget: deliveryaddressGetReducer,
   },
 });

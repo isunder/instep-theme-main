@@ -20,7 +20,7 @@ const ProductDetails = () => {
   const { _id } = useParams();
   const userData = getUserId();
   const navigate = useNavigate();
-
+  console.log(_id, "adsdsds");
   console.log(userData, "useeeeeeeeeeeeeee");
 
   //   const details = useSelector((state) => state.slicedetails.listdata);
@@ -54,6 +54,10 @@ const ProductDetails = () => {
       navigate("/addtocart");
     });
     console.log(cartData, "added to cart");
+  };
+
+  const buyClick = (_id) => {
+    console.log(_id, "rrrr");
   };
 
   console.log(productDetail?.images, `wopjveddwo`);
@@ -93,7 +97,7 @@ const ProductDetails = () => {
                       width: 1800,
                       height: 1800,
                     },
-                   
+
                     enlargedImageContainerStyle: {
                       zIndex: 999,
                     },
@@ -144,9 +148,19 @@ const ProductDetails = () => {
                         </div>
                       </Button>
                     </div>
+                    {}
                     <div className="twobuttondiv">
-                      <Link to={"/deliverydetail"}>
+                      {/* <Link to={"/deliverydetail"}>
                         <Button className="bynow_button">
+                          <BsFillLightningFill className="buy_Addicon" /> BUY
+                          NOW
+                        </Button>
+                      </Link> */}
+                      <Link to={`/deliverydetail/${_id}`}>
+                        <Button
+                          className="bynow_button"
+                          onClick={() => buyClick()}
+                        >
                           <BsFillLightningFill className="buy_Addicon" /> BUY
                           NOW
                         </Button>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Sidenav, Nav } from "rsuite";
 import "rsuite/dist/rsuite-no-reset.min.css";
 import {
@@ -30,9 +30,32 @@ const SidebarFun = () => {
     navigate("/");
   };
 
+  // const [show, setShow] = useState();
+
+  // const handleShow = () => setShow(true);
+  // const handleClose = () => setShow(false);
+
+  // let navOptions = [
+  //   { value: "all Product", click: `${handleshow}` },
+
+  //   { value: "All Categories" },
+  //   { value: "All Subcategory" },
+  //   { value: "All Subtypecategory" },
+  //   { value: "All Brands" },
+  //   { value: "All Slider" },
+  // ];
+
+  // const handleshow = () => {
+  //   navigate("/allproduct");
+  // };
+
   return (
     <div className="admin_sidebar col_hide">
-      <Sidenav defaultOpenKeys={["3", "4"]}>
+      <Sidenav
+        defaultOpenKeys={["3", "4"]}
+        // show={show}
+        // handleClose={handleClose}
+      >
         <Sidenav.Body>
           <div className="sidebar_deco">
             <Nav activeKey="1">
@@ -43,18 +66,16 @@ const SidebarFun = () => {
               >
                 <AiOutlineDashboard />
                 Dashboard
-              </Nav.Item>{" "}
+              </Nav.Item>
               <Nav.Menu
                 eventKey="2"
                 title="Products"
                 icon={<MdProductionQuantityLimits />}
               >
                 <Nav.Item eventKey="2-1">
-                  {" "}
-                  <Link to={"/allproduct"}>- All Products</Link>{" "}
+                  <Link to={"/allproduct"}>- All Products</Link>
                 </Nav.Item>
                 <Nav.Item eventKey="2-2">
-                  {" "}
                   <Link to={"/Allcategories"}>- All Categories</Link>
                 </Nav.Item>
                 <Nav.Item eventKey="2-3">
@@ -75,32 +96,30 @@ const SidebarFun = () => {
                 title="Pos System"
                 icon={<BsFilePostFill />}
               ></Nav.Menu>
-              <Nav.Menu eventKey="4" title="Order" icon={<HiDocument />} />{" "}
+              <Nav.Menu eventKey="4" title="Order" icon={<HiDocument />} />
               <Nav.Menu eventKey="5" title="Stock" icon={<GoDatabase />}>
                 <Nav.Item eventKey="5-1">
-                  <Link to={"/Addstock"}>- Add Stock </Link>{" "}
+                  <Link to={"/Addstock"}>- Add Stock </Link>
                 </Nav.Item>
                 <Nav.Item eventKey="5-2">
                   <Link to={"/Allloation"}>- All Location</Link>
                 </Nav.Item>
-              </Nav.Menu>{" "}
+              </Nav.Menu>
               <Nav.Menu
                 eventKey="6"
                 title="Refunds"
                 icon={<BsArrow90DegLeft />}
               >
-                {" "}
                 <Nav.Item eventKey="6-1">-Refund Configurations</Nav.Item>
                 <Nav.Item eventKey="6-2">-Refunds Requests</Nav.Item>
                 <Nav.Item eventKey="6-1">-Approved Refunds</Nav.Item>
-                <Nav.Item eventKey="6-2">-Rejected Refunds</Nav.Item>{" "}
+                <Nav.Item eventKey="6-2">-Rejected Refunds</Nav.Item>
               </Nav.Menu>
               <Nav.Menu
                 eventKey="7"
                 title="Rewards & Wallet"
                 icon={<BsAwardFill />}
               >
-                {" "}
                 <Nav.Item eventKey="7-1">-Rewards Configurations</Nav.Item>
                 <Nav.Item eventKey="7-2">-Set Reward Points</Nav.Item>
                 <Nav.Item eventKey="7-3">-Wallet Configurations</Nav.Item>
@@ -110,16 +129,14 @@ const SidebarFun = () => {
                 title="Customer"
                 icon={<HiOutlineUserGroup />}
               >
-                {" "}
                 <Nav.Item eventKey="8-1">
                   <Link to={"/customerdetail"}>Customer Detail </Link>
-                </Nav.Item>{" "}
+                </Nav.Item>
               </Nav.Menu>
-              <Nav.Menu title="Employee Staff" icon={<FaUserCheck />} />{" "}
+              <Nav.Menu title="Employee Staff" icon={<FaUserCheck />} />
               <Nav.Menu eventKey="9" title="Tags" icon={<AiFillTags />} />
               <Nav.Menu eventKey="10" title="Pages" icon={<SiPowerpages />} />
               <Nav.Menu eventKey="11" title="Blogs" icon={<BsAwardFill />}>
-                {" "}
                 <Nav.Item eventKey="11-1">All Blogs</Nav.Item>
                 <Nav.Item eventKey="11-2">Categories</Nav.Item>
               </Nav.Menu>
@@ -133,9 +150,8 @@ const SidebarFun = () => {
                 title="Newsletters"
                 //  icon={<BsAwardFill />}
               >
-                {" "}
                 <Nav.Item eventKey="13-1">
-                  <Link to={"/Bulkemails"}>Bulk Email </Link>{" "}
+                  <Link to={"/Bulkemails"}>Bulk Email </Link>
                 </Nav.Item>
                 <Nav.Item eventKey="13-2">
                   <Link to={"/Subscriber"}> Subscribers</Link>
@@ -150,16 +166,13 @@ const SidebarFun = () => {
                 icon={<FaShoppingCart />}
               />
               <Nav.Menu eventKey="18" title="Reports" icon={<BiSolidReport />}>
-                {" "}
                 <Nav.Item eventKey="18-1">
                   <Link to={"/Orderreport"}>-Order Report</Link>
                 </Nav.Item>
                 <Nav.Item eventKey="18-2">
-                  {" "}
                   <Link to={"/Productsale"}>-Products Sales</Link>
                 </Nav.Item>
                 <Nav.Item eventKey="18-3">
-                  {" "}
                   <Link to={"/Categorywise"}>-Category Wise Sales</Link>
                 </Nav.Item>
                 <Nav.Item eventKey="18-4">
@@ -177,7 +190,6 @@ const SidebarFun = () => {
                 //  icon={<BsAwardFill />}
               />
               <Nav.Menu eventKey="20" title="Appearance">
-                {" "}
                 <Nav.Item eventKey="20-1"> -Home Page</Nav.Item>
                 <Nav.Item eventKey="20-2">-Products Page</Nav.Item>
                 <Nav.Item eventKey="20-3">-Products Details</Nav.Item>
@@ -191,7 +203,6 @@ const SidebarFun = () => {
                 icon={<AiFillUnlock />}
               />
               <Nav.Menu eventKey="23" title="Setting" icon={<AiFillSetting />}>
-                {" "}
                 <Nav.Item eventKey="23-1">- Auth Setting</Nav.Item>
                 <Nav.Item eventKey="23-2">-OTP Setting</Nav.Item>
                 <Nav.Item eventKey="23-3">-Order Setting</Nav.Item>

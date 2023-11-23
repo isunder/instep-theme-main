@@ -10,7 +10,7 @@ import Form from "react-bootstrap/Form";
 import Dropdown from "react-bootstrap/Dropdown";
 import { FiSearch } from "react-icons/fi";
 import { BiDotsVerticalRounded } from "react-icons/bi";
-import { Table } from "react-bootstrap";
+import { Spinner, Table } from "react-bootstrap";
 import { LuEdit3 } from "react-icons/lu";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -32,6 +32,9 @@ function Allproducts(params) {
   const [show, setShow] = useState(false);
   const data = useSelector(
     (state) => state?.GetAdminProductAllListData?.listdata
+  );
+  const isLoading = useSelector(
+    (state) => state?.GetAdminProductAllListData?.isLoading
   );
 
   const listCount = useSelector(
@@ -153,7 +156,7 @@ function Allproducts(params) {
                 </Button>
               </div>
             </div>
-            <Table responsive="md">
+            <Table responsive="md" className="position-relative">
               <thead>
                 <tr>
                   <th>S/L</th>
@@ -166,7 +169,12 @@ function Allproducts(params) {
                 </tr>
               </thead>
               <tbody>
-                {data &&
+                {isLoading ? (
+                  <div className="table_Spinner productspinner">
+                    <Spinner animation="border" variant="dark" />
+                  </div>
+                ) : (
+                  data &&
                   data?.products?.map((product, index) => {
                     console.log(product, "asdasdasdasd");
                     return (
@@ -238,7 +246,8 @@ function Allproducts(params) {
                         </tr>
                       </>
                     );
-                  })}
+                  })
+                )}
               </tbody>
             </Table>
             <div className="d-flex justify-content-end">
