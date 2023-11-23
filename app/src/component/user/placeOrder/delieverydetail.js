@@ -35,6 +35,7 @@ const Delieverydetail = () => {
 
   const navigate = useNavigate();
 
+
   const userLogin = getUserId();
   const dataId = userLogin.id;
   console.log(dataId, "dataId");
