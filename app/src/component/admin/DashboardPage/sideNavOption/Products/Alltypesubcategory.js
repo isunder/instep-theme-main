@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Form, Field } from "react-final-form";
 import { useDispatch, useSelector } from "react-redux";
 import { allCategoryList } from "../../../../../Redux/action/getCategoryAction";
-import { Col, Row, Table } from "react-bootstrap";
+import { Col, Row, Spinner, Table } from "react-bootstrap";
 import { allSubCategoryList } from "../../../../../Redux/action/getSubcategoryAction";
 import {
   removeFromTypeSubcategory,
@@ -41,6 +41,7 @@ const Alltypesubcategory = () => {
   const typesubcatgory = useSelector(
     (state) => state?.typesubcategory?.typesublist?.data?.data
   );
+  const isLoading = useSelector((state) => state?.typesubcategory?.isLoading);
   console.log(typesubcatgory, "typesubcatgory");
 
   useEffect(() => {
@@ -203,25 +204,34 @@ const Alltypesubcategory = () => {
                 </tr>
               </thead>
               <tbody>
-                {typesubcatgory && typesubcatgory.length > 0 && (
-                  <>
-                    {typesubcatgory.map((e, index) => (
-                      <tr key={index}>
-                        <td>{(currentPage - 1) * postPerPage + (index + 1)}</td>
-                        <td>{e.typesubcategory}</td>
-                        <td>
-                          <div className="d-flex justify-content-end">
-                            <MdDelete
-                              className="deleteicn_forpro"
-                              onClick={() => {
-                                handleShow(e?._id);
-                              }}
-                            />
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </>
+                {isLoading ? (
+                  <div className="table_Spinner">
+                    <Spinner animation="border" variant="dark" />
+                  </div>
+                ) : (
+                  typesubcatgory &&
+                  typesubcatgory.length > 0 && (
+                    <>
+                      {typesubcatgory.map((e, index) => (
+                        <tr key={index}>
+                          <td>
+                            {(currentPage - 1) * postPerPage + (index + 1)}
+                          </td>
+                          <td>{e.typesubcategory}</td>
+                          <td>
+                            <div className="d-flex justify-content-end">
+                              <MdDelete
+                                className="deleteicn_forpro"
+                                onClick={() => {
+                                  handleShow(e?._id);
+                                }}
+                              />
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </>
+                  )
                 )}
               </tbody>
             </Table>

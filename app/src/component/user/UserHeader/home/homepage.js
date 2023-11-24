@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Card, Row, Col, Button } from "react-bootstrap";
 import { Carousel } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FiArrowUpRight } from "react-icons/fi";
 import { getProductAction } from "../../../../Redux/action/getProductDetailAction";
 import { Swiper } from "swiper/react";
@@ -16,12 +16,15 @@ import { AiFillRightCircle } from "react-icons/ai";
 import { allCategoryList } from "../../../../Redux/action/getCategoryAction";
 import { adminGetSlider } from "../../../../Redux/action/getSliderAction";
 import Spinner from "../../loader/spinner";
+import Scrolltotopbutton from "../../ScoolToTop/scrolltotopbutton";
 
 const Home = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const data = useSelector((state) => state?.getproductdata?.listdata);
 
   const loading = useSelector((state) => state?.getproductdata?.isLoading);
+
   const categorydata = useSelector((state) => state?.getproductdata?.listdata);
   console.log(categorydata, "categorydata");
 
@@ -44,6 +47,15 @@ const Home = () => {
     console.log(_id, "hh/ddhhjjjjjjjjjjj");
   };
 
+  const handleClick = (_id) => {
+    console.log(_id, "dfdjdjc");
+    // navigate(`/category/${_id}`);
+  };
+
+  const handleExplore = (_id) => {
+    navigate(`/category/${_id}`);
+  };
+
   const banner = [
     {
       value: "Shop Now ",
@@ -61,6 +73,14 @@ const Home = () => {
         "https://braze-images.com/appboy/communication/assets/image_assets/images/642cb57fffb3180b8c80c73a/original.png?1680651647",
     },
   ];
+
+  let women =
+    data?.products?.filter((item) => item?.category[0]?.category === "women") ||
+    [];
+
+  let men =
+    data?.products?.filter((item) => item.category?.[0]?.category === "Men") ||
+    [];
 
   return (
     <>
@@ -242,7 +262,7 @@ const Home = () => {
                   >
                     {categorydata &&
                       categorydata?.products?.map((item, index) => {
-                        if (item?.category?.[0]?.category === "electronics") {
+                        if (item?.category?.[0]?.category === "Electronics") {
                           return (
                             <SwiperSlide className="shopping_card" key={index}>
                               <Link
@@ -338,7 +358,7 @@ const Home = () => {
                     }}
                   >
                     {data?.products?.map((e) => {
-                      if (e?.category?.[0]?.category === "Home & Kitchen") {
+                      if (e?.category?.[0]?.category === "Home &Furniture") {
                         return (
                           <SwiperSlide className="shopping_card" key={e?.id}>
                             <Link
@@ -378,34 +398,49 @@ const Home = () => {
                 </Col>
               </Row>
             </div>
-            <div className="my-4">
+            <div className="my-2">
               <Row>
-                <Col lg={4} md={4}>
+                <Col lg={4} md={6}>
                   <div className="homefashion_border">
                     <div className="d-flex justify-content-between ">
                       <h5>Men's Top Fashion</h5>
                       <AiFillRightCircle className="topcategoies_icon" />
                     </div>
                     <Row>
-                      <Col lg={6} md={6}>
-                        <div className="my-2">
-                          <div className="hometop_fashionbo_der">
-                            <img
-                              className="homedecorimag_e"
-                              variant="top"
-                              src={
-                                "https://media.istockphoto.com/id/471188329/photo/plain-red-tee-shirt-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=h1n990JR40ZFbPRDpxKppFziIWrisGcE_d9OqkLVAC4="
-                              }
-                              alt=""
-                            />
-                            <div className="cloths_detail">
-                              <p className="crad_text">T-Shirt</p>
-                              <p> 15% off</p>
-                            </div>
-                          </div>
-                        </div>
-                      </Col>
-                      <Col lg={6} md={6}>
+                      {men?.map((item, index) => {
+                        return (
+                          index < 4 && (
+                            <Col lg={6} md={6}>
+                              <div className="my-2" key={index}>
+                                <div
+                                  className="hometop_fashionbo_der"
+                                  onClick={() => handleClick(item)}
+                                >
+                                  <img
+                                    className="homedecorimag_e"
+                                    variant="top"
+                                    src={
+                                      item?.image
+                                        ? item?.image
+                                        : item?.thumbnail.split(":").length > 1
+                                        ? item?.thumbnail
+                                        : `http://localhost:5000/uploads/${item.thumbnail}`
+                                    }
+                                  />
+                                  <div className="cloths_detail">
+                                    <p className="top_cattitle">
+                                      {item?.title}
+                                    </p>
+                                    <p> {item?.discountpercentage}% off</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </Col>
+                          )
+                        );
+                      })}
+
+                      {/* <Col lg={6} md={6}>
                         <div className="my-2">
                           <div className="hometop_fashionbo_der">
                             <img
@@ -422,9 +457,9 @@ const Home = () => {
                             </div>
                           </div>
                         </div>
-                      </Col>
+                      </Col> */}
                     </Row>
-                    <Row>
+                    {/* <Row>
                       <Col lg={6} md={6}>
                         <div className="my-2">
                           <div className="hometop_fashionbo_der">
@@ -461,35 +496,47 @@ const Home = () => {
                           </div>
                         </div>
                       </Col>
-                    </Row>
+                    </Row> */}
                   </div>
                 </Col>
-                <Col lg={4} md={4}>
+                <Col lg={4} md={6}>
                   <div className="homefashion_border">
                     <div className="d-flex justify-content-between ">
                       <h5>Women's Top Fashion</h5>
                       <AiFillRightCircle className="topcategoies_icon" />
                     </div>
                     <Row>
-                      <Col lg={6} md={6}>
-                        <div className="my-2">
-                          <div className="hometop_fashionbo_der">
-                            <img
-                              className="homedecorimag_e"
-                              variant="top"
-                              src={
-                                "https://img.freepik.com/premium-photo/two-women-with-shopping-bags-walking-together-fashion-show-generative-ai_902049-23617.jpg?w=360"
-                              }
-                              alt=""
-                            />
-                            <div className="cloths_detail">
-                              <p className="crad_text">T-Shirt</p>
-                              <p> 15% off</p>
-                            </div>
-                          </div>
-                        </div>
-                      </Col>
-                      <Col lg={6} md={6}>
+                      {women.map((item, index) => {
+                        return (
+                          index < 4 && (
+                            <Col lg={6} md={6}>
+                              <div className="my-2" key={index}>
+                                <div className="hometop_fashionbo_der">
+                                  <img
+                                    className="homedecorimag_e"
+                                    variant="top"
+                                    src={
+                                      item?.image
+                                        ? item?.image
+                                        : item?.thumbnail.split(":").length > 1
+                                        ? item?.thumbnail
+                                        : `http://localhost:5000/uploads/${item.thumbnail}`
+                                    }
+                                    alt=""
+                                  />
+                                  <div className="cloths_detail">
+                                    <p className="top_cattitle">
+                                      {item?.title}
+                                    </p>
+                                    <p> {item?.discountpercentage}% off</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </Col>
+                          )
+                        );
+                      })}
+                      {/* <Col lg={6} md={6}>
                         <div className="my-2">
                           <div className="hometop_fashionbo_der">
                             <img
@@ -506,9 +553,9 @@ const Home = () => {
                             </div>
                           </div>
                         </div>
-                      </Col>
+                      </Col> */}
                     </Row>
-                    <Row>
+                    {/* <Row>
                       <Col lg={6} md={6}>
                         <div className="my-2">
                           <div className="hometop_fashionbo_der">
@@ -545,10 +592,10 @@ const Home = () => {
                           </div>
                         </div>
                       </Col>
-                    </Row>
+                    </Row> */}
                   </div>
                 </Col>
-                <Col lg={4} md={4}>
+                <Col lg={4} md={12}>
                   <div className="homefashion_border">
                     <div className="sportscontent_align">
                       <div>
@@ -560,9 +607,20 @@ const Home = () => {
                         </p>
                       </div>
                       <div>
-                        <button className="slider_rightbutton margin_bottom">
-                          Explore
-                        </button>
+                        {allcatgorydata?.map((e) => {
+                          if (e?.category === "Sports") {
+                            return (
+                              <>
+                                <button
+                                  onClick={() => handleExplore(e?._id)}
+                                  className="slider_rightbutton margin_bottom"
+                                >
+                                  Explore
+                                </button>
+                              </>
+                            );
+                          }
+                        })}
                       </div>
                     </div>
                     <div>
@@ -577,6 +635,7 @@ const Home = () => {
               </Row>
             </div>
           </div>
+          <Scrolltotopbutton />
         </div>
       )}
     </>
