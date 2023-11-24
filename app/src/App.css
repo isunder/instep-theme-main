@@ -1892,6 +1892,15 @@ h5 {
 }
 /* ------------------------new home page------------------------ */
 
+ .top_cattitle{
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  margin: 0px;
+  width: 80%;
+  opacity: 0.6px !important;
+}
+
 @media (max-width: 991px) {
   .homedecor_image {
     display: none !important;
@@ -2089,6 +2098,7 @@ h5 {
   width: 10%;
   height: 10%;
   color: #FF7C08;
+  cursor: pointer;
 }
 /* ------------------------------------signup-------------------------------------------- */
 .signin_main {
