@@ -36,6 +36,7 @@ import findBrandFilterByIdReducer from "../reducer/filterBrandAdd";
 import SpacificationReducer from "../reducer/spacificSlice";
 import deliverAddressReducer from "../reducer/deliveryAddressSlice";
 import deliveryaddressGetReducer from "../reducer/deliveryGetSlice";
+import PaymentorderdataReducer from "../reducer/paymentOrderReducer";
 
 export const store = configureStore({
   reducer: {
@@ -76,5 +77,6 @@ export const store = configureStore({
     spacificationdata: SpacificationReducer,
     deliveraddress: deliverAddressReducer,
     deliveryaddressget: deliveryaddressGetReducer,
+    paymentorderdata: PaymentorderdataReducer,
   },
 });
