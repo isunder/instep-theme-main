@@ -131,7 +131,7 @@ const AddToCartProduct = () => {
 
   return (
     <>
-      {cartLoading && <Spinner />}
+      {/* {cartLoading && <Spinner />} */}
       {loading ? (
         <Spinner />
       ) : (
@@ -224,51 +224,58 @@ const AddToCartProduct = () => {
                                 </div>
                               </Col>
                               <Col lg={2} md={2} sm={3} xs={4}>
-                                <div className="addcart_quantity">
-                                  <div
-                                    style={{ width: "25px" }}
-                                    className="subtract"
-                                  >
-                                    <span
-                                      onClick={() => {
-                                        onHandleClickMinus(e?.productid);
-                                      }}
-                                      className={`${
-                                        e?.quantity +
-                                          (quantity[e?.productid] || 0) ===
-                                        1
-                                          ? "pe-none"
-                                          : ""
-                                      }`}
-                                      style={{
-                                        color:
-                                          e?.quantity +
-                                            (quantity[e?.productid] || 0) ===
-                                          1
-                                            ? "#C2C2C6"
-                                            : "inherit",
-                                      }}
-                                    >
-                                      <RiSubtractFill />
-                                    </span>
-                                  </div>
-                                  <span className="quantityval_ue">
-                                    {/* {e.quantity} */}
-                                    {quantity[e?.productid]
-                                      ? e?.quantity + quantity[e?.productid]
-                                      : e?.quantity}
-                                  </span>
-                                  <div
-                                    onClick={() => {
-                                      onHandleClickPlus(e?.productid);
-                                    }}
-                                    className="add"
-                                  >
-                                    <span>
-                                      <AiOutlinePlus />
-                                    </span>
-                                  </div>
-                                </div>
+                                {cartLoading ? (
+                                  <Spinner />
+                                ) : (
+                                  <>
+                                    <div className="addcart_quantity">
+                                      <div
+                                        style={{ width: "25px" }}
+                                        className="subtract"
+                                      >
+                                        <span
+                                          onClick={() => {
+                                            onHandleClickMinus(e?.productid);
+                                          }}
+                                          className={`${
+                                            e?.quantity +
+                                              (quantity[e?.productid] || 0) ===
+                                            1
+                                              ? "pe-none"
+                                              : ""
+                                          }`}
+                                          style={{
+                                            color:
+                                              e?.quantity +
+                                                (quantity[e?.productid] ||
+                                                  0) ===
+                                              1
+                                                ? "#C2C2C6"
+                                                : "inherit",
+                                          }}
+                                        >
+                                          <RiSubtractFill />
+                                        </span>
+                                      </div>
+                                      <span className="quantityval_ue">
+                                        {/* {e.quantity} */}
+                                        {quantity[e?.productid]
+                                          ? e?.quantity + quantity[e?.productid]
+                                          : e?.quantity}
+                                      </span>
+                                      <div
+                                        onClick={() => {
+                                          onHandleClickPlus(e?.productid);
+                                        }}
+                                        className="add"
+                                      >
+                                        <span>
+                                          <AiOutlinePlus />
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </>
+                                )}
                               </Col>
                               <Col lg={2} md={2} sm={2} xs={4}>
                                 <div className="addtocart_title">
@@ -383,7 +390,7 @@ const AddToCartProduct = () => {
               </Col>
             </Row>
             <div className="plceorderbutton_cart col-lg-9">
-              <Link to="/deliverydetail">
+              <Link to="/deliverydetail/id">
                 <button className="placeorder_butcart">Place Order</button>
               </Link>
             </div>

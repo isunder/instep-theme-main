@@ -6,7 +6,7 @@ import {
   removeFromBrand,
 } from "../../../../../Redux/action/createNewBrandsAction";
 import { allSubCategoryList } from "../../../../../Redux/action/getSubcategoryAction";
-import { Col, Row, Table } from "react-bootstrap";
+import { Col, Row, Spinner, Table } from "react-bootstrap";
 import { allBrandsList } from "../../../../../Redux/action/getAllBrandListAction";
 import { allCategoryList } from "../../../../../Redux/action/getCategoryAction";
 import Allpagination from "../../../Pagination/pagination";
@@ -47,6 +47,7 @@ const Allsubcategory = () => {
   const getbrandlist = useSelector(
     (state) => state?.getbrandslistdata?.listdata?.data
   );
+  const isLoading = useSelector((state) => state?.getbrandslistdata?.isLoading);
   console.log(getbrandlist, "1111");
 
   const onSubmit = (values) => {
@@ -199,7 +200,12 @@ const Allsubcategory = () => {
                 </tr>
               </thead>
               <tbody>
-                {getbrandlist &&
+                {isLoading ? (
+                  <div className="table_Spinner">
+                    <Spinner animation="border" variant="dark" />
+                  </div>
+                ) : (
+                  getbrandlist &&
                   getbrandlist?.map((e, index) => {
                     console.log(e, "brnds");
                     return (
@@ -222,7 +228,8 @@ const Allsubcategory = () => {
                         </tr>
                       </>
                     );
-                  })}
+                  })
+                )}
               </tbody>
             </Table>
             <div className="d-flex justify-content-end">
