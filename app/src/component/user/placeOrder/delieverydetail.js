@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Accordion, Button, Col, Row } from "react-bootstrap";
 import { TiTick } from "react-icons/ti";
 import { FaTruckLoading } from "react-icons/fa";
@@ -17,14 +17,16 @@ import {
 import RadioInput from "./radioButton";
 import { singleproduct } from "../../../Redux/action/getsingleProduct";
 import { CiLocationOn } from "react-icons/ci";
+import { paymentOrder } from "../../../Redux/action/paymentOrderAction";
+// import { options } from "../../../../../api/router/razorpay";
+import useRazorpay from "react-razorpay";
+import axios from "axios";
 
 const Delieverydetail = () => {
   const [isFormVisible, setFormVisible] = useState(false);
   const [showCol, setShowCol] = useState("login");
   const [imageState, setImageState] = useState();
-
   const [hidedata, setHidata] = useState("");
-
   const data = useSelector((state) => state?.deliveraddress?.listdata);
   console.log(data, "address");
 
@@ -34,7 +36,6 @@ const Delieverydetail = () => {
   // };
 
   const navigate = useNavigate();
-
   const userLogin = getUserId();
   const dataId = userLogin.id;
   console.log(dataId, "dataId");
@@ -164,8 +165,9 @@ const Delieverydetail = () => {
 
     // You can perform further actions or submit the data to an API here
   };
+
   const dData = useSelector((state) => state?.singleproduct?.listdata);
-  console.log(dData.subcategory, "dDatadData");
+  console.log(dData?.price, "dDatadData");
 
   useEffect(() => {
     dispatch(singleproduct({ _id }));
@@ -182,11 +184,225 @@ const Delieverydetail = () => {
     console.log(e, "aaasss");
   };
 
+  const order = useSelector((state) => state?.paymentorderdata?.listdata);
+  // console.log(order?.data?.order?.amount, "orderdata");
+  console.log(order, "orderdata");
+  console.log(order?.data?.order?.amount, "orderdatasa");
+
+  // const handlePayment = () => {
+  //   const load = { amount: "10000" };
+
+  //   dispatch(paymentOrder(load));
+  // };
+  const [Razorpay, isLoaded] = useRazorpay();
+
+  // useEffect(() => {
+  //   // const load = { amount: order?.data?.order?.amount };
+  //   // console.log(load, "loaad");
+  //   const amount = { amount: dData?.price };
+  //   console.log(amount, "loaad");
+  //   dispatch(paymentOrder(amount));
+  // }, []);
+
+  //
+
+  // const handlePayment = useCallback(() => {
+  //   dispatch(paymentOrder())
+  //     .then(
+  //       (res) => {
+  //         // Handle the success scenario here
+  //         // console.log("Payment successful", data);
+
+  //         const options = {
+  //           key: "rzp_test_Nfb5anftyihnMA",
+  //           // amount: Number(order?.data?.order?.amount),
+  //           amount: "",
+  //           // amount: Number(dData?.price),
+  //           currency: "INR",
+  //           name: "live's",
+  //           description: "Test Transaction",
+  //           image:
+  //             "https://insteptechnologies.com/wp-content/uploads/2022/04/main-logo.png",
+  //           order_id: order?.data?.id,
+  //           // order_id: "order_N3rlrwXLpwJZeP",
+  //           handler: (res) => {
+  //             console.log(res);
+  //           },
+  //           prefill: {
+  //             name: "Amit",
+  //             email: "amit71instep@gmail.com",
+  //             contact: "9988071171",
+  //           },
+  //           notes: {
+  //             address: "Razorpay Corporate Office",
+  //           },
+  //           theme: {
+  //             color: "#3399cc",
+  //           },
+  //         };
+  //         const rzpay = new Razorpay(options);
+  //         rzpay.open();
+  //       },
+  //       [dispatch, order, dData]
+  //     )
+  //     .catch((error) => {
+  //       // Handle the error scenario here
+  //       console.error("Payment failed", error);
+  //     });
+  // });
+
+  // const handlePayment = useCallback(() => {
+  //   const load = { amount: dData?.price };
+  //   console.log(load);
+  //   dispatch(paymentOrder(load));
+  //   const options = {
+  //     key: "rzp_test_Nfb5anftyihnMA",
+  //     // amount: Number(order?.data?.order?.amount),
+  //     // amount: "",
+  //     // amount: Number(dData?.price),
+  //     currency: "INR",
+  //     name: "live's",
+  //     description: "Test Transaction",
+  //     image:
+  //       "https://insteptechnologies.com/wp-content/uploads/2022/04/main-logo.png",
+  //     order_id: order?.data?.id,
+  //     // order_id: "order_N3rlrwXLpwJZeP",
+  //     handler: (res) => {
+  //       console.log(res);
+  //     },
+  //     prefill: {
+  //       name: "Amit",
+  //       email: "amit71instep@gmail.com",
+  //       contact: "9988071171",
+  //     },
+  //     notes: {
+  //       address: "Razorpay Corporate Office",
+  //     },
+  //     theme: {
+  //       color: "#3399cc",
+  //     },
+  //   };
+
+  //   const rzpay = new Razorpay(options);
+  //   rzpay.open();
+  // }, [dispatch, order, dData]);
+
+  const handlePayment = useCallback(() => {
+    const load = { amount: dData?.price };
+    console.log(load);
+    dispatch(paymentOrder(load));
+
+    // dispatch(paymentOrder(load)).then((res) => {
+    //   if (res) {
+    //     console.log(res);
+    //     console.log(res.payload.data.success, " Success");
+    //     if (res.payload.data.success == true) {
+    //       const orderAmount = order?.data?.order?.amount;
+    //       if (orderAmount) {
+    //         const options = {
+    //           key: "rzp_test_Nfb5anftyihnMA", // Replace with your actual Razorpay key
+    //           amount: orderAmount,
+
+    //           currency: "INR",
+    //           name: "instep cart",
+    //           description: "Test Transaction",
+    //           image:
+    //             "https://insteptechnologies.com/wp-content/uploads/2022/04/main-logo.png",
+    //           order_id: order?.data?.order?.id, // This is a sample Order ID, replace with a real one
+    //           handler: async (response) => {
+    //             try {
+    //               const verifyUrl = "http://localhost:5000/api/capture";
+    //               const { data } = await axios.post(verifyUrl, response);
+    //               console.log("Payment response:", data);
+    //             } catch (error) {
+    //               console.error("Payment error:", error);
+    //             }
+    //           },
+    //         };
+
+    //         const rzp = new window.Razorpay(options);
+    //         rzp.open();
+    //         // }
+    //       }
+    //     }
+    //   }
+    // });
+  }, [dispatch, order, dData]);
+
+  if (order) {
+    const orderAmount = order?.data?.order?.amount;
+    if (orderAmount) {
+      const options = {
+        key: "rzp_test_Nfb5anftyihnMA",
+        amount: orderAmount,
+        currency: "INR",
+        name: "live's",
+        description: "Test Transaction",
+        image:
+          "https://insteptechnologies.com/wp-content/uploads/2022/04/main-logo.png",
+        order_id: order?.data?.id,
+        handler: (res) => {
+          console.log(res);
+        },
+        prefill: {
+          name: "Amit",
+          email: "amit71instep@gmail.com",
+          contact: "9988071171",
+        },
+        notes: {
+          address: "Razorpay Corporate Office",
+        },
+        theme: {
+          color: "#3399cc",
+        },
+      };
+
+      const rzpay = new Razorpay(options);
+      rzpay.open();
+    }
+  }
+  // const options = {
+  //   key: "rzp_test_Nfb5anftyihnMA",
+  //   amount: order?.data?.order?.amount,
+  //   // amount: "",
+  //   // amount: Number(dData?.price),
+  //   currency: "INR",
+  //   name: "live's",
+  //   description: "Test Transaction",
+  //   image:
+  //     "https://insteptechnologies.com/wp-content/uploads/2022/04/main-logo.png",
+  //   order_id: order?.data?.id,
+  //   // order_id: "order_N3rlrwXLpwJZeP",
+  //   handler: (res) => {
+  //     console.log(res);
+  //   },
+  //   prefill: {
+  //     name: "Amit",
+  //     email: "amit71instep@gmail.com",
+  //     contact: "9988071171",
+  //   },
+  //   notes: {
+  //     address: "Razorpay Corporate Office",
+  //   },
+  //   theme: {
+  //     color: "#3399cc",
+  //   },
+  // };
+
+  // const rzpay = new Razorpay(options);
+  // rzpay.open();
+
+  useEffect(() => {
+    if (isLoaded) {
+      handlePayment();
+    }
+  }, [isLoaded, handlePayment]);
+
   return (
     <>
       <div className="container">
         <div className=" slider_col margin_bottom">
-          <Accordion defaultActiveKey="0">
+          <Accordion defaultActiveKey="2">
             <Row>
               <Col lg={9}>
                 <div className=" margin_bottom">
@@ -207,7 +423,6 @@ const Delieverydetail = () => {
                           </div>
                         </div>
                         {/* <div>
-
                         <button
                           className="infochange_button"
                           value="change"
@@ -219,7 +434,6 @@ const Delieverydetail = () => {
                       </div>
                     </Accordion.Header>
                     <Accordion.Body>
-                      {" "}
                       <Row>
                         <Col lg={6}>
                           <div className="individual_info login_contalign ">
@@ -633,9 +847,12 @@ const Delieverydetail = () => {
                         onChange={() => handleChange()}
                       >
                         <Accordion.Header>
-                          <div className="loginmain_align">
+                          <div id="collapseOne" className="loginmain_align">
                             <div className="d-flex my-3">
                               <div className="logindetail">3</div>
+                              <div className="d-flex mx-2">
+                                <p>ORDER SUMMARY</p>
+                              </div>
                             </div>
                           </div>
                         </Accordion.Header>
@@ -760,12 +977,16 @@ const Delieverydetail = () => {
                             setShowCol("delivery");
                           }}
                         >
-                          <div>
+                          {/* <div>
                             <BsPlusCircleFill className="logindetail_icon" />
-                          </div>
+                          </div> */}
                           <div>
-                            <p>Add New</p>
+                            Order Confirmation email <space />
+                            <strong>{userLogin?.userEmail}</strong>
                           </div>
+                          <Button onClick={(e) => handlePayment()}>
+                            Continue
+                          </Button>
                         </div>
                       </Col>
                     </Row>

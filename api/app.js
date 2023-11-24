@@ -12,7 +12,6 @@ const multer = require("multer");
 const productsjson = require("./home");
 const Userproducts = require("./models/ProductsSchema");
 const Usercart = require("./models/CartSchema");
-
 const slidertable = require("./models/slider");
 const afterbuying = require("./models/afterbuying");
 const registerRoutes = require("./router/registerRoutes");

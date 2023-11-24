@@ -12,6 +12,7 @@ import { BsFillLightningFill } from "react-icons/bs";
 // import { updateProduct } from "../../../Redux/action/updateProductAction";
 import { addToCartAction } from "../../../Redux/action/addToCartAction";
 import { getUserId } from "../../../utils/auth";
+// import ReactImageMagnify from "react-image-magnify";
 import ReactImageMagnify from "react-image-magnify";
 import { singleproduct } from "../../../Redux/action/getsingleProduct";
 
@@ -159,6 +160,7 @@ const ProductDetails = () => {
                       <Link to={`/deliverydetail/${_id}`}>
                         <Button
                           className="bynow_button"
+                          data-bs-target="#collapseOne"
                           onClick={() => buyClick()}
                         >
                           <BsFillLightningFill className="buy_Addicon" /> BUY

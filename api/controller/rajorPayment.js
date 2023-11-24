@@ -3,17 +3,15 @@ const express = require("express");
 const expressAsyncHandler = require("express-async-handler");
 const Razorpay = require("razorpay");
 
-
 const razorpayorders = expressAsyncHandler(async (req, res) => {
   console.log("test", req.body.amount);
   try {
-
     const instance = new Razorpay({
       key_id: process.env.RAZORPAY_KEY_ID,
       key_secret: process.env.RAZORPAY_SECRET,
     });
-    console.log(instance, "first")
-    console.log("first")
+    console.log(instance, "first");
+    console.log("first");
 
     const options = {
       amount: Number(req.body.amount * 100),
@@ -23,20 +21,20 @@ const razorpayorders = expressAsyncHandler(async (req, res) => {
 
     const order = await instance.orders.create(options);
 
-    if (!order) return res.status(500).send("Some error occured");
+    if (!order)
+      return res.status(400).send({ success: true, msg: "Some error occured" });
 
-    res.json(order);
+    res.status(200).send({ success: true, order });
   } catch (error) {
     res.status(500).send(error);
   }
 });
 
-
 const captures = expressAsyncHandler(async (req, res) => {
   try {
     // console.log(`RAZORPAY_KEY_ID: ${process.env.RAZORPAY_KEY_ID}`);
     // console.log(`RAZORPAY_SECRET: ${process.env.RAZORPAY_SECRET}`);
-    console.log(req.body.paymentId)
+    console.log(req.body.paymentId);
     return request(
       {
         method: "POST",
@@ -50,7 +48,7 @@ const captures = expressAsyncHandler(async (req, res) => {
       async function (err, response, body) {
         console.log("Inside request callback");
         if (err) {
-          console.log("ssssssssssssdsds")
+          console.log("ssssssssssssdsds");
           return res.status(500).json({
             message: "Something Went Wrong",
           });
@@ -59,13 +57,13 @@ const captures = expressAsyncHandler(async (req, res) => {
         console.log("Headers:", JSON.stringify(response.headers));
         console.log("Response:", body);
         return res.status(200).json(body);
-      });
+      }
+    );
   } catch (err) {
     return res.status(500).json({
       message: "Something Went Wrong",
     });
   }
-})
-
+});
 
 module.exports = { razorpayorders, captures };
