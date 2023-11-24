@@ -20,7 +20,6 @@ import { CiLocationOn } from "react-icons/ci";
 import { paymentOrder } from "../../../Redux/action/paymentOrderAction";
 // import { options } from "../../../../../api/router/razorpay";
 import useRazorpay from "react-razorpay";
-import axios from "axios";
 
 const Delieverydetail = () => {
   const [isFormVisible, setFormVisible] = useState(false);
@@ -342,7 +341,7 @@ const Delieverydetail = () => {
         key: "rzp_test_Nfb5anftyihnMA",
         amount: orderAmount,
         currency: "INR",
-        name: "live's",
+        name: "Instep Cart",
         description: "Test Transaction",
         image:
           "https://insteptechnologies.com/wp-content/uploads/2022/04/main-logo.png",
@@ -960,16 +959,11 @@ const Delieverydetail = () => {
                           {/* <div>
                             <BsPlusCircleFill className="logindetail_icon" />
                           </div> */}
-                          <div>
-                            Order Confirmation email <space />
-                            <strong>{userLogin?.userEmail}</strong>
-                          </div>
-                          <Button onClick={(e) => handlePayment()}>
-                            Continue
-                          </Button>
-                        </div>
-                      </Col>
-                    </Row> */}
+                    <div>
+                      Order Confirmation email <space />
+                      <strong>{userLogin?.userEmail}</strong>
+                    </div>
+                    <Button onClick={(e) => handlePayment()}>Continue</Button>
                   </Col>
                 </Row>
               </Col>
