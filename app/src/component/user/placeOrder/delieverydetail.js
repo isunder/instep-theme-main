@@ -20,7 +20,6 @@ import { CiLocationOn } from "react-icons/ci";
 import { paymentOrder } from "../../../Redux/action/paymentOrderAction";
 // import { options } from "../../../../../api/router/razorpay";
 import useRazorpay from "react-razorpay";
-import axios from "axios";
 
 const Delieverydetail = () => {
   const [isFormVisible, setFormVisible] = useState(false);
@@ -336,7 +335,7 @@ const Delieverydetail = () => {
         key: "rzp_test_Nfb5anftyihnMA",
         amount: orderAmount,
         currency: "INR",
-        name: "live's",
+        name: "Instep Cart",
         description: "Test Transaction",
         image:
           "https://insteptechnologies.com/wp-content/uploads/2022/04/main-logo.png",
@@ -904,7 +903,6 @@ const Delieverydetail = () => {
                                     <Card.Subtitle className="mb-2 discriptionoffers_product text-muted">
                                       <h6> Available offers</h6>
                                       <p>
-                                        {" "}
                                         <BsTags className="validpffers_icon" />
                                         <span>Bank Offer10%</span> off on Axis
                                         Bank Credit Card and EMI Transactions,
