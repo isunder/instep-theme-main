@@ -329,71 +329,71 @@ server.use("/api", address);
 
 //admn api for update from id
 
-server.post("/api/productUpdate", async (req, res) => {
-  console.log("productUpdate ddddddddddddddddddd");
-  const {
-    category,
-    description,
-    title,
-    price,
-    image,
-    brand,
-    rating,
-    subcategory,
-    thumbnail,
-    stock,
-    discountPercentage,
-  } = req.body;
+// server.post("/api/productUpdate", async (req, res) => {
+//   console.log("productUpdate ddddddddddddddddddd");
+//   const {
+//     category,
+//     description,
+//     title,
+//     price,
+//     image,
+//     brand,
+//     rating,
+//     subcategory,
+//     thumbnail,
+//     stock,
+//     discountPercentage,
+//   } = req.body;
 
-  const findbyid = await Userproducts.findByIdAndUpdate(
-    { _id: req.body._id },
-    {
-      category: category,
-      description: description,
-      title: title,
-      price: price,
-      image: image,
-      brand: brand,
-      rating: rating,
-      subcategory: subcategory,
-      thumbnail: thumbnail,
-      stock: stock,
-      discountPercentage: discountPercentage,
-    },
-    {
-      new: true,
-    }
-  );
-  try {
-    res.send(findbyid);
-  } catch (error) {
-    res.status(400).send({ message: error.message });
-  }
-});
+//   const findbyid = await Userproducts.findByIdAndUpdate(
+//     { _id: req.body._id },
+//     {
+//       category: category,
+//       description: description,
+//       title: title,
+//       price: price,
+//       image: image,
+//       brand: brand,
+//       rating: rating,
+//       subcategory: subcategory,
+//       thumbnail: thumbnail,
+//       stock: stock,
+//       discountPercentage: discountPercentage,
+//     },
+//     {
+//       new: true,
+//     }
+//   );
+//   try {
+//     res.send(findbyid);
+//   } catch (error) {
+//     res.status(400).send({ message: error.message });
+//   }
+// });
 
 // adim api for delete
 
-server.post("/api/productsdlt", async (req, res) => {
-  try {
-    const { _id } = req.body;
+// server.post("/api/productsdlt", async (req, res) => {
+//   try {
+//     const { _id } = req.body;
 
-    // Use the findByIdAndDelete method to delete the product by its ID
-    const deletedProduct = await Userproducts.findByIdAndDelete(_id);
+//     // Use the findByIdAndDelete method to delete the product by its ID
+//     const deletedProduct = await Userproducts.findByIdAndDelete(_id);
 
-    if (!deletedProduct) {
-      // If the product with the given ID doesn't exist, return an error response
-      return res.status(404).json({ message: "Product not found" });
-    }
+//     if (!deletedProduct) {
+//       // If the product with the given ID doesn't exist, return an error response
+//       return res.status(404).json({ message: "Product not found" });
+//     }
 
-    // Return the deleted product
+//     // Return the deleted product
 
-    res.json(deletedProduct);
-    console.log("delete done");
-  } catch (error) {
-    // Handle any errors that occurred during the delete process
-    res.status(500).json({ message: "Server error" });
-  }
-});
+//     res.json(deletedProduct);
+//     console.log("delete done");
+//   } catch (error) {
+//     // Handle any errors that occurred during the delete process
+//     res.status(500).json({ message: "Server error" });
+//   }
+// });
 
 //search api   title,subcategry,categry,brand
 

@@ -9,7 +9,7 @@ const brandtable = require("../models/brandSchema");
 const { default: mongoose } = require("mongoose");
 const specification = require("../models/specificationSchema");
 const SchemaOrder = require("../models/OrderSummary");
-
+const fs = require('fs');
 dotenv.config();
 
 const postproduct = expressAsyncHandler(async (req, res) => {
@@ -19,10 +19,10 @@ const postproduct = expressAsyncHandler(async (req, res) => {
   try {
     const userData = JSON.parse(req.body.userData);
 
-    const imagesFilenames = req.files["images"].map((file) => file.filename); // Array of image filenames
+    const imagesFilenames = req?.files && req?.files['images'] && req?.files["images"]?.map((file) => file.filename); // Array of image filenames
     console.log(req.files.images[0].filename, "req.files");
 
-    const thumbnailFilename = req.files.thumbnail[0].filename;
+    const thumbnailFilename = req?.files && req?.files.thumbnail && req?.files?.thumbnail[0].filename;
 
     console.log(userData, "ggggggggggg");
 
@@ -166,30 +166,54 @@ const updateproduct = expressAsyncHandler(async (req, res) => {
   try {
     const userData = JSON.parse(req.body.userData);
     const product = userData?.id;
-
-    // Check if the user wants to update images and thumbnail
-    const updateImages = userData?.updateImages;
-    const updateThumbnail = userData?.updateThumbnail;
-
-    // Create an object to store the fields to be updated
+    const dataproduct = await Userproducts.find({ _id: product }).exec();
     const updateFields = {};
 
-    if (updateImages) {
-      // Assuming you have uploaded and saved the new image file as 'newImage'
-      const newImage = req.files["newImage"];
-      if (newImage) {
-        // Save the new image to the server and update the database with the new image data
-        // You may also want to delete the old image from the server
-        // Example code for handling the new image is needed here
-        updateFields.images = newImage.filename; // Update the database with the new image filename
+    if (dataproduct.length > 0) {
+      const updateImages = req.files && req.files["images"] && req.files["images"].map((file) => file.filename);
+      console.log(updateImages, "updateImages");
+
+      const updateThumbnail = req.files && req.files.thumbnail && req.files.thumbnail[0]?.filename;
+      console.log(updateThumbnail, "updateThumbnail");
+      // console.log(dataproduct[0]?.images, "dataproduct?.images")
+      // console.log(dataproduct[0]?.thumbnail, "dataproduct?.thumbnail")
+
+      const thumbnail = dataproduct[0]?.thumbnail;
+      const img = dataproduct[0]?.images;
+
+      function deleteFiles(thumbnails, text) {
+        if (Array.isArray(thumbnails)) {
+          console.log(thumbnails, 'entered')
+          thumbnails.map(e => {
+            fs.unlink(`./uploads/${e}`, err => {
+              if (err) {
+                console.error(`Error deleting ${e}: typr${text}`, err)
+              } else {
+                console.log(`${e}:type${text} deleted successfully...by api`)
+              }
+            })
+          })
+        } else {
+          fs.unlink(`./uploads/${thumbnails}`, err => {
+            if (err) {
+              console.error(`Error deleting ${thumbnails}: typr${text}`, err)
+            } else {
+              console.log(`${thumbnails}:type${text} deleted successfully...by api`)
+            }
+          })
+        }
       }
+      if (updateThumbnail) {
+        deleteFiles(thumbnail, "thumbnail")
+        updateFields.thumbnail = updateThumbnail
+      }
+      if (updateImages) {
+        deleteFiles(img, "img")
+        updateFields.images = updateImages
+      }
+    } else {
+      console.log("No product found");
     }
-
-    if (updateThumbnail) {
-      // Similar logic for updating the thumbnail
-    }
-
-    // Update other fields if needed
     updateFields.description = userData?.description;
     updateFields.title = userData?.title;
     updateFields.price = userData?.price;
@@ -202,12 +226,70 @@ const updateproduct = expressAsyncHandler(async (req, res) => {
       updateFields,
       { new: true }
     );
-
-    res.send(findbyid);
+    res.status(200).send({ data: findbyid, success: true });
   } catch (error) {
     res.status(400).send({ message: error.message });
   }
-});
+}
+);
+
+
+const deleteProduct = expressAsyncHandler(async (req, res) => {
+  try {
+    const { _id } = req.body;
+
+
+    const deletedProduct = await Userproducts.findByIdAndDelete(_id);
+
+    if (!deletedProduct) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+    // console.log(deleteProduct, "test")
+    const images = deletedProduct?.images
+    // console.log(images, "imaegs for test")
+    const thumbnail = deletedProduct?.thumbnail
+
+
+    function deleteFiles(thumbnails, text) {
+      if (Array.isArray(thumbnails)) {
+        console.log(thumbnails, 'entered')
+        thumbnails.map(e => {
+          fs.unlink(`./uploads/${e}`, err => {
+            if (err) {
+              console.error(`Error deleting ${e}: typr${text}`, err)
+            } else {
+              console.log(`${e}:type${text} deleted successfully...by api`)
+            }
+          })
+        })
+      } if (thumbnails) {
+        fs.unlink(`./uploads/${thumbnails}`, err => {
+          if (err) {
+            console.error(`Error deleting ${thumbnails}: typr${text}`, err)
+          } else {
+            console.log(`${thumbnails}:type${text} deleted successfully...by api`)
+          }
+        })
+      } else {
+        console.log("not file found")
+        res.status(201).send({ msg: "some erro", success: false })
+      }
+    }
+
+
+    if (deleteProduct) {
+      deleteFiles(images, "images")
+      deleteFiles(thumbnail, "thumbnail")
+      // console.log("deleteProduct", "thumbnail images",thumbnail,images)
+    }
+    res.json(deletedProduct);
+    console.log("delete done");
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+
+
+})
 
 // api category and subcategory,brand for admin filter
 const getfilter = expressAsyncHandler(async (req, res) => {
@@ -697,7 +779,7 @@ const orderSummary = expressAsyncHandler(async (req, res) => {
         return product;
       });
 
-      const prices = []; 
+      const prices = [];
       const pricestotal = []
       Promise.all(productPromises)
         .then((products) => {
@@ -756,4 +838,4 @@ const orderSummary = expressAsyncHandler(async (req, res) => {
 
 
 
-module.exports = { postproduct, getproduct, getfilter, categoryfilter, subcategoryfilter, updateproduct, getSingleProduct, filterall, specificationpost, updateProductspecificationpost, orderSummary };
+module.exports = { postproduct, getproduct, getfilter, categoryfilter, subcategoryfilter, updateproduct, getSingleProduct, filterall, specificationpost, updateProductspecificationpost, orderSummary, deleteProduct };
