@@ -14,7 +14,7 @@ dotenv.config();
 
 const postproduct = expressAsyncHandler(async (req, res) => {
   console.log("req.body.userData:", req.body?.userData?.id);
-  const userData = JSON.parse(req.body.userData);
+  // const userData = JSON.parse(req.body.userData);
 
   try {
     const userData = JSON.parse(req.body.userData);
