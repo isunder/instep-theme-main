@@ -1,3 +1,4 @@
+import React from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
@@ -16,7 +17,6 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useNavigate } from "react-router-dom";
-// import ConfirmationModal from "../../../admin/confirmModel";
 import { toast, ToastContainer } from "react-toastify";
 import MydModalWithGrid from "../../../addProductDetails/updateProductForm";
 import ConfirmationModal from "../../../addProductDetails/confirmModel";
@@ -25,7 +25,7 @@ import { allAdminProductList } from "../../../../../Redux/action/getAllProductLi
 import { deleteProduct } from "../../../../../Redux/action/deleteProductAction";
 import Allpagination from "../../../Pagination/pagination";
 
-function Allproducts(params) {
+const Trendingproducts = () => {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [selectedProductId, setSelectedProductId] = useState(null);
@@ -83,13 +83,12 @@ function Allproducts(params) {
     console.log("wwww");
   };
   const handleClose = () => setShow(false);
-
   return (
     <>
       <div className="admin_toppadding ">
         <Row>
           <Col className="Admin_dashboard margin_bottom" lg={12}>
-            <h3> Products</h3>
+            <h3> Trending Products</h3>
             <div>
               <Button
                 className="Admin_rbutton"
@@ -266,5 +265,6 @@ function Allproducts(params) {
       </div>
     </>
   );
-}
-export default Allproducts;
+};
+
+export default Trendingproducts;

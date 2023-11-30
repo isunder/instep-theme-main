@@ -225,8 +225,7 @@ const Usernavbar = () => {
                                 onClick={() => logoutClick()}
                                 className="sign_hover"
                               >
-                                <BiLogOut />
-                                Logout
+                                <BiLogOut /> Logout
                               </li>
                             </ul>
                           </div>
@@ -339,7 +338,9 @@ const Usernavbar = () => {
                                           className="navcat_deco"
                                           onClick={() => handlecategory(e)}
                                         >
-                                          <p key={e}>{e?.category}</p>
+                                          <div className="mb-2" key={e}>
+                                            {e?.category}
+                                          </div>
                                         </div>
                                       </>
                                     );
@@ -353,21 +354,21 @@ const Usernavbar = () => {
                             </ul>
                           </div>
                         </div>
-                        <div className="Nav_link">
-                          <p
+                        <div className="">
+                          <div
                             onClick={handlehome}
                             className="Nav_link carddecorationnone_cat"
                           >
                             Home
-                          </p>
+                          </div>
                         </div>
-                        <div className="Nav_link">
-                          <p
+                        <div className="">
+                          <div
                             onClick={handleProducts}
                             className="Nav_link carddecorationnone_cat"
                           >
                             Products
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </Offcanvas.Body>
