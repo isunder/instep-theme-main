@@ -45,7 +45,7 @@ function MydModalWithGrid(props) {
     subcategory: single.subcategory,
     thumbnail: single.thumbnail,
     stock: single.stock,
-    discountpercentage: single.discountPercentage,
+    discountpercentage: single.discountpercentage,
   };
   console.log(initialValues, "initialValues");
 
@@ -265,23 +265,23 @@ function MydModalWithGrid(props) {
                         // onChange={handlethumbnalfile}
                       />
                       {/* {thumbnail?.length > 0 && ( */}
-                        <div>
-                          <h2>Selected Images:</h2>
-                          <ul className="row">
-                            {/* {thumbnail?.map((imageUrl, index) => ( */}
-                              <li
-                                // key={index}
-                                className=" productupload_item col-md-3"
-                              >
-                                <img
-                                    className="edit_product-img"
-                                  // src={imageUrl}
-                                  // alt={`Image ${index}`}
-                                />
-                              </li>
-                            {/* ))} */}
-                          </ul>
-                        </div>
+                      <div>
+                        <h2>Selected Images:</h2>
+                        <ul className="row">
+                          {/* {thumbnail?.map((imageUrl, index) => ( */}
+                          <li
+                            // key={index}
+                            className=" productupload_item col-md-3"
+                          >
+                            <img
+                              className="edit_product-img"
+                              // src={imageUrl}
+                              // alt={`Image ${index}`}
+                            />
+                          </li>
+                          {/* ))} */}
+                        </ul>
+                      </div>
                       {/* )} */}
                     </div>
                     <div className="updatebutton_div">
