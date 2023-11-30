@@ -1428,11 +1428,11 @@ p {
 }
 
 .color{
-  color: #4EB529;
+  color: #000;
 }
 
 .color:hover{
-  color: #4EB529;
+  color: #000;
 }
 
 .text_edit{
@@ -1499,12 +1499,13 @@ color: #000;
   line-height: 30px;
   cursor: pointer;
 }
-
+/* 
 .navfilter_colalign{
   width: 81px !important;
-}
+} */
 .nav_Filter ul li{
   list-style: none;
+  color: #000;
 }
 
 .navcat_deco{
@@ -2585,7 +2586,7 @@ footer ul {
 
 .navsearch_input {
   padding: 10px 15px;
-  opacity: 0.6;
+  /* opacity: 0.6; */
 }
 
 .price_flex {
@@ -2830,6 +2831,34 @@ p {
   padding-left: 15px;
 }
 
+.orderconfirmationmaindiv{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px !important;
+  width: 100% !important;
+  border-radius: 4px !important;
+  border: 1px solid #DEE2E6;
+}
+
+.ordercon-email{
+  font-weight: 500;
+  color: #7E8183;
+}
+
+.ordercon-email span{ 
+  color: #000;
+  margin-left: 4px;
+}
+
+.paymentContinue_button{
+  background-color: #FF7C08 !important;
+  border: none !important;
+  border-radius: 3px !important;
+  padding: 8px 20px !important;
+
+}
+
 @media(max-width:1400px){
   .addtocart_button{
     padding: 10px 18px !important;
@@ -2853,6 +2882,19 @@ p {
     gap: 0px ;
   }
 }
+
+@media (max-width: 435px){
+  .orderconfirmationmaindiv{
+    padding: 15px 8px !important;
+  }
+}
+@media (max-width: 400px){
+  .paymentContinue_button{
+    padding: 8px 6px !important;
+  }
+}
+
+
 /* ------------------------------------home page subcategory------------------------------------ */
 
 .home_subcatetop {
@@ -3543,6 +3585,7 @@ padding-left: 1px;
   display: flex;
   justify-content: space-between;
   margin-top: 34px;
+  position: relative;
 }
 
 .add{
@@ -4117,4 +4160,29 @@ justify-content: center;
     background-color: #FF7C08;
     padding: 3px;
     border-radius: 3px;
+  }
+
+
+  /*  */
+
+  .moonloader{
+    /* position: absolute; */
+    /* top: 223px;
+    left: 55px;
+    width: 15%; */
+    /* height: 100vh; */
+    /* background: #ffffff47; */
+    backdrop-filter: blur(3px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* overflow: hidden; */
+    z-index: 9;
+    margin-top: 12px;
+    }
+  /* update product form */
+
+  .edit_product-img{
+    width: 50%;
+    height: 100px;
   }

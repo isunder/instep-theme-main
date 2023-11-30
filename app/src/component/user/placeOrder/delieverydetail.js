@@ -959,11 +959,23 @@ const Delieverydetail = () => {
                           {/* <div>
                             <BsPlusCircleFill className="logindetail_icon" />
                           </div> */}
-                    <div>
-                      Order Confirmation email <space />
-                      <strong>{userLogin?.userEmail}</strong>
+                    <div className="orderconfirmationmaindiv">
+                      <div className="d-flex justify-content-between align-items-center">
+                        <div className="logindetail">4</div>
+                        <div className="ordercon-email mx-2">
+                          ORDER CONFIRMATION EMAIL <space />
+                          <span>{userLogin?.userEmail}</span> 
+                        </div>
+                      </div>
+                      <div>
+                        <Button
+                          className="paymentContinue_button"
+                          onClick={(e) => handlePayment()}
+                        >
+                          Continue
+                        </Button>
+                      </div>
                     </div>
-                    <Button onClick={(e) => handlePayment()}>Continue</Button>
                   </Col>
                 </Row>
               </Col>

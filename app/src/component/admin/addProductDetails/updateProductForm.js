@@ -11,6 +11,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Col, Row } from "react-bootstrap";
 import { BsPlusCircleDotted } from "react-icons/bs";
+import { MdCancel } from "react-icons/md";
 
 function MydModalWithGrid(props) {
   const dispatch = useDispatch();
@@ -186,26 +187,58 @@ function MydModalWithGrid(props) {
                 <Col lg={6} md={6} sm={4}>
                   <div className="mainupdate_pro">
                     <div className="update_product">
-                      <label htmlFor="images">
-                        <h5>Image</h5>
-                      </label>
-                      <Field
-                        className="descirption_box"
-                        name="images"
-                        component="input"
-                        type="text"
-                        placeholder="Image"
-                        required
-                      />
-                      <div>
+                      <div className="margin_bottom">
+                        <h4>Upload image</h4>
+                        <div>
+                          <input
+                            name="images"
+                            type="file"
+                            className="form-control signup_form_input margin_bottom"
+                            // onChange={handleImgeFile}
+                          />
+                          {/* {selectedImages?.length > 0 && ( */}
+                          <div>
+                            <h4>Selected Images:</h4>
+                            <ul className="row">
+                              {/* {selectedImages?.map((imageUrl, index) => ( */}
+                              <li
+                                // key={index}
+                                className=" productupload_item col-md-3"
+                              >
+                                <Row>
+                                  <Col lg={6} md={6}>
+                                    <img
+                                      className="edit_product-img"
+                                      // src={imageUrl}
+                                      // alt={`Image ${index}`}
+                                    />
+                                  </Col>
+                                </Row>
+
+                                <p
+                                  className="addimagecncel_icon"
+                                  // onClick={() => {
+                                  //   deleteimage(index);
+                                  // }}
+                                >
+                                  <MdCancel className="cancelicon_addproduct" />
+                                </p>
+                              </li>
+                              {/* ))} */}
+                            </ul>
+                          </div>
+                          {/* )} */}
+                        </div>
+                      </div>
+                      {/* <div>
                         <h6>Gallery</h6>
                         <div className="brand_image update_brandimage">
                           <h6>Choose brand Thumbnail</h6>
                           <BsPlusCircleDotted className="brand_img_icon" />
                         </div>
-                      </div>
+                      </div> */}
                     </div>
-                    <div className="update_product">
+                    {/* <div className="update_product">
                       <label htmlFor="thumbnail">
                         <h5>Thumbnail:</h5>
                       </label>
@@ -222,6 +255,34 @@ function MydModalWithGrid(props) {
                         <h6>Choose brand Thumbnail</h6>
                         <BsPlusCircleDotted className="brand_img_icon" />
                       </div>
+                    </div> */}
+                    <div>
+                      <h4>Upload thumbnail</h4>
+                      <input
+                        name="images"
+                        type="file"
+                        className="form-control signup_form_input"
+                        // onChange={handlethumbnalfile}
+                      />
+                      {/* {thumbnail?.length > 0 && ( */}
+                        <div>
+                          <h2>Selected Images:</h2>
+                          <ul className="row">
+                            {/* {thumbnail?.map((imageUrl, index) => ( */}
+                              <li
+                                // key={index}
+                                className=" productupload_item col-md-3"
+                              >
+                                <img
+                                    className="edit_product-img"
+                                  // src={imageUrl}
+                                  // alt={`Image ${index}`}
+                                />
+                              </li>
+                            {/* ))} */}
+                          </ul>
+                        </div>
+                      {/* )} */}
                     </div>
                     <div className="updatebutton_div">
                       <button className="update_product_button" type="submit">

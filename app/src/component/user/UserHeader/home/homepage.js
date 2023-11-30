@@ -218,7 +218,10 @@ const Home = () => {
                         <Card.Text className="text-center">
                           <h5>Best Of Electronics</h5>
                         </Card.Text>
-                        <Link className="" to={`/category/${"electronics"}`}>
+                        <Link
+                          className=""
+                          to={`/category/${"65365a04a77fe5ede8b05bc8"}`}
+                        >
                           <button
                             className="electrnicswiewall_button"
                             type="submit"
@@ -314,7 +317,7 @@ const Home = () => {
                         </Card.Text>
                         <Link
                           className="carddecorationnone_cat"
-                          to={`/category/${"651e84c0ad6a72ae9d37db57"}`}
+                          to={`/category/${"65606c4000323f2435fc76c7"}`}
                         >
                           <button
                             className="electrnicswiewall_button"
