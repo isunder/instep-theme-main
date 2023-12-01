@@ -13,10 +13,19 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  number:{
+  number: {
     type: String,
     required: true,
   },
+  Profileimage: {
+    type: String,
+  },
+  firstname: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  lastname: String,
   role: {
     type: String,
     required: true,
