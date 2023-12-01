@@ -1823,6 +1823,8 @@ h5 {
   height: 150px !important;
   padding-top: 26px;
   border-radius: 10px !important;
+  border: 1px solid #e6e2e1 !important;
+
 }
 
 @media (max-width: 982px){
@@ -1892,7 +1894,9 @@ h5 {
   height: 200px;
 }
 /* ------------------------new home page------------------------ */
-
+.newhomebestalign{
+  border: 1px solid #BCB8B7;
+}
  .top_cattitle{
   text-overflow: ellipsis;
   overflow: hidden;
@@ -1903,7 +1907,7 @@ h5 {
 }
 
 @media (max-width: 991px) {
-  .homedecor_image {
+  .viewimg_hide {
     display: none !important;
   }
 
@@ -1912,6 +1916,22 @@ h5 {
   }
   .saleordernew{
     flex-direction: column;
+  }
+  .viewallcard_div{
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 5px 10px;
+  }
+  .electrnicswiewall_button{
+    margin-top: 0px !important;
+  }
+}
+
+@media (max-width:376px){
+  .viewallcard_div{
+    flex-direction: column !important;
   }
 }
 /* .shopping_card {
@@ -1984,8 +2004,10 @@ h5 {
 }
 
 .homedecor_image {
-  width: 100%;
-  height: 100%;
+  /* width: 100%; */
+  /* height: 100%; */
+  height: 173px;
+  width: 173px;
 }
 
 .electrnicswiewall_button {
@@ -4186,3 +4208,37 @@ justify-content: center;
     width: 50%;
     height: 100px;
   }
+
+
+   /* inputs  */
+
+   input::file-selector-button {
+    /* background-image: linear-gradient(
+      to right,
+      #ff7a18,
+      #af002d,
+      #319197 100%,
+      #319197 200%
+    ); */
+    background-color: #FF7C08 !important;
+    background-position-x: 0%;
+    background-size: 200%;
+    border: 0;
+    border-radius: 8px;
+    color: #fff !important;
+    padding: 1rem 1.25rem;
+    text-shadow: 0 1px 1px #333;
+    transition: all 0.25s;
+  }
+  /* input::file-selector-button:hover {
+    background-position-x: 100%;
+    transform: scale(1.1);
+  } */
+ 
+
+  /* input[type="file"]::file-selector-button:hover {
+    background-color: #81ecec;
+    border: 2px solid #00cec9;
+  } */
+
+ 
