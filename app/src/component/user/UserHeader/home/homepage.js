@@ -212,7 +212,7 @@ const Home = () => {
             <div className="homeelectnics_carouse margin_bottom">
               <Row>
                 <Col lg={2} className="fistcardof_elct">
-                  <Card className=" swiperfront_swiperview">
+                  <Card className=" ">
                     <div className="fistcardof_elct">
                       <div className="viewallcard_div">
                         <Card.Text className="text-center">
@@ -229,13 +229,15 @@ const Home = () => {
                             VIEW ALL
                           </button>
                         </Link>
-                        <Card.Body>
-                          <img
-                            className="homedecor_image"
-                            src="https://img.freepik.com/free-vector/hand-drawn-phone-cartoon-illustration_23-2150588452.jpg?w=2000"
-                            alt=""
-                          />
-                        </Card.Body>
+                        <div className="viewimg_hide">
+                          <Card.Body>
+                            <img
+                              className="homedecor_image"
+                              src="https://img.freepik.com/free-vector/hand-drawn-phone-cartoon-illustration_23-2150588452.jpg?w=2000"
+                              alt=""
+                            />
+                          </Card.Body>
+                        </div>
                       </div>
                     </div>
                   </Card>
@@ -309,7 +311,7 @@ const Home = () => {
             <div className="homeelectnics_carouse ">
               <Row>
                 <Col lg={2} className="fistcardof_elct">
-                  <Card className="swiperfront_swiperview ">
+                  <Card className=" ">
                     <div className="fistcardof_elct">
                       <div className="viewallcard_div">
                         <Card.Text className="text-center">
@@ -326,13 +328,15 @@ const Home = () => {
                             VIEW ALL
                           </button>
                         </Link>
-                        <Card.Body>
-                          <img
-                            className="homedecor_image"
-                            src="https://ouch-cdn2.icons8.com/rQiKaijxXLYiyqOYF9br0qlt89qoLZjE7uM8zvq2L_w/rs:fit:456:456/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvOTAy/Lzg1MzQwOTM5LTkw/Y2MtNDQzNC04MTcx/LTZlMjExMDI0OGFj/Ni5zdmc.png"
-                            alt=""
-                          />
-                        </Card.Body>
+                        <div className="viewimg_hide">
+                          <Card.Body>
+                            <img
+                              className="homedecor_image"
+                              src="https://ouch-cdn2.icons8.com/rQiKaijxXLYiyqOYF9br0qlt89qoLZjE7uM8zvq2L_w/rs:fit:456:456/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvOTAy/Lzg1MzQwOTM5LTkw/Y2MtNDQzNC04MTcx/LTZlMjExMDI0OGFj/Ni5zdmc.png"
+                              alt=""
+                            />
+                          </Card.Body>
+                        </div>
                       </div>
                     </div>
                   </Card>

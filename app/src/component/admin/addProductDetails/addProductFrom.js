@@ -658,55 +658,59 @@ const ProductForm = () => {
                         <div>
                           <h3>Price,Stock & Rating</h3>
                         </div>
-                        <span>Has Variations?</span>
+                        {/* <span>Has Variations?</span> */}
                       </div>
-                      <div className="d-flex price_flex">
-                        <Col lg={3}>
-                          <h6>Price</h6>
-                          <Field
-                            className="descirption_box price_flex"
-                            name="price"
-                            component="input"
-                            type="number"
-                            step="0.01"
-                            placeholder="$"
-                            required
-                          />
+                      <Row>
+                        <Col lg={12}>
+                          <Row>
+                            <Col lg={4} md={6} sm={6}>
+                              <h6>Price</h6>
+                              <Field
+                                className="descirption_box price_flex"
+                                name="price"
+                                component="input"
+                                type="number"
+                                step="0.01"
+                                placeholder="$"
+                                required
+                              />
+                            </Col>
+                            <Col lg={4} md={6} sm={6}>
+                              <h6>Stock</h6>
+                              <Field
+                                className="descirption_box price_flex"
+                                name="stock"
+                                component="input"
+                                type="number"
+                                placeholder="Avalaible stocks"
+                                required
+                              />
+                            </Col>
+                            <Col lg={4} md={6} sm={6}>
+                              <h6>Rating</h6>
+                              <Field
+                                className="descirption_box price_flex"
+                                name="rating"
+                                component="input"
+                                type="number"
+                                placeholder="Rating:"
+                                required
+                              />
+                            </Col>
+                            <Col lg={4} md={6} sm={6}>
+                              <h6>Discount</h6>
+                              <Field
+                                className="descirption_box price_flex"
+                                name="discountpercentage"
+                                component="input"
+                                type="text"
+                                placeholder="discount percentage"
+                                required
+                              />
+                            </Col>
+                          </Row>
                         </Col>
-                        <Col lg={3}>
-                          <h6>Stock</h6>
-                          <Field
-                            className="descirption_box price_flex"
-                            name="stock"
-                            component="input"
-                            type="number"
-                            placeholder="Avalaible stocks"
-                            required
-                          />
-                        </Col>
-                        <Col lg={3}>
-                          <label htmlFor="rating">Rating:</label>
-                          <Field
-                            className="descirption_box price_flex"
-                            name="rating"
-                            component="input"
-                            type="number"
-                            placeholder="Rating:"
-                            required
-                          />
-                        </Col>
-                        <Col lg={3}>
-                          <h6>Discount</h6>
-                          <Field
-                            className="descirption_box price_flex"
-                            name="discountpercentage"
-                            component="input"
-                            type="text"
-                            placeholder="discount percentage"
-                            required
-                          />
-                        </Col>
-                      </div>
+                      </Row>
                     </Row>
                   </div>
                   <div className="Addnewpeoduct margin_bottom">
