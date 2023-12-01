@@ -13,7 +13,7 @@ router.post(
             name: 'profileimg',
             maxCount: 1,
         }
-    ]),
+    ]), 
     proflie.createProfile
 );
 router.post( '/profileimgdelete', verifyToken, proflie.deleteimg);
