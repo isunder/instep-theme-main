@@ -24,6 +24,7 @@ const addtocart = require("./router/addtocartRought");
 const typesubcategory = require("./router/typeSubcat");
 const razorpay = require("./router/razorpay");
 const address = require("./router/addressroute")
+const profile = require("./router/User R/ProfileRoute")
 
 dotenv.config();
 
@@ -39,6 +40,8 @@ mongoose
 
 server.use(cors());
 server.use(bodyParser.json());
+server.use(bodyParser.urlencoded({ extended: true }));
+server.use(express.json());
 
 //register api
 
@@ -60,6 +63,8 @@ server.use("/api", typesubcategory);
 server.use("/api", razorpay);
 // address 
 server.use("/api", address);
+
+server.use("/api", profile);
 
 // server.post("/api/register", async (req, res) => {
 //   const { email, password, username } = req.body;

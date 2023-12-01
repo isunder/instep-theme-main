@@ -14,7 +14,7 @@ dotenv.config();
 
 const postproduct = expressAsyncHandler(async (req, res) => {
   console.log("req.body.userData:", req.body?.userData?.id);
-  const userData = JSON.parse(req.body.userData);
+  // const userData = JSON.parse(req.body.userData);
 
   try {
     const userData = JSON.parse(req.body.userData);
@@ -24,7 +24,7 @@ const postproduct = expressAsyncHandler(async (req, res) => {
 
     const thumbnailFilename = req?.files && req?.files.thumbnail && req?.files?.thumbnail[0].filename;
 
-    console.log(userData, "ggggggggggg");
+    console.log(req?.files.thumbnail, "sdsdsdsjsjjshsh hcnsnn");
 
     const productadd = new Userproducts({
       category: userData.category_id,
@@ -226,6 +226,7 @@ const updateproduct = expressAsyncHandler(async (req, res) => {
       updateFields,
       { new: true }
     );
+    console.log(findbyid,"findbyid")
     res.status(200).send({ data: findbyid, success: true });
   } catch (error) {
     res.status(400).send({ message: error.message });
@@ -262,7 +263,8 @@ const deleteProduct = expressAsyncHandler(async (req, res) => {
             }
           })
         })
-      } if (thumbnails) {
+      } 
+      if (thumbnails) {
         fs.unlink(`./uploads/${thumbnails}`, err => {
           if (err) {
             console.error(`Error deleting ${thumbnails}: typr${text}`, err)
