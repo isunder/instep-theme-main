@@ -47,6 +47,7 @@ import Customer from "../component/admin/dashboardPage/sideNavOption/customerDet
 import ProductSpecification from "../component/admin/addProductDetails/productSpecification";
 import OrderConfirmation from "../component/user/placeOrder/orderConfirm/orderConfirmation";
 import Trendingproducts from "../component/admin/dashboardPage/sideNavOption/Products/Trendingproducts";
+import Editprofile from "../component/user/Editprofile/editprofile";
 
 const role = getUserId() ? getUserId()?.userRole : null;
 // console.log(role, "aaasdfgfds");
@@ -75,6 +76,7 @@ const protects = {
         { path: "/privacypolicy", element: <Privacy /> },
         { path: "/payment", element: <Payments /> },
         { path: "/orderconfirmation", element: <OrderConfirmation /> },
+        { path: "/editprofile", element: <Editprofile /> },
         { path: "*", element: "NO PAGE FOUND" },
       ],
     },

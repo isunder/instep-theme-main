@@ -10,6 +10,7 @@ import { BsArrowLeft, BsTelephoneFill, BsTruck, BsWalletFill } from 'react-icons
 import { CiEdit, CiLocationOn } from 'react-icons/ci'
 import { BiLogOut } from 'react-icons/bi'
 import { getUserId } from '../../../utils/auth'
+import { Link } from 'react-router-dom'
 
 export default function Profile() {
 
@@ -101,7 +102,7 @@ export default function Profile() {
                                 <div><RxBorderWidth className='profilemanangeicon' />Order History</div>
                                 <div><BsWalletFill className='profilemanangeicon' />Wallet History</div>
                                 <div><BsArrowLeft className='profilemanangeicon' />Refund History</div> */}
-                                <div><MdAccountCircle className='profilemanangeicon' />Edit Profile</div>
+                                <div> <Link to="/editprofile"><MdAccountCircle className='profilemanangeicon' />Edit Profile</Link></div>
                                 <div><CiLocationOn className='profilemanangeicon' />Track Order</div>
                                 <div><AiOutlineHome className='profilemanangeicon' />Address Book</div>
                                 <div><BiLogOut className='profilemanangeicon' />Log Out</div>
@@ -149,6 +150,6 @@ export default function Profile() {
                     </Col>
                 </Row>
             </div>
-        </div>
+        </div >
     )
 }
