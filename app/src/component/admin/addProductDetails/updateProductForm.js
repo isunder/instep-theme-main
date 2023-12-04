@@ -79,7 +79,7 @@ function MydModalWithGrid(props) {
           {({ handleSubmit, submitting }) => (
             <form onSubmit={handleSubmit}>
               <Row>
-                <Col lg={6} md={6} sm={4}>
+                <Col lg={6} md={6} sm={6}>
                   <div className="left_update_product">
                     {/* <div className="update_product">
                       <label htmlFor="category">
@@ -194,7 +194,7 @@ function MydModalWithGrid(props) {
                     </div>
                   </div>
                 </Col>
-                <Col lg={6} md={6} sm={4}>
+                <Col lg={6} md={6} sm={6}>
                   <div className="mainupdate_pro">
                     <div className="update_product">
                       <div className="margin_bottom">
@@ -232,59 +232,56 @@ function MydModalWithGrid(props) {
                           {/* {selectedImages?.length > 0 && ( */}
                           <div>
                             <h4>Selected Images:</h4>
-                            <ul className="row">
-                              {/* {selectedImages?.map((imageUrl, index) => ( */}
-                              <li
-                                // key={index}
-                                className=" productupload_item col-md-3"
-                              >
-                                <Row>
-                                  <Col lg={6} md={6}>
-                                    {single?.images && (
-                                      <>
-                                        <div className="main_image">
-                                          {single?.images?.map(
-                                            (item, index) => {
-                                              if (item) {
-                                                return (
-                                                  <img
-                                                    key={index}
-                                                    className="edit_product-img"
-                                                    src={
-                                                      item?.split("https")
-                                                        .length > 1
-                                                        ? item
-                                                        : `http://localhost:5000/uploads/${item}`
-                                                    }
-                                                    // onMouseEnter={() => setImageState(item)}
-                                                    alt=""
-                                                  />
-                                                );
+                            {/* <ul className  */}
+                            {/* {selectedImages?.map((imageUrl, index) => ( */}
+                            {/* <li */}
+                            {/* // key={index} */}
+                            {/* className=" productupload_item col-md-3" */}
+                            {/* > */}
+                            {single?.images && (
+                              <>
+                                <div className="position-relative">
+                                  <Row>
+                                    {single?.images?.map((item, index) => {
+                                      if (item) {
+                                        return (
+                                          <Col lg={6} md={6} sm={12} xs={6}>
+                                            <img
+                                              key={index}
+                                              className="edit_product-img mb-2"
+                                              src={
+                                                item?.split("https").length > 1
+                                                  ? item
+                                                  : `http://localhost:5000/uploads/${item}`
                                               }
-                                            }
-                                          )}
-                                        </div>
-                                      </>
-                                    )}
-                                    {/* <img
+                                              // onMouseEnter={() => setImageState(item)}
+                                              alt=""
+                                            />
+                                          </Col>
+                                        );
+                                      }
+                                    })}
+                                  </Row>
+                                </div>
+                              </>
+                            )}
+                            {/* <img
                                       className="edit_product-img"
                                       // src={imageUrl}
                                       // alt={`Image ${index}`}
                                     /> */}
-                                  </Col>
-                                </Row>
 
-                                <p
-                                  className="addimagecncel_icon"
-                                  // onClick={() => {
-                                  //   deleteimage(index);
-                                  // }}
+                            {/* <p
+                                  className="cancelIcon_align"
+                                  onClick={() => {
+                                    deleteimage(index);
+                                  }}
                                 >
                                   <MdCancel className="cancelicon_addproduct" />
-                                </p>
-                              </li>
-                              {/* ))} */}
-                            </ul>
+                                </p> */}
+                            {/* </li> */}
+                            {/* ))} */}
+                            {/* </ul> */}
                           </div>
                           {/* )} */}
                         </div>
@@ -325,7 +322,7 @@ function MydModalWithGrid(props) {
                       />
                       {/* {thumbnail?.length > 0 && ( */}
                       <div>
-                        <h2>Selected Images:</h2>
+                        <h4>Selected Images:</h4>
                         <ul className="row">
                           {/* {thumbnail?.map((imageUrl, index) => ( */}
                           <li
@@ -345,12 +342,12 @@ function MydModalWithGrid(props) {
                       </div>
                       {/* )} */}
                     </div>
-                    <div className="updatebutton_div">
-                      <button className="update_product_button" type="submit">
-                        Update Product
-                      </button>
-                      <ToastContainer />
-                    </div>
+                  </div>
+                  <div className="updatebutton_div">
+                    <button className="update_product_button" type="submit">
+                      Update Product
+                    </button>
+                    <ToastContainer />
                   </div>
                 </Col>
               </Row>
