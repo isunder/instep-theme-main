@@ -4241,4 +4241,8 @@ justify-content: center;
     border: 2px solid #00cec9;
   } */
 
- 
+ .notfound-icon{
+  width: 300px;
+  height: 300px;
+  color: #FF7C08;
+ }
