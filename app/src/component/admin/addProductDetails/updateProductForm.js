@@ -15,10 +15,20 @@ import { MdCancel } from "react-icons/md";
 
 function MydModalWithGrid(props) {
   const dispatch = useDispatch();
-  const single = useSelector((state) => state.updateProductData.listdata);
 
-  console.log(single._id, "vaikskw");
-  console.log(single, "rrr");
+  const [imageState, setImageState] = useState();
+
+  const single = useSelector(
+    (state) => state?.updateProductData?.listdata?.data
+  );
+
+  const list = useSelector(
+    (state) => state?.GetAdminProductAllListData?.listdata
+  );
+  console.log(list, "listof");
+
+  console.log(single?._id, "vaikskw");
+  console.log(single, "rraa");
 
   const handleSubmit = (values) => {
     console.log(values, "goapl");
@@ -34,18 +44,18 @@ function MydModalWithGrid(props) {
     });
   };
   const initialValues = {
-    _id: single._id,
-    description: single.description,
-    category: single.category,
-    title: single.title,
-    price: single.price,
-    images: single.images,
-    brand: single.brand,
-    rating: single.rating,
-    subcategory: single.subcategory,
-    thumbnail: single.thumbnail,
-    stock: single.stock,
-    discountpercentage: single.discountpercentage,
+    id: single?._id,
+    description: single?.description,
+    category: single?.category,
+    title: single?.title,
+    price: single?.price,
+    images: single?.images,
+    brand: single?.brand,
+    rating: single?.rating,
+    subcategory: single?.subcategory,
+    thumbnail: single?.thumbnail,
+    stock: single?.stock,
+    discountpercentage: single?.discountpercentage,
   };
   console.log(initialValues, "initialValues");
 
@@ -190,6 +200,29 @@ function MydModalWithGrid(props) {
                       <div className="margin_bottom">
                         <h4>Upload image</h4>
                         <div>
+                          {/* {single?.images && (
+                            <>
+                              <div className="main_image">
+                                {single?.images?.map((item, index) => {
+                                  if (item) {
+                                    return (
+                                      <img
+                                        key={index}
+                                        className="subphotof_main"
+                                        src={
+                                          item?.split("https").length > 1
+                                            ? item
+                                            : `http://localhost:5000/uploads/${item}`
+                                        }
+                                        // onMouseEnter={() => setImageState(item)}
+                                        alt=""
+                                      />
+                                    );
+                                  }
+                                })}
+                              </div>
+                            </>
+                          )} */}
                           <input
                             name="images"
                             type="file"
@@ -207,11 +240,37 @@ function MydModalWithGrid(props) {
                               >
                                 <Row>
                                   <Col lg={6} md={6}>
-                                    <img
+                                    {single?.images && (
+                                      <>
+                                        <div className="main_image">
+                                          {single?.images?.map(
+                                            (item, index) => {
+                                              if (item) {
+                                                return (
+                                                  <img
+                                                    key={index}
+                                                    className="edit_product-img"
+                                                    src={
+                                                      item?.split("https")
+                                                        .length > 1
+                                                        ? item
+                                                        : `http://localhost:5000/uploads/${item}`
+                                                    }
+                                                    // onMouseEnter={() => setImageState(item)}
+                                                    alt=""
+                                                  />
+                                                );
+                                              }
+                                            }
+                                          )}
+                                        </div>
+                                      </>
+                                    )}
+                                    {/* <img
                                       className="edit_product-img"
                                       // src={imageUrl}
                                       // alt={`Image ${index}`}
-                                    />
+                                    /> */}
                                   </Col>
                                 </Row>
 
@@ -273,11 +332,13 @@ function MydModalWithGrid(props) {
                             // key={index}
                             className=" productupload_item col-md-3"
                           >
-                            <img
-                              className="edit_product-img"
-                              // src={imageUrl}
-                              // alt={`Image ${index}`}
-                            />
+                            {
+                              <img
+                                className="edit_product-img"
+                                src={`http://localhost:5000/uploads/${single?.thumbnail}`}
+                                // alt={`Image ${index}`}
+                              />
+                            }
                           </li>
                           {/* ))} */}
                         </ul>
