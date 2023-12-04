@@ -23,6 +23,15 @@ export default function Profile() {
     const userLogin = localStorage.getItem("token");
 
     const dispatch = useDispatch()
+
+    const profildata = useSelector((state) => state?.profileslice?.listdata
+    )
+    console.log(profildata, "profildata")
+
+    useEffect(() => { 
+        dispatch
+    })
+
     const userinfo = useSelector((state) => state?.cartdetails?.listdata)
     console.log(userinfo, "usersssssssssssssssss")
 
@@ -42,7 +51,7 @@ export default function Profile() {
                             <div className="d-flex justify-content-center">
 
                                 <img className="banner-img" src="https://grostore.themetags.com/public/uploads/media/65bad2tYppDLFCZ2JzveKJtJX7NiX6sznq5VmUS1.jpg" alt="" />
-                                <CiEdit className=''/>
+                                <CiEdit className='' />
                             </div>
                         </Col>
                         <Col lg={9}>
