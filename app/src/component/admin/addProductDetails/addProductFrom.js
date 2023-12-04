@@ -12,7 +12,7 @@ import { selectCategoryFilter } from "../../../Redux/action/filterByCategory";
 import { selectSubCategoryFilter } from "../../../Redux/action/filterBySubcategory";
 import { selectTypesubcategoryFilter } from "../../../Redux/action/filterByTypeSubcategory";
 import { findbrandfilter } from "../../../Redux/action/typesubcatpost";
-import { spacificAction } from "../../../Redux/action/productAction";
+// import { spacificAction } from "../../../Redux/action/productAction";
 import { useNavigate } from "react-router-dom";
 
 const ProductForm = () => {

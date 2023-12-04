@@ -77,8 +77,22 @@ function Allproducts(params) {
       }
     });
   };
+
+  const updata = useSelector(
+    (state) => state?.updateProductData?.listdata?.data
+  );
+  console.log(updata, "updata");
+
   const editClick = (_id, values) => {
-    dispatch(updateProduct({ _id: _id }));
+    let payload = { id: _id };
+    const formData = new FormData();
+    formData.append("userData", JSON.stringify(payload));
+    console.log(JSON.parse(formData.getAll("userData")), "datass");
+
+    // If you have other values to append from the 'values' object, you can do so like this:
+    // formData.append('key', values.key);
+
+    dispatch(updateProduct(formData));
     setShow(true);
     console.log("wwww");
   };
