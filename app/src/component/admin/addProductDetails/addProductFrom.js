@@ -44,7 +44,7 @@ const ProductForm = () => {
     const filename = uniqueId + "_" + name;
     let file = new File(files, filename);
     setselectedthumbnalFile(file);
-    // console.log(file, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+    // console.log(file, "AAAA");
 
     let imagesArray = [];
     for (let i = 0; i < files.length; i++) {
