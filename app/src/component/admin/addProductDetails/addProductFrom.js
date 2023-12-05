@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { Field } from "react-final-form";
 import { Form as FinalForm, reset } from "react-final-form";
-
 import { adminPostProduct } from "../../../Redux/action/adminPostProductAction";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
@@ -327,38 +326,6 @@ const ProductForm = () => {
                             </select>
                           )}
                         </Field>
-                        {/* <input
-                        type="text"
-                        placeholder="select category"
-                        className="addnewproduct_changes"
-                        value={selectedCategory}
-                      ></input>
-                      <select
-                        className="addnewproduct_changes right_Addnew"
-                        name="category"
-                        component="select"
-                        // onChange={handleChangecat}
-                        onChange={(e) => {
-                          // input.onChange(e)
-                          // handleChangecat(e)
-                          testfunction1(e);
-                        }}
-                        // value={selectedCategoryId}
-                        required
-                      >
-                        <option>Select Category</option>
-                        {filterdata &&
-                          filterdata?.map((e) => {
-                            console.log(e?.category, "eeeeeeeee");
-                            return (
-                              <>
-                                <option name="option" key={e._id} value={e._id}>
-                                  {e.category}
-                                </option>
-                              </>
-                            );
-                          })}
-                      </select> */}
                       </div>
                     </div>
                     <div className="margin_bottom">
@@ -397,36 +364,6 @@ const ProductForm = () => {
                             </select>
                           )}
                         </Field>
-                        {/* <input
-                        className="addnewproduct_changes right_Addnew"
-                        placeholder=" Select Subcategory"
-                        type="text"
-                        value={subcategory}
-                      ></input>
-                      <select
-                        className="addnewproduct_changes right_Addnew"
-                        name="subcategory"
-                        component="select"
-                        onChange={handleChangesubcat}
-                        value={subcategoryid}
-                        required
-                      >
-                        <option>Select Subcategory</option>
-                        {filterdatasubcat &&
-                          filterdatasubcat?.map((e) => {
-                            return (
-                              <>
-                                <option
-                                  name="option"
-                                  key={e?.subcategory_id}
-                                  value={e?._id}
-                                >
-                                  {e?.subcategory}
-                                </option>
-                              </>
-                            );
-                          })}
-                      </select> */}
                       </div>
                     </div>
                     <div className="margin_bottom">
@@ -462,37 +399,6 @@ const ProductForm = () => {
                             </select>
                           )}
                         </Field>
-                        {/* <input
-                      className="addnewproduct_changes right_Addnew"
-                      placeholder=" Select TypeSubcategory"
-                      type="text"
-                      value={typsubcat}
-                    ></input>
-                    <select
-                      className="addnewproduct_changes right_Addnew"
-                      name="typsubcategory"
-                      component="select"
-                      onChange={handleChangeTypesubcat}
-                      value={typsubcatId}
-                      required
-                    >
-                      <option>Select TypeSubcategory</option>
-                      {filterdatatypesubcat &&
-                        filterdatatypesubcat.map((e) => {
-                          console.log(e, "eeeeeeeeeeeee");
-                          return (
-                            <>
-                              <option
-                                name="option"
-                                key={e.type_subcategory_id}
-                                value={e._id}
-                              >
-                                {e?.typesubcategory}
-                              </option>
-                            </>
-                          );
-                        })}
-                    </select> */}
                       </div>
                     </div>
                   </div>
@@ -531,34 +437,6 @@ const ProductForm = () => {
                             </select>
                           )}
                         </Field>
-
-                        {/* <input
-                        className="addnewproduct_changes right_Addnew"
-                        placeholder=" Select Brand"
-                        type="text"
-                        // value={brand}
-                      ></input>
-                      <select
-                        className="addnewproduct_changes right_Addnew"
-                        name="brand"
-                        component="select"
-                        // onChange={brandChange}
-                        value={brandcategory}
-                        required
-                      >
-                        <option>Select Brand</option>
-                        {filterbrand &&
-                          filterbrand?.map((e) => {
-                            console.log(e, "eeee");
-                            return (
-                              <>
-                                <option name="option" key={e._id} value={e._id}>
-                                  {e.brand}
-                                </option>
-                              </>
-                            );
-                          })}
-                      </select> */}
                       </div>
                     </div>
                   </div>

@@ -41,8 +41,7 @@ const addressSchema = new mongoose.Schema({
   AlternateNumber: {
     type: Number,
     required: true, // AlternateNumber is required
-  }
- 
+  },
 });
 
 const UserAddress = mongoose.model("Address", addressSchema);
