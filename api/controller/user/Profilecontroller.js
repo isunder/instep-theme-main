@@ -6,7 +6,7 @@ const fs = require('fs');
 dotenv.config();
 const createProfile = expressAsyncHandler(async (req, res) => {
     try {
-        // console.log(req.body.userData,"first")
+     
         if (req.body && req.body.userData) {
             const userData = JSON.parse(req?.body?.userData)
             const profileimg = req?.files && req?.files?.profileimg && req?.files?.profileimg[0].filename;
@@ -14,7 +14,7 @@ const createProfile = expressAsyncHandler(async (req, res) => {
 
             console.log(userData, 'running')
             const imgupdate = await User.findById(idUser);
-            // console.log(imgupdate);
+          
             function updateimg(profile, text) {
                 console.log(profile, "profile")
                 if (profile) {
@@ -36,8 +36,8 @@ const createProfile = expressAsyncHandler(async (req, res) => {
                 updateimg(imgupdate?.Profileimage, "profile of user")
 
             } else {
-                console.log("false")
-                // new  image od user
+                console.log("false image not found")
+              
             }
 
 
@@ -73,18 +73,11 @@ const createProfile = expressAsyncHandler(async (req, res) => {
 });
 
 const deleteimg = expressAsyncHandler(async (req, res) => {
-
     try {
-
-
         const userID = req?.body?.id
-
-
         if (userID) {
             const userinfo = await User.findById(userID);
-
             if (userinfo) {
-
                 function updateimg(profile, text) {
                     console.log(profile, "profile")
                     if (profile) {
