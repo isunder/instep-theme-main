@@ -121,7 +121,6 @@ const Delieverydetail = () => {
     console.log(values, "values");
   };
 
-  const addNewClick = () => {};
   const validate = (values) => {
     const errors = {};
     if (!values.name) {
@@ -178,7 +177,7 @@ const Delieverydetail = () => {
     dispatch(singleproduct({ _id }));
   }, [_id]);
 
-  // delivery Click
+
 
   const deliverClick = (e) => {
     navigate("/allproduct");
@@ -190,148 +189,20 @@ const Delieverydetail = () => {
   };
 
   const order = useSelector((state) => state?.paymentorderdata?.listdata);
-  // console.log(order?.data?.order?.amount, "orderdata");
+ 
   console.log(order, "orderdata");
   console.log(order?.data?.order?.amount, "orderdatasa");
 
-  // const handlePayment = () => {
-  //   const load = { amount: "10000" };
-
-  //   dispatch(paymentOrder(load));
-  // };
+ 
   const [Razorpay, isLoaded] = useRazorpay();
 
-  // useEffect(() => {
-  //   // const load = { amount: order?.data?.order?.amount };
-  //   // console.log(load, "loaad");
-  //   const amount = { amount: dData?.price };
-  //   console.log(amount, "loaad");
-  //   dispatch(paymentOrder(amount));
-  // }, []);
-
-  //
-
-  // const handlePayment = useCallback(() => {
-  //   dispatch(paymentOrder())
-  //     .then(
-  //       (res) => {
-  //         // Handle the success scenario here
-  //         // console.log("Payment successful", data);
-
-  //         const options = {
-  //           key: "rzp_test_Nfb5anftyihnMA",
-  //           // amount: Number(order?.data?.order?.amount),
-  //           amount: "",
-  //           // amount: Number(dData?.price),
-  //           currency: "INR",
-  //           name: "live's",
-  //           description: "Test Transaction",
-  //           image:
-  //             "https://insteptechnologies.com/wp-content/uploads/2022/04/main-logo.png",
-  //           order_id: order?.data?.id,
-  //           // order_id: "order_N3rlrwXLpwJZeP",
-  //           handler: (res) => {
-  //             console.log(res);
-  //           },
-  //           prefill: {
-  //             name: "Amit",
-  //             email: "amit71instep@gmail.com",
-  //             contact: "9988071171",
-  //           },
-  //           notes: {
-  //             address: "Razorpay Corporate Office",
-  //           },
-  //           theme: {
-  //             color: "#3399cc",
-  //           },
-  //         };
-  //         const rzpay = new Razorpay(options);
-  //         rzpay.open();
-  //       },
-  //       [dispatch, order, dData]
-  //     )
-  //     .catch((error) => {
-  //       // Handle the error scenario here
-  //       console.error("Payment failed", error);
-  //     });
-  // });
-
-  // const handlePayment = useCallback(() => {
-  //   const load = { amount: dData?.price };
-  //   console.log(load);
-  //   dispatch(paymentOrder(load));
-  //   const options = {
-  //     key: "rzp_test_Nfb5anftyihnMA",
-  //     // amount: Number(order?.data?.order?.amount),
-  //     // amount: "",
-  //     // amount: Number(dData?.price),
-  //     currency: "INR",
-  //     name: "live's",
-  //     description: "Test Transaction",
-  //     image:
-  //       "https://insteptechnologies.com/wp-content/uploads/2022/04/main-logo.png",
-  //     order_id: order?.data?.id,
-  //     // order_id: "order_N3rlrwXLpwJZeP",
-  //     handler: (res) => {
-  //       console.log(res);
-  //     },
-  //     prefill: {
-  //       name: "Amit",
-  //       email: "amit71instep@gmail.com",
-  //       contact: "9988071171",
-  //     },
-  //     notes: {
-  //       address: "Razorpay Corporate Office",
-  //     },
-  //     theme: {
-  //       color: "#3399cc",
-  //     },
-  //   };
-
-  //   const rzpay = new Razorpay(options);
-  //   rzpay.open();
-  // }, [dispatch, order, dData]);
+  
 
   const handlePayment = useCallback(() => {
     const load = { amount: dData?.price };
     console.log(load);
     dispatch(paymentOrder(load));
 
-    // dispatch(paymentOrder(load)).then((res) => {
-    //   if (res) {
-    //     console.log(res);
-    //     console.log(res.payload.data.success, " Success");
-    //     if (res.payload.data.success == true) {
-    //       const orderAmount = order?.data?.order?.amount;
-    //       if (orderAmount) {
-    //         const options = {
-    //           key: "rzp_test_Nfb5anftyihnMA", // Replace with your actual Razorpay key
-    //           amount: orderAmount,
-
-    //           currency: "INR",
-    //           name: "instep cart",
-    //           description: "Test Transaction",
-    //           image:
-    //             "https://insteptechnologies.com/wp-content/uploads/2022/04/main-logo.png",
-    //           order_id: order?.data?.order?.id, // This is a sample Order ID, replace with a real one
-    //           handler: async (response) => {
-    //             try {
-    //               const verifyUrl = "http://localhost:5000/api/capture";
-    //               const { data } = await axios.post(verifyUrl, response);
-    //               console.log("Payment response:", data);
-    //             } catch (error) {
-    //               console.error("Payment error:", error);
-    //             }
-    //           },
-    //         };
-
-    //         const rzp = new window.Razorpay(options);
-    //         rzp.open();
-    //         // }
-    //       }
-    //     }
-    //   }
-    // });
   }, [dispatch, order, dData]);
 
   if (order) {
@@ -352,7 +223,7 @@ const Delieverydetail = () => {
         prefill: {
           name: "Amit",
           email: "amit71instep@gmail.com",
-          contact: "9988071171",
+          contact: "8729061709",
         },
         notes: {
           address: "Razorpay Corporate Office",
@@ -366,37 +237,7 @@ const Delieverydetail = () => {
       rzpay.open();
     }
   }
-  // const options = {
-  //   key: "rzp_test_Nfb5anftyihnMA",
-  //   amount: order?.data?.order?.amount,
-  //   // amount: "",
-  //   // amount: Number(dData?.price),
-  //   currency: "INR",
-  //   name: "live's",
-  //   description: "Test Transaction",
-  //   image:
-  //     "https://insteptechnologies.com/wp-content/uploads/2022/04/main-logo.png",
-  //   order_id: order?.data?.id,
-  //   // order_id: "order_N3rlrwXLpwJZeP",
-  //   handler: (res) => {
-  //     console.log(res);
-  //   },
-  //   prefill: {
-  //     name: "Amit",
-  //     email: "amit71instep@gmail.com",
-  //     contact: "9988071171",
-  //   },
-  //   notes: {
-  //     address: "Razorpay Corporate Office",
-  //   },
-  //   theme: {
-  //     color: "#3399cc",
-  //   },
-  // };
-
-  // const rzpay = new Razorpay(options);
-  // rzpay.open();
-
+  
   useEffect(() => {
     if (isLoaded) {
       handlePayment();

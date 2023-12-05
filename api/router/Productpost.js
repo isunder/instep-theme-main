@@ -30,4 +30,8 @@ router.post("/productinfo", postproductcontroller.specificationpost)
 router.post("/productupdateinfo", postproductcontroller.updateProductspecificationpost)
 //  after   DELIVERY ADDRESS done
 router.post("/orderSummary", postproductcontroller.orderSummary)
+router.post("/masterfilter", postproductcontroller.spacifeaction)
+router.post("/createmastertable", postproductcontroller.masterTablecreater)
+
+
 module.exports = router;
