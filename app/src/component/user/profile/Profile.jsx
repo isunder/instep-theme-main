@@ -27,12 +27,7 @@ export default function Profile() {
 
     const dispatch = useDispatch()
 
-    const profildata = useSelector((state) => state?.profileslice?.listdata
-    )
-    console.log(profildata, "profildata")
-
     useEffect(() => {
-
     })
 
     const userinfo = useSelector((state) => state?.cartdetails?.listdata)
@@ -52,7 +47,6 @@ export default function Profile() {
                     <Row >
                         <Col lg={3} md={3}>
                             <div className="d-flex justify-content-center">
-
                                 <img className="banner-img" src="https://grostore.themetags.com/public/uploads/media/65bad2tYppDLFCZ2JzveKJtJX7NiX6sznq5VmUS1.jpg" alt="" />
                                 {/* <CiEdit className='' /> */}
                             </div>
@@ -79,18 +73,13 @@ export default function Profile() {
                                             <p>Total Shipped</p></div>
                                     </div></Col>
 
-                                {/* <Col lg={3} md={6} sm={6} xs={6}>
-                                    <div className="userhistory_icons"><FcProcess className='historyprocess_icon' />
-                                        <div className='history_detail'><h3>2</h3>
-                                            <p>Order Processing</p></div>
-                                    </div> </Col> */}
+
 
                                 <Col lg={3} md={6} sm={6} xs={6}>
                                     <div className="userhistory_icons">
                                         <MdShoppingCartCheckout className='historyneworder_icon' />
                                         <div className='history_detail'><h3>16</h3>
                                             <p>New Orders</p></div></div></Col>
-
                             </Row>
                         </Col>
                     </Row>
