@@ -66,6 +66,10 @@ server.use("/api", address);
 
 server.use("/api", profile);
 
+
+
+
+
 // server.post("/api/register", async (req, res) => {
 //   const { email, password, username } = req.body;
 

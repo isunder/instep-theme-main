@@ -336,9 +336,68 @@ div p {
 }
 
 .recent_orders {
-  padding: 20px;
+  padding: 20px;  
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border: 1px solid #E6E2E1;
 }
+
+.personalinfo_button{
+  padding: 8px 25px ;
+  color: #fff;
+  background-color: #4EB529;
+}
+.info-fields{
+  display: flex;
+  justify-content: start;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.labelalig_n{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.labelalig_n div{
+  color: #4eb529;
+}
+
+.personalotherinput{
+  display: flex;
+  flex-direction: row;
+  /* align-items: center; */
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.otherinputalign{
+  width: 50%;
+  height: 40px;
+  padding: 15px 10px;
+}
+
+.firstname{
+  width: 24%;
+  height: 40px;
+  padding: 15px 10px;
+}
+
+.lastname{
+  width: 24%;
+  height: 40px;
+  padding: 15px 10px; 
+}
+
+.Deactivate-account{
+  font-weight: 500;
+  color: #4EB529;
+  margin-top: 50px;
+}
+
 /* -------------------------Recent Orders-------------------------- */
 
 /* -----------------------------------------------------------------------------allprocducts--------------------------------------------------------------------------------*/
@@ -3446,8 +3505,8 @@ color: #FF7C08;
 
 .profilemanangeicon {
   margin-right: 10px;
-  height: 10%;
-  width: 10%;
+  height: 26px;
+  width: 26px;
 }
 
 /* .profilemanangeicon:hover{
@@ -3506,6 +3565,21 @@ color: #FF7C08;
 .table_padding {
   padding: 10px;
 }
+
+.newprofile_align{
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+
+.recent_orders .nav-pills .nav-link.active{
+background-color: #fff !important;
+color: #4eb529 !important;
+}
+
+.recent_orders .nav-pills .nav-link{
+  color: #000 !important;
+} 
 
 /* ------------------------------------user profile---------------------------------------------- */
 

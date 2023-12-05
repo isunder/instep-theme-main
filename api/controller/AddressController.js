@@ -65,6 +65,56 @@ const getAddress = expressAsyncHandler(async (req, res) => {
     }
 });
 
+const updateaddress = expressAsyncHandler(async (req, res) => {
+    try {
+        const { tableid, name, mobilenumber, pincode, Locality, addresstype, address, state, landmark, AlternateNumber } = req.body;
+
+        const data = {
+            name: name,
+            mobilenumber: mobilenumber,
+            pincode: pincode,
+            Locality: Locality,
+            addresstype: addresstype,
+            address: address,
+            state: state,
+            landmark: landmark,
+            AlternateNumber: AlternateNumber,
+        };
+        console.log(data, "dfdfdf")
+
+        const Find = await UserAddress.findByIdAndUpdate({ _id: tableid }, data, { new: true });
+        res.status(200).send({ data: Find, success: true });
+    } catch (error) {
+        res.status(500).send({ msg: error, success: false });
+    }
+});
+
+const deleteaddress = expressAsyncHandler(async (req, res) => {
+    try {
+
+        const tableid = req.body.tableid
+        if (tableid) {
+
+            const finddlt = await UserAddress.findByIdAndDelete(tableid)
+
+            res.status(200).send({ data: finddlt, success: true })
+
+        } else {
+            res.status(202).send({ msg: "give me id of table", success: false })
 
 
-module.exports = { createAddress, getAddress }
+        }
+
+
+    } catch (error) {
+        res.status(200).send({ error: error, success: false })
+    }
+
+
+})
+
+
+
+
+
+module.exports = { createAddress, getAddress, updateaddress, deleteaddress }

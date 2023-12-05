@@ -17,81 +17,89 @@ const Editprofile = () => {
 
     return (
         <>
-            <Container>
-                <div className="slider_col">
-                    <Row>
-                        <Form
-                            onSubmit={onSubmit}
-                            initialValues={useMemo((e) => initialValues(e), [])}
-                            validate={validate}
-                            render={({ handleSubmit }) => (
-                                <form onSubmit={handleSubmit}>
-                                    <Col md={12}>
+            <div className="editprofile_main">
+
+                <Row>
+                    <Form
+                        onSubmit={onSubmit}
+                        initialValues={useMemo((e) => initialValues(e), [])}
+                        validate={validate}
+                        render={({ handleSubmit }) => (
+                            <form onSubmit={handleSubmit}>
+                                <Col md={12}>
+                                    <div className="labelalig_n margin_bottom">
+                                        <h3> Personal Information</h3>
+                                        <div>Edit</div>
+                                    </div>
+
+                                    <div className="info-fields margin_bottom mb-4" >
                                         <Field name="">
                                             {({ input, meta }) => (
                                                 <>
-                                                    <div>
-                                                        <label>a</label>
-                                                    </div>
-                                                    <input className="my-2" {...input} placeholder=""/>
+
+                                                    <input className="firstname" {...input} placeholder="first name" />
                                                 </>
                                             )}
                                         </Field>
-                                    </Col>
-                                    <Col md={12}>
                                         <Field name="">
                                             {({ input, meta }) => (
                                                 <>
-                                                    <div>
-                                                        <label>a</label>
-                                                    </div>
-                                                    <input className="my-2" {...input} />
+                                                    <input className="lastname" {...input} placeholder="last name" />
                                                 </>
                                             )}
                                         </Field>
-                                    </Col>
-                                    <Col md={12}>
+                                        <div><button className="personalinfo_button" type="submit">Save</button></div>
+                                    </div>
+                                </Col>
+
+                                <Col md={12}>
+                                    <div className="labelalig_n">
+                                        <h5>Email Address</h5> <div>Edit</div>
+                                    </div>
+                                    <div className="margin_bottom personalotherinput">
                                         <Field name="">
                                             {({ input, meta }) => (
                                                 <>
-                                                    <div>
-                                                        <label>a</label>
-                                                    </div>
-                                                    <input className="my-2" {...input} />
+                                                    <input className="otherinputalign" {...input} placeholder="Email Address" />
                                                 </>
                                             )}
                                         </Field>
-                                    </Col>
-                                    <Col md={12}>
+                                        <div><button className="personalinfo_button" type="submit">Save</button></div>
+                                    </div>
+                                </Col>
+                                <Col md={12}>
+                                    <div className="labelalig_n">
+                                        <h5>Mobile Number</h5><div>Edit</div>
+                                    </div>
+                                    <div className="margin_bottom personalotherinput">
                                         <Field name="">
                                             {({ input, meta }) => (
                                                 <>
-                                                    <div>
-                                                        <label>a</label>
-                                                    </div>
-                                                    <input className="my-2" {...input} />
+                                                    <input className="otherinputalign" {...input} placeholder="Mobile Number" />
                                                 </>
                                             )}
                                         </Field>
-                                    </Col>
-                                    <Col md={12}>
-                                        <Field name="">
-                                            {({ input, meta }) => (
-                                                <>
-                                                    <div>
-                                                        <label>a</label>
-                                                    </div>
-                                                    <input className="my-2" {...input} />
-                                                </>
-                                            )}
-                                        </Field>
-                                    </Col>
-                                </form>
-                            )}
-                        />
-                    </Row>
-                </div>
-            </Container>
+                                        <div><button className="personalinfo_button" type="submit">Save</button></div>
+                                    </div>
+                                </Col>
+                                <Col md={12}>
+                                    <div className="labelalig_n">
+                                        <h5>Profile Image</h5> <div>Edit</div>
+                                    </div>
+                                    <div className="personalotherinput ">
+
+                                        <input className="form-control signup_form_input margin_bottom  w-50" type="file" />
+
+                                        <div><button className="personalinfo_button" type="submit">Upload</button></div>
+                                    </div>
+                                </Col>
+                            </form>
+                        )}
+                    />
+                </Row>
+                <div className="Deactivate-account">Deactivate Account</div>
+            </div>
+
         </>
     );
 };
