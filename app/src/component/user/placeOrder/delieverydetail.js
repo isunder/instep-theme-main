@@ -437,18 +437,7 @@ const Delieverydetail = () => {
                               }) => (
                                 <form onSubmit={handleSubmit}>
                                   <div className="adsressmaindiv_top margin_bottom">
-                                    {/* <Field name="userID">
-                                    {({ input, meta }) => (
-                                      <div className="fields">
-                                        <input
-                                          {...input}
-                                          type="hidden"
-                                          placeholder="Name"
-                                          className="inputfiels_place"
-                                        />
-                                      </div>
-                                    )}
-                                  </Field> */}
+                                    
                                     <Field name="name">
                                       {({ input, meta }) => (
                                         <div className="fields">
@@ -512,21 +501,7 @@ const Delieverydetail = () => {
                                       )}
                                     </Field>
                                   </div>
-                                  {/* <Field name="addresstype">
-                                  {({ input, meta }) => (
-                                    <div className="addressbottommain margin_bottom">
-                                      <input
-                                        {...input}
-                                        type="text"
-                                        placeholder="address"
-                                        className="addressmaininput"
-                                      />
-                                      {meta.error && meta.touched && (
-                                        <span>{meta.error}</span>
-                                      )}
-                                    </div>
-                                  )}
-                                </Field> */}
+                                 
                                   <Field name="address">
                                     {({ input, meta }) => (
                                       <div className="addressbottommain margin_bottom">
@@ -592,33 +567,10 @@ const Delieverydetail = () => {
                                       )}
                                     </Field>
                                   </div>
-                                  {/* <div className="buttons">
-                                  <button type="submit" disabled={submitting}>
-                                    Submit
-                                  </button>
-                                  <button
-                                    type="button"
-                                    onClick={form.reset}
-                                    disabled={submitting || pristine}
-                                  >
-                                    Reset
-                                  </button>
-                                </div> */}
+                                  
                                   <p>Address Type</p>
                                   <div className="delivery_place margin_bottom">
-                                    {/* <div>
-                                    <p>
-                                      {" "}
-                                      <input type="radio" />
-                                      Home (All day delivery)
-                                    </p>
-                                  </div>
-                                  <div>
-                                    <p>
-                                      <input type="radio" />
-                                      Work (Delivery between 10 AM-5 PM)
-                                    </p>
-                                  </div> */}
+                                  
                                     <div className="form-check">
                                       <Field
                                         name="addresstype"
@@ -647,22 +599,12 @@ const Delieverydetail = () => {
                                   >
                                     SAVE AND DELIVER HERE
                                   </button>
-                                  {/* <Field
-                                      name="addresstype"
-                                      type="radio"
-                                      value="Home"
-                                      id="flexRadioDefault1"
-                                      component={RadioInput}
-                                      label="Home (All day delivery)"
-                                    >
-                                      <input>
-                                      </input>
-                                    </Field> */}
+                                 
                                 </form>
                               )}
                             />
                           )}
-                          {/* </div> */}
+                         
                           <Row>
                             <Col>
                               <div
