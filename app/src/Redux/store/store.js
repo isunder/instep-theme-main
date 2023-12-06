@@ -37,7 +37,7 @@ import SpacificationReducer from "../reducer/spacificSlice";
 import deliverAddressReducer from "../reducer/deliveryAddressSlice";
 import deliveryaddressGetReducer from "../reducer/deliveryGetSlice";
 import PaymentorderdataReducer from "../reducer/paymentOrderReducer";
-import ProductReducer from "../reducer/profileinfoSlice";
+import profilesliceReducer from "../reducer/profileinfoSlice";
 
 export const store = configureStore({
   reducer: {
@@ -79,6 +79,6 @@ export const store = configureStore({
     deliveraddress: deliverAddressReducer,
     deliveryaddressget: deliveryaddressGetReducer,
     paymentorderdata: PaymentorderdataReducer,
-    profileslice: ProductReducer,
+    profileslice: profilesliceReducer,
   },
 });

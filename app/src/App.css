@@ -1546,7 +1546,7 @@ color: #000;
 
 .Nav_link .nav_filterchanges{
   display: none;
-  width: 222px;
+  width: 316px;
   height: auto;
   background-color: #fff;
   position: absolute;
@@ -3581,6 +3581,10 @@ color: #4eb529 !important;
   color: #000 !important;
 } 
 
+.nav-link{
+  padding: 0.5rem, 0rem !important;
+}
+
 /* ------------------------------------user profile---------------------------------------------- */
 
 /* ------------------------------------admin delivery status report----------------------------- */
@@ -4326,3 +4330,18 @@ justify-content: center;
   height: 300px;
   color: #FF7C08;
  }
+/* 
+ input[type=radio] {
+  appearance: none;
+  padding: 10px;
+  background-color: ;
+  border-radius:50%;
+} */
+.hello:checked{
+  background-color: #4EB529 !important;
+  
+}
+
+.form-check-input:focus {
+  box-shadow: -1px -1px 36px -10px rgba(78,181,41,1) !important;
+}

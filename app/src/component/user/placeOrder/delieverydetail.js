@@ -352,9 +352,9 @@ const Delieverydetail = () => {
                               return (
                                 <>
                                   <div className="d-flex mb-3 ">
-                                    <div className="">
+                                    <div className="fdsfdsf">
                                       <input
-                                        className="form-check-input"
+                                        className="form-check-input hello"
                                         type="radio"
                                         name="addresstype"
                                         value="Home"
