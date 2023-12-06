@@ -20,7 +20,16 @@ const orderSchema = new mongoose.Schema({
                 required: true
             }
         }
-    ]
+    ],
+    payment_id: {
+        type: String,
+        required: true
+    },
+    amount: {
+        type: String,
+        required: true
+
+    }
 });
 
 const SchemaOrder = mongoose.model('Order', orderSchema);

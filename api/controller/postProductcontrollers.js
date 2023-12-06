@@ -770,72 +770,118 @@ const updateProductspecificationpost = expressAsyncHandler(async (req, res) => {
 
 //  after   DELIVERY ADDRESS done
 
+// const orderSummary = expressAsyncHandler(async (req, res) => {
+//   try {
+//     console.log("test orderSummary");
+
+//     const { userid, deliveryAddress, products, payment_id, amount } = req.body;
+
+//     if (userid) {
+//       console.log(products);
+//       // Assuming 'Userproducts' is a mongoose model, use the 'findById' method like this:
+//       const productPromises = products.map(async (item) => {
+//         console.log(item.productID, "Dfdf");
+//         const product = await Userproducts.findById(item.productID);
+//         return product;
+//       });
+
+//       const prices = [];
+//       const pricestotal = [];
+//       Promise.all(productPromises)
+//         .then((products) => {
+//           products.forEach((product) => {
+//             if (product) {
+//               prices.push(product.price);
+//               // console.log(`Price for product ${product._id}: ${product.price}`);
+//             } else {
+//               console.log("Product not found");
+//             }
+//           });
+
+//           const totalPrice = prices.reduce((acc, curr) => acc + curr, 0);
+//           console.log("Total Price: ", totalPrice);
+//           pricestotal.push(totalPrice);
+//         })
+//         .catch((error) => {
+//           console.error("Error fetching products:", error);
+//         });
+
+//       if (!products) {
+//         return res.status(404).json({ message: "Product not found" });
+//       } else {
+//         const order = new SchemaOrder({
+//           userid: userid,
+//           deliveryAddress: deliveryAddress,
+
+//           products: products.map((items) => {
+//             return { productID: items.productID, quantity: items.quantity };
+//           }),
+//         });
+
+//         await order.save();
+
+//         res.status(200).json({
+//           message: "Order created successfully",
+//           order,
+//           costing: prices,
+//           totalrpice: pricestotal,
+//         });
+//       }
+
+//       // Save the order to the database (you need to await this if using async operations):
+//     } else {
+//       res.status(400).json({ message: "userid is missing" });
+//     }
+//   } catch (error) {
+//     res
+//       .status(500)
+//       .json({ message: "An error occurred", error: error.message });
+//   }
+// });
+
 const orderSummary = expressAsyncHandler(async (req, res) => {
   try {
     console.log("test orderSummary");
 
-    const { userid, deliveryAddress, products } = req.body;
+    const { userid, deliveryAddress, products, payment_id, amount } = req.body;
 
     if (userid) {
-      console.log(products);
-      // Assuming 'Userproducts' is a mongoose model, use the 'findById' method like this:
-      const productPromises = products.map(async (item) => {
-        console.log(item.productID, "Dfdf");
-        const product = await Userproducts.findById(item.productID);
-        return product;
+      const find = new SchemaOrder({
+        userid: userid,
+        deliveryAddress: deliveryAddress,
+        products: products,
+        payment_id: payment_id,
+        amount: amount,
       });
-
-      const prices = [];
-      const pricestotal = [];
-      Promise.all(productPromises)
-        .then((products) => {
-          products.forEach((product) => {
-            if (product) {
-              prices.push(product.price);
-              // console.log(`Price for product ${product._id}: ${product.price}`);
-            } else {
-              console.log("Product not found");
-            }
-          });
-
-          const totalPrice = prices.reduce((acc, curr) => acc + curr, 0);
-          console.log("Total Price: ", totalPrice);
-          pricestotal.push(totalPrice);
-        })
-        .catch((error) => {
-          console.error("Error fetching products:", error);
-        });
-
-      if (!products) {
-        return res.status(404).json({ message: "Product not found" });
-      } else {
-        const order = new SchemaOrder({
-          userid: userid,
-          deliveryAddress: deliveryAddress,
-
-          products: products.map((items) => {
-            return { productID: items.productID, quantity: items.quantity };
-          }),
-        });
-
-        await order.save();
-
-        res.status(200).json({
-          message: "Order created successfully",
-          order,
-          costing: prices,
-          totalrpice: pricestotal,
-        });
-      }
-
-      // Save the order to the database (you need to await this if using async operations):
+      await find.save();
+      res.status(200).send({ save: find, success: true });
     } else {
-      res.status(400).json({ message: "userid is missing" });
+      res.status(202).send({ msg: "give User ID", success: false });
     }
   } catch (error) {
     res
       .status(500)
       .json({ message: "An error occurred", error: error.message });
+  }
+});
+
+const getorderSummary = expressAsyncHandler(async (req, res) => {
+  try {
+    const Userid = req.body.userid;
+
+    if (Userid) {
+      const find = await SchemaOrder.find({ userid: Userid });
+
+      if (find.length > 0) {
+        res.status(200).send({ data: find, success: true });
+      } else {
+        res.status(201).send({ msg: "no data found ", success: false });
+      }
+    } else {
+      res.status(202).send({ msg: "give User id", success: false });
+    }
+  } catch (error) {
+    res.status(500).send({ error: error, success: false });
   }
 });
 
@@ -861,7 +907,9 @@ const masterTablecreater = expressAsyncHandler(async (req, res) => {
 
     res.status(201).send({ data: newEntry, success: true }); // Use 201 for successful creation
   } catch (error) {
-    res.status(500).json({ message: "An error occurred", error: error.message });
+    res
+      .status(500)
+      .json({ message: "An error occurred", error: error.message });
   }
 });
 
@@ -880,4 +928,5 @@ module.exports = {
   deleteProduct,
   spacifeaction,
   masterTablecreater,
+  getorderSummary,
 };

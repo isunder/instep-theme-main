@@ -5,7 +5,9 @@ const secretKey = 'secretkey';
 
 const verifyToken = (req, res, next) => {
     const tokenWithBearer = req.headers.authorization;
+console.log(tokenWithBearer,"sdsdsdsdsds")
     const token = tokenWithBearer.split(' ')[1];
+    // console.log(token,"testesttoken")
     if (!token) {
         return res.status(403).send({ message: 'Token not provided' });
     }
