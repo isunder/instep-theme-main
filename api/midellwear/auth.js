@@ -4,15 +4,12 @@ const User = require("../models/RegisterSchema");
 const secretKey = "secretkey";
 
 const verifyToken = (req, res, next) => {
-  //   console.log(req.headers.authorization, "tests    tst");
-  const tokenWithBearer = req.headers.authorization;
-  //   console.log(tokenWithBearer, "tokenWithBearer");
-  const token = tokenWithBearer.split(" ")[1];
-  console.log(token, "tokenWithBearer");
-  if (!token) {
-    return res.status(403).send({ message: "Token not provided" });
-  }
-
+    const tokenWithBearer = req.headers.authorization;
+console.log(tokenWithBearer,"sdsdsdsdsds")
+    const token = tokenWithBearer.split(' ')[1];
+    // console.log(token,"testesttoken")
+    if (!token) {
+        return res.status(403).send({ message: 'Token not provided' });
   jwt.verify(token, secretKey, async (err, decoded) => {
     if (err) {
       return res
