@@ -102,7 +102,7 @@ const SignUp = () => {
                               className="login_input"
                               {...input}
                               type="text"
-                              placeholder="First and last name"
+                              placeholder="UserName"
                             />
                             {meta.error && meta.touched && (
                               <p className="star">{meta.error}</p>
