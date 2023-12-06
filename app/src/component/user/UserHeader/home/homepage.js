@@ -284,8 +284,8 @@ const Home = () => {
                                           ? item?.image
                                           : item?.thumbnail.split(":").length >
                                             1
-                                          ? item?.thumbnail
-                                          : `http://localhost:5000/uploads/${item.thumbnail}`
+                                            ? item?.thumbnail
+                                            : `http://localhost:5000/uploads/${item.thumbnail}`
                                       }
                                     />
                                   </div>
@@ -308,7 +308,7 @@ const Home = () => {
                 </Col>
               </Row>
             </div>
-            <div className="homeelectnics_carouse ">
+            <div className="homeelectnics_carouse margin_bottom ">
               <Row>
                 <Col lg={2} className="fistcardof_elct">
                   <Card className=" ">
@@ -381,8 +381,105 @@ const Home = () => {
                                       e?.image
                                         ? e?.image
                                         : e?.thumbnail.split(":").length > 1
-                                        ? e?.thumbnail
-                                        : `http://localhost:5000/uploads/${e.thumbnail}`
+                                          ? e?.thumbnail
+                                          : `http://localhost:5000/uploads/${e.thumbnail}`
+                                    }
+                                  />
+                                </div>
+                                <Card.Body>
+                                  <Card.Title className="crad_text">
+                                    {e?.title}
+                                  </Card.Title>
+
+                                  <Card.Text className="crad_text">
+                                    <h6> ₹ {e?.price}</h6>
+                                  </Card.Text>
+                                </Card.Body>
+                              </Card>
+                            </Link>
+                          </SwiperSlide>
+                        );
+                      }
+                    })}
+                  </Swiper>
+                </Col>
+              </Row>
+            </div>
+            <div className="homeelectnics_carouse ">
+              <Row>
+                <Col lg={2} className="fistcardof_elct">
+                  <Card className=" ">
+                    <div className="fistcardof_elct">
+                      <div className="viewallcard_div">
+                        <Card.Text className="text-center">
+                          <h5>Books & More</h5>
+                        </Card.Text>
+                        <Link
+                          className="carddecorationnone_cat"
+                          to={`/category/${"654dbd68531edfc555016a99"}`}
+                        >
+                          <button
+                            className="electrnicswiewall_button"
+                            type="submit"
+                          >
+                            VIEW ALL
+                          </button>
+                        </Link>
+                        <div className="viewimg_hide">
+                          <Card.Body>
+                            <img
+                              className="homedecor_image"
+                              src="https://cdni.iconscout.com/illustration/premium/thumb/education-stationery-5806839-4841999.png "
+                              alt=""
+                            />
+                          </Card.Body>
+                        </div>
+                      </div>
+                    </div>
+                  </Card>
+                </Col>
+                <Col lg={10}>
+                  <Swiper
+                    modules={[Navigation]}
+                    spaceBetween={10}
+                    navigation
+                    pagination={{ clickable: true }}
+                    onSwiper={(swiper) => console.log(swiper)}
+                    onSlideChange={() => console.log("slide change")}
+                    breakpoints={{
+                      320: {
+                        slidesPerView: 1,
+                      },
+                      480: {
+                        slidesPerView: 2,
+                      },
+                      768: {
+                        slidesPerView: 3,
+                      },
+                      1024: {
+                        slidesPerView: 4,
+                      },
+                    }}
+                  >
+                    {data?.products?.map((e) => {
+                      if (e?.category?.[0]?.category === "Books &More") {
+                        return (
+                          <SwiperSlide className="shopping_card" key={e?.id}>
+                            <Link
+                              className="card_deco"
+                              to={`/productdetail/${e._id}`}
+                              onClick={() => productClick(e?._id)}
+                            >
+                              <Card className="shoppingcard_bor">
+                                <div className="img_div">
+                                  <Card.Img
+                                    variant="top"
+                                    src={
+                                      e?.image
+                                        ? e?.image
+                                        : e?.thumbnail.split(":").length > 1
+                                          ? e?.thumbnail
+                                          : `http://localhost:5000/uploads/${e.thumbnail}`
                                     }
                                   />
                                 </div>
@@ -430,8 +527,8 @@ const Home = () => {
                                       item?.image
                                         ? item?.image
                                         : item?.thumbnail.split(":").length > 1
-                                        ? item?.thumbnail
-                                        : `http://localhost:5000/uploads/${item.thumbnail}`
+                                          ? item?.thumbnail
+                                          : `http://localhost:5000/uploads/${item.thumbnail}`
                                     }
                                   />
                                   <div className="cloths_detail">
@@ -526,8 +623,8 @@ const Home = () => {
                                       item?.image
                                         ? item?.image
                                         : item?.thumbnail.split(":").length > 1
-                                        ? item?.thumbnail
-                                        : `http://localhost:5000/uploads/${item.thumbnail}`
+                                          ? item?.thumbnail
+                                          : `http://localhost:5000/uploads/${item.thumbnail}`
                                     }
                                     alt=""
                                   />

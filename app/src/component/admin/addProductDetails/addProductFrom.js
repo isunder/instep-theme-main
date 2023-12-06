@@ -124,10 +124,10 @@ const ProductForm = () => {
         // handleImgeFile("")
       }
       console.log(res?.payload?.data?.product?._id, "Response");
-      if (res?.payload?.data?.product?._id) {
-        navigate(`/productspecification/${res?.payload?.data?.product?._id}`);
-        // dispatch(spacificAction({ProductID:res?.payload?.data?.product?._id}))
-      }
+      // if (res?.payload?.data?.product?._id) {
+      //   navigate(`/productspecification/${res?.payload?.data?.product?._id}`);
+      //   // dispatch(spacificAction({ProductID:res?.payload?.data?.product?._id}))
+      // }
     });
 
     toast.success("Successfully !", {
