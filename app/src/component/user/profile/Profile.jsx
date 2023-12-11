@@ -9,27 +9,27 @@ import { RxBorderWidth, RxDashboard } from 'react-icons/rx'
 import { BsArrowLeft, BsTelephoneFill, BsTruck, BsWalletFill } from 'react-icons/bs'
 import { CiEdit, CiLocationOn } from 'react-icons/ci'
 import { BiLogOut } from 'react-icons/bi'
-import { getUserId } from '../../../utils/auth'
+import { getUserId, isUserLogined } from '../../../utils/auth'
 import Editprofile from '../Editprofile/editprofile'
 import TrackOrder from '../Editprofile/trackOrder'
 import AddressBook from '../Editprofile/addressbook'
+import { useNavigate } from 'react-router-dom'
 
 export default function Profile() {
+    const navigate = useNavigate();
 
-    // const [userinfo,setuserinfo]=useState()
-    // const [,setuserinfo]=useState()
     const userData = getUserId();
-    console.log(userData
-        , "usr");
-    // setUsername(userData?.username);
+    console.log(userData, "usr");
 
     const userLogin = localStorage.getItem("token");
 
     const dispatch = useDispatch()
 
-    useEffect(() => {
-    })
-
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        navigate('/')
+        window.location.reload()
+    };
     const userinfo = useSelector((state) => state?.cartdetails?.listdata)
     console.log(userinfo, "usersssssssssssssssss")
 
@@ -45,17 +45,28 @@ export default function Profile() {
             <div className=" slider_col margin_bottom">
                 <div className='recent_orders '>
                     <Row >
-                        <Col lg={3} md={3}>
-                            <div className="d-flex justify-content-center">
-                                <img className="banner-img" src="https://grostore.themetags.com/public/uploads/media/65bad2tYppDLFCZ2JzveKJtJX7NiX6sznq5VmUS1.jpg" alt="" />
-                                {/* <CiEdit className='' /> */}
+                        <Col lg={3} md={3} sm={4}>
+                            <div className="d-flex justify-content-center mainiconalign">
+                                <div className='mainiconalign'>
+                                    <img className="banner-img img-edit2" src="https://grostore.themetags.com/public/uploads/media/65bad2tYppDLFCZ2JzveKJtJX7NiX6sznq5VmUS1.jpg" alt="" />
+                                </div>
+                                <div className='iconouterdiv'><CiEdit className='profileedit' /></div>
                             </div>
                         </Col>
-                        <Col lg={9} md={9}>
+                        <Col lg={9} md={9} sm={8}>
                             <Row>
-                                <Col lg={9}><h3>{userData.username}</h3></Col>
-                                <Col lg={3} > <div className='userprofile_contact'> <p> <AiFillMessage />{userData.userEmail}</p> <p> <BsTelephoneFill />8801235385478</p>
-                                </div></Col>
+                                <Col lg={9} md={8} ><h3>{userData.username}</h3></Col>
+                                <Col lg={3} md={4} >
+                                    <div className='userprofile_contact'>
+                                        <div>
+                                            <p><AiFillMessage /> {userData.userEmail}</p>
+
+                                        </div>
+                                        <div>
+                                            <p> <BsTelephoneFill />8801235385478</p>
+                                        </div>
+                                    </div>
+                                </Col>
                             </Row>
                             <Row>
                                 {/* <Col lg={3} md={6} sm={6} xs={6}>
@@ -79,67 +90,13 @@ export default function Profile() {
                                     <div className="userhistory_icons">
                                         <MdShoppingCartCheckout className='historyneworder_icon' />
                                         <div className='history_detail'><h3>16</h3>
-                                            <p>New Orders</p></div></div></Col>
+                                            <p>New Orders</p></div></div>
+                                </Col>
                             </Row>
                         </Col>
                     </Row>
                 </div>
-                {/* <Row>
-                    <Col lg={3}>
-                        <div className="recent_orders">
-                            <th>Manage My Account</th>
-                            <div className='d-flex flex-column profilemanage_account'>
-                                <div ><RxDashboard className='profilemanangeicon' />Dashboard</div>
-                                <div><RxBorderWidth className='profilemanangeicon' />Order History</div>
-                                <div><BsWalletFill className='profilemanangeicon' />Wallet History</div>
-                                <div><BsArrowLeft className='profilemanangeicon' />Refund History</div>
-                                <div> <Link to="/editprofile"><MdAccountCircle className='profilemanangeicon' />Edit Profile</Link></div>
-                                <div><CiLocationOn className='profilemanangeicon' />Track Order</div>
-                                <div><AiOutlineHome className='profilemanangeicon' />Address Book</div>
-                                <div><BiLogOut className='profilemanangeicon' />Log Out</div>
-                            </div>
-                        </div>
-                    </Col>
-                    <Col lg={9}>
-                        <div className="recent_orders">
-                            <h3>Your Orders</h3>
-                        </div>
-                        <Table responsive="md" className="main">
-                            <thead>
-                                <tr>
-                                    <th>Order Code</th>
-                                    <th>Placed On </th>
-                                    <th>Items</th>
-                                    <th>Total</th>
-                                    <th>Status </th>
-                                    <th>Action </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {cartdata?.map((item, index) => {
-                                    return (
-                                        <tr key={index}>
 
-                                            <td>{item?._id}</td>
-                                            <td>
-                                                {item?.subcategory}
-                                            </td>
-                                            <td></td>
-                                            <td>{item?.price}</td>
-                                            <td>
-                                                <p className='orderplaced_profile'>Order Placed</p>
-                                            </td>
-                                            <td></td>
-
-
-                                        </tr>
-                                    );
-                                })}
-                            </tbody>
-                        </Table>
-
-                    </Col>
-                </Row> */}
             </div>
             <Row>
                 <Col lg={3} md={3}>
