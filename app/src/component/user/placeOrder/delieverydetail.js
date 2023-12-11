@@ -20,12 +20,14 @@ import { CiLocationOn } from "react-icons/ci";
 import { paymentOrder } from "../../../Redux/action/paymentOrderAction";
 // import { options } from "../../../../../api/router/razorpay";
 import useRazorpay from "react-razorpay";
+import { Afterorder } from "../../../Redux/action/orderSummary";
 
 const Delieverydetail = () => {
   const [isFormVisible, setFormVisible] = useState(false);
   const [showCol, setShowCol] = useState("login");
   const [imageState, setImageState] = useState();
   const [hidedata, setHidata] = useState("");
+  const [razorPaymentId, setRazorPaymentId] = useState("");
   const data = useSelector((state) => state?.deliveraddress?.listdata);
   console.log(data, "address");
 
@@ -36,13 +38,15 @@ const Delieverydetail = () => {
 
   const navigate = useNavigate();
   const userLogin = getUserId();
+  console.log(userLogin, "userLogin");
   const dataId = userLogin.id;
   console.log(dataId, "dataId");
-  console.log(userLogin, "userLogin");
+
   const { _id } = useParams();
   const dispatch = useDispatch();
   const myCartL = useSelector((state) => state?.cartdetails.listdata);
   console.log(_id, "gggggg");
+
   const addressdata = useSelector(
     (state) => state?.deliveryaddressget?.listdata?.data
   );
@@ -103,6 +107,7 @@ const Delieverydetail = () => {
       })
     ).then((res) => {
       if (res && res.payload && res.payload.success) {
+        console.log(res);
         setFormVisible(false);
       } else {
         setFormVisible(true);
@@ -171,13 +176,11 @@ const Delieverydetail = () => {
   };
 
   const dData = useSelector((state) => state?.singleproduct?.listdata);
-  console.log(dData?.price, "dDatadData");
+  console.log(dData?._id, "dDatadData");
 
   useEffect(() => {
     dispatch(singleproduct({ _id }));
   }, [_id]);
-
-
 
   const deliverClick = (e) => {
     navigate("/allproduct");
@@ -189,20 +192,22 @@ const Delieverydetail = () => {
   };
 
   const order = useSelector((state) => state?.paymentorderdata?.listdata);
- 
+
   console.log(order, "orderdata");
   console.log(order?.data?.order?.amount, "orderdatasa");
 
- 
-  const [Razorpay, isLoaded] = useRazorpay();
+  let paymentDetails = {};
 
-  
+  const [Razorpay, isLoaded] = useRazorpay();
 
   const handlePayment = useCallback(() => {
     const load = { amount: dData?.price };
-    console.log(load);
-    dispatch(paymentOrder(load));
-
+    // console.log(load, "load");
+    dispatch(paymentOrder(load)).then((res) => {
+      console.log(res, "paymentid");
+      const paymentes = res.razorpay_payment_id;
+      console.log(paymentes, "paymentes");
+    });
   }, [dispatch, order, dData]);
 
   if (order) {
@@ -217,13 +222,54 @@ const Delieverydetail = () => {
         image:
           "https://insteptechnologies.com/wp-content/uploads/2022/04/main-logo.png",
         order_id: order?.data?.id,
-        handler: (res) => {
-          console.log(res);
+        // handler: (res) => {
+        //   console.log(res, "sdfghjdfghj");
+        // },
+
+        // handler: function (res) {
+        //   console.log("Paymentsuccess:", res.razorpay_payment_id);
+
+        //   // Extracting payment details from the response object
+        //   const paymentStatus = res.razorpay_payment_id
+        //     ? "paid-payment"
+        //     : "payment-failed";
+        //   const orderId = res.razorpay_order_id;
+        //   const amount = res.razorpay_payment_amount;
+
+        //   console.log("Paymentstatus:", paymentStatus);
+        //   console.log("OrderID:", orderId);
+        //   console.log("Amount:", amount);
+
+        //   // Here you can dispatch an action or perform further processing with the payment details
+        // },
+
+        handler: function (res) {
+          console.log("Payment success:", res);
+          const orderid = res.razorpay_payment_id;
+          console.log(orderid, "orderidorderid");
+          setRazorPaymentId(orderid);
+
+          // Storing payment details in the paymentDetails variable
+          paymentDetails = {
+            paymentStatus: res.razorpay_payment_id
+              ? "paid-payment"
+              : "payment-failed",
+            orderId: res.razorpay_order_id,
+            amount: res.razorpay_payment_amount,
+            // ... add other details as needed
+          };
+
+          console.log("Payment status:", paymentDetails.paymentStatus);
+          console.log("Order ID:", paymentDetails.orderId);
+          console.log("Amount:", paymentDetails.amount);
+
+          // Here you can dispatch an action or perform further processing with the payment details
         },
+
         prefill: {
           name: "Amit",
           email: "amit71instep@gmail.com",
-          contact: "8729061709",
+          contact: "7973114358",
         },
         notes: {
           address: "Razorpay Corporate Office",
@@ -237,7 +283,20 @@ const Delieverydetail = () => {
       rzpay.open();
     }
   }
-  
+  console.log("Paymentdetails:", paymentDetails);
+  // useEffect(() => {
+  //   const payloads = {
+  //     userid: dataId,
+  //     deliveryAddress: addressdata,
+  //     amount: order?.data?.order?.amount,
+  //     payment: razorPaymentId,
+  //     productID: dData?._id,
+  //     quantity: 1,
+  //   };
+  //   console.log(payloads, "payloads");
+  //   dispatch(Afterorder(payloads));
+  // }, [dispatch]);
+
   useEffect(() => {
     if (isLoaded) {
       handlePayment();
@@ -437,7 +496,6 @@ const Delieverydetail = () => {
                               }) => (
                                 <form onSubmit={handleSubmit}>
                                   <div className="adsressmaindiv_top margin_bottom">
-                                    
                                     <Field name="name">
                                       {({ input, meta }) => (
                                         <div className="fields">
@@ -501,7 +559,7 @@ const Delieverydetail = () => {
                                       )}
                                     </Field>
                                   </div>
-                                 
+
                                   <Field name="address">
                                     {({ input, meta }) => (
                                       <div className="addressbottommain margin_bottom">
@@ -567,10 +625,9 @@ const Delieverydetail = () => {
                                       )}
                                     </Field>
                                   </div>
-                                  
+
                                   <p>Address Type</p>
                                   <div className="delivery_place margin_bottom">
-                                  
                                     <div className="form-check">
                                       <Field
                                         name="addresstype"
@@ -599,12 +656,11 @@ const Delieverydetail = () => {
                                   >
                                     SAVE AND DELIVER HERE
                                   </button>
-                                 
                                 </form>
                               )}
                             />
                           )}
-                         
+
                           <Row>
                             <Col>
                               <div
@@ -747,7 +803,7 @@ const Delieverydetail = () => {
                         <div className="logindetail">4</div>
                         <div className="ordercon-email mx-2">
                           ORDER CONFIRMATION EMAIL <space />
-                          <span>{userLogin?.userEmail}</span> 
+                          <span>{userLogin?.userEmail}</span>
                         </div>
                       </div>
                       <div>
