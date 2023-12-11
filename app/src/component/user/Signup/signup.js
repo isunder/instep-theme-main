@@ -35,9 +35,9 @@ const SignUp = () => {
   // navigate("/signin");
   const validates = (values) => {
     const errors = {};
-    // if (!values.username) {
-    //   errors.username = "Required";
-    // }
+    if (!values.username) {
+      errors.username = "Required";
+    }
     if (!values.email) {
       errors.email = "Required";
     }
