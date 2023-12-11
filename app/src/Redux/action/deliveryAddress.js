@@ -5,7 +5,7 @@ import { apiBasePath } from "../config/Config";
 export const axiosInstance = axios.create({
   baseURL: apiBasePath,
   headers: {
-    "Content-Type": "application/json",
+    // "Content-Type": "application/json",  
   },
 });
 
@@ -24,3 +24,23 @@ export const deliveryGetAction = createAsyncThunk(
     return data1.data;
   }
 );
+
+// address update delete
+
+export const updateAddress = createAsyncThunk(
+  "updateAddress",
+  async (payload) => {
+    const data1 = await axiosInstance.post(`/updateaddress`, payload);
+    return data1.data;
+  }
+);
+
+export const deleteAddress = createAsyncThunk(
+  "deleteAddress",
+  async (payload) => {
+    const data1 = await axiosInstance.post(`/addressdelete`, payload);
+    return data1.data;
+  }
+)
+
+

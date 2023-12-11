@@ -141,11 +141,6 @@ const Usernavbar = () => {
                               <Row>
                                 {navcategorydata &&
                                   navcategorydata?.map((item, index) => {
-                                    console.log(
-                                      item?.category,
-                                      "qweqweqweqwewq"
-                                    );
-
                                     return (
                                       <Col
                                         md={6}
@@ -212,20 +207,20 @@ const Usernavbar = () => {
                                   className=" carddecorationnone_cat color"
                                   to="/profile"
                                 >
-                                  <MdOutlineAccountCircle /> {userData.username}
+                                  <MdOutlineAccountCircle className="usericons" /> {userData.username}
                                 </Link>
                               </li>
-                              <li>
-                                <BiSolidPurchaseTag /> My Orders
+                              <li className="sign_hover">
+                                <BiSolidPurchaseTag className="usericons" /> My Orders
                               </li>
-                              <li>
-                                <AiTwotoneHeart /> My Wishlist
+                              <li className="sign_hover">
+                                <AiTwotoneHeart className="usericons" /> My Wishlist
                               </li>
                               <li
                                 onClick={() => logoutClick()}
                                 className="sign_hover"
                               >
-                                <BiLogOut /> Logout
+                                <BiLogOut className="usericons" /> Logout
                               </li>
                             </ul>
                           </div>
@@ -236,7 +231,7 @@ const Usernavbar = () => {
                                 onClick={() => SignClick()}
                                 className="sign_hover"
                               >
-                                <AiTwotoneHeart />
+                                {/* <AiTwotoneHeart /> */}
                                 Sign In
                               </li>
                             </ul>
