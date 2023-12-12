@@ -11,6 +11,7 @@ const specification = require("../models/specificationSchema");
 const SchemaOrder = require("../models/OrderSummary");
 const MasterFilerTable = require("../models/MasterFilter");
 const fs = require("fs");
+const speccificationsubcatetable = require("../models/specificationTypecat");
 dotenv.config();
 
 const postproduct = expressAsyncHandler(async (req, res) => {
@@ -293,12 +294,11 @@ const deleteProduct = expressAsyncHandler(async (req, res) => {
       // console.log("deleteProduct", "thumbnail images",thumbnail,images)
     }
     res.json(deletedProduct);
-    console.log("delete done");
+
   } catch (error) {
     res.status(500).json({ message: "Server error" });
   }
 });
-
 // api category and subcategory,brand for admin filter
 const getfilter = expressAsyncHandler(async (req, res) => {
   const {
@@ -556,87 +556,72 @@ const getSingleProduct = expressAsyncHandler(async (req, res) => {
 });
 
 // filter
-const filterall = expressAsyncHandler(async (req, res) => {
-  try {
-    const categoryId = req.query.categoryId; // Query parameter for category
-    const subcategoryId = req.query.subcategoryId; // Query parameter for subcategory
-    const brandId = req.query.brandId; // Query parameter for brand
-    const minPrice = parseFloat(req.query.minPrice); // Query parameter for minimum price
-    const maxPrice = parseFloat(req.query.maxPrice); // Query parameter for maximum price
-    const minDiscount = parseFloat(req.query.minDiscount); // Query parameter for minimum discount percentage
+const filterAll = expressAsyncHandler(async (req, res) => {
 
-    // Build the filter object based on the query parameters
+  try {
+
+    const categoryId = req.query.categoryId;
+    const subcategoryId = req.query.subcategoryId;
+    const brandId = req.query.brandId;
+    const minPrice = parseFloat(req.query.minPrice);
+    const maxPrice = parseFloat(req.query.maxPrice);
+    const minDiscount = parseFloat(req.query.minDiscount);
+
     const filter = {};
 
-    if (categoryId) {
+    // Validation and assignment
+    if (categoryId && mongoose.Types.ObjectId.isValid(categoryId)) {
       filter.category = new mongoose.Types.ObjectId(categoryId);
     }
+    console.log(filter, "categoryId")
 
-    if (subcategoryId) {
+    if (subcategoryId && mongoose.Types.ObjectId.isValid(subcategoryId)) {
       filter.subcategory = new mongoose.Types.ObjectId(subcategoryId);
+
     }
 
-    if (brandId) {
+
+    if (brandId && mongoose.Types.ObjectId.isValid(brandId)) {
       filter.brand = new mongoose.Types.ObjectId(brandId);
     }
 
-    if (!isNaN(minPrice) && !isNaN(maxPrice)) {
+    // Filtering based on price range
+    if (!isNaN(minPrice) && !isNaN(maxPrice) && minPrice <= maxPrice) {
       filter.price = {
         $gte: minPrice,
         $lte: maxPrice,
       };
     }
 
-    if (!isNaN(minDiscount)) {
+    // Filtering based on minimum discount
+    if (!isNaN(minDiscount) && minDiscount >= 0 && minDiscount <= 100) {
       filter.discountpercentage = {
         $gte: minDiscount,
       };
     }
-    console.log(filter, "ddddddddd");
-    // Use the Mongoose model for Userproducts to apply the filter
+    if (Object.keys(filter).length === 0) {
+      return res.status(400).json({ message: "No filter criteria provided" });
+    }
+
     const products = await Userproducts.aggregate([
-      {
-        $match: filter,
-      },
-      {
-        $lookup: {
-          from: "categorytables",
-          localField: "category",
-          foreignField: "_id",
-          as: "category",
-        },
-      },
-      {
-        $lookup: {
-          from: "subcategorytables",
-          localField: "subcategory",
-          foreignField: "_id",
-          as: "subcategory",
-        },
-      },
-      {
-        $lookup: {
-          from: "brandtables",
-          localField: "brand",
-          foreignField: "_id",
-          as: "brand",
-        },
-      },
+      { $match: filter },
+      { $lookup: { from: "categorytables", localField: "category", foreignField: "_id", as: "category" } },
+      { $lookup: { from: "subcategorytables", localField: "subcategory", foreignField: "_id", as: "subcategory" } },
+      { $lookup: { from: "brandtables", localField: "brand", foreignField: "_id", as: "brand" } },
     ]);
+    console.log(products, "dfdfdfdddffd")
 
     if (products.length > 0) {
-      // Return the filtered products
       res.status(200).json(products);
     } else {
-      res
-        .status(404)
-        .json({ message: "No products found for the given filters" });
+      res.status(404).json({ message: "No products found for the given filters" });
     }
   } catch (error) {
     console.error("Error:", error);
     res.status(500).json({ error: error.message, message: "Server error" });
   }
 });
+
 
 // spacifeaction create
 
@@ -912,6 +897,91 @@ const masterTablecreater = expressAsyncHandler(async (req, res) => {
       .json({ message: "An error occurred", error: error.message });
   }
 });
+const spacifeactionPost = expressAsyncHandler(async (req, res) => {
+  try {
+    const { category_id, subcategory, type_subcategory_id, name } = req.body;
+    if (category_id && subcategory && type_subcategory_id && name) {
+      console.log("first");
+      const create = new speccificationsubcatetable({
+        category_id: category_id,
+        subcategory: subcategory,
+        type_subcategory_id: type_subcategory_id,
+        name: Array.isArray(name) ? name : [name], // Ensure name is an array
+      });
+      await create.save();
+      res.status(200).send({ success: true, data: create });
+    } else {
+      res.status(400).send({
+        success: false,
+        msg: "Payload is missing category_id, subcategory, type_subcategory_id, or name",
+      });
+    }
+  } catch (error) {
+    res.status(500).send({ error: error.message, success: false });
+  }
+});
+
+const spacifeactionget = expressAsyncHandler(async (req, res) => {
+  try {
+    const getdata = await speccificationsubcatetable.find()
+    res.status(200).send({ data: getdata, success: true })
+  } catch (error) {
+    res.status(500).send({ error: error.message, success: false });
+  }
+});
+const spacifeactiongetbyId = expressAsyncHandler(async (req, res) => {
+  try {
+    const { spacifeactiongetbyId } = req.body
+
+    // res.status(200).send({  })
+
+
+  } catch (error) {
+    res.status(500).send({ error: error, success: false })
+  }
+})
+
+const specificationupdate = expressAsyncHandler(async (req, res) => {
+  try {
+    const { specificationID, ...name } = req.body;
+
+    if (specificationID) {
+      const find = await speccificationsubcatetable.findByIdAndUpdate(
+        specificationID,
+        { $set: name },
+        { new: true }
+      );
+
+      if (find) {
+        res.status(200).send({ success: true, data: find });
+      } else {
+        res.status(404).send({ success: false, msg: "Specification not found" });
+      }
+    } else {
+      res.status(400).send({ msg: "Please provide specificationID", success: false });
+    }
+  } catch (error) {
+    res.status(500).send({ error: error.message, success: false });
+  }
+});
+const specificationdelete = expressAsyncHandler(async (req, res) => {
+  try {
+    const { specificationID } = req.body
+
+    if (specificationID) {
+
+      const deleteby = await speccificationsubcatetable.findByIdAndDelete(specificationID)
+
+      res.status(200).send({ msg: "deleted", success: true })
+    } else {
+      res.status(201).send({ msg: "give specificationID" })
+    }
+
+
+  } catch (error) {
+    res.status(500).send({ error: error, success: false })
+  }
+})
 
 module.exports = {
   postproduct,
@@ -921,7 +991,7 @@ module.exports = {
   subcategoryfilter,
   updateproduct,
   getSingleProduct,
-  filterall,
+  filterAll,
   specificationpost,
   updateProductspecificationpost,
   orderSummary,
@@ -929,4 +999,10 @@ module.exports = {
   spacifeaction,
   masterTablecreater,
   getorderSummary,
+  spacifeactionPost,
+  spacifeactionget,
+  specificationupdate,
+  specificationdelete,
+  spacifeactiongetbyId
 };
+
