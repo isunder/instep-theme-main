@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { deleteAddress, deliveryGetAction, deliveryaddress, updateAddress } from '../../../Redux/action/deliveryAddress';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserId } from '../../../utils/auth';
-import { Col, Dropdown, Row } from 'react-bootstrap';
+import { Button, Col, Dropdown, Modal, Row } from 'react-bootstrap';
 import { BsPlusCircleFill } from 'react-icons/bs';
 import { Form, Field } from "react-final-form";
 import RadioInput from '../placeOrder/radioButton';
@@ -39,6 +39,7 @@ const AddressBook = () => {
     dispatch(deleteAddress({ tableid: _id })).then((res) => {
       if (res?.payload?.success) {
         dispatch(deliveryGetAction({ "userID": dataId }))
+        handleClose();
       }
     })
   }
@@ -113,12 +114,18 @@ const AddressBook = () => {
       initialValues.state = addressdata[editAddressIndex - 1] && addressdata[editAddressIndex - 1].state
       initialValues.landmark = addressdata[editAddressIndex - 1] && addressdata[editAddressIndex - 1].landmark
       initialValues.AlternateNumber = addressdata[editAddressIndex - 1] && addressdata[editAddressIndex - 1].AlternateNumber
+      initialValues.addresstype = addressdata[editAddressIndex - 1] && addressdata[editAddressIndex - 1].addresstype
       initialValues.tableid = addressdata[editAddressIndex - 1] && addressdata[editAddressIndex - 1]._id
     } else {
       initialValues = ("")
     }
     return initialValues;
   }
+
+  const [show, setShow] = useState(false);
+
+  const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false);
 
   return (
     <>
@@ -143,7 +150,7 @@ const AddressBook = () => {
               </div>}
             <Form
               onSubmit={handleSubmit}
-              // validate={validate}
+              validate={validate}
               initialValues={useMemo((e) => init(e), [editAddressIndex])}
               render={({
                 handleSubmit,
@@ -311,10 +318,19 @@ const AddressBook = () => {
                       </div>
                       <button
                         type="submit"
-                        // value="use my current location"
                         className="addresslocation margin_bottom"
                       >
                         {editAddressIndex ? "UPDATE" : "SAVE"}
+                      </button>
+                      <button
+                        type="cancel"
+                        className="addresslocation cancel_button margin_bottom "
+                        onClick={() => {
+                          setFormVisible(false)
+                          setEditAddressIndex(null)
+                        }}
+                      >
+                        cancel
                       </button>
                     </form>
                   )}
@@ -365,10 +381,41 @@ const AddressBook = () => {
                                 <Dropdown.Item href="#/action-2">
                                   <button
                                     className="editdeleter_button"
-                                    onClick={() => handleRemoveAddress(e._id)}
+                                    onClick={() => handleShow()}
                                   >
                                     <AiOutlineDelete /> delete
                                   </button>
+                                  <Modal
+                                    className="removerfromcart_modal"
+                                    aria-labelledby="contained-modal-title-vcenter"
+                                    centered
+                                    show={show}
+                                    onHide={handleClose}
+                                  >
+                                    <Modal.Header closeButton>
+                                      <Modal.Title>Remove Item</Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>
+                                      Are you sure you want to remove this item
+                                      ?
+                                    </Modal.Body>
+                                    <Modal.Footer>
+                                      <Button
+                                        className="cancelbut_removecart"
+                                        variant="secondary"
+                                        onClick={handleClose}
+                                      >
+                                        CANCEL
+                                      </Button>
+                                      <Button
+                                        className="removebut_cart"
+                                        variant="primary"
+                                        onClick={() => handleRemoveAddress(e._id)}
+                                      >
+                                        REMOVE
+                                      </Button>
+                                    </Modal.Footer>
+                                  </Modal>
                                 </Dropdown.Item>
                               </Dropdown.Menu>
                             </Dropdown>
@@ -382,7 +429,7 @@ const AddressBook = () => {
             </Row>
           </Col>
         </Row >
-      </div>
+      </div >
     </>
   )
 }
