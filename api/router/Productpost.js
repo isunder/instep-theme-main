@@ -23,7 +23,7 @@ router.post("/updateproducts", upload.fields([
 router.post("/singleproduct", postproductcontroller.getSingleProduct)
 router.post("/productsdlt", postproductcontroller.deleteProduct)
 
-router.post("/filteralldata", postproductcontroller.filterall)
+router.post("/filteralldata", postproductcontroller.filterAll)
 // spacifeactionpost
 router.post("/productinfo", postproductcontroller.specificationpost)
 // update
@@ -33,6 +33,16 @@ router.post("/orderSummary", postproductcontroller.orderSummary)
 router.post("/getorderSummary", postproductcontroller.getorderSummary)
 router.post("/masterfilter", postproductcontroller.spacifeaction)
 router.post("/createmastertable", postproductcontroller.masterTablecreater)
+router.post("/specificationpost", postproductcontroller.spacifeactionPost)
+router.get("/specificationget", postproductcontroller.spacifeactionget)
+router.post("/specificationupdate", postproductcontroller.specificationupdate)
+router.post("/specificationdelete", postproductcontroller.specificationdelete)
+router.post("/spacifeactiongetbyId", postproductcontroller.spacifeactiongetbyId)
+
+
+
+
+
 
 
 module.exports = router;

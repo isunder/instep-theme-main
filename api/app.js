@@ -17,14 +17,15 @@ const afterbuying = require("./models/afterbuying");
 const registerRoutes = require("./router/registerRoutes");
 const loginRoutes = require("./router/loginRouters");
 const postProductRouters = require("./router/Productpost");
-const addnewcategory = require("./router/categoryRought");
+const addnewcategory = require("./router/categoryRouter");
 const addnewSubcategory = require("./router/subCategory");
-const addnewbrand = require("./router/BrandRought");
-const addtocart = require("./router/addtocartRought");
+const addnewbrand = require("./router/BrandRouter");
+const addtocart = require("./router/addtocartRouter");
 const typesubcategory = require("./router/typeSubcat");
 const razorpay = require("./router/razorpay");
 const address = require("./router/addressroute");
 const profile = require("./router/useres/profilesRoute");
+const wishList =require("./router/wishlistRouter")
 
 dotenv.config();
 
@@ -65,6 +66,8 @@ server.use("/api", razorpay);
 server.use("/api", address);
 
 server.use("/api", profile);
+server.use("/api", wishList);
+
 
 ////25/08
 server.post("/api/Search", async (req, res) => {
