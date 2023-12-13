@@ -24,12 +24,24 @@ const SignIn = () => {
 
   const onSubmit = (values, res) => {
     dispatch(loginAction(values)).then((response) => {
-      console.log(response,'response')
+      console.log(response, "response");
+      const datas = response.payload?.loginStatus;
+      console.log(datas, "datassss");
+      const data1 = response;
+      console.log(data1, "wahpona");
+      const datass = response.payload.err;
+      console.log(datass, "dataww");
       Token = response.payload.token;
       console.log(Token, "tokenes");
       localStorage.setItem("token", JSON.stringify(Token));
       console.log(values, "token");
-      window.location.href= "http://localhost:3000";
+      if (datas === true) {
+        window.location.href = "http://localhost:3000";
+      } else {
+        alert(datass);
+      }
+
+      // window.location.href = "http://localhost:3000";
     });
   };
 
