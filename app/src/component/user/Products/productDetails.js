@@ -9,10 +9,8 @@ import { BsTags } from "react-icons/bs";
 import { CiLocationOn } from "react-icons/ci";
 import { PiShoppingCartFill } from "react-icons/pi";
 import { BsFillLightningFill } from "react-icons/bs";
-// import { updateProduct } from "../../../Redux/action/updateProductAction";
 import { addToCartAction } from "../../../Redux/action/addToCartAction";
 import { getUserId } from "../../../utils/auth";
-// import ReactImageMagnify from "react-image-magnify";
 import ReactImageMagnify from "react-image-magnify";
 import { singleproduct } from "../../../Redux/action/getsingleProduct";
 
@@ -24,21 +22,16 @@ const ProductDetails = () => {
   console.log(_id, "adsdsds");
   console.log(userData, "useeeeeeeeeeeeeee");
 
-  //   const details = useSelector((state) => state.slicedetails.listdata);
 
   const productDetail = useSelector((state) => state?.singleproduct?.listdata);
   console.log(productDetail, "sdsdsdsds");
 
-  // const Check = useSelector((state) => state?.updateProductData);
-  // console.log(Check, "check");
 
   const cartData = useSelector((state) => state?.addToCartFile);
   console.log(cartData, "kkk");
 
   const [imageState, setImageState] = useState();
-  // console.log(productDetail?.images[0][0], "datas");
 
-  // images
 
   useEffect(() => {
     dispatch(singleproduct({ _id }));
@@ -54,11 +47,9 @@ const ProductDetails = () => {
     dispatch(addToCartAction(apiObject)).then((res) => {
       navigate("/addtocart");
     });
-    console.log(cartData, "added to cart");
   };
 
   const buyClick = (_id) => {
-    console.log(_id, "rrrr");
   };
 
   console.log(productDetail?.images, `wopjveddwo`);
@@ -82,9 +73,9 @@ const ProductDetails = () => {
                           ? imageState
                           : `http://localhost:5000/uploads/${imageState}`
                         : productDetail?.images?.length > 0 &&
-                          (productDetail?.images[0].split("http").length > 1
-                            ? productDetail?.images[0]
-                            : `http://localhost:5000/uploads/${productDetail?.images[0]}`),
+                        (productDetail?.images[0].split("http").length > 1
+                          ? productDetail?.images[0]
+                          : `http://localhost:5000/uploads/${productDetail?.images[0]}`),
                     },
                     largeImage: {
                       src: imageState
@@ -92,9 +83,9 @@ const ProductDetails = () => {
                           ? imageState
                           : `http://localhost:5000/uploads/${imageState}`
                         : productDetail?.images?.length > 0 &&
-                          (productDetail?.images[0].split("http").length > 1
-                            ? productDetail?.images[0]
-                            : `http://localhost:5000/uploads/${productDetail?.images[0]}`),
+                        (productDetail?.images[0].split("http").length > 1
+                          ? productDetail?.images[0]
+                          : `http://localhost:5000/uploads/${productDetail?.images[0]}`),
                       width: 1800,
                       height: 1800,
                     },
@@ -149,7 +140,7 @@ const ProductDetails = () => {
                         </div>
                       </Button>
                     </div>
-                    {}
+                    { }
                     <div className="twobuttondiv">
                       {/* <Link to={"/deliverydetail"}>
                         <Button className="bynow_button">
