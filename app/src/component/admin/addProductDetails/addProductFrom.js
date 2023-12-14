@@ -583,6 +583,17 @@ const ProductForm = () => {
                                 required
                               />
                             </Col>
+                            <Col lg={4} md={6} sm={6}>
+                              <h6>Tax</h6>
+                              <Field
+                                className="descirption_box price_flex"
+                                name="tax"
+                                component="input"
+                                type="text"
+                                placeholder="  "
+                                required
+                              />
+                            </Col>
                           </Row>
                         </Col>
                       </Row>
