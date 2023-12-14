@@ -296,7 +296,6 @@ const Delieverydetail = () => {
     }
   }
   console.log("Paymentdetails:", paymentDetails);
-
   if (razorPaymentId) {
     const payloads = {
       userid: dataId,
@@ -307,10 +306,8 @@ const Delieverydetail = () => {
       quantity: 1,
     };
     console.log(payloads, "payloads");
-
     dispatch(Afterorder(payloads));
-  }
-
+  }, [dispatch]);
   useEffect(() => {
     if (isLoaded) {
       handlePayment();
