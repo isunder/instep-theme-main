@@ -123,11 +123,13 @@ const Home = () => {
                         </Col> */}
                             {/* <p>{item.name}</p> */}
                             <div className="margin_bottom">
-                              <img
-                                className="slide_img"
-                                src={`http://localhost:5000/slider/${item?.images[0]}`}
-                                alt="Second sslide"
-                              />
+                              <a href="#">
+                                <img
+                                  className="slide_img"
+                                  src={`http://localhost:5000/slider/${item?.images[0]}`}
+                                  alt="Second sslide"
+                                />
+                              </a>
                             </div>
                           </Carousel.Item>
                         );
@@ -284,8 +286,8 @@ const Home = () => {
                                           ? item?.image
                                           : item?.thumbnail.split(":").length >
                                             1
-                                            ? item?.thumbnail
-                                            : `http://localhost:5000/uploads/${item.thumbnail}`
+                                          ? item?.thumbnail
+                                          : `http://localhost:5000/uploads/${item.thumbnail}`
                                       }
                                     />
                                   </div>
@@ -381,8 +383,8 @@ const Home = () => {
                                       e?.image
                                         ? e?.image
                                         : e?.thumbnail.split(":").length > 1
-                                          ? e?.thumbnail
-                                          : `http://localhost:5000/uploads/${e.thumbnail}`
+                                        ? e?.thumbnail
+                                        : `http://localhost:5000/uploads/${e.thumbnail}`
                                     }
                                   />
                                 </div>
@@ -478,8 +480,8 @@ const Home = () => {
                                       e?.image
                                         ? e?.image
                                         : e?.thumbnail.split(":").length > 1
-                                          ? e?.thumbnail
-                                          : `http://localhost:5000/uploads/${e.thumbnail}`
+                                        ? e?.thumbnail
+                                        : `http://localhost:5000/uploads/${e.thumbnail}`
                                     }
                                   />
                                 </div>
@@ -527,8 +529,8 @@ const Home = () => {
                                       item?.image
                                         ? item?.image
                                         : item?.thumbnail.split(":").length > 1
-                                          ? item?.thumbnail
-                                          : `http://localhost:5000/uploads/${item.thumbnail}`
+                                        ? item?.thumbnail
+                                        : `http://localhost:5000/uploads/${item.thumbnail}`
                                     }
                                   />
                                   <div className="cloths_detail">
@@ -623,8 +625,8 @@ const Home = () => {
                                       item?.image
                                         ? item?.image
                                         : item?.thumbnail.split(":").length > 1
-                                          ? item?.thumbnail
-                                          : `http://localhost:5000/uploads/${item.thumbnail}`
+                                        ? item?.thumbnail
+                                        : `http://localhost:5000/uploads/${item.thumbnail}`
                                     }
                                     alt=""
                                   />

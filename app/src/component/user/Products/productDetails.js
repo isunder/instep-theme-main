@@ -46,19 +46,29 @@ const ProductDetails = () => {
   console.log(productDetail, "productDetailproductDetail");
   console.log(productDetail._id, "hhhhhhhhhhh");
   const cartClick = (asd) => {
-    let apiObject = {
-      productid: productDetail._id,
-      userid: userData.id,
-      quantity: 1,
-    };
-    dispatch(addToCartAction(apiObject)).then((res) => {
-      navigate("/addtocart");
-    });
+    if (userData == null) {
+      navigate("/signin");
+    } else {
+      let apiObject = {
+        productid: productDetail._id,
+        userid: userData.id,
+        quantity: 1,
+      };
+      dispatch(addToCartAction(apiObject)).then((res) => {
+        navigate("/addtocart");
+      });
+    }
     console.log(cartData, "added to cart");
   };
 
-  const buyClick = (_id) => {
-    console.log(_id, "rrrr");
+  const buyClick = (e) => {
+    if (userData == null) {
+      navigate("/signin");
+    } else {
+      navigate(`/deliverydetail/${_id}`);
+    }
+
+    // console.log(_id, "rrrr");
   };
 
   console.log(productDetail?.images, `wopjveddwo`);
@@ -157,16 +167,15 @@ const ProductDetails = () => {
                           NOW
                         </Button>
                       </Link> */}
-                      <Link to={`/deliverydetail/${_id}`}>
-                        <Button
-                          className="bynow_button"
-                          data-bs-target="#collapseOne"
-                          onClick={() => buyClick()}
-                        >
-                          <BsFillLightningFill className="buy_Addicon" /> BUY
-                          NOW
-                        </Button>
-                      </Link>
+                      {/* <Link to={`/deliverydetail/${_id}`}> */}
+                      <Button
+                        className="bynow_button"
+                        data-bs-target="#collapseOne"
+                        onClick={() => buyClick()}
+                      >
+                        <BsFillLightningFill className="buy_Addicon" /> BUY NOW
+                      </Button>
+                      {/* </Link> */}
                     </div>
                   </div>
                 </Card.Text>

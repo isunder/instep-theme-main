@@ -159,6 +159,9 @@ const Delieverydetail = () => {
     return errors;
   };
 
+  const defaultAccord = 0;
+  console.log(defaultAccord, "aaasmqxs");
+
   // For radio button
 
   const [selectedAddressType, setSelectedAddressType] = useState("Home");
@@ -307,7 +310,7 @@ const Delieverydetail = () => {
     <>
       <div className="container">
         <div className=" slider_col margin_bottom">
-          <Accordion defaultActiveKey="2">
+          <Accordion defaultActiveKey={defaultAccord}>
             <Row>
               <Col lg={9}>
                 <div className=" margin_bottom">
