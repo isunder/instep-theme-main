@@ -546,7 +546,7 @@ const ProductForm = () => {
                                 component="input"
                                 type="number"
                                 step="0.01"
-                                placeholder="$"
+                                placeholder="₹"
                                 required
                               />
                             </Col>

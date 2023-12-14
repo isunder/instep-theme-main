@@ -143,51 +143,73 @@ const Home = () => {
                 <Col lg={12}>
                   <div className="margin_bottom">
                     <h2 className="ourtopcategories_home margin_bottom">
-                      Our Best Categories
+                      Our   Categories
                     </h2>
                     <div className="category_borderdiv">
-                      <Row>
-                        {allcatgorydata &&
-                          allcatgorydata?.slice(0, 6)?.map((e) => {
-                            return (
-                              <>
-                                <Col lg={2} md={4} sm={4}>
-                                  <Link
-                                    className="carddecorationnone_cat"
-                                    to={`/category/${e._id}`}
-                                  >
-                                    <Card className="cat_card_homep ">
-                                      <div className="hoveron_arrow">
-                                        <div className="top_catcard">
-                                          <div className="pos_catimage">
-                                            <img
-                                              className="topcatimage_home"
-                                              src={`http://localhost:5000/categoryimg/${e.images}`}
-                                              alt=""
-                                            />
-                                          </div>
-                                          <p>{e?.category}</p>
-                                        </div>
-                                        <div className="hoverarrow_direc">
-                                          <div className="right_bottomborder">
-                                            <FiArrowUpRight className="arrow-icon" />
-                                          </div>
+                      <Swiper
+                        modules={[Navigation]}
+                        spaceBetween={10}
+                        className="ourcate_swiper"
+                        navigation
+                        pagination={{ clickable: true }}
+                        onSwiper={(swiper) => console.log(swiper)}
+                        onSlideChange={() => console.log("slide change")}
+                        breakpoints={{
+                          320: {
+                            slidesPerView: 2,
+                          },
+                          480: {
+                            slidesPerView: 3,
+                          },
+                          768: {
+                            slidesPerView: 4,
+                          },
+                          1024: {
+                            slidesPerView: 6,
+                          },
+                        }}
+                      >
+                        {allcatgorydata && allcatgorydata?.map((e) => {
+
+                          return (
+                            <SwiperSlide className="" key={e?.id}>
+                              <Link
+                                className="carddecorationnone_cat"
+                                to={`/category/${e._id}`}
+                              >
+                                <Card className="cat_card_homep">
+                                  <div className="hoveron_arrow">
+                                    <div className="top_catcard">
+                                      <div className="pos_catimage">
+                                        <img
+                                          className="topcatimage_home"
+                                          src={`http://localhost:5000/categoryimg/${e.images}`}
+                                          alt=""
+                                        />
+                                      </div>
+                                      <p>{e?.category}</p>
+                                    </div>
+                                    <div className="hoverarrow_direc">
+                                      <div className="right_bottomborder">
+                                        <div>
+                                          <FiArrowUpRight className="arrow-icon" />
                                         </div>
                                       </div>
-                                    </Card>
-                                  </Link>
-                                </Col>
-                              </>
-                            );
-                          })}
-                      </Row>
+                                    </div>
+                                  </div>
+                                </Card>
+                              </Link>
+                            </SwiperSlide>
+                          );
+                        })}
+                      </Swiper>
                     </div>
                   </div>
                 </Col>
               </Row>
             </div>
-            <Row>
-              <h2 className="ourtopcategories_home"> Top Trending Products</h2>
+            {/* <Row>
+              <h2 className="ourtopcategories_home"> Trending Products</h2>
               {banner?.map((item, index) => {
                 return (
                   <>
@@ -210,7 +232,7 @@ const Home = () => {
                   </>
                 );
               })}
-            </Row>
+            </Row> */}
             <div className="homeelectnics_carouse margin_bottom">
               <Row>
                 <Col lg={2} className="fistcardof_elct">
@@ -218,7 +240,7 @@ const Home = () => {
                     <div className="fistcardof_elct">
                       <div className="viewallcard_div">
                         <Card.Text className="text-center">
-                          <h5>Best Of Electronics</h5>
+                          <h5> Electronics</h5>
                         </Card.Text>
                         <Link
                           className=""
@@ -317,7 +339,7 @@ const Home = () => {
                     <div className="fistcardof_elct">
                       <div className="viewallcard_div">
                         <Card.Text className="text-center">
-                          <h5>Best Of Home Appliances</h5>
+                          <h5> Home Appliances</h5>
                         </Card.Text>
                         <Link
                           className="carddecorationnone_cat"
@@ -508,19 +530,23 @@ const Home = () => {
               <Row>
                 <Col lg={4} md={6}>
                   <div className="homefashion_border">
-                    <div className="d-flex justify-content-between ">
-                      <h5>Men's Top Fashion</h5>
-                      <AiFillRightCircle className="topcategoies_icon" />
-                    </div>
+                    <Link
+                      className="text_decoration"
+                      to={`/category/${men[0]?.category[0]?._id}`}
+                    >
+                      <div className="d-flex justify-content-between ">
+                        <h5>Men's Fashion</h5>
+                        <AiFillRightCircle className="topcategoies_icon" />
+                      </div>
+                    </Link>
                     <Row>
                       {men?.map((item, index) => {
                         return (
                           index < 4 && (
                             <Col lg={6} md={6}>
-                              <div className="my-2" key={index}>
+                              <div className="my-2" key={index} onClick={() => navigate(`/productdetail/${item?._id}`)}>
                                 <div
                                   className="hometop_fashionbo_der"
-                                  onClick={() => handleClick(item)}
                                 >
                                   <img
                                     className="homedecorimag_e"
@@ -545,78 +571,28 @@ const Home = () => {
                           )
                         );
                       })}
-
-                      {/* <Col lg={6} md={6}>
-                        <div className="my-2">
-                          <div className="hometop_fashionbo_der">
-                            <img
-                              className="homedecorimag_e"
-                              variant="top"
-                              src={
-                                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmjjL3hu_1k-cJqcsjBHnvwgMZYB3vOG597A&usqp=CAU"
-                              }
-                              alt=""
-                            />
-                            <div className="cloths_detail">
-                              <p className="crad_text">T-Shirt</p>
-                              <p> 15% off</p>
-                            </div>
-                          </div>
-                        </div>
-                      </Col> */}
                     </Row>
-                    {/* <Row>
-                      <Col lg={6} md={6}>
-                        <div className="my-2">
-                          <div className="hometop_fashionbo_der">
-                            <img
-                              className="homedecorimag_e"
-                              variant="top"
-                              src={
-                                "https://m.media-amazon.com/images/I/61ai5LmB5QL._AC_UY1000_.jpg"
-                              }
-                              alt=""
-                            />
-                            <div className="cloths_detail">
-                              <p className="crad_text">T-Shirt</p>
-                              <p> 15% off</p>
-                            </div>
-                          </div>
-                        </div>
-                      </Col>
-                      <Col lg={6} md={6}>
-                        <div className="my-2">
-                          <div className="hometop_fashionbo_der">
-                            <img
-                              className="homedecorimag_e"
-                              variant="top"
-                              src={
-                                "https://media.istockphoto.com/id/471188329/photo/plain-red-tee-shirt-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=h1n990JR40ZFbPRDpxKppFziIWrisGcE_d9OqkLVAC4="
-                              }
-                              alt=""
-                            />
-                            <div className="cloths_detail">
-                              <p className="crad_text">T-Shirt</p>
-                              <p> 15% off</p>
-                            </div>
-                          </div>
-                        </div>
-                      </Col>
-                    </Row> */}
                   </div>
                 </Col>
                 <Col lg={4} md={6}>
                   <div className="homefashion_border">
-                    <div className="d-flex justify-content-between ">
-                      <h5>Women's Top Fashion</h5>
-                      <AiFillRightCircle className="topcategoies_icon" />
-                    </div>
+                    <Link
+                      className="text_decoration"
+                      to={`/category/${women[0]?.category[0]?._id}`}
+                    >
+                      <div className="d-flex justify-content-between ">
+                        <h5>Women's Fashion</h5>
+                        <AiFillRightCircle className="topcategoies_icon" />
+                      </div>
+                    </Link>
                     <Row>
-                      {women.map((item, index) => {
+                      {women?.map((item, index) => {
+                        console.log(item, 'fwiueln')
                         return (
                           index < 4 && (
                             <Col lg={6} md={6}>
-                              <div className="my-2" key={index}>
+                              <div className="my-2" key={index} onClick={() => navigate(`/productdetail/${item?._id}`)}>
+
                                 <div className="hometop_fashionbo_der">
                                   <img
                                     className="homedecorimag_e"
@@ -642,107 +618,51 @@ const Home = () => {
                           )
                         );
                       })}
-                      {/* <Col lg={6} md={6}>
-                        <div className="my-2">
-                          <div className="hometop_fashionbo_der">
-                            <img
-                              className="homedecorimag_e"
-                              variant="top"
-                              src={
-                                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRALWyoMNY3B9QCvUlWUYlYHTZZiV56mlrC_-YAARbCc6QHeJCHcUdrPkrxPKndXNjtz1o&usqp=CAU"
-                              }
-                              alt=""
-                            />
-                            <div className="cloths_detail">
-                              <p className="crad_text">T-Shirt</p>
-                              <p> 15% off</p>
-                            </div>
-                          </div>
-                        </div>
-                      </Col> */}
                     </Row>
-                    {/* <Row>
-                      <Col lg={6} md={6}>
-                        <div className="my-2">
-                          <div className="hometop_fashionbo_der">
-                            <img
-                              className="homedecorimag_e"
-                              variant="top"
-                              src={
-                                "https://png.pngtree.com/background/20210709/original/pngtree-fashion-girl-shopping-banner-material-picture-image_860169.jpg"
-                              }
-                              alt=""
-                            />
-                            <div className="cloths_detail">
-                              <p className="crad_text">T-Shirt</p>
-                              <p> 15% off</p>
-                            </div>
-                          </div>
-                        </div>
-                      </Col>
-                      <Col lg={6} md={6}>
-                        <div className="my-2">
-                          <div className="hometop_fashionbo_der">
-                            <img
-                              className="homedecorimag_e"
-                              variant="top"
-                              src={
-                                "https://5.imimg.com/data5/ZY/SW/VU/ANDROID-89787775/screenshot-20190715-114639-01-jpg-500x500.jpg"
-                              }
-                              alt=""
-                            />
-                            <div className="cloths_detail">
-                              <p className="crad_text">T-Shirt</p>
-                              <p> 15% off</p>
-                            </div>
-                          </div>
-                        </div>
-                      </Col>
-                    </Row> */}
                   </div>
                 </Col>
-                <Col lg={4} md={12}>
-                  <div className="homefashion_border">
-                    <div className="sportscontent_align">
-                      <div>
-                        <h2>Stay Fit & Active</h2>
-                      </div>
-                      <div className="margin_bottom shop_roe">
-                        <p>
-                          Shop from our Fitness & Sports Equipment Collection
-                        </p>
-                      </div>
-                      <div>
-                        {allcatgorydata?.map((e) => {
-                          if (e?.category === "Sports") {
-                            return (
-                              <>
-                                <button
-                                  onClick={() => handleExplore(e?._id)}
+                {allcatgorydata?.map((e) => {
+                  if (e?.category === "Sports") {
+                    return (
+                      <>
+                        <Col lg={4} md={12}>
+                          <div className="homefashion_border" onClick={() => handleExplore(e?._id)}>
+                            <div className="sportscontent_align">
+                              <div>
+                                <h2>Stay Fit & Active</h2>
+                              </div>
+                              <div className="margin_bottom shop_roe">
+                                <p>
+                                  Shop from our Fitness & Sports Equipment Collection
+                                </p>
+                              </div>
+                              <div>
+                                {/* <button
+
                                   className="slider_rightbutton margin_bottom"
                                 >
                                   Explore
-                                </button>
-                              </>
-                            );
-                          }
-                        })}
-                      </div>
-                    </div>
-                    <div>
-                      <img
-                        className="homebackground_img"
-                        src="https://img.freepik.com/free-vector/box-full-sport-equipments_1308-37207.jpg?w=2000"
-                        alt=""
-                      />
-                    </div>
-                  </div>
-                </Col>
+                                </button> */}
+                              </div>
+                            </div>
+                            <div>
+                              <img
+                                className="homebackground_img"
+                                src="https://img.freepik.com/free-vector/box-full-sport-equipments_1308-37207.jpg?w=2000"
+                                alt=""
+                              />
+                            </div>
+                          </div>
+                        </Col>
+                      </>
+                    );
+                  }
+                })}
               </Row>
             </div>
           </div>
           <Scrolltotopbutton />
-        </div>
+        </div >
       )}
     </>
   );
