@@ -287,18 +287,18 @@ const Delieverydetail = () => {
     }
   }
   console.log("Paymentdetails:", paymentDetails);
-  // useEffect(() => {
-  //   const payloads = {
-  //     userid: dataId,
-  //     deliveryAddress: addressdata,
-  //     amount: order?.data?.order?.amount,
-  //     payment: razorPaymentId,
-  //     productID: dData?._id,
-  //     quantity: 1,
-  //   };
-  //   console.log(payloads, "payloads");
-  //   dispatch(Afterorder(payloads));
-  // }, [dispatch]);
+  useEffect(() => {
+    const payloads = {
+      userid: dataId,
+      deliveryAddress: addressdata,
+      amount: order?.data?.order?.amount,
+      payment: razorPaymentId,
+      productID: dData?._id,
+      quantity: 1,
+    };
+    console.log(payloads, "payloads");
+    dispatch(Afterorder(payloads));
+  }, [dispatch]);
 
   useEffect(() => {
     if (isLoaded) {

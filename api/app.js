@@ -26,6 +26,7 @@ const razorpay = require("./router/razorpay");
 const address = require("./router/addressroute");
 const profile = require("./router/useres/profilesRoute");
 const wishList =require("./router/wishlistRouter")
+const headerforuser=require("./router/adminRouter")
 
 dotenv.config();
 
@@ -67,6 +68,8 @@ server.use("/api", address);
 
 server.use("/api", profile);
 server.use("/api", wishList);
+server.use("/api", headerforuser);
+
 
 
 ////25/08
@@ -123,7 +126,7 @@ server.post(
       const sliderphotos = new slidertable({
         images: imagesFilenames,
         name: sildername.name,
-        // url: sildername.url,
+        url: sildername.url,
       });
       await sliderphotos.save();
       res.status(200).send("Success: slider images uploaded." + sliderphotos);
