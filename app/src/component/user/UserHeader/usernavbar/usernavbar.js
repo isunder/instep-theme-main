@@ -45,8 +45,8 @@ const Usernavbar = () => {
 
   const logoutClick = () => {
     localStorage.clear();
-    window.location.reload();
-    navigate("/");
+    window.location = window.location.origin;
+    // navigate("/");
   };
 
   const filterdata = useSelector(
@@ -87,7 +87,11 @@ const Usernavbar = () => {
     navigate("/aboutus");
     setShow(false);
   };
-
+  const onKeyDownHandler = (e) => {
+    if (e.keyCode === 13) {
+      handleSearch();
+    }
+  };
   const handleSearch = () => {
     dispatch(searchAction({ name: searchQuery }));
     navigate("/search");
@@ -182,6 +186,7 @@ const Usernavbar = () => {
                                   className="navsearch_input"
                                   placeholder="search"
                                   value={searchQuery}
+                                  onKeyDown={onKeyDownHandler}
                                   onChange={(e) =>
                                     setSearchQuery(e.target.value)
                                   }
@@ -207,14 +212,17 @@ const Usernavbar = () => {
                                   className=" carddecorationnone_cat color"
                                   to="/profile"
                                 >
-                                  <MdOutlineAccountCircle className="usericons" /> {userData.username}
+                                  <MdOutlineAccountCircle className="usericons" />{" "}
+                                  {userData.username}
                                 </Link>
                               </li>
                               <li className="sign_hover">
-                                <BiSolidPurchaseTag className="usericons" /> My Orders
+                                <BiSolidPurchaseTag className="usericons" /> My
+                                Orders
                               </li>
                               <li className="sign_hover">
-                                <AiTwotoneHeart className="usericons" /> My Wishlist
+                                <AiTwotoneHeart className="usericons" /> My
+                                Wishlist
                               </li>
                               <li
                                 onClick={() => logoutClick()}

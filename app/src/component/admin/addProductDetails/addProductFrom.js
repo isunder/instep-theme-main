@@ -112,7 +112,7 @@ const ProductForm = () => {
     // console.log(payload, "ggg");
     console.log(JSON.parse(formData.getAll("userData")), "data");
     dispatch(adminPostProduct(formData)).then((res) => {
-      if (res) {
+      if (res?.payload?.status) {
         formRef.reset();
         toast.success("Successfully !", {
           position: toast.POSITION.TOP_RIGHT,
@@ -124,17 +124,14 @@ const ProductForm = () => {
         // handleImgeFile("")
       }
       console.log(res?.payload?.data?.product?._id, "Response");
+      console.log(res?.payload, "respss");
       // if (res?.payload?.data?.product?._id) {
       //   navigate(`/productspecification/${res?.payload?.data?.product?._id}`);
-      //   // dispatch(spacificAction({ProductID:res?.payload?.data?.product?._id}))
+      //   dispatch(
+      //     spacificAction({ ProductID: res?.payload?.data?.product?._id })
+      //   );
       // }
     });
-
-    toast.success("Successfully !", {
-      position: toast.POSITION.TOP_RIGHT,
-    });
-
-    // console.log(values, "aaaaaaaaaaaaaaaa");
   };
 
   const deleteimage = (index) => {
