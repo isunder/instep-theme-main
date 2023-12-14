@@ -53,10 +53,9 @@ const AddToCartProduct = () => {
       productid: id,
       userid: userData?.id,
       quantity: -1,
-    };
+    }
 
     dispatch(addToCartAction(apiObject)).then((res) => {
-      console.log(res.payload.success, "gopsoa");
       if (res.payload.success) {
         // setLoadingState(true);
         dispatch(cartinfo({ userid: userData.id }));
@@ -202,10 +201,10 @@ const AddToCartProduct = () => {
                                         e?.productDetails[0]?.image
                                           ? e?.productDetails[0]?.image
                                           : e?.productDetails[0]?.thumbnail?.split(
-                                              ":"
-                                            ).length > 1
-                                          ? e?.productDetails[0]?.thumbnail
-                                          : `http://localhost:5000/uploads/${e?.productDetails[0]?.thumbnail}`
+                                            ":"
+                                          ).length > 1
+                                            ? e?.productDetails[0]?.thumbnail
+                                            : `http://localhost:5000/uploads/${e?.productDetails[0]?.thumbnail}`
                                       }
                                       alt=""
                                     />
@@ -234,18 +233,17 @@ const AddToCartProduct = () => {
                                       onClick={() => {
                                         onHandleClickMinus(e?.productid);
                                       }}
-                                      className={`${
-                                        e?.quantity +
-                                          (quantity[e?.productid] || 0) ===
+                                      className={`${e?.quantity +
+                                        (quantity[e?.productid] || 0) ===
                                         1
-                                          ? "pe-none"
-                                          : ""
-                                      }`}
+                                        ? "pe-none"
+                                        : ""
+                                        }`}
                                       style={{
                                         color:
                                           e?.quantity +
                                             (quantity[e?.productid] || 0) ===
-                                          1
+                                            1
                                             ? "#C2C2C6"
                                             : "inherit",
                                       }}
@@ -276,12 +274,12 @@ const AddToCartProduct = () => {
                                     ₹
                                     {quantity[e?.productid]
                                       ? e?.productDetails[0]?.price?.toFixed(
-                                          0
-                                        ) *
-                                        (e?.quantity + quantity[e?.productid])
+                                        0
+                                      ) *
+                                      (e?.quantity + quantity[e?.productid])
                                       : e?.productDetails[0]?.price?.toFixed(
-                                          0
-                                        ) * e?.quantity}
+                                        0
+                                      ) * e?.quantity}
                                   </h5>
                                 </div>
                               </Col>

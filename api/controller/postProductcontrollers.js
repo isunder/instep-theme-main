@@ -931,9 +931,17 @@ const spacifeactionget = expressAsyncHandler(async (req, res) => {
 });
 const spacifeactiongetbyId = expressAsyncHandler(async (req, res) => {
   try {
-    const { spacifeactiongetbyId } = req.body
+    const { type_subcategory_id } = req.body
 
-    // res.status(200).send({  })
+    if (type_subcategory_id) {
+
+      const datafind = await speccificationsubcatetable.find({ type_subcategory_id: type_subcategory_id })
+
+      res.status(200).send({ data: datafind, success: true })
+    } else {
+      res.status(201).send({ msg: "give  type_subcategory_id", success: false })
+
+    }
 
 
   } catch (error) {
@@ -982,6 +990,8 @@ const specificationdelete = expressAsyncHandler(async (req, res) => {
     res.status(500).send({ error: error, success: false })
   }
 })
+
+
 
 module.exports = {
   postproduct,

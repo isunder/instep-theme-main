@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { Col, Row, Table } from 'react-bootstrap'
+import React, { useEffect, useState } from 'react'
+import { Button, Col, Modal, Row, Table } from 'react-bootstrap'
 import { AiFillMessage, AiOutlineHome, AiOutlineShopping } from "react-icons/ai"
 import { FcProcess } from 'react-icons/fc'
 import { MdAccountCircle, MdShoppingCartCheckout } from 'react-icons/md'
@@ -12,11 +12,13 @@ import { BiLogOut } from 'react-icons/bi'
 import { getUserId, isUserLogined } from '../../../utils/auth'
 import Editprofile from '../Editprofile/editprofile'
 import TrackOrder from '../Editprofile/trackOrder'
-import AddressBook from '../Editprofile/addressbook'
 import { useNavigate } from 'react-router-dom'
+import AddressBook from '../Editprofile/addressbook'
 
 export default function Profile() {
     const navigate = useNavigate();
+
+    const [show, setShow] = useState(false);
 
     const userData = getUserId();
     console.log(userData, "usr");
@@ -28,6 +30,7 @@ export default function Profile() {
     const handleLogout = () => {
         localStorage.removeItem('token');
         navigate('/')
+        handleClose();
         window.location.reload()
     };
     const userinfo = useSelector((state) => state?.cartdetails?.listdata)
@@ -40,6 +43,11 @@ export default function Profile() {
     useEffect(() => {
         dispatch(cartinfo({ userid: "64b8ccde661f313c3be26a41" }))
     }, [])
+
+
+
+    const handleShow = () => setShow(true);
+    const handleClose = () => setShow(false);
     return (
         <div className='container'>
             <div className=" slider_col margin_bottom">
@@ -106,7 +114,11 @@ export default function Profile() {
                             <button class="nav-link active " id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true"> <div className='d-flex justify-content-start align-items-center'><MdAccountCircle className='profilemanangeicon' />Edit Profile</div></button>
                             <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">  <div className='d-flex justify-content-start align-items-center'><CiLocationOn className='profilemanangeicon' />Track Order </div></button>
                             <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">  <div className='d-flex justify-content-start align-items-center'><AiOutlineHome className='profilemanangeicon' />Address Book </div></button>
-                            <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">  <div className='d-flex justify-content-start align-items-center'><BiLogOut className='profilemanangeicon' />Log Out </div></button>
+                            <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">
+                                <div className='d-flex justify-content-start align-items-center' onClick={handleShow}>
+                                    <BiLogOut className='profilemanangeicon' />Log Out
+
+                                </div></button>
                         </div>
                     </div>
                 </Col>
@@ -116,11 +128,42 @@ export default function Profile() {
                             <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab"><Editprofile /></div>
                             <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab"><TrackOrder /></div>
                             <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab"><AddressBook /></div>
-                            <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
+                            {/* <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div> */}
                         </div>
                     </div>
                 </Col>
             </Row>
+            <Modal
+                className="removerfromcart_modal"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+                show={show}
+                onHide={handleClose}
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>Logout</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Are you sure you want to logout from this account
+                    ?
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button
+                        className="cancelbut_removecart"
+                        variant="secondary"
+                        onClick={() => handleClose()}
+                    >
+                        CANCEL
+                    </Button>
+                    <Button
+                        className="removebut_cart"
+                        variant="primary"
+                        onClick={handleLogout}
+                    >
+                        LOGOUT
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div >
     )
 }
