@@ -296,18 +296,18 @@ const Delieverydetail = () => {
     }
   }
   console.log("Paymentdetails:", paymentDetails);
-  if (razorPaymentId) {
-    const payloads = {
-      userid: dataId,
-      deliveryAddress: addressdata,
-      amount: order?.data?.order?.amount,
-      payment: razorPaymentId,
-      productID: dData?._id,
-      quantity: 1,
-    };
+  const payloads = {
+    userid: dataId,
+    deliveryAddress: addressdata,
+    amount: order?.data?.order?.amount,
+    payment: razorPaymentId,
+    productID: dData?._id,
+    quantity: 1,
+  };
+  if (razorPaymentId && payloads) {
     console.log(payloads, "payloads");
     dispatch(Afterorder(payloads));
-  }, [dispatch]);
+  }
   useEffect(() => {
     if (isLoaded) {
       handlePayment();
