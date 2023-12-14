@@ -307,7 +307,7 @@ const Delieverydetail = () => {
     };
     console.log(payloads, "payloads");
     dispatch(Afterorder(payloads));
-  }, [dispatch]);
+  }
   useEffect(() => {
     if (isLoaded) {
       handlePayment();
@@ -329,7 +329,7 @@ const Delieverydetail = () => {
           <Accordion
             activeKey={activeKey}
             onSelect={(e) => setactiveKey(e)}
-            // defaultActiveKey={useMemo(()=>eventKeyHandle(),[addressdata])}
+          // defaultActiveKey={useMemo(()=>eventKeyHandle(),[addressdata])}
           >
             {/* <Accordion defaultActiveKey={1}> */}
             <Row>

@@ -48,6 +48,7 @@ import ProductSpecification from "../component/admin/addProductDetails/productSp
 import OrderConfirmation from "../component/user/placeOrder/orderConfirm/orderConfirmation";
 import Trendingproducts from "../component/admin/dashboardPage/sideNavOption/Products/Trendingproducts";
 import Editprofile from "../component/user/Editprofile/editprofile";
+import Headeradmin from "../component/admin/dashboardPage/sideNavOption/Products/Headeradmin";
 
 const role = getUserId() ? getUserId()?.userRole : null;
 // console.log(role, "aaasdfgfds");
@@ -111,6 +112,7 @@ const protects = {
         { path: "/customerdetail", element: <Customer /> },
         { path: "/productspecification/:id", element: <ProductSpecification /> },
         { path: "/trending", element: <Trendingproducts /> },
+        { path: "/Headeradmin", element: <Headeradmin /> },
         { path: "*", element: "NO PAGE FOUND" },
       ],
     },
