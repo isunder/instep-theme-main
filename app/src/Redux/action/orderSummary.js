@@ -10,6 +10,12 @@ export const axiosInstance = axios.create({
 });
 
 export const Afterorder = createAsyncThunk("orderSummary", async (payload) => {
-  const data1 = await axiosInstance.post(`orderSummary`, payload);
-  return data1.data;
+  return axiosInstance.post(`/orderSummary`, payload);
 });
+
+// export const adminPostslider = createAsyncThunk(
+//   "adminPostslider",
+//   async (payload) => {
+//     return axiosInstance.post("/orderSummary", payload);
+//   }
+// );

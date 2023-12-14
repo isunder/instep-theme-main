@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
 import { Accordion, Button, Col, Row } from "react-bootstrap";
 import { TiTick } from "react-icons/ti";
 import { FaTruckLoading } from "react-icons/fa";
@@ -26,8 +26,10 @@ const Delieverydetail = () => {
   const [isFormVisible, setFormVisible] = useState(false);
   const [showCol, setShowCol] = useState("login");
   const [imageState, setImageState] = useState();
+  const [activeKey, setactiveKey] = useState(0);
   const [hidedata, setHidata] = useState("");
   const [razorPaymentId, setRazorPaymentId] = useState("");
+  // const [formStateShow,setFormStateShow] = useState(null)
   const data = useSelector((state) => state?.deliveraddress?.listdata);
   console.log(data, "address");
 
@@ -106,14 +108,17 @@ const Delieverydetail = () => {
         userID: dataId,
       })
     ).then((res) => {
+      // console.log(res,'fiwihojel')
       if (res && res.payload && res.payload.success) {
-        console.log(res);
+        console.log(res, "fwioenlk");
         setFormVisible(false);
       } else {
         setFormVisible(true);
       }
     });
   }, [dataId]);
+
+  const [addressEventKey, setEventKey] = useState(null);
 
   const handleSubmit = (values) => {
     values.userID = dataId;
@@ -159,8 +164,8 @@ const Delieverydetail = () => {
     return errors;
   };
 
-  const defaultAccord = 0;
-  console.log(defaultAccord, "aaasmqxs");
+  const defaultAccord = 1;
+  // console.log(defaultAccord, "aaasmqxs");
 
   // For radio button
 
@@ -186,7 +191,11 @@ const Delieverydetail = () => {
   }, [_id]);
 
   const deliverClick = (e) => {
-    navigate("/allproduct");
+    if (addressdata) {
+      setactiveKey(2);
+    } else if (!addressdata) {
+      setactiveKey();
+    }
     console.log(e, "eeeeee");
   };
 
@@ -287,7 +296,7 @@ const Delieverydetail = () => {
     }
   }
   console.log("Paymentdetails:", paymentDetails);
-  useEffect(() => {
+  if (razorPaymentId) {
     const payloads = {
       userid: dataId,
       deliveryAddress: addressdata,
@@ -299,22 +308,34 @@ const Delieverydetail = () => {
     console.log(payloads, "payloads");
     dispatch(Afterorder(payloads));
   }, [dispatch]);
-
   useEffect(() => {
     if (isLoaded) {
       handlePayment();
     }
   }, [isLoaded, handlePayment]);
 
+  useEffect(() => {
+    if (addressdata && addressdata?.length === 1) {
+      setactiveKey(2);
+      // address accordion
+    } else if (!addressdata || (addressdata && addressdata?.length > 1)) {
+      setactiveKey(1);
+    }
+  }, [addressdata]);
   return (
     <>
       <div className="container">
         <div className=" slider_col margin_bottom">
-          <Accordion defaultActiveKey={defaultAccord}>
+          <Accordion
+            activeKey={activeKey}
+            onSelect={(e) => setactiveKey(e)}
+            // defaultActiveKey={useMemo(()=>eventKeyHandle(),[addressdata])}
+          >
+            {/* <Accordion defaultActiveKey={1}> */}
             <Row>
               <Col lg={9}>
                 <div className=" margin_bottom">
-                  <Accordion.Item eventKey="0">
+                  <Accordion.Item eventKey={0}>
                     <Accordion.Header>
                       <div className="loginmain_align ">
                         <div className="">
@@ -383,7 +404,7 @@ const Delieverydetail = () => {
                 <Row>
                   <Col lg={12}>
                     <div className="margin_bottom">
-                      <Accordion.Item eventKey="1">
+                      <Accordion.Item eventKey={1}>
                         <Accordion.Header>
                           <div className="loginmain_align">
                             <div className="d-flex my-3">
@@ -684,7 +705,7 @@ const Delieverydetail = () => {
                     </div>
                     <div className=" margin_bottom">
                       <Accordion.Item
-                        eventKey="2"
+                        eventKey={2}
                         onChange={() => handleChange()}
                       >
                         <Accordion.Header>

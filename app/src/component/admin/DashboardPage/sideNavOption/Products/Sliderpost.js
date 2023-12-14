@@ -81,6 +81,15 @@ const Sliderpost = () => {
                     placeholder="Name"
                   />
                 </div>
+                <div className="margin_bottom">
+                  <Field
+                    className="subcategory_drop"
+                    name="url"
+                    component="input"
+                    type="text"
+                    placeholder="URL"
+                  />
+                </div>
                 <div>
                   <input
                     className="form-control signup_form_input margin_bottom"
