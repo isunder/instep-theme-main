@@ -16,6 +16,8 @@ const Editprofile = () => {
     (state) => state?.profileslice?.listdata?.data?.data
   );
   console.log(profiledata, "aaaaaaaaaaaaaaaaaaaa");
+  const [edit, setEdit] = useState(false)
+
   // const token = getToken();
   // const tokenD = JSON.parse(token);
 
@@ -25,15 +27,6 @@ const Editprofile = () => {
   const onSubmit = (values) => {
     console.log(values, "jdhdbuscdskjvcs");
     var formData = new FormData();
-    // const dataId = getUserId();
-    // const midata = dataId?.id;
-    // console.log(midata, "dataId");
-    // const payload = {
-    //   id: midata,
-    // };
-    // formData.append("thumbnail", selectedthumbnalFile);
-    // dispatch(createprofile(payload));
-    // console.log(values, "64f9a6880987b0e93df57c14");
   };
   // console.log("userData ab", userData);
   useEffect(() => {
@@ -47,22 +40,9 @@ const Editprofile = () => {
     formData.append("image", selectedthumbnalFile);
   }, [""]);
 
-  // useEffect(() => {
-  //   const dataId = getUserId();
-  //   const midata = dataId?.id;
-  //   console.log(midata, "dataId");
+  const handleEdit = () => setEdit(true)
+  const handleSave = () => setEdit(false)
 
-  //   const payload = {
-  //     id: "6544d134cb73734355c65ec4",
-  //   };
-  //   dispatch(singleproduct(payload));
-  // }, [dispatch]);
-  // const profildata = useSelector((state) => state?.profileslice);
-  // console.log(profildata, "profildata");
-
-  //   useEffect(() => {
-  //     dispatch(createprofile());
-  //   }, [""]);
 
   const validate = (values) => {
     let errors = {};
@@ -78,15 +58,7 @@ const Editprofile = () => {
     profileimg: profileimgdata,
     email: profiledata?.email,
   };
-  // const onSubmit = () => { };
 
-  // const initialValues = () => {};
-
-  // const validate = (values) => {
-  //     let errors = {}
-
-  //     return errors
-  // }
 
   return (
     <>
@@ -101,7 +73,7 @@ const Editprofile = () => {
                 <Col md={12}>
                   <div className="labelalig_n margin_bottom">
                     <h3> Personal Information</h3>
-                    <div>Edit</div>
+                    <div onClick={() => handleEdit()}>Edit</div>
                   </div>
 
                   <div className="info-fields margin_bottom mb-4">
@@ -128,7 +100,7 @@ const Editprofile = () => {
                       )}
                     </Field>
                     <div>
-                      <button className="personalinfo_button" type="submit">
+                      <button onClick={() => handleSave()} className="personalinfo_button" type="submit">
                         Save
                       </button>
                     </div>

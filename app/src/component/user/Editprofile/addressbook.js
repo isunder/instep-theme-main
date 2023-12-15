@@ -9,6 +9,7 @@ import RadioInput from '../placeOrder/radioButton';
 import { LuEdit3 } from 'react-icons/lu';
 import { AiOutlineDelete } from 'react-icons/ai';
 import { BiDotsVerticalRounded } from 'react-icons/bi';
+import { ToastContainer, toast } from 'react-toastify';
 
 
 const AddressBook = () => {
@@ -54,6 +55,9 @@ const AddressBook = () => {
         if (res) {
           dispatch(deliveryGetAction(values));
           form.reset();
+          toast.success("Successfully Edit !", {
+            position: toast.POSITION.TOP_CENTER,
+          });
         }
       })
       setEditAddressIndex(null)
@@ -64,9 +68,13 @@ const AddressBook = () => {
           setFormVisible(false,)
           dispatch(deliveryGetAction(values));
           form.reset();
+          toast.success("Successfully Added !", {
+            position: toast.POSITION.TOP_CENTER,
+          });
         }
       });
     }
+
   };
 
   const validate = (values) => {
@@ -338,6 +346,7 @@ const AddressBook = () => {
 
               )}
             />
+            <ToastContainer />
             <Row>
               {addressdata &&
                 addressdata?.map((e, index) => {
@@ -393,10 +402,10 @@ const AddressBook = () => {
                                     onHide={handleClose}
                                   >
                                     <Modal.Header closeButton>
-                                      <Modal.Title>Remove Item</Modal.Title>
+                                      <Modal.Title>Delete Item</Modal.Title>
                                     </Modal.Header>
                                     <Modal.Body>
-                                      Are you sure you want to remove this item
+                                      Are you sure you want to Delete this item
                                       ?
                                     </Modal.Body>
                                     <Modal.Footer>
@@ -412,7 +421,7 @@ const AddressBook = () => {
                                         variant="primary"
                                         onClick={() => handleRemoveAddress(e._id)}
                                       >
-                                        REMOVE
+                                        Delete
                                       </Button>
                                     </Modal.Footer>
                                   </Modal>

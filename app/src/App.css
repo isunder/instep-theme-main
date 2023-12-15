@@ -3765,7 +3765,6 @@ padding-left: 1px;
   padding: 5px;
   border-radius: 100%;
   cursor: pointer;
-
 }
 
 .quantityval_ue{
@@ -4448,9 +4447,65 @@ justify-content: center;
 }
 
 .cancel_button{
-  margin-left: 5px !important;
+  margin-left: 10px !important;
   background-color: #fff !important;
   border: 1px solid #E3E3E3 ;
   color: #000;
 
+}
+
+/* ----------------slider click page------------- */
+
+.silderSale{
+  font-weight: 700;
+  opacity: 0.6;
+  font-size: 18px; 
+}
+
+.static_image{
+  width: 100%;
+}
+
+.static_image img{
+  width: 100%;
+  object-fit: cover;
+  height: 400px;
+}
+
+.dealscategory{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.dealscategory div:nth-child(1){
+  color: #4EB529;
+}
+.dealscategory div:nth-child(2){
+  opacity: 0.6;
+}
+
+.foursalecolumn{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  border: 1px solid #E3E3E3 ;
+  padding: 10px 10px;
+  border-radius: 10px;
+  background-color: #fff;
+  align-items: center;
+}
+
+.fourcolumnbacground{
+  border: 1px solid #E3E3E3 ;
+  padding:10px;
+  background-color: #c9f7b9;
+  border-radius: 10px;
+}
+.foursalecolumn div img{
+  height: 80px;
+  width: 100px;
+  object-fit: contain;
 }

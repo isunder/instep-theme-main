@@ -13,6 +13,7 @@ import {
 import Allpagination from "../../../Pagination/pagination";
 import { MdDelete } from "react-icons/md";
 import Delete from "../../../deleteModel/delete";
+import { ToastContainer, toast } from "react-toastify";
 const Alltypesubcategory = () => {
   const dispatch = useDispatch();
   const [selectedsubCategoryId, setselectedsubCategoryId] = useState("");
@@ -103,6 +104,9 @@ const Alltypesubcategory = () => {
           );
         }
         handleClose();
+        toast.warning("Successfully Deleted !", {
+          position: toast.POSITION.TOP_CENTER,
+        });
       }
     );
   };
@@ -142,7 +146,7 @@ const Alltypesubcategory = () => {
                             input.onChange(e);
                             handleCategoryChange(e);
                           }}
-                          // value={selectedCategoryId}
+                        // value={selectedCategoryId}
                         >
                           <option value="">Select a category</option>
                           {getscat?.map((i) => (
@@ -255,6 +259,7 @@ const Alltypesubcategory = () => {
           categoryId={categoryid}
         />
       )}
+      <ToastContainer />
     </div>
   );
 };

@@ -13,6 +13,7 @@ import Allpagination from "../../../Pagination/pagination";
 import { MdDelete } from "react-icons/md";
 import Delete from "../../../deleteModel/delete";
 import { typesubcategoryget } from "../../../../../Redux/action/typesubcatpost";
+import { ToastContainer, toast } from 'react-toastify';
 
 const Allsubcategory = () => {
   const dispatch = useDispatch();
@@ -104,6 +105,9 @@ const Allsubcategory = () => {
       if (res?.data?.success) {
       }
       handleClose();
+      toast.warning("Successfully Deleted !", {
+        position: toast.POSITION.TOP_CENTER,
+      });
     });
   };
   const [show, setShow] = useState(false);
@@ -252,6 +256,7 @@ const Allsubcategory = () => {
           categoryId={categoryid}
         />
       )}
+      <ToastContainer />
     </>
   );
 };

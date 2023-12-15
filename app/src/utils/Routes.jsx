@@ -48,6 +48,7 @@ import ProductSpecification from "../component/admin/addProductDetails/productSp
 import OrderConfirmation from "../component/user/placeOrder/orderConfirm/orderConfirmation";
 import Trendingproducts from "../component/admin/dashboardPage/sideNavOption/Products/Trendingproducts";
 import Editprofile from "../component/user/Editprofile/editprofile";
+import SliderPages from "../component/user/UserHeader/sliderPages/sliderPages";
 
 const role = getUserId() ? getUserId()?.userRole : null;
 // console.log(role, "aaasdfgfds");
@@ -77,6 +78,7 @@ const protects = {
         { path: "/payment", element: <Payments /> },
         { path: "/orderconfirmation", element: <OrderConfirmation /> },
         { path: "/editprofile", element: <Editprofile /> },
+        { path: "/salespage", element: <SliderPages /> },
         { path: "*", element: "NO PAGE FOUND" },
       ],
     },
@@ -136,6 +138,7 @@ const protects = {
         { path: "/paymentsecurity", element: <Security /> },
         { path: "/privacypolicy", element: <Privacy /> },
         { path: "/payment", element: <Payments /> },
+        { path: "/salespage", element: <SliderPages /> },
         { path: "*", element: "NO PAGE FOUND" },
       ],
     },

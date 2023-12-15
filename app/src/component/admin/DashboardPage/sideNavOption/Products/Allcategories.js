@@ -16,7 +16,7 @@ import {
 } from "react-bootstrap";
 import { MdDelete } from "react-icons/md";
 import { allCategoryList } from "../../../../../Redux/action/getCategoryAction";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import Allpagination from "../../../Pagination/pagination";
 import Delete from "../../../deleteModel/delete";
 
@@ -102,6 +102,9 @@ const Allcategories = () => {
         dispatch(allCategoryList({ page: currentPage, perPage: postPerPage }));
       }
       handleClose();
+      toast.warning("Successfully Deleted !", {
+        position: toast.POSITION.TOP_CENTER,
+      });
     });
   };
 
@@ -228,6 +231,7 @@ const Allcategories = () => {
         show={show}
         categoryId={categoryid}
       />
+      <ToastContainer />
     </>
   );
 };
