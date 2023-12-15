@@ -4,11 +4,13 @@ import { apiBasePath } from "../config/Config";
 
 export const axiosInstance = axios.create({
   baseURL: apiBasePath,
-  headers: {
-    "Content-Type": "application/json",
-  },
 });
 
-export const Afterorder = createAsyncThunk("orderSummary", async (payload) => {
-  return axiosInstance.post(`/orderSummary`, payload);
-});
+
+
+export const adminPostheading = createAsyncThunk(
+  "adminPostheading",
+  async (payload) => {
+    return axiosInstance.post("/headerpost", payload);
+  }
+);

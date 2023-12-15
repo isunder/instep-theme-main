@@ -112,7 +112,7 @@ const ProductForm = () => {
     // console.log(payload, "ggg");
     console.log(JSON.parse(formData.getAll("userData")), "data");
     dispatch(adminPostProduct(formData)).then((res) => {
-      if (res) {
+      if (res?.payload?.status) {
         formRef.reset();
         toast.success("Successfully !", {
           position: toast.POSITION.TOP_RIGHT,
@@ -124,17 +124,14 @@ const ProductForm = () => {
         // handleImgeFile("")
       }
       console.log(res?.payload?.data?.product?._id, "Response");
+      console.log(res?.payload, "respss");
       // if (res?.payload?.data?.product?._id) {
       //   navigate(`/productspecification/${res?.payload?.data?.product?._id}`);
-      //   // dispatch(spacificAction({ProductID:res?.payload?.data?.product?._id}))
+      //   dispatch(
+      //     spacificAction({ ProductID: res?.payload?.data?.product?._id })
+      //   );
       // }
     });
-
-    toast.success("Successfully !", {
-      position: toast.POSITION.TOP_RIGHT,
-    });
-
-    // console.log(values, "aaaaaaaaaaaaaaaa");
   };
 
   const deleteimage = (index) => {
@@ -583,6 +580,17 @@ const ProductForm = () => {
                                 component="input"
                                 type="text"
                                 placeholder="discount percentage"
+                                required
+                              />
+                            </Col>
+                            <Col lg={4} md={6} sm={6}>
+                              <h6>Tax</h6>
+                              <Field
+                                className="descirption_box price_flex"
+                                name="tax"
+                                component="input"
+                                type="text"
+                                placeholder="  "
                                 required
                               />
                             </Col>

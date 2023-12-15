@@ -15,7 +15,6 @@ const speccificationsubcatetable = require("../models/specificationTypecat");
 dotenv.config();
 
 const postproduct = expressAsyncHandler(async (req, res) => {
-  console.log("req.body.userData:", req.body?.userData?.id);
   // const userData = JSON.parse(req.body.userData);
 
   try {
@@ -25,12 +24,16 @@ const postproduct = expressAsyncHandler(async (req, res) => {
       req?.files &&
       req?.files["images"] &&
       req?.files["images"]?.map((file) => file.filename); // Array of image filenames
-    console.log(req.files.images[0].filename, "req.files");
 
     const thumbnailFilename =
       req?.files && req?.files.thumbnail && req?.files?.thumbnail[0].filename;
 
-    console.log(req?.files.thumbnail, "sdsdsdsjsjjshsh hcnsnn");
+    const discount = (userData.price * userData.discountpercentage) / 100;
+    const priceAfterDiscount = userData.price - discount;
+
+    const taxAmount = (priceAfterDiscount * userData.tax) / 100;
+    const finalPrice = priceAfterDiscount + taxAmount;
+    console.log(finalPrice);
 
     const productadd = new Userproducts({
       category: userData.category_id,
@@ -44,6 +47,8 @@ const postproduct = expressAsyncHandler(async (req, res) => {
       thumbnail: thumbnailFilename,
       stock: userData.stock,
       discountpercentage: userData.discountpercentage,
+      tax: userData.tax,
+      totalprice: finalPrice,
     });
 
     await productadd.save();
@@ -294,7 +299,6 @@ const deleteProduct = expressAsyncHandler(async (req, res) => {
       // console.log("deleteProduct", "thumbnail images",thumbnail,images)
     }
     res.json(deletedProduct);
-
   } catch (error) {
     res.status(500).json({ message: "Server error" });
   }
@@ -557,9 +561,7 @@ const getSingleProduct = expressAsyncHandler(async (req, res) => {
 
 // filter
 const filterAll = expressAsyncHandler(async (req, res) => {
-
   try {
-
     const categoryId = req.query.categoryId;
     const subcategoryId = req.query.subcategoryId;
     const brandId = req.query.brandId;
@@ -573,13 +575,11 @@ const filterAll = expressAsyncHandler(async (req, res) => {
     if (categoryId && mongoose.Types.ObjectId.isValid(categoryId)) {
       filter.category = new mongoose.Types.ObjectId(categoryId);
     }
-    console.log(filter, "categoryId")
+    console.log(filter, "categoryId");
 
     if (subcategoryId && mongoose.Types.ObjectId.isValid(subcategoryId)) {
       filter.subcategory = new mongoose.Types.ObjectId(subcategoryId);
-
     }
-
 
     if (brandId && mongoose.Types.ObjectId.isValid(brandId)) {
       filter.brand = new mongoose.Types.ObjectId(brandId);
@@ -605,23 +605,45 @@ const filterAll = expressAsyncHandler(async (req, res) => {
 
     const products = await Userproducts.aggregate([
       { $match: filter },
-      { $lookup: { from: "categorytables", localField: "category", foreignField: "_id", as: "category" } },
-      { $lookup: { from: "subcategorytables", localField: "subcategory", foreignField: "_id", as: "subcategory" } },
-      { $lookup: { from: "brandtables", localField: "brand", foreignField: "_id", as: "brand" } },
+      {
+        $lookup: {
+          from: "categorytables",
+          localField: "category",
+          foreignField: "_id",
+          as: "category",
+        },
+      },
+      {
+        $lookup: {
+          from: "subcategorytables",
+          localField: "subcategory",
+          foreignField: "_id",
+          as: "subcategory",
+        },
+      },
+      {
+        $lookup: {
+          from: "brandtables",
+          localField: "brand",
+          foreignField: "_id",
+          as: "brand",
+        },
+      },
     ]);
-    console.log(products, "dfdfdfdddffd")
+    console.log(products, "dfdfdfdddffd");
 
     if (products.length > 0) {
       res.status(200).json(products);
     } else {
-      res.status(404).json({ message: "No products found for the given filters" });
+      res
+        .status(404)
+        .json({ message: "No products found for the given filters" });
     }
   } catch (error) {
     console.error("Error:", error);
     res.status(500).json({ error: error.message, message: "Server error" });
   }
 });
-
 
 // spacifeaction create
 
@@ -923,23 +945,31 @@ const spacifeactionPost = expressAsyncHandler(async (req, res) => {
 
 const spacifeactionget = expressAsyncHandler(async (req, res) => {
   try {
-    const getdata = await speccificationsubcatetable.find()
-    res.status(200).send({ data: getdata, success: true })
+    const getdata = await speccificationsubcatetable.find();
+    res.status(200).send({ data: getdata, success: true });
   } catch (error) {
     res.status(500).send({ error: error.message, success: false });
   }
 });
 const spacifeactiongetbyId = expressAsyncHandler(async (req, res) => {
   try {
-    const { spacifeactiongetbyId } = req.body
+    const { type_subcategory_id } = req.body;
 
-    // res.status(200).send({  })
+    if (type_subcategory_id) {
+      const datafind = await speccificationsubcatetable.find({
+        type_subcategory_id: type_subcategory_id,
+      });
 
-
+      res.status(200).send({ data: datafind, success: true });
+    } else {
+      res
+        .status(201)
+        .send({ msg: "give  type_subcategory_id", success: false });
+    }
   } catch (error) {
-    res.status(500).send({ error: error, success: false })
+    res.status(500).send({ error: error, success: false });
   }
-})
+});
 
 const specificationupdate = expressAsyncHandler(async (req, res) => {
   try {
@@ -955,10 +985,14 @@ const specificationupdate = expressAsyncHandler(async (req, res) => {
       if (find) {
         res.status(200).send({ success: true, data: find });
       } else {
-        res.status(404).send({ success: false, msg: "Specification not found" });
+        res
+          .status(404)
+          .send({ success: false, msg: "Specification not found" });
       }
     } else {
-      res.status(400).send({ msg: "Please provide specificationID", success: false });
+      res
+        .status(400)
+        .send({ msg: "Please provide specificationID", success: false });
     }
   } catch (error) {
     res.status(500).send({ error: error.message, success: false });
@@ -966,22 +1000,21 @@ const specificationupdate = expressAsyncHandler(async (req, res) => {
 });
 const specificationdelete = expressAsyncHandler(async (req, res) => {
   try {
-    const { specificationID } = req.body
+    const { specificationID } = req.body;
 
     if (specificationID) {
+      const deleteby = await speccificationsubcatetable.findByIdAndDelete(
+        specificationID
+      );
 
-      const deleteby = await speccificationsubcatetable.findByIdAndDelete(specificationID)
-
-      res.status(200).send({ msg: "deleted", success: true })
+      res.status(200).send({ msg: "deleted", success: true });
     } else {
-      res.status(201).send({ msg: "give specificationID" })
+      res.status(201).send({ msg: "give specificationID" });
     }
-
-
   } catch (error) {
-    res.status(500).send({ error: error, success: false })
+    res.status(500).send({ error: error, success: false });
   }
-})
+});
 
 module.exports = {
   postproduct,
@@ -1003,6 +1036,5 @@ module.exports = {
   spacifeactionget,
   specificationupdate,
   specificationdelete,
-  spacifeactiongetbyId
+  spacifeactiongetbyId,
 };
-

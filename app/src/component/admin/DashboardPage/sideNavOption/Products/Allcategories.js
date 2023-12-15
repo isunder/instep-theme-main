@@ -74,6 +74,15 @@ const Allcategories = () => {
   }, [currentPage]);
   const handleImgeFile = (e) => {
     const files = e.target.files;
+    const image = e.target.files[0];
+    if (!image) {
+      console.log("image is required");
+      return false;
+    }
+    if (!image.name.match(/\.(jpg|jpeg|png|gif)$/)) {
+      console.log("select valid image.");
+      return false;
+    }
     const uniqueId = Date.now();
     let name = e.target.files[0].name;
     const filename = uniqueId + "_" + name;
@@ -95,6 +104,7 @@ const Allcategories = () => {
     }
   };
   const handleClose = () => setShow(false);
+
 
   const handleDelete = (id) => {
     dispatch(removeFromCategory({ categoryid: id })).then((res) => {

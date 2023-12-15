@@ -50,6 +50,14 @@ const ProductSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  totalprice:{
+    type:String,
+    require:true
+  },
+  tax :{
+    type:String,
+    require:true
+  }
 });
 
 ProductSchema.set("productsof", true);

@@ -6,9 +6,8 @@ const initialState = {
   listdata: [],
   error: "",
 };
-
-const orderdata = createSlice({
-  name: "order",
+const Orderdetail = createSlice({
+  name: "orderdetail",
   initialState,
 
   extraReducers: (builder) => {
@@ -28,4 +27,4 @@ const orderdata = createSlice({
   },
 });
 
-export default orderdata.reducer;
+export default Orderdetail.reducer;

@@ -38,7 +38,8 @@ import deliverAddressReducer from "../reducer/deliveryAddressSlice";
 import deliveryaddressGetReducer from "../reducer/deliveryGetSlice";
 import PaymentorderdataReducer from "../reducer/paymentOrderReducer";
 import profilesliceReducer from "../reducer/profileinfoSlice";
-import orderdataReducer from "../reducer/orderSlice"
+import OrderdetailReducer from "../reducer/orderSlice";
+import PostadminheadingReducer from "../reducer/adminslice"
 
 export const store = configureStore({
   reducer: {
@@ -81,6 +82,7 @@ export const store = configureStore({
     deliveryaddressget: deliveryaddressGetReducer,
     paymentorderdata: PaymentorderdataReducer,
     profileslice: profilesliceReducer,
-    afterorder:orderdataReducer,
+    afterorderdetail: OrderdetailReducer,
+   adminheading: PostadminheadingReducer,
   },
 });
