@@ -123,7 +123,7 @@ const Home = () => {
                         </Col> */}
                             {/* <p>{item.name}</p> */}
                             <div className="margin_bottom">
-                              <a href="#">
+                              <a href={item?.url}>
                                 <img
                                   className="slide_img"
                                   src={`http://localhost:5000/slider/${item?.images[0]}`}
@@ -143,7 +143,7 @@ const Home = () => {
                 <Col lg={12}>
                   <div className="margin_bottom">
                     <h2 className="ourtopcategories_home margin_bottom">
-                      Our   Categories
+                      Our Categories
                     </h2>
                     <div className="category_borderdiv">
                       <Swiper
@@ -169,39 +169,39 @@ const Home = () => {
                           },
                         }}
                       >
-                        {allcatgorydata && allcatgorydata?.map((e) => {
-
-                          return (
-                            <SwiperSlide className="" key={e?.id}>
-                              <Link
-                                className="carddecorationnone_cat"
-                                to={`/category/${e._id}`}
-                              >
-                                <Card className="cat_card_homep">
-                                  <div className="hoveron_arrow">
-                                    <div className="top_catcard">
-                                      <div className="pos_catimage">
-                                        <img
-                                          className="topcatimage_home"
-                                          src={`http://localhost:5000/categoryimg/${e.images}`}
-                                          alt=""
-                                        />
+                        {allcatgorydata &&
+                          allcatgorydata?.map((e) => {
+                            return (
+                              <SwiperSlide className="" key={e?.id}>
+                                <Link
+                                  className="carddecorationnone_cat"
+                                  to={`/category/${e._id}`}
+                                >
+                                  <Card className="cat_card_homep">
+                                    <div className="hoveron_arrow">
+                                      <div className="top_catcard">
+                                        <div className="pos_catimage">
+                                          <img
+                                            className="topcatimage_home"
+                                            src={`http://localhost:5000/categoryimg/${e.images}`}
+                                            alt=""
+                                          />
+                                        </div>
+                                        <p>{e?.category}</p>
                                       </div>
-                                      <p>{e?.category}</p>
-                                    </div>
-                                    <div className="hoverarrow_direc">
-                                      <div className="right_bottomborder">
-                                        <div>
-                                          <FiArrowUpRight className="arrow-icon" />
+                                      <div className="hoverarrow_direc">
+                                        <div className="right_bottomborder">
+                                          <div>
+                                            <FiArrowUpRight className="arrow-icon" />
+                                          </div>
                                         </div>
                                       </div>
                                     </div>
-                                  </div>
-                                </Card>
-                              </Link>
-                            </SwiperSlide>
-                          );
-                        })}
+                                  </Card>
+                                </Link>
+                              </SwiperSlide>
+                            );
+                          })}
                       </Swiper>
                     </div>
                   </div>
@@ -544,10 +544,14 @@ const Home = () => {
                         return (
                           index < 4 && (
                             <Col lg={6} md={6}>
-                              <div className="my-2" key={index} onClick={() => navigate(`/productdetail/${item?._id}`)}>
-                                <div
-                                  className="hometop_fashionbo_der"
-                                >
+                              <div
+                                className="my-2"
+                                key={index}
+                                onClick={() =>
+                                  navigate(`/productdetail/${item?._id}`)
+                                }
+                              >
+                                <div className="hometop_fashionbo_der">
                                   <img
                                     className="homedecorimag_e"
                                     variant="top"
@@ -587,12 +591,17 @@ const Home = () => {
                     </Link>
                     <Row>
                       {women?.map((item, index) => {
-                        console.log(item, 'fwiueln')
+                        console.log(item, "fwiueln");
                         return (
                           index < 4 && (
                             <Col lg={6} md={6}>
-                              <div className="my-2" key={index} onClick={() => navigate(`/productdetail/${item?._id}`)}>
-
+                              <div
+                                className="my-2"
+                                key={index}
+                                onClick={() =>
+                                  navigate(`/productdetail/${item?._id}`)
+                                }
+                              >
                                 <div className="hometop_fashionbo_der">
                                   <img
                                     className="homedecorimag_e"
@@ -626,14 +635,18 @@ const Home = () => {
                     return (
                       <>
                         <Col lg={4} md={12}>
-                          <div className="homefashion_border" onClick={() => handleExplore(e?._id)}>
+                          <div
+                            className="homefashion_border"
+                            onClick={() => handleExplore(e?._id)}
+                          >
                             <div className="sportscontent_align">
                               <div>
                                 <h2>Stay Fit & Active</h2>
                               </div>
                               <div className="margin_bottom shop_roe">
                                 <p>
-                                  Shop from our Fitness & Sports Equipment Collection
+                                  Shop from our Fitness & Sports Equipment
+                                  Collection
                                 </p>
                               </div>
                               <div>
@@ -662,7 +675,7 @@ const Home = () => {
             </div>
           </div>
           <Scrolltotopbutton />
-        </div >
+        </div>
       )}
     </>
   );

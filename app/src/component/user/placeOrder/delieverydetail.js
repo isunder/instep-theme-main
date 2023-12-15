@@ -327,9 +327,10 @@ const Delieverydetail = () => {
       <div className="container">
         <div className=" slider_col margin_bottom">
           <Accordion
+            disable
             activeKey={activeKey}
             onSelect={(e) => setactiveKey(e)}
-          // defaultActiveKey={useMemo(()=>eventKeyHandle(),[addressdata])}
+            // defaultActiveKey={useMemo(()=>eventKeyHandle(),[addressdata])}
           >
             {/* <Accordion defaultActiveKey={1}> */}
             <Row>
