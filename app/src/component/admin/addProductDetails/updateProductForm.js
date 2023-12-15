@@ -44,18 +44,18 @@ function MydModalWithGrid(props) {
     });
   };
   const initialValues = {
-    id: single?._id,
-    description: single?.description,
-    category: single?.category,
-    title: single?.title,
-    price: single?.price,
-    images: single?.images,
-    brand: single?.brand,
-    rating: single?.rating,
-    subcategory: single?.subcategory,
-    thumbnail: single?.thumbnail,
-    stock: single?.stock,
-    discountpercentage: single?.discountpercentage,
+    id: list?._id,
+    description: list?.description,
+    category: list?.category,
+    title: list?.title,
+    price: list?.price,
+    images: list?.images,
+    brand: list?.brand,
+    rating: list?.rating,
+    subcategory: list?.subcategory,
+    thumbnail: list?.thumbnail,
+    stock: list?.stock,
+    discountpercentage: list?.discountpercentage,
   };
   console.log(initialValues, "initialValues");
 
@@ -246,17 +246,23 @@ function MydModalWithGrid(props) {
                                       if (item) {
                                         return (
                                           <Col lg={6} md={6} sm={12} xs={6}>
-                                            <img
+                                            <li
                                               key={index}
-                                              className="edit_product-img mb-2"
-                                              src={
-                                                item?.split("https").length > 1
-                                                  ? item
-                                                  : `http://localhost:5000/uploads/${item}`
-                                              }
-                                              // onMouseEnter={() => setImageState(item)}
-                                              alt=""
-                                            />
+                                              className=" productupload_item col-md-3"
+                                            >
+                                              <img
+                                                key={index}
+                                                className="edit_product-img mb-2"
+                                                src={
+                                                  item?.split("https").length >
+                                                  1
+                                                    ? item
+                                                    : `http://localhost:5000/uploads/${item}`
+                                                }
+                                                // onMouseEnter={() => setImageState(item)}
+                                                alt=""
+                                              />
+                                            </li>
                                           </Col>
                                         );
                                       }

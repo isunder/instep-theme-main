@@ -12,7 +12,7 @@ export const axiosInstance = axios.create({
 export const allAdminProductList = createAsyncThunk(
   "getadminproductlist",
   async (payload) => {
-    const data1 = await axiosInstance.post(`Getproducts`, payload);
+    const data1 = await axiosInstance.post(`/Getproducts`, payload);
     return data1.data;
   }
 );

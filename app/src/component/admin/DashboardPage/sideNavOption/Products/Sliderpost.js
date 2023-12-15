@@ -33,6 +33,7 @@ const Sliderpost = () => {
     const formData = new FormData();
     const payload = {
       name: values?.name,
+      url: values?.url,
     };
     formData.append("sliderimg", selectedImage);
 
