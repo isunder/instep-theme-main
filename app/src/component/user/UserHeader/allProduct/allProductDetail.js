@@ -334,7 +334,7 @@ import { getProductAction } from "../../../../Redux/action/getProductDetailActio
 import { Link } from "react-router-dom";
 import { Card, Col, Row } from "react-bootstrap";
 import { BiChevronRight } from "react-icons/bi";
-import { AiOutlineHeart } from "react-icons/ai";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import Subcategorymobilefilter from "../../filterbyCategory/SubcaregoryMobilefilter";
 import SubCategoryfilter from "../../filterbyCategory/subCategoryfilter";
 import Spinner from "../../loader/spinner";
@@ -345,7 +345,7 @@ const AllProductDetail = () => {
 
   const loading = useSelector((state) => state?.getproductdata?.isLoading);
 
-  const [Wishlist, setwishilist] = useState();
+  const [wishlist, setWishlist] = useState({});
 
   useEffect(() => {
     dispatch(getProductAction());
@@ -353,7 +353,13 @@ const AllProductDetail = () => {
 
   const productClick = (_id) => {
     console.log(_id, "hh/ddhhjjjjjjjjjjj");
-    // dispatch(updateProduct({ _id }));
+  };
+
+  const handleWishlistClick = (productId) => {
+    setWishlist((prevWishlist) => ({
+      ...prevWishlist,
+      [productId]: !prevWishlist[productId],
+    }));
   };
   return (
     <>
@@ -409,22 +415,36 @@ const AllProductDetail = () => {
                         }
                         return (
                           <Col lg={3} md={4}>
+                            <div className="d-flex justify-content-end mt-2 mx-2">
+                              {wishlist[e._id] ? (
+                                <AiFillHeart
+                                  style={{
+                                    color: "#FF0000", // Change to your desired color
+                                    width: "23px",
+                                    height: "23px",
+                                    cursor: "pointer",
+                                  }}
+                                  onClick={() => handleWishlistClick(e._id)}
+                                />
+                              ) : (
+                                <AiOutlineHeart
+                                  style={{
+                                    color: "#808080",
+                                    width: "23px",
+                                    height: "23px",
+                                    cursor: "pointer",
+                                  }}
+                                  onClick={() => handleWishlistClick(e._id)}
+                                />
+                              )}
+                            </div>
                             <Link
                               className="card_deco"
                               to={`/productdetail/${e._id}`}
                               onClick={() => productClick(e?._id)}
                             >
                               <Card className=" forcatcards_htwd ">
-                                <div className="d-flex justify-content-end mt-2 mx-2">
-                                  <AiOutlineHeart
-                                    style={{
-                                      color: "#808080",
-                                      width: "23px",
-                                      height: "23px",
-                                    }}
-                                    onClick={setwishilist}
-                                  />
-                                </div>
+
                                 <div className="img_div">
                                   <Card.Img
                                     variant="top"
@@ -432,8 +452,8 @@ const AllProductDetail = () => {
                                       e?.image
                                         ? e?.image
                                         : e?.thumbnail.split(":").length > 1
-                                        ? e?.thumbnail
-                                        : `http://localhost:5000/uploads/${e.thumbnail}`
+                                          ? e?.thumbnail
+                                          : `http://localhost:5000/uploads/${e.thumbnail}`
                                     }
                                   />
                                 </div>

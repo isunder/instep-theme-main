@@ -14,7 +14,7 @@ const Delete = (props) => {
           onHide={handleClose}
         >
           <Modal.Header closeButton>
-            <Modal.Title>Remove Item</Modal.Title>
+            <Modal.Title>Delete Item</Modal.Title>
           </Modal.Header>
           <Modal.Body>Are you sure you want to remove this item ?</Modal.Body>
           <Modal.Footer>
