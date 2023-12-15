@@ -364,6 +364,7 @@ div p {
 
 .labelalig_n div{
   color: #4eb529;
+  cursor: pointer;
 }
 
 .personalotherinput{
@@ -4508,4 +4509,8 @@ justify-content: center;
   height: 80px;
   width: 100px;
   object-fit: contain;
+}
+
+.editfrpf_cancel{
+  color: #FF7C08;
 }

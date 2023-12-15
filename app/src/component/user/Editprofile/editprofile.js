@@ -7,14 +7,17 @@ import { getUserId } from "../../../utils/auth";
 import { getProductAction } from "../../../Redux/action/getProductDetailAction";
 import { singleproduct } from "../../../Redux/action/getsingleProduct";
 import { createprofile } from "../../../Redux/action/profileaction";
+import { ToastContainer, toast } from "react-toastify";
 
 const Editprofile = () => {
   const dispatch = useDispatch();
-  const [profileimgdata, setProfileimgData] = useState();
+  const [profileimgdata, setProfileimgData] = useState("");
   const [selectedthumbnalFile, setselectedthumbnalFile] = useState([]);
   const profiledata = useSelector(
     (state) => state?.profileslice?.listdata?.data?.data
   );
+
+  const loading = useSelector((state) => state?.profileslice?.isLoading);
   console.log(profiledata, "aaaaaaaaaaaaaaaaaaaa");
   const [edit, setEdit] = useState(false)
 
@@ -30,18 +33,25 @@ const Editprofile = () => {
   };
   // console.log("userData ab", userData);
   useEffect(() => {
-    var formData = new FormData();
-    // Dispatch action to create profile with headers
-    if (dataId?.id) {
-      const userData = { id: dataId?.id };
-      formData.append("userData", JSON.stringify(userData));
-      dispatch(createprofile(formData));
-    }
-    formData.append("image", selectedthumbnalFile);
+
   }, [""]);
 
-  const handleEdit = () => setEdit(true)
-  const handleSave = () => setEdit(false)
+  const handleEdit = (name) => {
+    setEdit(name)
+  }
+  const handleSave = (values) => {
+    var formData = new FormData();
+    if (values?.id) {
+      formData.append("userData", JSON.stringify(values));
+      dispatch(createprofile(formData)).then((res) => {
+        console.log(res, 'fwoemkf')
+        toast.success("Successfully Edit !", {
+          position: toast.POSITION.BOTTOM_CENTER,
+        });
+      });
+    }
+    setEdit(false)
+  }
 
 
   const validate = (values) => {
@@ -50,15 +60,29 @@ const Editprofile = () => {
     return errors;
   };
 
-  const initialValues = {
-    firstname: profiledata?.firstname,
-    lastname: profiledata?.lastname,
-    number: profiledata?.number,
-    number: profiledata?.number,
-    profileimg: profileimgdata,
-    email: profiledata?.email,
-  };
+  const initialValues = () => {
+    let init = {
+      firstname: profiledata?.firstname,
+      lastname: profiledata?.lastname,
+      // number: profiledata?.number,
+      number: profiledata?.number,
+      profileimg: profileimgdata,
+      email: profiledata?.email,
+      id: profiledata?._id
+    }
 
+    return init
+  };
+  useEffect(() => {
+    var formData = new FormData();
+    // Dispatch action to create profile with headers
+    if (dataId?.id) {
+      const userData = { id: dataId?.id };
+      formData.append("userData", JSON.stringify(userData));
+      dispatch(createprofile(formData));
+    }
+    // formData.append("image", selectedthumbnalFile);
+  }, [""]);
 
   return (
     <>
@@ -66,14 +90,24 @@ const Editprofile = () => {
         <Row>
           <Form
             onSubmit={onSubmit}
-            initialValues={initialValues}
+            initialValues={useMemo(() => initialValues(), [profiledata])}
             validate={validate}
-            render={({ handleSubmit }) => (
+            render={({ handleSubmit, values }) => (
               <form onSubmit={handleSubmit}>
                 <Col md={12}>
                   <div className="labelalig_n margin_bottom">
                     <h3> Personal Information</h3>
-                    <div onClick={() => handleEdit()}>Edit</div>
+                    {edit !== "name" ?
+                      (
+                        <div onClick={() => {
+                          handleEdit('name')
+                        }}>
+                          Edit
+                        </div>
+                      ) :
+                      (
+                        <p className="editfrpf_cancel" onClick={() => setEdit(false)}>cancel</p>
+                      )}
                   </div>
 
                   <div className="info-fields margin_bottom mb-4">
@@ -81,6 +115,7 @@ const Editprofile = () => {
                       {({ input, meta }) => (
                         <>
                           <input
+                            disabled={edit !== 'name'}
                             className="firstname"
                             {...input}
                             placeholder="first name"
@@ -92,6 +127,7 @@ const Editprofile = () => {
                       {({ input, meta }) => (
                         <>
                           <input
+                            disabled={edit !== 'name'}
                             className="lastname"
                             {...input}
                             placeholder="last name"
@@ -100,16 +136,21 @@ const Editprofile = () => {
                       )}
                     </Field>
                     <div>
-                      <button onClick={() => handleSave()} className="personalinfo_button" type="submit">
-                        Save
-                      </button>
+                      {edit === 'name' && (
+                        <button onClick={() => {
+                          handleSave({ firstname: values.firstname, lastname: values.lastname, id: values?.id })
+                        }} className="personalinfo_button" type="submit">
+                          Save
+                        </button>
+                      )}
                     </div>
+                    <ToastContainer />
                   </div>
                 </Col>
-
                 <Col md={12}>
                   <div className="labelalig_n">
-                    <h5>Email Address</h5> <div>Edit</div>
+                    <h5>Email Address</h5>
+                    {/* <div>Edit</div> */}
                   </div>
                   <div className="margin_bottom personalotherinput">
                     <Field name="email">
@@ -117,6 +158,7 @@ const Editprofile = () => {
                         <>
                           <input
                             className="otherinputalign"
+                            disabled="true"
                             {...input}
                             placeholder="Email Address"
                           />
@@ -132,14 +174,23 @@ const Editprofile = () => {
                 </Col>
                 <Col md={12}>
                   <div className="labelalig_n">
-                    <h5>Mobile Number</h5>
-                    <div>Edit</div>
+                    <h5 >Mobile Number</h5>
+                    {edit !== "number" ?
+                      (
+                        <div onClick={() => handleEdit('number')}>Edit
+                        </div>
+                      ) :
+                      (
+                        <p className="editfrpf_cancel" onClick={() => setEdit(false)}>cancel</p>
+                      )
+                    }
                   </div>
                   <div className="margin_bottom personalotherinput">
                     <Field name="number">
                       {({ input, meta }) => (
                         <>
                           <input
+                            disabled={edit !== 'number'}
                             className="otherinputalign"
                             {...input}
                             placeholder="Mobile Number"
@@ -148,13 +199,17 @@ const Editprofile = () => {
                       )}
                     </Field>
                     <div>
-                      <button className="personalinfo_button" type="submit">
-                        Save
-                      </button>
+                      {edit === 'number' && (
+                        <button className="personalinfo_button" onClick={() => {
+                          handleSave({ number: values.number, id: values?.id })
+                        }}>
+                          Save
+                        </button>
+                      )}
                     </div>
                   </div>
                 </Col>
-                <Col md={12}>
+                {/* <Col md={12}>
                   <div className="labelalig_n">
                     <h5>Profile Image</h5> <div>Edit</div>
                   </div>
@@ -171,7 +226,7 @@ const Editprofile = () => {
                       </button>
                     </div>
                   </div>
-                </Col>
+                </Col> */}
               </form>
             )}
           />
