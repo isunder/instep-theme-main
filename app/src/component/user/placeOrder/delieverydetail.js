@@ -31,7 +31,6 @@ const Delieverydetail = () => {
   const [razorPaymentId, setRazorPaymentId] = useState("");
   // const [formStateShow,setFormStateShow] = useState(null)
   const data = useSelector((state) => state?.deliveraddress?.listdata);
-  console.log(data, "address");
 
   // const addressClick = (e) => {
   //   dispatch(deliveryaddress());
@@ -170,10 +169,13 @@ const Delieverydetail = () => {
   // For radio button
 
   const [selectedAddressType, setSelectedAddressType] = useState("Home");
+  const [address, setAddress] = useState(null);
 
-  const handleRadioChange = (event, value) => {
-    setSelectedAddressType(event.target.value);
-    console.log(value, "valuess ", event);
+  const handleRadioChange = (event) => {
+    console.log(event,'feiojrlk')
+    setSelectedAddressType(event?.target?.value);
+    setAddress(event);
+    // console.log(value, "valuess ", event);
   };
 
   const handleSubmitradio = (event) => {
@@ -196,7 +198,6 @@ const Delieverydetail = () => {
     } else if (!addressdata) {
       setactiveKey();
     }
-    console.log(e, "eeeeee");
   };
 
   const handleChange = (e) => {
@@ -322,6 +323,8 @@ const Delieverydetail = () => {
       setactiveKey(1);
     }
   }, [addressdata]);
+  console.log(selectedAddressType, "addrfwefwefess");
+
   return (
     <>
       <div className="container">
@@ -405,7 +408,12 @@ const Delieverydetail = () => {
                 <Row>
                   <Col lg={12}>
                     <div className="margin_bottom">
-                      <Accordion.Item eventKey={1}>
+                      <Accordion.Item
+                        eventKey={1}
+                        onClick={() => {
+                          setEventKey(2);
+                        }}
+                      >
                         <Accordion.Header>
                           <div className="loginmain_align">
                             <div className="d-flex my-3">
@@ -441,9 +449,9 @@ const Delieverydetail = () => {
                                         className="form-check-input hello"
                                         type="radio"
                                         name="addresstype"
-                                        value="Home"
+                                        value={e}
                                         id="flexRadioDefault1"
-                                        checked={selectedAddressType === "Home"}
+                                        checked={address == e}
                                         onChange={() => handleRadioChange(e)}
                                       />
                                     </div>
@@ -460,12 +468,6 @@ const Delieverydetail = () => {
                                         <p>{e.Locality}</p>
                                         <p>{e.state}</p>,
                                       </div>
-                                      <button
-                                        className="readbuttommore mt-2"
-                                        onClick={() => deliverClick()}
-                                      >
-                                        Delivery Here
-                                      </button>
                                     </div>
                                   </div>
                                   {/* <div className="form-check">
@@ -507,6 +509,12 @@ const Delieverydetail = () => {
                                 </>
                               );
                             })}
+                          <button
+                            className="readbuttommore mt-2"
+                            onClick={() => deliverClick()}
+                          >
+                            Delivery Here
+                          </button>
                           <form onSubmit={handleSubmitradio}></form>
                           {isFormVisible && (
                             <Form
@@ -832,12 +840,14 @@ const Delieverydetail = () => {
                         </div>
                       </div>
                       <div>
-                        <Button
-                          className="paymentContinue_button"
-                          onClick={(e) => handlePayment()}
-                        >
-                          Continue
-                        </Button>
+                        {address && (
+                          <Button
+                            className="paymentContinue_button"
+                            onClick={(e) => handlePayment()}
+                          >
+                            Continue
+                          </Button>
+                        )}
                       </div>
                     </div>
                   </Col>

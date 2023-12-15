@@ -127,8 +127,8 @@ const Allcategories = () => {
   return (
     <>
       <Row>
-        <div className="admin_toppadding ">
-          <Col className="Admin_dashboard " lg={12}>
+        <div className="admin_toppadding">
+          <Col className="Admin_dashboard" lg={12}>
             <h3> Categories</h3>
           </Col>
         </div>
