@@ -20,6 +20,7 @@ import { HiOutlineShoppingCart } from "react-icons/hi";
 import { searchAction } from "../../../../Redux/action/searchProductAction";
 import { allCategoryList } from "../../../../Redux/action/getCategoryAction";
 import { cartinfo } from "../../../../Redux/action/usercartinfo";
+import { admingetheading } from "../../../../Redux/action/adminheader";
 
 const Usernavbar = () => {
   const navigate = useNavigate();
@@ -31,9 +32,14 @@ const Usernavbar = () => {
 
   const userLogin = localStorage.getItem("token");
 
-  const mycart = useSelector((selectCart) => selectCart?.addToCartFile?.mycart);
+  const header = useSelector(
+    (state) => state?.adminheading?.listdata?.data?.data
+  );
+  console.log(header, "header");
 
   useEffect(() => {
+    dispatch(admingetheading({ adminID: "64b8ccde661f313c3be26a41" }));
+
     if (userData?.id) {
       dispatch(myCartList({ userid: userData.id }));
     }
@@ -118,19 +124,24 @@ const Usernavbar = () => {
               <Col lg={12}>
                 <div className="subnewbar_nav">
                   <div className="intcrt">
-                    <p>Welcome to our Instep Store</p>
+                    <p> {header && header.heading}</p>
                   </div>
                   <div className="intcrt">
                     <AiOutlineMail />
-                    instepcart@mail.com
+                    {header && header.Email}
                   </div>
-                  <div className="onmobiled-show">INSTEPCART</div>
+                  <i class="fas fa-divide    ">{header && header.sitename}</i>
+                  {/* <div className="onmobiled-show">INSTEPCART hiiiiiiiiiiiii</div> */}
                   <div className="subnewbar_content">
                     <div>
                       <div className="navbarhead_prop">
                         <Navbar.Brand>
                           <Link to="/" className="card_deco">
-                            INSTEPCART
+                            <img
+                              src={`http://localhost:5000/logo/${
+                                header && header?.logo
+                              }`}
+                            />
                           </Link>
                         </Navbar.Brand>
                       </div>
