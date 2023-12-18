@@ -70,7 +70,7 @@ server.use("/api", profile);
 server.use("/api", wishList);
 server.use("/api", headerforuser);
 
-
+// http://localhost:5000/profile
 
 ////25/08
 server.post("/api/Search", async (req, res) => {

@@ -14,3 +14,10 @@ export const adminPostheading = createAsyncThunk(
     return axiosInstance.post("/headerpost", payload);
   }
 );
+
+export const admingetheading = createAsyncThunk(
+  "admingetheading",
+  async (payload) => {
+    return axiosInstance.post("/headerget", payload);
+  }
+);
