@@ -6,8 +6,6 @@ export const axiosInstance = axios.create({
   baseURL: apiBasePath,
 });
 
-
-
 export const adminPostheading = createAsyncThunk(
   "adminPostheading",
   async (payload) => {
@@ -18,6 +16,6 @@ export const adminPostheading = createAsyncThunk(
 export const admingetheading = createAsyncThunk(
   "admingetheading",
   async (payload) => {
-    return axiosInstance.post("/headerget", payload);
+    return axiosInstance.post(`/headerget`, payload);
   }
 );
