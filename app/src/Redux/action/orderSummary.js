@@ -12,3 +12,10 @@ export const axiosInstance = axios.create({
 export const Afterorder = createAsyncThunk("orderSummary", async (payload) => {
   return axiosInstance.post(`/orderSummary`, payload);
 });
+
+export const Getorderdetail = createAsyncThunk(
+  "detailorderSummary",
+  async (payload) => {
+    return axiosInstance.post(`/getorderSummary`, payload);
+  }
+);
