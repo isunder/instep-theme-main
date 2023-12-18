@@ -852,45 +852,91 @@ const orderSummary = expressAsyncHandler(async (req, res) => {
 
     const { userid, deliveryAddress, products, payment_id, amount } = req.body;
 
-    if (userid) {
-      const find = new SchemaOrder({
-        userid: userid,
-        deliveryAddress: deliveryAddress,
-        products: products,
-        payment_id: payment_id,
-        amount: amount,
-      });
-      await find.save();
-      res.status(200).send({ save: find, success: true });
-    } else {
-      res.status(202).send({ msg: "give User ID", success: false });
+    if (!userid) {
+      return res.status(400).send({ message: "User ID is required", success: false });
     }
+
+    const find = new SchemaOrder({
+      userid,
+      deliveryAddress,
+      products,
+      payment_id,
+      amount,
+
+    });
+
+    await find.save();
+    res.status(200).send({ save: find, success: true });
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: "An error occurred", error: error.message });
+    res.status(500).json({ message: "An error occurred", error: error.message });
+  }
+});
+
+
+
+
+const updateOrderStatus = expressAsyncHandler(async (req, res) => {
+  try {
+    const { orderId, productID, newStatus } = req.body;
+
+    // Validate orderId, productID, and newStatus
+    if (!orderId || !productID || !newStatus) {
+      return res.status(400).send({ message: "Order ID, product ID, and new status are required", success: false });
+    }
+
+    // Find the order by orderId
+    const order = await SchemaOrder.findById(orderId);
+
+    if (!order) {
+      return res.status(404).send({ message: "Order not found", success: false });
+    }
+
+    // Find the product within the order's products array
+    const productToUpdate = order.products.find(product => product.productID.toString() === productID);
+
+    if (!productToUpdate) {
+      return res.status(404).send({ message: "Product not found in the order", success: false });
+    }
+
+    // Update the status of the found product
+    productToUpdate.status = newStatus;
+
+    // Save the updated order
+    await order.save();
+
+    res.status(200).send({ updatedProduct: productToUpdate, success: true });
+  } catch (error) {
+    res.status(500).json({ message: "An error occurred", error: error.message });
   }
 });
 
 const getorderSummary = expressAsyncHandler(async (req, res) => {
   try {
-    const Userid = req.body.userid;
+    const { userid } = req.body; // Assuming userId is passed as a parameter
 
-    if (Userid) {
-      const find = await SchemaOrder.find({ userid: Userid });
-
-      if (find.length > 0) {
-        res.status(200).send({ data: find, success: true });
-      } else {
-        res.status(201).send({ msg: "no data found ", success: false });
+    const ordersWithProducts = await SchemaOrder.aggregate([
+      { $match: { userid: new mongoose.Types.ObjectId(userid) } },
+      {
+        $lookup: {
+          from: "userproducts",
+          localField: "products.productID",
+          foreignField:"_id",
+          as: "populatedProducts" 
+        }
       }
-    } else {
-      res.status(202).send({ msg: "give User id", success: false });
-    }
+    ]);
+    
+
+
+    res.status(200).send({ ordersWithProducts, success: true });
   } catch (error) {
-    res.status(500).send({ error: error, success: false });
+    res.status(500).json({ message: "An error occurred", error: error.message });
   }
 });
+
+
+
+
 
 // master filter
 const spacifeaction = expressAsyncHandler(async (req, res) => {
@@ -1037,4 +1083,5 @@ module.exports = {
   specificationupdate,
   specificationdelete,
   spacifeactiongetbyId,
+  updateOrderStatus,
 };
