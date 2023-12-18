@@ -216,7 +216,7 @@ const Delieverydetail = () => {
   const [razorpayInstance, on, off] = useRazorpay();
   console.log(dData?.price * qty, "addressdata");
 
-  const [orderHit,setOrderHit] = useState(false)
+  const [orderHit, setOrderHit] = useState(false);
 
   const handlePayment = useCallback(() => {
     console.log("callertettt");
@@ -226,7 +226,7 @@ const Delieverydetail = () => {
       console.log(res, "paymentid");
       const paymentes = res.razorpay_payment_id;
       console.log(paymentes, "paymentes");
-      setOrderHit(true)
+      setOrderHit(true);
     });
   }, [dispatch, order, dData, qty]);
 
@@ -316,7 +316,7 @@ const Delieverydetail = () => {
       const rzpay = new Razorpay(options);
       rzpay.open();
     }
-    setOrderHit(false)
+    setOrderHit(false);
   }
   console.log("Paymentdetails:", paymentDetails);
 
