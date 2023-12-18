@@ -14,6 +14,7 @@ import Editprofile from '../Editprofile/editprofile'
 import TrackOrder from '../Editprofile/trackOrder'
 import { useNavigate } from 'react-router-dom'
 import AddressBook from '../Editprofile/addressbook'
+import { Getorderdetail } from '../../../Redux/action/orderSummary'
 
 export default function Profile() {
     const navigate = useNavigate();
@@ -22,7 +23,8 @@ export default function Profile() {
 
     const userData = getUserId();
     console.log(userData, "usr");
-
+    const idata = userData.id
+    console.log(idata, "daa")
     const userLogin = localStorage.getItem("token");
 
     const dispatch = useDispatch()
@@ -33,6 +35,10 @@ export default function Profile() {
         handleClose();
         window.location.reload()
     };
+
+    const orderdetail = useSelector((state) => state?.getallorderdetail?.listdata)
+    console.log(orderdetail, "ordersss")
+
     const userinfo = useSelector((state) => state?.cartdetails?.listdata)
     console.log(userinfo, "usersssssssssssssssss")
 
@@ -42,7 +48,12 @@ export default function Profile() {
 
     useEffect(() => {
         dispatch(cartinfo({ userid: "64b8ccde661f313c3be26a41" }))
+        dispatch(Getorderdetail({ userid: idata }))
     }, [])
+
+    // const butClick = () => { 
+    //     dispatch()
+    // }
 
 
 
@@ -52,6 +63,8 @@ export default function Profile() {
         <div className='container'>
             <div className=" slider_col margin_bottom">
                 <div className='recent_orders '>
+                    {/* <div><button onClick={butClick}>click me</button></div> */}
+
                     <Row >
                         <Col lg={3} md={3} sm={4}>
                             <div className="d-flex justify-content-center mainiconalign">
