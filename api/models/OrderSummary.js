@@ -15,6 +15,11 @@ const orderSchema = new mongoose.Schema({
                 type: mongoose.Schema.ObjectId,
                 required: true
             },
+            status: {
+                type: String,
+                enum: ['pending', 'processing', 'shipped', 'delivered'],
+                default: 'pending'
+            },
             quantity: {
                 type: Number,
                 required: true
@@ -28,7 +33,6 @@ const orderSchema = new mongoose.Schema({
     amount: {
         type: String,
         required: true
-
     }
 });
 
