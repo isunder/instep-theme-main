@@ -29,6 +29,7 @@ const Delieverydetail = () => {
   const [activeKey, setactiveKey] = useState(0);
   const [hidedata, setHidata] = useState("");
   const [razorPaymentId, setRazorPaymentId] = useState("");
+  const [qty, setQty] = useState(1);
   // const [formStateShow,setFormStateShow] = useState(null)
   const data = useSelector((state) => state?.deliveraddress?.listdata);
 
@@ -51,7 +52,6 @@ const Delieverydetail = () => {
   const addressdata = useSelector(
     (state) => state?.deliveryaddressget?.listdata?.data
   );
-  console.log(addressdata, "addressdata");
 
   const getTotalPrice = () => {
     let count = 0;
@@ -172,7 +172,7 @@ const Delieverydetail = () => {
   const [address, setAddress] = useState(null);
 
   const handleRadioChange = (event) => {
-    console.log(event,'feiojrlk')
+    console.log(event, "feiojrlk");
     setSelectedAddressType(event?.target?.value);
     setAddress(event);
     // console.log(value, "valuess ", event);
@@ -186,7 +186,7 @@ const Delieverydetail = () => {
   };
 
   const dData = useSelector((state) => state?.singleproduct?.listdata);
-  console.log(dData?._id, "dDatadData");
+  console.log(dData, "dDatadData");
 
   useEffect(() => {
     dispatch(singleproduct({ _id }));
@@ -213,18 +213,25 @@ const Delieverydetail = () => {
 
   const [Razorpay, isLoaded] = useRazorpay();
 
+  const [razorpayInstance, on, off] = useRazorpay();
+  console.log(dData?.price * qty, "addressdata");
+
+  const [orderHit, setOrderHit] = useState(false);
+
   const handlePayment = useCallback(() => {
-    const load = { amount: dData?.price };
+    console.log("callertettt");
+    const load = { amount: dData?.price * qty };
     // console.log(load, "load");
-    dispatch(paymentOrder(load)).then((res) => {
+    dispatch(paymentOrder({ ...load, currency: "INR" })).then((res) => {
       console.log(res, "paymentid");
       const paymentes = res.razorpay_payment_id;
       console.log(paymentes, "paymentes");
+      setOrderHit(true);
     });
-  }, [dispatch, order, dData]);
+  }, [dispatch, order, dData, qty]);
 
-  if (order) {
-    const orderAmount = order?.data?.order?.amount;
+  if (order && orderHit) {
+    const orderAmount = order?.data?.order?.amount * qty;
     if (orderAmount) {
       const options = {
         key: "rzp_test_Nfb5anftyihnMA",
@@ -258,7 +265,7 @@ const Delieverydetail = () => {
 
         handler: function (res) {
           console.log("Payment success:", res);
-          const orderid = res.razorpay_payment_id;
+          const orderid = res?.razorpay_payment_id;
           console.log(orderid, "orderidorderid");
           setRazorPaymentId(orderid);
 
@@ -277,6 +284,20 @@ const Delieverydetail = () => {
           console.log("Amount:", paymentDetails.amount);
 
           // Here you can dispatch an action or perform further processing with the payment details
+
+          const payloads = {
+            userid: dataId,
+            deliveryAddress: addressdata[0]?._id,
+            amount: dData?.price * qty,
+            payment_id: res?.razorpay_payment_id, // Using the Razorpay order ID as payment reference
+            // productID: dData?._id,
+            // quantity: 1, // You might adjust this depending on your use case
+            // ... other order-related details
+            products: [{ productID: dData?._id, quantity: qty }],
+          };
+
+          // Dispatch an action to send order details after successful payment
+          dispatch(Afterorder(payloads));
         },
 
         prefill: {
@@ -295,25 +316,52 @@ const Delieverydetail = () => {
       const rzpay = new Razorpay(options);
       rzpay.open();
     }
+    setOrderHit(false);
   }
   console.log("Paymentdetails:", paymentDetails);
-  const payloads = {
-    userid: dataId,
-    deliveryAddress: addressdata,
-    amount: order?.data?.order?.amount,
-    payment: razorPaymentId,
-    productID: dData?._id,
-    quantity: 1,
-  };
-  if (razorPaymentId && payloads) {
-    console.log(payloads, "payloads");
-    dispatch(Afterorder(payloads));
-  }
-  useEffect(() => {
-    if (isLoaded) {
-      handlePayment();
-    }
-  }, [isLoaded, handlePayment]);
+
+  // useEffect(() => {
+  //   const handlePaymentSuccess = (response) => {
+  //     // Handle the successful payment response from Razorpay
+  //     // Extract necessary information from the response if needed
+
+  //     // Dispatch an action to create an order summary or perform further actions
+  //     const orderSummaryPayload = {
+  //       // Create a payload with necessary information for the order summary
+  //       // This payload might include data from the successful payment response or any other relevant data
+  //       // For example:
+  //       userId: "your_user_id",
+  //       orderId: response.razorpay_order_id,
+  //       amount: response.razorpay_payment_amount,
+  //       // Add more fields as needed
+  //     };
+
+  //     dispatch(Afterorder(orderSummaryPayload));
+  //   };
+
+  //   razorpayInstance.on("payment.success", handlePaymentSuccess);
+  //   return () => {
+  //     razorpayInstance.off("payment.success", handlePaymentSuccess);
+  //   };
+  // }, [dispatch]);
+
+  // const payloads = {
+  //   userid: dataId,
+  //   deliveryAddress: addressdata,
+  //   amount: order?.data?.order?.amount,
+  //   payment: razorPaymentId,
+  //   productID: dData?._id,
+  //   quantity: 1,
+  // };
+  // if (razorPaymentId && payloads) {
+  //   console.log(payloads, "payloads");
+  //   dispatch(Afterorder(payloads));
+  // }
+  // useEffect(() => {
+  //   if (isLoaded) {
+  //     handlePayment();
+  //   }
+  // }, [isLoaded, handlePayment]);
 
   useEffect(() => {
     if (addressdata && addressdata?.length === 1) {
@@ -749,6 +797,21 @@ const Delieverydetail = () => {
                                   <Card.Title>
                                     <h4>{dData.title}</h4>
                                   </Card.Title>
+                                  <div>
+                                    <button
+                                      disabled={qty === 1}
+                                      onClick={() => setQty(qty - 1)}
+                                    >
+                                      -
+                                    </button>
+                                    {qty}
+                                    <button
+                                      disabled={qty >= 10}
+                                      onClick={() => setQty(qty + 1)}
+                                    >
+                                      +
+                                    </button>
+                                  </div>
                                   <Card.Subtitle className="mb-2 text-muted">
                                     <h5>
                                       Extra ₹ {dData.discountPercentage}..Off

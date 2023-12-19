@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 // import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import { Accordion, Col, Row } from "react-bootstrap";
+import { Accordion, Col, Image, Row } from "react-bootstrap";
 import { React, useEffect, useState } from "react";
 import {
   getProductAction,
@@ -21,6 +21,7 @@ import { searchAction } from "../../../../Redux/action/searchProductAction";
 import { allCategoryList } from "../../../../Redux/action/getCategoryAction";
 import { cartinfo } from "../../../../Redux/action/usercartinfo";
 import { admingetheading } from "../../../../Redux/action/adminheader";
+import { apiBasePath } from "../../../../Redux/config/Config";
 
 const Usernavbar = () => {
   const navigate = useNavigate();
@@ -137,10 +138,13 @@ const Usernavbar = () => {
                       <div className="navbarhead_prop">
                         <Navbar.Brand>
                           <Link to="/" className="card_deco">
+                            {console.log(
+                              header?.logo.split("-")[1],
+                              "asdasdq234234324"
+                            )}
                             <img
-                              src={`http://localhost:5000/logo/${
-                                header && header?.logo
-                              }`}
+                              src={`${apiBasePath}/logo/${header?.logo}`}
+                              alt=""
                             />
                           </Link>
                         </Navbar.Brand>

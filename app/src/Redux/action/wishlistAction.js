@@ -9,13 +9,16 @@ export const axiosInstance = axios.create({
   },
 });
 
-export const Afterorder = createAsyncThunk("orderSummary", async (payload) => {
-  return axiosInstance.post(`/orderSummary`, payload);
-});
-
-export const Getorderdetail = createAsyncThunk(
-  "detailorderSummary",
+export const wishlistremove = createAsyncThunk(
+  "deletewishlist",
   async (payload) => {
-    return axiosInstance.post(`/getorderSummary`, payload);
+    return axiosInstance.post("/wishlist/remove", payload);
+  }
+);
+
+export const wishlistadd = createAsyncThunk(
+  "addwishlistdata",
+  async (payload) => {
+    return axiosInstance.post("/wishlist/add", payload);
   }
 );

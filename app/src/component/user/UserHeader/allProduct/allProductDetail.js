@@ -338,10 +338,24 @@ import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import Subcategorymobilefilter from "../../filterbyCategory/SubcaregoryMobilefilter";
 import SubCategoryfilter from "../../filterbyCategory/subCategoryfilter";
 import Spinner from "../../loader/spinner";
+import {
+  wishlistadd,
+  wishlistremove,
+} from "../../../../Redux/action/wishlistAction";
+import { getUserId } from "../../../../utils/auth";
 
 const AllProductDetail = () => {
   const dispatch = useDispatch();
+
+  const userData = getUserId();
+  console.log(userData, "userData");
+
   const data = useSelector((state) => state?.getproductdata?.listdata);
+  const data1 = useSelector(
+    (state) => state?.getproductdata?.listdata?.products
+  );
+  const productIds = data1?._id;
+  console.log(productIds, "asdfgfds");
 
   const loading = useSelector((state) => state?.getproductdata?.isLoading);
 
@@ -352,10 +366,23 @@ const AllProductDetail = () => {
   }, []);
 
   const productClick = (_id) => {
-    console.log(_id, "hh/ddhhjjjjjjjjjjj");
+    console.log(_id, "hhddhhjjjjjjjjjjj");
   };
 
-  const handleWishlistClick = (productId) => {
+  const handleWishlistClick = (productId, wishliststatus, data) => {
+    // console.log(data._id, "sdfghjk");
+    if (wishliststatus == "delete") {
+      //Delete API
+      dispatch(wishlistremove({ tableid: productIds?._id }));
+    } else if (wishliststatus == "add") {
+      //Add API
+      dispatch(
+        wishlistadd({
+          userId: userData?.id,
+          items: productIds?._id,
+        })
+      );
+    }
     setWishlist((prevWishlist) => ({
       ...prevWishlist,
       [productId]: !prevWishlist[productId],
@@ -424,7 +451,9 @@ const AllProductDetail = () => {
                                     height: "23px",
                                     cursor: "pointer",
                                   }}
-                                  onClick={() => handleWishlistClick(e._id)}
+                                  onClick={() =>
+                                    handleWishlistClick(e._id, "delete")
+                                  }
                                 />
                               ) : (
                                 <AiOutlineHeart
@@ -434,7 +463,9 @@ const AllProductDetail = () => {
                                     height: "23px",
                                     cursor: "pointer",
                                   }}
-                                  onClick={() => handleWishlistClick(e._id)}
+                                  onClick={() =>
+                                    handleWishlistClick(e._id, "add")
+                                  }
                                 />
                               )}
                             </div>
@@ -444,7 +475,6 @@ const AllProductDetail = () => {
                               onClick={() => productClick(e?._id)}
                             >
                               <Card className=" forcatcards_htwd ">
-
                                 <div className="img_div">
                                   <Card.Img
                                     variant="top"
@@ -452,8 +482,8 @@ const AllProductDetail = () => {
                                       e?.image
                                         ? e?.image
                                         : e?.thumbnail.split(":").length > 1
-                                          ? e?.thumbnail
-                                          : `http://localhost:5000/uploads/${e.thumbnail}`
+                                        ? e?.thumbnail
+                                        : `http://localhost:5000/uploads/${e.thumbnail}`
                                     }
                                   />
                                 </div>

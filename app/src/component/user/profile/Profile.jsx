@@ -14,6 +14,7 @@ import Editprofile from '../Editprofile/editprofile'
 import TrackOrder from '../Editprofile/trackOrder'
 import { useNavigate } from 'react-router-dom'
 import AddressBook from '../Editprofile/addressbook'
+import { Getorderdetail } from '../../../Redux/action/orderSummary'
 
 export default function Profile() {
     const navigate = useNavigate();
@@ -22,7 +23,8 @@ export default function Profile() {
 
     const userData = getUserId();
     console.log(userData, "usr");
-
+    const idata = userData.id
+    console.log(idata, "daa")
     const userLogin = localStorage.getItem("token");
 
     const dispatch = useDispatch()
@@ -33,16 +35,22 @@ export default function Profile() {
         handleClose();
         window.location.reload()
     };
+
+    const orderdetail = useSelector((state) => state?.getallorderdetail?.listdata)
+    console.log(orderdetail, "ordersss")
+
     const userinfo = useSelector((state) => state?.cartdetails?.listdata)
-    console.log(userinfo, "usersssssssssssssssss")
 
     const cartdata = useSelector((state) => state?.cartdetails?.listdata?.data?.userProductDetails)
-    console.log(userinfo, "dauserinfota")
-    console.log(cartdata, "cartdata")
 
     useEffect(() => {
         dispatch(cartinfo({ userid: "64b8ccde661f313c3be26a41" }))
+        dispatch(Getorderdetail({ userid: idata }))
     }, [])
+
+    // const butClick = () => { 
+    //     dispatch()
+    // }
 
 
 
@@ -52,6 +60,8 @@ export default function Profile() {
         <div className='container'>
             <div className=" slider_col margin_bottom">
                 <div className='recent_orders '>
+                    {/* <div><button onClick={butClick}>click me</button></div> */}
+
                     <Row >
                         <Col lg={3} md={3} sm={4}>
                             <div className="d-flex justify-content-center mainiconalign">
@@ -111,7 +121,7 @@ export default function Profile() {
                     <div className="recent_orders">
                         <th>Manage My Account</th>
                         <div class="nav flex-column nav-pills me-3 " id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                            <button class="nav-link active " id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true"> <div className='d-flex justify-content-start align-items-center'><MdAccountCircle className='profilemanangeicon' />Edit Profile</div></button>
+                            <button className="nav-link active " id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true"> <div className='d-flex justify-content-start align-items-center'><MdAccountCircle className='profilemanangeicon' />Edit Profile</div></button>
                             <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">  <div className='d-flex justify-content-start align-items-center'><CiLocationOn className='profilemanangeicon' />Track Order </div></button>
                             <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">  <div className='d-flex justify-content-start align-items-center'><AiOutlineHome className='profilemanangeicon' />Address Book </div></button>
                             <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">
