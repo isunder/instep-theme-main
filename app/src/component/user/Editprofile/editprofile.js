@@ -20,7 +20,7 @@ const Editprofile = () => {
 
   const loading = useSelector((state) => state?.profileslice?.isLoading);
   console.log(profiledata, "aaaaaaaaaaaaaaaaaaaa");
-  const [edit, setEdit] = useState(false)
+  const [edit, setEdit] = useState(false);
 
   // const token = getToken();
   // const tokenD = JSON.parse(token);
@@ -33,25 +33,24 @@ const Editprofile = () => {
     var formData = new FormData();
   };
   // console.log("userData ab", userData);
-  useEffect(() => {
-
-  }, [""]);
+  useEffect(() => {}, [""]);
 
   const handleEdit = (name) => {
-    setEdit(name)
-  }
+    setEdit(name);
+  };
   const handleSave = (values) => {
     var formData = new FormData();
     if (values?.id) {
       formData.append("userData", JSON.stringify(values));
       dispatch(createprofile(formData)).then((res) => {
-        console.log(res, 'fwoemkf')
-        // toast.success("Successfully Edit !",{autoClose:1000});
+        console.log(res, "fwoemkf");
+        toast.success("Successfully Edit !", {
+          position: toast.POSITION.BOTTOM_CENTER,
+        });
       });
     }
-    setEdit(false)
-  }
-
+    setEdit(false);
+  };
 
   const validate = (values) => {
     let errors = {};
@@ -67,10 +66,10 @@ const Editprofile = () => {
       number: profiledata?.number,
       profileimg: profileimgdata,
       email: profiledata?.email,
-      id: profiledata?._id
-    }
+      id: profiledata?._id,
+    };
 
-    return init
+    return init;
   };
   useEffect(() => {
     var formData = new FormData();
@@ -85,6 +84,7 @@ const Editprofile = () => {
 
   return (
     <>
+
       {loading &&
         (<Spinner />)}
       <>
@@ -172,6 +172,49 @@ const Editprofile = () => {
                         Save
                       </button>
                     </div> */}
+                  </div>
+                </Col>
+                <Col md={12}>
+                  <div className="labelalig_n">
+                    <h5>Mobile Number</h5>
+                    {edit !== "number" ? (
+                      <div onClick={() => handleEdit("number")}>Edit</div>
+                    ) : (
+                      <p
+                        className="editfrpf_cancel"
+                        onClick={() => setEdit(false)}
+                      >
+                        cancel
+                      </p>
+                    )}
+                  </div>
+                  <div className="margin_bottom personalotherinput">
+                    <Field name="number">
+                      {({ input, meta }) => (
+                        <>
+                          <input
+                            disabled={edit !== "number"}
+                            className="otherinputalign"
+                            {...input}
+                            placeholder="Mobile Number"
+                          />
+                        </>
+                      )}
+                    </Field>
+                    <div>
+                      {edit === "number" && (
+                        <button
+                          className="personalinfo_button"
+                          onClick={() => {
+                            handleSave({
+                              number: values.number,
+                              id: values?.id,
+                            });
+                          }}
+                        >
+                          Save
+                        </button>
+                      )}
                     </div>
                   </Col>
                   <Col md={12}>
