@@ -26,21 +26,23 @@ const getwishlist = expressAsyncHandler(async (req, res) => {
 });
 
 const Wishlistpost = expressAsyncHandler(async (req, res) => {
-    console.log("first");
     const { userId, items } = req.body;
-    console.log(userId, items, "ssd");
+  
     try {
-        const wishlist = new Wishlist(
-            { userId: userId, items: items },
-
-        );
-
-        const x = await wishlist.save()
+        const wishlist = new Wishlist({ userId: userId, items: items });
+        const x = await wishlist.save();
         res.status(200).send({ data: x, success: true });
     } catch (err) {
-        res.status(500).json({ message: err.message });
+        if (err.code === 11000 && err.keyPattern && err.keyPattern.items) {
+            // Duplicate key error for the 'items' field
+            res.status(202).json({ message: 'Duplicate items found in the wishlist.',success:false });
+        } else {
+            // Handle other errors
+            res.status(500).json({ message: err.message });
+        }
     }
 });
+
 // Endpoint to remove an item from the wishlist
 
 const wishListdelete = expressAsyncHandler(async (req, res) => {

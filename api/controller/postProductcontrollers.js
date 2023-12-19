@@ -919,12 +919,14 @@ const getorderSummary = expressAsyncHandler(async (req, res) => {
       {
         $lookup: {
           from: "userproducts",
-          localField: "products.productID",
-          foreignField:"_id",
-          as: "populatedProducts" 
+          localField: "products.productID", // Accessing the correct nested field
+          foreignField: "_id",
+          as: "products.productID"
         }
       }
     ]);
+    
+    
     
 
 
