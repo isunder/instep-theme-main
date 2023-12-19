@@ -84,9 +84,7 @@ const Editprofile = () => {
 
   return (
     <>
-
-      {loading &&
-        (<Spinner />)}
+      {loading && <Spinner />}
       <>
         <div className="editprofile_main">
           <Row>
@@ -99,17 +97,22 @@ const Editprofile = () => {
                   <Col md={12}>
                     <div className="labelalig_n margin_bottom">
                       <h3> Personal Information</h3>
-                      {edit !== "name" ?
-                        (
-                          <div onClick={() => {
-                            handleEdit('name')
-                          }}>
-                            Edit
-                          </div>
-                        ) :
-                        (
-                          <p className="editfrpf_cancel" onClick={() => setEdit(false)}>Cancel</p>
-                        )}
+                      {edit !== "name" ? (
+                        <div
+                          onClick={() => {
+                            handleEdit("name");
+                          }}
+                        >
+                          Edit
+                        </div>
+                      ) : (
+                        <p
+                          className="editfrpf_cancel"
+                          onClick={() => setEdit(false)}
+                        >
+                          Cancel
+                        </p>
+                      )}
                     </div>
 
                     <div className="info-fields margin_bottom mb-4">
@@ -117,7 +120,7 @@ const Editprofile = () => {
                         {({ input, meta }) => (
                           <>
                             <input
-                              disabled={edit !== 'name'}
+                              disabled={edit !== "name"}
                               className="firstname"
                               {...input}
                               placeholder="first name"
@@ -129,7 +132,7 @@ const Editprofile = () => {
                         {({ input, meta }) => (
                           <>
                             <input
-                              disabled={edit !== 'name'}
+                              disabled={edit !== "name"}
                               className="lastname"
                               {...input}
                               placeholder="last name"
@@ -138,10 +141,18 @@ const Editprofile = () => {
                         )}
                       </Field>
                       <div>
-                        {edit === 'name' && (
-                          <button onClick={() => {
-                            handleSave({ firstname: values.firstname, lastname: values.lastname, id: values?.id })
-                          }} className="personalinfo_button" type="submit">
+                        {edit === "name" && (
+                          <button
+                            onClick={() => {
+                              handleSave({
+                                firstname: values.firstname,
+                                lastname: values.lastname,
+                                id: values?.id,
+                              });
+                            }}
+                            className="personalinfo_button"
+                            type="submit"
+                          >
                             Save
                           </button>
                         )}
@@ -172,70 +183,28 @@ const Editprofile = () => {
                         Save
                       </button>
                     </div> */}
-                  </div>
-                </Col>
-                <Col md={12}>
-                  <div className="labelalig_n">
-                    <h5>Mobile Number</h5>
-                    {edit !== "number" ? (
-                      <div onClick={() => handleEdit("number")}>Edit</div>
-                    ) : (
-                      <p
-                        className="editfrpf_cancel"
-                        onClick={() => setEdit(false)}
-                      >
-                        cancel
-                      </p>
-                    )}
-                  </div>
-                  <div className="margin_bottom personalotherinput">
-                    <Field name="number">
-                      {({ input, meta }) => (
-                        <>
-                          <input
-                            disabled={edit !== "number"}
-                            className="otherinputalign"
-                            {...input}
-                            placeholder="Mobile Number"
-                          />
-                        </>
-                      )}
-                    </Field>
-                    <div>
-                      {edit === "number" && (
-                        <button
-                          className="personalinfo_button"
-                          onClick={() => {
-                            handleSave({
-                              number: values.number,
-                              id: values?.id,
-                            });
-                          }}
-                        >
-                          Save
-                        </button>
-                      )}
                     </div>
                   </Col>
                   <Col md={12}>
                     <div className="labelalig_n">
-                      <h5 >Mobile Number</h5>
-                      {edit !== "number" ?
-                        (
-                          <div onClick={() => handleEdit('number')}>Edit
-                          </div>
-                        ) :
-                        (
-                          <p className="editfrpf_cancel" onClick={() => setEdit(false)}>Cancel</p>
-                        )
-                      }
+                      <h5>Mobile Number</h5>
+                      {edit !== "number" ? (
+                        <div onClick={() => handleEdit("number")}>Edit</div>
+                      ) : (
+                        <p
+                          className="editfrpf_cancel"
+                          onClick={() => setEdit(false)}
+                        >
+                          cancel
+                        </p>
+                      )}
                     </div>
                     <div className="margin_bottom personalotherinput">
                       <Field name="number">
                         {({ input, meta }) => (
                           <>
                             <input
-                              disabled={edit !== 'number'}
+                              disabled={edit !== "number"}
                               className="otherinputalign"
                               {...input}
                               placeholder="Mobile Number"
@@ -244,10 +213,60 @@ const Editprofile = () => {
                         )}
                       </Field>
                       <div>
-                        {edit === 'number' && (
-                          <button className="personalinfo_button" onClick={() => {
-                            handleSave({ number: values.number, id: values?.id })
-                          }}>
+                        {edit === "number" && (
+                          <button
+                            className="personalinfo_button"
+                            onClick={() => {
+                              handleSave({
+                                number: values.number,
+                                id: values?.id,
+                              });
+                            }}
+                          >
+                            Save
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  </Col>
+                  <Col md={12}>
+                    <div className="labelalig_n">
+                      <h5>Mobile Number</h5>
+                      {edit !== "number" ? (
+                        <div onClick={() => handleEdit("number")}>Edit</div>
+                      ) : (
+                        <p
+                          className="editfrpf_cancel"
+                          onClick={() => setEdit(false)}
+                        >
+                          Cancel
+                        </p>
+                      )}
+                    </div>
+                    <div className="margin_bottom personalotherinput">
+                      <Field name="number">
+                        {({ input, meta }) => (
+                          <>
+                            <input
+                              disabled={edit !== "number"}
+                              className="otherinputalign"
+                              {...input}
+                              placeholder="Mobile Number"
+                            />
+                          </>
+                        )}
+                      </Field>
+                      <div>
+                        {edit === "number" && (
+                          <button
+                            className="personalinfo_button"
+                            onClick={() => {
+                              handleSave({
+                                number: values.number,
+                                id: values?.id,
+                              });
+                            }}
+                          >
                             Save
                           </button>
                         )}
