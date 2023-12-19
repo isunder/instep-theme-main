@@ -6,6 +6,6 @@ router.post("/wishlist/get", wishlistcontroler.getwishlist);
 
 router.post("/wishlist/add", wishlistcontroler.Wishlistpost);
 
-router.delete("/wishlist/remove", wishlistcontroler.wishListdelete);
+router.post("/wishlist/remove", wishlistcontroler.wishListdelete);
 
 module.exports = router;

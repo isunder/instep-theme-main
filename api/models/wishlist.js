@@ -9,7 +9,8 @@ const wishlistSchema = new mongoose.Schema({
   },
   items: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Product' // Assuming there's a Product model to reference
+    required: true,
+    unique: true
   }
 });
 
