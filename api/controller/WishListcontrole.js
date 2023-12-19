@@ -10,20 +10,20 @@ const getwishlist = expressAsyncHandler(async (req, res) => {
             },
             {
                 $lookup: {
-                    from: "userproducts",
+                    from: "userproducts", // Assuming "userproducts" is the name of the collection
                     localField: "items",
                     foreignField: "_id",
-                    as: "items",
+                    as: "products", // Renaming the field to "products" after lookup
                 },
             },
-            // Add more aggregation stages if needed
         ]);
 
-        res.status(200).send({ data: wishlist, success: true });
+        res.status(200).json({ data: wishlist, success: true });
     } catch (err) {
-        res.status(500).json({ message: err.message });
+        res.status(500).json({ message: err.message, success: false });
     }
 });
+
 
 const Wishlistpost = expressAsyncHandler(async (req, res) => {
     const { userId, items } = req.body;
@@ -33,13 +33,10 @@ const Wishlistpost = expressAsyncHandler(async (req, res) => {
         const x = await wishlist.save();
         res.status(200).send({ data: x, success: true });
     } catch (err) {
-        if (err.code === 11000 && err.keyPattern && err.keyPattern.items) {
-            // Duplicate key error for the 'items' field
-            res.status(202).json({ message: 'Duplicate items found in the wishlist.', success: false });
-        } else {
-            // Handle other errors
-            res.status(500).json({ message: err.message });
-        }
+
+
+        res.status(500).json({ message: err.message });
+
     }
 });
 
