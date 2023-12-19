@@ -50,6 +50,7 @@ import Trendingproducts from "../component/admin/dashboardPage/sideNavOption/Pro
 import Editprofile from "../component/user/Editprofile/editprofile";
 import SliderPages from "../component/user/UserHeader/sliderPages/sliderPages";
 import Headeradmin from "../component/admin/dashboardPage/sideNavOption/Products/Headeradmin";
+import Onlymobile from "../component/user/Products/sliderSubcategory";
 
 const role = getUserId() ? getUserId()?.userRole : null;
 // console.log(role, "aaasdfgfds");
@@ -80,6 +81,7 @@ const protects = {
         { path: "/orderconfirmation", element: <OrderConfirmation /> },
         { path: "/editprofile", element: <Editprofile /> },
         { path: "/salespage", element: <SliderPages /> },
+        { path: "/slidersubcategory", element: <Onlymobile /> },
         { path: "*", element: "NO PAGE FOUND" },
       ],
     },
@@ -141,6 +143,7 @@ const protects = {
         { path: "/privacypolicy", element: <Privacy /> },
         { path: "/payment", element: <Payments /> },
         { path: "/salespage", element: <SliderPages /> },
+        { path: "/onlymobile", element: <Onlymobile /> },
         { path: "*", element: "NO PAGE FOUND" },
       ],
     },
