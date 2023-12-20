@@ -15,3 +15,12 @@ export const createprofile = createAsyncThunk(
     return axiosInstance.post(`/createProfile`, payload);
   }
 );
+
+
+// get image
+export const getProfileImage =  createAsyncThunk(
+  "getProfileImage",
+  async (payload) => {
+    return axiosInstance.post(`/getProfile`, payload);
+  }
+);

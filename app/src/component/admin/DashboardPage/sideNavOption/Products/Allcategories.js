@@ -75,22 +75,45 @@ const Allcategories = () => {
   const handleImgeFile = (e) => {
     const files = e.target.files;
     const image = e.target.files[0];
+
+    if (!files || files.length === 0) {
+      console.log("Image is required");
+      return false;
+    }
+
     if (!image) {
-      console.log("image is required");
+      console.log("Image is required");
       return false;
     }
-    if (!image.name.match(/\.(jpg|jpeg|png|gif)$/)) {
-      console.log("select valid image.");
+
+    if (!image.name.match(/\.(jpg|jpeg|png)$/)) {
+      toast.error("upload file in the form of jpg, jpeg or png")
+      setSelectedImages([])
+      e.target.value = null;
+      return false;
+
+    }
+    // size
+    const maxSizeKB = 50;
+    if (image.size > maxSizeKB * 1024) {
+      toast.error("the maximum file size allowed (50KB).");
+      setSelectedImages([])
+      e.target.value = null;
       return false;
     }
+
     const uniqueId = Date.now();
-    let name = e.target.files[0].name;
+    const name = e.target.files[0].name;
     const filename = uniqueId + "_" + name;
 
-    let file = new File(files, filename);
+    // Create a new File object for the selected image
+    const file = new File([image], filename);
+
     setselectedImagesforpost({ file: file });
-    // images  which is upoads
+
+    // Images which are uploaded
     let imagesArray = [];
+
     // Iterate through the selected files again to read and display them as previews
     for (let i = 0; i < files.length; i++) {
       const reader = new FileReader();
@@ -101,10 +124,10 @@ const Allcategories = () => {
         }
       };
       reader.readAsDataURL(files[i]);
-    }
+    };
   };
-  const handleClose = () => setShow(false);
 
+  const handleClose = () => setShow(false);
 
   const handleDelete = (id) => {
     dispatch(removeFromCategory({ categoryid: id })).then((res) => {
@@ -147,7 +170,7 @@ const Allcategories = () => {
                   valuess,
                 }) => (
                   <form onSubmit={handleSubmit}>
-                    <div className="category_item margin_bottom">
+                    <div className="category_item ">
                       <Field
                         className="ctegorysearc_h"
                         name="category"
@@ -158,7 +181,7 @@ const Allcategories = () => {
                       />
                       <div className="buttons"></div>
                     </div>
-                    <div className="margin_bottom">
+                    <div className="">
                       <h4>Upload image</h4>
                       <div>
                         <input
@@ -167,6 +190,25 @@ const Allcategories = () => {
                           className="form-control signup_form_input margin_bottom"
                           onChange={handleImgeFile}
                         />
+                        {selectedImages?.length > 0 && (
+                          <div>
+                            <h2>Selected Images:</h2>
+                            <ul className="row">
+                              {selectedImages?.map((imageUrl, index) => (
+                                <li
+                                  key={index}
+                                  className=" productupload_item col-md-3"
+                                >
+                                  <img
+                                    className="categorygetimage"
+                                    src={imageUrl}
+                                    alt={`Image ${index}`}
+                                  />
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
                       </div>
                     </div>
                     <div>
@@ -191,6 +233,7 @@ const Allcategories = () => {
                 <tr>
                   <th>S/L</th>
                   <th> Category Name</th>
+                  <th>Image</th>
                   <th className="d-flex justify-content-end">Action</th>
                 </tr>
               </thead>
@@ -207,6 +250,9 @@ const Allcategories = () => {
                       <tr>
                         <td>{(currentPage - 1) * postPerPage + (index + 1)}</td>
                         <td>{e.category}</td>
+                        <td>
+                          <img className="tableget_image" src={`http://localhost:5000/categoryimg/${e?.images}`} crossOrigin="anonymous" />
+                        </td>
                         <td>
                           <div className="d-flex justify-content-end">
                             <MdDelete

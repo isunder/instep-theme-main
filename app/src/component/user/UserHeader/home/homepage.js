@@ -306,7 +306,7 @@ const Home = () => {
                                       src={
                                         item?.image
                                           ? item?.image
-                                          : item?.thumbnail.split(":").length >
+                                          : item?.thumbnail?.split(":").length >
                                             1
                                           ? item?.thumbnail
                                           : `http://localhost:5000/uploads/${item.thumbnail}`
@@ -404,7 +404,7 @@ const Home = () => {
                                     src={
                                       e?.image
                                         ? e?.image
-                                        : e?.thumbnail.split(":").length > 1
+                                        : e?.thumbnail?.split(":").length > 1
                                         ? e?.thumbnail
                                         : `http://localhost:5000/uploads/${e.thumbnail}`
                                     }
@@ -501,7 +501,7 @@ const Home = () => {
                                     src={
                                       e?.image
                                         ? e?.image
-                                        : e?.thumbnail.split(":").length > 1
+                                        : e?.thumbnail?.split(":").length > 1
                                         ? e?.thumbnail
                                         : `http://localhost:5000/uploads/${e.thumbnail}`
                                     }
@@ -558,7 +558,7 @@ const Home = () => {
                                     src={
                                       item?.image
                                         ? item?.image
-                                        : item?.thumbnail.split(":").length > 1
+                                        : item?.thumbnail?.split(":").length > 1
                                         ? item?.thumbnail
                                         : `http://localhost:5000/uploads/${item.thumbnail}`
                                     }
@@ -609,7 +609,7 @@ const Home = () => {
                                     src={
                                       item?.image
                                         ? item?.image
-                                        : item?.thumbnail.split(":").length > 1
+                                        : item?.thumbnail?.split(":").length > 1
                                         ? item?.thumbnail
                                         : `http://localhost:5000/uploads/${item.thumbnail}`
                                     }

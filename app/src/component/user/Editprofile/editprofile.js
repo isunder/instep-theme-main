@@ -14,10 +14,9 @@ const Editprofile = () => {
   const dispatch = useDispatch();
   const [profileimgdata, setProfileimgData] = useState("");
   const [selectedthumbnalFile, setselectedthumbnalFile] = useState([]);
-  const profiledata = useSelector(
-    (state) => state?.profileslice?.listdata?.data?.data
-  );
-
+  
+  const profiledata = useSelector((state) => state?.profileslice?.listdata?.data?.data);
+  // const etstadta = useSe
   const loading = useSelector((state) => state?.profileslice?.isLoading);
   console.log(profiledata, "aaaaaaaaaaaaaaaaaaaa");
   const [edit, setEdit] = useState(false);
@@ -33,7 +32,7 @@ const Editprofile = () => {
     var formData = new FormData();
   };
   // console.log("userData ab", userData);
-  useEffect(() => {}, [""]);
+  useEffect(() => { }, [""]);
 
   const handleEdit = (name) => {
     setEdit(name);
@@ -77,7 +76,9 @@ const Editprofile = () => {
     if (dataId?.id) {
       const userData = { id: dataId?.id };
       formData.append("userData", JSON.stringify(userData));
-      dispatch(createprofile(formData));
+      dispatch(createprofile(formData)).then((res)=>{
+        console.log(res,'fwuioel')
+      });
     }
     // formData.append("image", selectedthumbnalFile);
   }, [""]);
@@ -196,50 +197,6 @@ const Editprofile = () => {
                           onClick={() => setEdit(false)}
                         >
                           cancel
-                        </p>
-                      )}
-                    </div>
-                    <div className="margin_bottom personalotherinput">
-                      <Field name="number">
-                        {({ input, meta }) => (
-                          <>
-                            <input
-                              disabled={edit !== "number"}
-                              className="otherinputalign"
-                              {...input}
-                              placeholder="Mobile Number"
-                            />
-                          </>
-                        )}
-                      </Field>
-                      <div>
-                        {edit === "number" && (
-                          <button
-                            className="personalinfo_button"
-                            onClick={() => {
-                              handleSave({
-                                number: values.number,
-                                id: values?.id,
-                              });
-                            }}
-                          >
-                            Save
-                          </button>
-                        )}
-                      </div>
-                    </div>
-                  </Col>
-                  <Col md={12}>
-                    <div className="labelalig_n">
-                      <h5>Mobile Number</h5>
-                      {edit !== "number" ? (
-                        <div onClick={() => handleEdit("number")}>Edit</div>
-                      ) : (
-                        <p
-                          className="editfrpf_cancel"
-                          onClick={() => setEdit(false)}
-                        >
-                          Cancel
                         </p>
                       )}
                     </div>

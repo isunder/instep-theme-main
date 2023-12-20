@@ -481,7 +481,7 @@ const AllProductDetail = () => {
                                     src={
                                       e?.image
                                         ? e?.image
-                                        : e?.thumbnail.split(":").length > 1
+                                        : e?.thumbnail?.split(":").length > 1
                                         ? e?.thumbnail
                                         : `http://localhost:5000/uploads/${e.thumbnail}`
                                     }

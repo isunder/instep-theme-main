@@ -82,7 +82,7 @@ const ProductDetails = () => {
                       width: 400,
                       height: 400,
                       src: imageState
-                        ? imageState.split("http").length > 1
+                        ? imageState?.split("http").length > 1
                           ? imageState
                           : `http://localhost:5000/uploads/${imageState}`
                         : productDetail?.images?.length > 0 &&
@@ -92,7 +92,7 @@ const ProductDetails = () => {
                     },
                     largeImage: {
                       src: imageState
-                        ? imageState.split("http").length > 1
+                        ? imageState?.split("http").length > 1
                           ? imageState
                           : `http://localhost:5000/uploads/${imageState}`
                         : productDetail?.images?.length > 0 &&
