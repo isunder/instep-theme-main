@@ -139,7 +139,7 @@ const Usernavbar = () => {
                         <Navbar.Brand>
                           <Link to="/" className="card_deco">
                             {console.log(
-                              header?.logo.split("-")[1],
+                              header?.logo?.split("-")[1],
                               "asdasdq234234324"
                             )}
                             <img

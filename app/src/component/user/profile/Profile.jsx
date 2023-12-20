@@ -15,11 +15,13 @@ import TrackOrder from '../Editprofile/trackOrder'
 import { useNavigate } from 'react-router-dom'
 import AddressBook from '../Editprofile/addressbook'
 import { Getorderdetail } from '../../../Redux/action/orderSummary'
+import { createprofile } from '../../../Redux/action/profileaction'
 
 export default function Profile() {
     const navigate = useNavigate();
 
     const [show, setShow] = useState(false);
+    const [imgState, setImageState] = useState([])
 
     const userData = getUserId();
     console.log(userData, "usr");
@@ -29,6 +31,8 @@ export default function Profile() {
 
     const dispatch = useDispatch()
 
+
+
     const handleLogout = () => {
         localStorage.removeItem('token');
         navigate('/')
@@ -37,25 +41,52 @@ export default function Profile() {
     };
 
     const orderdetail = useSelector((state) => state?.getallorderdetail?.listdata)
-    console.log(orderdetail, "ordersss")
 
     const userinfo = useSelector((state) => state?.cartdetails?.listdata)
+    console.log(userinfo, "ordersss")
 
     const cartdata = useSelector((state) => state?.cartdetails?.listdata?.data?.userProductDetails)
 
     useEffect(() => {
-        dispatch(cartinfo({ userid: "64b8ccde661f313c3be26a41" }))
+        dispatch(cartinfo({ userid: getUserId() }))
         dispatch(Getorderdetail({ userid: idata }))
     }, [])
-
-    // const butClick = () => { 
-    //     dispatch()
-    // }
 
 
 
     const handleShow = () => setShow(true);
     const handleClose = () => setShow(false);
+
+    const handleChange = (e) => {
+        const files = e.target.files;
+        const uniqueId = Date.now();
+        let name = e.target.files[0].name;
+        const filename = uniqueId + "_" + name;
+        let file = new File(files, filename);
+        setImageState(file)
+
+        let imagesArray = [];
+        for (let i = 0; i < files.length; i++) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                imagesArray.push(event.target.result);
+                if (imagesArray.length === files.length) {
+                    setImageState ([imagesArray]);
+                }
+            };
+            reader.readAsDataURL(files[i])
+        }
+        let formData = new FormData();
+
+        formData.append("userData", JSON.stringify({ id: getUserId().id }));
+        formData.append("profileimg", file)
+
+        dispatch(createprofile(formData)).then(res => {
+            if (res?.payload?.status) {
+                setImageState("")
+            }
+        })
+    }
     return (
         <div className='container'>
             <div className=" slider_col margin_bottom">
@@ -68,7 +99,10 @@ export default function Profile() {
                                 <div className='mainiconalign'>
                                     <img className="banner-img img-edit2" src="https://grostore.themetags.com/public/uploads/media/65bad2tYppDLFCZ2JzveKJtJX7NiX6sznq5VmUS1.jpg" alt="" />
                                 </div>
-                                <div className='iconouterdiv'><CiEdit className='profileedit' /></div>
+                                <input onChange={(e) => {
+                                    handleChange(e)
+                                }} type="file" id="profile-imgrr" hidden />
+                                <label htmlFor="profile-imgrr" className='iconouterdiv'><CiEdit className='profileedit' /></label>
                             </div>
                         </Col>
                         <Col lg={9} md={9} sm={8}>

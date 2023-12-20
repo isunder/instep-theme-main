@@ -12,22 +12,6 @@ const Sliderpost = () => {
   const sliderpost = useSelector((state) => state?.postsliderData?.listdata);
   console.log(sliderpost, "slider");
 
-  // const onSubmit = (values) => {
-  //   var formData = new FormData();
-  //   const sliderData = {
-  //     sildername: values.name,
-  //     sliderimg: selectedImage,
-  //   };
-  //   selectedImage.map((items) => {
-  //     formData.append("sliderimg", items);
-  //   });
-
-  //   formData.append("sliderimg", selectedImage);
-
-  //   formData.append("slidername", JSON.stringify(sliderData));
-  //   dispatch(adminPostslider(formData));
-  //   console.log(values, "values");
-  // };
   console.log(selectedImage, "dddddddd");
   const onSubmit = (values) => {
     const formData = new FormData();

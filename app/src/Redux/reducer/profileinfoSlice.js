@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createprofile } from "../action/profileaction";
+import { createprofile, getProfileImage } from "../action/profileaction";
 
 const initialState = {
   isLoading: false,
   listdata: [],
+  imageData:[{}],
   error: "",
 };
 const profileslice = createSlice({
@@ -21,6 +22,21 @@ const profileslice = createSlice({
       state.error = "";
     });
     bulider.addCase(createprofile.rejected, (state, action) => {
+      state.error = "";
+      state.isLoading = false;
+    });
+
+    // getprofile image
+    bulider.addCase(getProfileImage.pending, (state, action) => {
+      state.isLoading = true;
+      state.error = null;
+    });
+    bulider.addCase(getProfileImage.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.imageData = action?.payload;
+      state.error = "";
+    });
+    bulider.addCase(getProfileImage.rejected, (state, action) => {
       state.error = "";
       state.isLoading = false;
     });
