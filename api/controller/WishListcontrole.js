@@ -3,42 +3,40 @@ const Wishlist = require("../models/wishlist");
 const { default: mongoose } = require("mongoose");
 
 const getwishlist = expressAsyncHandler(async (req, res) => {
-  try {
-    const wishlist = await Wishlist.aggregate([
-      {
-        $match: { userId: new mongoose.Types.ObjectId(req.body.userId) },
-      },
-      {
-        $lookup: {
-          from: "userproducts",
-          localField: "items",
-          foreignField: "_id",
-          as: "items",
-        },
-      },
-      // Add more aggregation stages if needed
-    ]);
+    try {
+        const wishlist = await Wishlist.aggregate([
+            {
+                $match: { userId: new mongoose.Types.ObjectId(req.body.userId) },
+            },
+            {
+                $lookup: {
+                    from: "userproducts", // Assuming "userproducts" is the name of the collection
+                    localField: "items",
+                    foreignField: "_id",
+                    as: "products", // Renaming the field to "products" after lookup
+                },
+            },
+        ]);
 
-    res.status(200).send({ data: wishlist, success: true });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
+        res.status(200).json({ data: wishlist, success: true });
+    } catch (err) {
+        res.status(500).json({ message: err.message, success: false });
+    }
 });
 
+
 const Wishlistpost = expressAsyncHandler(async (req, res) => {
-  console.log("first");
-  const { userId, items } = req.body;
+    const { userId, items } = req.body;
 
-  try {
-    const findItems = await Wishlist.find({ items: { $all: items } });
+    try {
+        const wishlist = new Wishlist({ userId: userId, items: items });
+        const x = await wishlist.save();
+        res.status(200).send({ data: x, success: true });
+    } catch (err) {
 
-    if (findItems.length > 0) {
-      res.status(201).send({ msg: "Product is existing", success: false });
-    } else {
-      const wishlist = new Wishlist({ userId, items });
-      await wishlist.save();
-      console.log("Wishlist created:", wishlist);
-      res.status(200).send({ data: wishlist, success: true });
+
+        res.status(500).json({ message: err.message });
+
     }
   } catch (err) {
     console.error("Error creating Wishlist:", err.message);
@@ -49,12 +47,32 @@ const Wishlistpost = expressAsyncHandler(async (req, res) => {
 // Endpoint to remove an item from the wishlist
 
 const wishListdelete = expressAsyncHandler(async (req, res) => {
-  const { tableid } = req.body; // Ensure itemId is retrieved correctly
-  try {
-    const wishlist = await Wishlist.findByIdAndDelete(tableid);
+    const { itemId, userId } = req.body;
 
-    if (!wishlist) {
-      return res.status(404).json({ message: "Wishlist not found" });
+    try {
+        // Find the wishlist item based on the itemId
+        const wishlistItem = await Wishlist.findOne({ items: itemId });
+
+        if (!wishlistItem) {
+            return res.status(404).json({ message: "Wishlist item not found" });
+        }
+
+        // Assuming userId needs to match with wishlistItem.userId
+        if (userId !== wishlistItem.userId.toString()) {
+            return res.status(403).json({ message: "Unauthorized access to delete item" });
+        }
+
+        // Delete the wishlist item if userId matches and item exists
+        const deletedItem = await Wishlist.findOneAndDelete({ items: itemId });
+
+        if (!deletedItem) {
+            return res.status(500).json({ message: "Failed to delete item from the wishlist" });
+        }
+
+        res.json({ message: "Item deleted from the wishlist", deletedItem });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+
     }
 
     res.json({ wishlist, success: true }); // Send the updated items array from the wishlist
@@ -62,5 +80,6 @@ const wishListdelete = expressAsyncHandler(async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
+
 
 module.exports = { getwishlist, Wishlistpost, wishListdelete };

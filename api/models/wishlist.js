@@ -5,11 +5,11 @@ const wishlistSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    unique: true // Each user should have only one wishlist
+
   },
   items: {
     type: mongoose.Schema.Types.ObjectId,
-    required: true,
+    ref: 'Product',
     unique: true
   }
 });
