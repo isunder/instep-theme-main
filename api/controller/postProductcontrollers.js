@@ -925,11 +925,6 @@ const getorderSummary = expressAsyncHandler(async (req, res) => {
         }
       }
     ]);
-    
-    
-    
-
-
     res.status(200).send({ ordersWithProducts, success: true });
   } catch (error) {
     res.status(500).json({ message: "An error occurred", error: error.message });

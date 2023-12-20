@@ -139,7 +139,7 @@ const Usernavbar = () => {
                         <Navbar.Brand>
                           <Link to="/" className="card_deco">
                             {console.log(
-                              header?.logo.split("-")[1],
+                              header?.logo?.split("-")[1],
                               "asdasdq234234324"
                             )}
                             <img
@@ -167,7 +167,7 @@ const Usernavbar = () => {
                                       >
                                         <Link
                                           className="navcat_deco"
-                                          to={`/category/${item._id}`}
+                                          to={`/category/${item?._id}`}
                                         >
                                           <li key={index}>{item?.category}</li>
                                         </Link>
@@ -203,7 +203,7 @@ const Usernavbar = () => {
                                   value={searchQuery}
                                   onKeyDown={onKeyDownHandler}
                                   onChange={(e) =>
-                                    setSearchQuery(e.target.value)
+                                    setSearchQuery(e?.target?.value)
                                   }
                                 />
                               </li>
@@ -232,12 +232,22 @@ const Usernavbar = () => {
                                 </Link>
                               </li>
                               <li className="sign_hover">
-                                <BiSolidPurchaseTag className="usericons" /> My
-                                Orders
+                                <Link
+                                  className=" carddecorationnone_cat color"
+                                  to="/"
+                                >
+                                  <BiSolidPurchaseTag className="usericons" />
+                                  My Orders
+                                </Link>
                               </li>
                               <li className="sign_hover">
-                                <AiTwotoneHeart className="usericons" /> My
-                                Wishlist
+                                <Link
+                                  className=" carddecorationnone_cat color"
+                                  to="/wishlist"
+                                >
+                                  <AiTwotoneHeart className="usericons" /> My
+                                  Wishlist
+                                </Link>
                               </li>
                               <li
                                 onClick={() => logoutClick()}

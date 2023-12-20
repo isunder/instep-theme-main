@@ -51,6 +51,7 @@ import Editprofile from "../component/user/Editprofile/editprofile";
 import SliderPages from "../component/user/UserHeader/sliderPages/sliderPages";
 import Headeradmin from "../component/admin/dashboardPage/sideNavOption/Products/Headeradmin";
 import Onlymobile from "../component/user/Products/sliderSubcategory";
+import Wishlistinform from "../component/user/wshlistData/wishlistDataInfo";
 
 const role = getUserId() ? getUserId()?.userRole : null;
 // console.log(role, "aaasdfgfds");
@@ -82,6 +83,7 @@ const protects = {
         { path: "/editprofile", element: <Editprofile /> },
         { path: "/salespage", element: <SliderPages /> },
         { path: "/slidersubcategory", element: <Onlymobile /> },
+        { path: "/wishlist", element: <Wishlistinform /> },
         { path: "*", element: "NO PAGE FOUND" },
       ],
     },
