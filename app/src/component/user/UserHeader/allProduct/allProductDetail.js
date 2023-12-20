@@ -354,6 +354,9 @@ const AllProductDetail = () => {
   const data1 = useSelector(
     (state) => state?.getproductdata?.listdata?.products
   );
+
+  console.log(data1, "dssssssss");
+  // const productIds = data1 ? data1._id : null;
   const productIds = data1?._id;
   console.log(productIds, "asdfgfds");
 
@@ -369,17 +372,17 @@ const AllProductDetail = () => {
     console.log(_id, "hhddhhjjjjjjjjjjj");
   };
 
-  const handleWishlistClick = (productId, wishliststatus, data) => {
-    // console.log(data._id, "sdfghjk");
+  const handleWishlistClick = (productId, wishliststatus) => {
+    console.log(productId, "sdfghjk");
     if (wishliststatus == "delete") {
       //Delete API
-      dispatch(wishlistremove({ tableid: productIds?._id }));
+      dispatch(wishlistremove({ userId: userData?.id, itemId: productId }));
     } else if (wishliststatus == "add") {
       //Add API
       dispatch(
         wishlistadd({
           userId: userData?.id,
-          items: productIds?._id,
+          items: productId,
         })
       );
     }
@@ -452,7 +455,7 @@ const AllProductDetail = () => {
                                     cursor: "pointer",
                                   }}
                                   onClick={() =>
-                                    handleWishlistClick(e._id, "delete")
+                                    handleWishlistClick(e?._id, "delete")
                                   }
                                 />
                               ) : (
@@ -481,7 +484,7 @@ const AllProductDetail = () => {
                                     src={
                                       e?.image
                                         ? e?.image
-                                        : e?.thumbnail.split(":").length > 1
+                                        : e?.thumbnail?.split(":").length > 1
                                         ? e?.thumbnail
                                         : `http://localhost:5000/uploads/${e.thumbnail}`
                                     }

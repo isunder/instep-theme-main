@@ -22,3 +22,10 @@ export const wishlistadd = createAsyncThunk(
     return axiosInstance.post("/wishlist/add", payload);
   }
 );
+
+export const wishlistget = createAsyncThunk(
+  "addwishlistdata",
+  async (payload) => {
+    return axiosInstance.post("/wishlist/get", payload);
+  }
+);

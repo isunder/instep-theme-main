@@ -43,6 +43,7 @@ import PostadminheadingReducer from "../reducer/adminslice";
 import GetallorderdetailReducer from "../reducer/getOrderDetail";
 import addWishlistDataReducer from "../reducer/wishlistaddReducer";
 import removeWishlistDataReducer from "../reducer/wishlistRemoveReducer";
+import getWishlistDataReducer from "../reducer/wishlistgetReducer";
 
 export const store = configureStore({
   reducer: {
@@ -90,5 +91,6 @@ export const store = configureStore({
     getallorderdetail: GetallorderdetailReducer,
     addwishlistdata: addWishlistDataReducer,
     removewishlistdata: removeWishlistDataReducer,
+    getwishlisdData: getWishlistDataReducer,
   },
 });
