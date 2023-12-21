@@ -192,6 +192,7 @@ const Allcategories = () => {
                         type="text"
                         placeholder="category"
                         required
+                        maxLength={40}
                       />
                       <div className="buttons"></div>
                     </div>

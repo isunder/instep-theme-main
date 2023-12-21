@@ -538,19 +538,6 @@ const Delieverydetail = () => {
                                         <Field name="mobilenumber">
                                           {({ input, meta }) => (
                                             <div className="fields">
-                                              {/* <input
-                                                {...input}
-                                                type="number"
-                                                placeholder="10-digit mobile number"
-                                                className="inputfiels_place"
-                                                onClick={(event) => {
-                                                  if (!/[0-9]/.test(event.key)) {
-                                                    event.preventDefault();
-                                                  }
-                                                }}
-                                                maxLength={10}
-                                              /> */}
-                                              {console.log(values?.mobilenumber, 'foipwjei')}
                                               <input
                                                 type="text"
                                                 placeholder="10-digit mobile number"
@@ -780,14 +767,14 @@ const Delieverydetail = () => {
                                   <Card.Title>
                                     <h4>{dData.title}</h4>
                                   </Card.Title>
-                                  <div>
+                                  <div className="buynowquanity">
                                     <button
                                       disabled={qty === 1}
                                       onClick={() => setQty(qty - 1)}
                                     >
                                       -
                                     </button>
-                                    {qty}
+                                    <span>{qty}</span>
                                     <button
                                       disabled={qty >= 10}
                                       onClick={() => setQty(qty + 1)}

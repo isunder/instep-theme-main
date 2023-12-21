@@ -448,6 +448,7 @@ const ProductForm = () => {
                         type="text"
                         placeholder="Title"
                         required
+                        maxLength={200}
                       />
                     </div>
                   </div>
