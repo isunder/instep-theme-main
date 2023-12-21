@@ -1,8 +1,10 @@
+
 const multer = require("multer");
 
+// Multer setup for file upload
 const whitelist = ["image/png", "image/jpeg", "image/jpg", "image/webp"];
 
-const profilestorage = multer.diskStorage({
+const profileStorage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "./profile");
   },
@@ -12,7 +14,7 @@ const profilestorage = multer.diskStorage({
 });
 
 const profileupload = multer({
-  storage: profilestorage,
+  storage: profileStorage,
   fileFilter: (req, file, cb) => {
     if (!whitelist.includes(file.mimetype)) {
       return cb(new Error("File type is not allowed"));

@@ -44,7 +44,7 @@ server.use(cors());
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(express.json());
-
+server.use('/profile', express.static('profile'));
 //register api
 
 server.use("/api", registerRoutes);

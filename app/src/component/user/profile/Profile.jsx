@@ -15,7 +15,7 @@ import TrackOrder from '../Editprofile/trackOrder'
 import { useNavigate } from 'react-router-dom'
 import AddressBook from '../Editprofile/addressbook'
 import { Getorderdetail } from '../../../Redux/action/orderSummary'
-import { getProfileImage } from '../../../Redux/action/profileaction'
+import { createprofile, getProfileImage } from '../../../Redux/action/profileaction'
 import { apiBasePath } from '../../../Redux/config/Config'
 import Wishlistinform from '../wshlistData/wishlistDataInfo'
 
@@ -53,9 +53,11 @@ export default function Profile() {
     useEffect(() => {
         dispatch(cartinfo({ userid: getUserId() }))
         dispatch(Getorderdetail({ userid: idata }))
+        dispatch(getProfileImage({ id: getUserId().id }))
     }, [])
 
-    console.log(file, "12321adasdasdasd")
+    const profilegetdata = useSelector((state) => state?.profileslice?.imageData?.data?.data)
+    console.log(profilegetdata, "profilegetdata")
 
     const handleShow = () => setShow(true);
     const handleClose = () => setShow(false);
@@ -92,28 +94,38 @@ export default function Profile() {
     // }
 
     const handleChange = (e) => {
-        const file = e.target.files[0]
-        console.log(file, "werwr234324234")
-        if (file) {
-            const reader = new FileReader()
-            reader.onload = (event) => {
-                document.getElementById('imagePreview').src = event.target.result
-            }
-            reader.readAsDataURL(file)
-            setSelectedFile(file)
-        }
-
-        let formData = new FormData();
+        const files = e.target.files;
+        const formData = new FormData();
+        const imagesArray = [];
 
         formData.append("userData", JSON.stringify({ id: getUserId().id }));
-        formData.append("profileimg", file)
 
-        dispatch(getProfileImage(formData)).then(res => {
+        for (let i = 0; i < files.length; i++) {
+            const uniqueId = Date.now();
+            const name = files[i].name;
+            const filename = uniqueId + "_" + name;
+
+            formData.append(`profileimg`, files[i], filename); // Append each file
+            const reader = new FileReader();
+
+            reader.onload = (event) => {
+                imagesArray.push(event.target.result);
+                if (imagesArray.length === files.length) {
+                    setImageState(imagesArray); // Set image state when all files are read
+                }
+            };
+            reader.readAsDataURL(files[i]);
+        }
+
+        dispatch(createprofile(formData)).then((res) => {
             if (res?.payload?.status) {
-                // setFile(null)
+               
+                dispatch(getProfileImage({ id: getUserId().id }))
+                 setImageState([]); // Clear image state after successful upload
             }
-        })
-    }
+        });
+    };
+
     return (
         <div className='container'>
             <div className=" slider_col margin_bottom">
@@ -126,7 +138,15 @@ export default function Profile() {
                             <div className="d-flex justify-content-center mainiconalign">
                                 {selectFile && <img id='imagePreview' src='' alt='' />}
                                 <div className='mainiconalign'>
-                                    <img className="banner-img img-edit2" src={`${apiBasePath}/profile/${userinfo[0]?.userdata[0]?.Profileimage}`} alt='' />
+                                    <img
+                                        className="banner-img img-edit2"
+                                        src={
+                                            profilegetdata &&
+                                            profilegetdata.Profileimage &&
+                                            `${apiBasePath}/profile/${profilegetdata.Profileimage}`
+                                        }
+                                        alt=""
+                                    />
                                 </div>
                                 <input onChange={handleChange} type="file" id="profile-imgrr" hidden />
                                 <label htmlFor="profile-imgrr" className='iconouterdiv'><CiEdit className='profileedit' /></label>

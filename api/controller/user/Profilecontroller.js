@@ -6,75 +6,51 @@ const fs = require("fs");
 dotenv.config();
 const createProfile = expressAsyncHandler(async (req, res) => {
   try {
-    if (req.body && req.body.userData) {
-      console.log(" out of");
+    if (req.body && req.body.userData && req.files && req.files.profileimg) {
+      const userformData = req.body.userData;
+      const userData = JSON.parse(userformData);
+      const profileimg = req.files.profileimg[0].filename;
+      const idUser = userData.id;
 
-      const userformData = req?.body?.userData
-
-      const userData = JSON.parse(userformData)
-
-      const profileimg =
-        req?.files &&
-        req?.files?.profileimg &&
-        req?.files?.profileimg[0].filename;
-      const idUser = userData?.id;
-
-      console.log(userData, "running");
       const imgupdate = await User.findById(idUser);
 
-      function updateimg(profile, text) {
-        console.log(profile, "profile");
-        if (profile) {
-          fs.unlink(`./profile/${profile}`, (err) => {
-            if (err) {
-              console.error(`Error deleting ${profile}: typr${text}`, err);
-            } else {
-              console.log(
-                `${profile}:type${text} deleted successfully...by api`
-              );
-            }
-          });
-        } else {
-          console.log("not file found");
-          res.status(204).send({ msg: "some erro", success: false });
-        }
+      if (imgupdate && imgupdate.Profileimage) {
+        // Delete the existing profile image
+        fs.unlink(`./profile/${imgupdate.Profileimage}`, (err) => {
+          if (err) {
+            console.error(`Error deleting ${imgupdate.Profileimage}:`, err);
+          } else {
+            console.log(`${imgupdate.Profileimage} deleted successfully`);
+          }
+        });
       }
 
-      if (imgupdate.Profileimage) {
-        updateimg(imgupdate?.Profileimage, "profile of user");
+      const profile = {
+        username: userData.username,
+        Profileimage: profileimg,
+        firstname: userData.firstname,
+        lastname: userData.lastname,
+        number: userData.number,
+      };
+
+      const updatedProfile = await User.findByIdAndUpdate(idUser, profile, {
+        new: true,
+        select: '-password',
+      });
+
+      if (updatedProfile) {
+        res.status(200).send({ data: updatedProfile, success: true });
       } else {
-        console.log("false image not found");
+        res.status(400).send({ msg: 'Failed to update user profile' });
       }
-
-      console.log(idUser, "iwjiefj");
-      if (idUser) {
-        const profile = {
-          username: userData.username,
-          Profileimage: profileimg,
-          firstname: userData.firstname,
-          lastname: userData.lastname,
-          number: userData.number,
-        };
-
-        const updatedProfile = await User.findOneAndUpdate(
-          { _id: idUser },
-          profile,
-          { new: true }
-        ).select("-password");
-        console.log(updatedProfile.password, "updatedProfile");
-        if (updatedProfile) {
-          res.status(200).send({ data: updatedProfile, success: true });
-        } else {
-          res.status(400).send({ msg: "Failed to update user profile" });
-        }
-      } else {
-        res.status(400).send({ msg: "Failed to find user ID" });
-      }
+    } else {
+      res.status(400).send({ msg: 'Invalid request data' });
     }
   } catch (error) {
-    res.status(500).send({ msg: "Server error", error: error.message });
+    res.status(500).send({ msg: 'Server error', error: error.message });
   }
 });
+
 
 const deleteimg = expressAsyncHandler(async (req, res) => {
   try {
