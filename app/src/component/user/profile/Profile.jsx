@@ -15,7 +15,7 @@ import TrackOrder from '../Editprofile/trackOrder'
 import { useNavigate } from 'react-router-dom'
 import AddressBook from '../Editprofile/addressbook'
 import { Getorderdetail } from '../../../Redux/action/orderSummary'
-import { createprofile } from '../../../Redux/action/profileaction'
+import { createprofile, getProfileImage } from '../../../Redux/action/profileaction'
 
 export default function Profile() {
     const navigate = useNavigate();
@@ -50,43 +50,49 @@ export default function Profile() {
     useEffect(() => {
         dispatch(cartinfo({ userid: getUserId() }))
         dispatch(Getorderdetail({ userid: idata }))
+        dispatch(getProfileImage({ id: getUserId().id }))
     }, [])
 
-
+    const profilegetdata = useSelector((state) => state?.profileslice?.imageData?.data?.data)
+    console.log(profilegetdata, "profilegetdata")
 
     const handleShow = () => setShow(true);
     const handleClose = () => setShow(false);
 
     const handleChange = (e) => {
         const files = e.target.files;
-        const uniqueId = Date.now();
-        let name = e.target.files[0].name;
-        const filename = uniqueId + "_" + name;
-        let file = new File(files, filename);
-        setImageState(file)
+        const formData = new FormData();
+        const imagesArray = [];
 
-        let imagesArray = [];
+        formData.append("userData", JSON.stringify({ id: getUserId().id }));
+
         for (let i = 0; i < files.length; i++) {
+            const uniqueId = Date.now();
+            const name = files[i].name;
+            const filename = uniqueId + "_" + name;
+
+            formData.append(`profileimg`, files[i], filename); // Append each file
             const reader = new FileReader();
+
             reader.onload = (event) => {
                 imagesArray.push(event.target.result);
                 if (imagesArray.length === files.length) {
-                    setImageState ([imagesArray]);
+                    setImageState(imagesArray); // Set image state when all files are read
                 }
             };
-            reader.readAsDataURL(files[i])
+
+            reader.readAsDataURL(files[i]);
         }
-        let formData = new FormData();
 
-        formData.append("userData", JSON.stringify({ id: getUserId().id }));
-        formData.append("profileimg", file)
-
-        dispatch(createprofile(formData)).then(res => {
+        dispatch(createprofile(formData)).then((res) => {
             if (res?.payload?.status) {
-                setImageState("")
+               
+                dispatch(getProfileImage({ id: getUserId().id }))
+                 setImageState([]); // Clear image state after successful upload
             }
-        })
-    }
+        });
+    };
+
     return (
         <div className='container'>
             <div className=" slider_col margin_bottom">
@@ -97,7 +103,16 @@ export default function Profile() {
                         <Col lg={3} md={3} sm={4}>
                             <div className="d-flex justify-content-center mainiconalign">
                                 <div className='mainiconalign'>
-                                    <img className="banner-img img-edit2" src="https://grostore.themetags.com/public/uploads/media/65bad2tYppDLFCZ2JzveKJtJX7NiX6sznq5VmUS1.jpg" alt="" />
+                                    <img
+                                        className="banner-img img-edit2"
+                                        src={
+                                            profilegetdata &&
+                                            profilegetdata.Profileimage &&
+                                            `http://localhost:5000/profile/${profilegetdata.Profileimage}`
+                                        }
+                                        alt=""
+                                    />
+
                                 </div>
                                 <input onChange={(e) => {
                                     handleChange(e)
