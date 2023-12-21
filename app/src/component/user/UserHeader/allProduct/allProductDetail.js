@@ -340,12 +340,14 @@ import SubCategoryfilter from "../../filterbyCategory/subCategoryfilter";
 import Spinner from "../../loader/spinner";
 import {
   wishlistadd,
+  wishlistget,
   wishlistremove,
 } from "../../../../Redux/action/wishlistAction";
 import { getUserId } from "../../../../utils/auth";
 
 const AllProductDetail = () => {
   const dispatch = useDispatch();
+  // const userData = getUserId();
 
   const userData = getUserId();
   console.log(userData, "userData");
@@ -364,8 +366,13 @@ const AllProductDetail = () => {
 
   const [wishlist, setWishlist] = useState({});
 
+  const datas = useSelector((state) => state?.getwishlisdData?.listdata?.data);
+
+  console.log(datas, "datasaasss");
+
   useEffect(() => {
     dispatch(getProductAction());
+    dispatch(wishlistget({ userId: userData?.id }));
   }, []);
 
   const productClick = (_id) => {
@@ -390,6 +397,7 @@ const AllProductDetail = () => {
       ...prevWishlist,
       [productId]: !prevWishlist[productId],
     }));
+    dispatch(wishlistget({ userId: userData?.id }));
   };
   return (
     <>
@@ -443,34 +451,54 @@ const AllProductDetail = () => {
                       data?.products?.map((e) => {
                         if (e.image) {
                         }
+                        let isInwishlist =
+                          datas &&
+                          datas?.length > 0 &&
+                          datas?.find((item) => item?.items === e?._id);
                         return (
                           <Col lg={3} md={4}>
                             <div className="d-flex justify-content-end mt-2 mx-2">
-                              {wishlist[e._id] ? (
-                                <AiFillHeart
-                                  style={{
-                                    color: "#FF0000", // Change to your desired color
-                                    width: "23px",
-                                    height: "23px",
-                                    cursor: "pointer",
-                                  }}
-                                  onClick={() =>
-                                    handleWishlistClick(e?._id, "delete")
-                                  }
-                                />
-                              ) : (
-                                <AiOutlineHeart
-                                  style={{
-                                    color: "#808080",
-                                    width: "23px",
-                                    height: "23px",
-                                    cursor: "pointer",
-                                  }}
-                                  onClick={() =>
-                                    handleWishlistClick(e._id, "add")
-                                  }
-                                />
-                              )}
+                              {
+                                isInwishlist ? (
+                                  <AiFillHeart
+                                    style={{
+                                      color: "#FF0000", // Change to your desired color
+                                      width: "23px",
+                                      height: "23px",
+                                      cursor: "pointer",
+                                    }}
+                                    onClick={() =>
+                                      handleWishlistClick(e?._id, "delete")
+                                    }
+                                  />
+                                ) : (
+                                  // wishlist[e._id] ? (
+                                  //   <AiFillHeart
+                                  //     style={{
+                                  //       color: "#FF0000", // Change to your desired color
+                                  //       width: "23px",
+                                  //       height: "23px",
+                                  //       cursor: "pointer",
+                                  //     }}
+                                  //     onClick={() =>
+                                  //       handleWishlistClick(e?._id, "delete")
+                                  //     }
+                                  //   />
+                                  // ) : (
+                                  <AiOutlineHeart
+                                    style={{
+                                      color: "#808080",
+                                      width: "23px",
+                                      height: "23px",
+                                      cursor: "pointer",
+                                    }}
+                                    onClick={() =>
+                                      handleWishlistClick(e._id, "add")
+                                    }
+                                  />
+                                )
+                                // )
+                              }
                             </div>
                             <Link
                               className="card_deco"
@@ -486,7 +514,7 @@ const AllProductDetail = () => {
                                         ? e?.image
                                         : e?.thumbnail?.split(":").length > 1
                                         ? e?.thumbnail
-                                        : `http://localhost:5000/uploads/${e.thumbnail}`
+                                        : `http://localhost:5000/uploads/${e?.thumbnail}`
                                     }
                                   />
                                 </div>

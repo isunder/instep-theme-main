@@ -17,7 +17,7 @@ const removeWishlistData = createSlice({
     });
     bulider.addCase(wishlistremove.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.listdata = action?.payload;
+      state.listdata = action?.payload?.data?.data;
       state.error = "";
     });
     bulider.addCase(wishlistremove.rejected, (state, action) => {
