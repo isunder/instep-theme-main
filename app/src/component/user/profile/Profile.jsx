@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Col, pic as Image, Modal, Row, Table } from 'react-bootstrap'
-import { AiFillMessage, AiOutlineHome, AiOutlineShopping } from "react-icons/ai"
+import { AiFillMessage, AiOutlineHome, AiOutlineShopping, AiTwotoneHeart } from "react-icons/ai"
 import { FcProcess } from 'react-icons/fc'
 import { MdAccountCircle, MdShoppingCartCheckout } from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux'
@@ -17,6 +17,7 @@ import AddressBook from '../Editprofile/addressbook'
 import { Getorderdetail } from '../../../Redux/action/orderSummary'
 import { getProfileImage } from '../../../Redux/action/profileaction'
 import { apiBasePath } from '../../../Redux/config/Config'
+import Wishlistinform from '../wshlistData/wishlistDataInfo'
 
 export default function Profile() {
     const navigate = useNavigate();
@@ -125,7 +126,7 @@ export default function Profile() {
                             <div className="d-flex justify-content-center mainiconalign">
                                 {selectFile && <img id='imagePreview' src='' alt='' />}
                                 <div className='mainiconalign'>
-                                    <img className="banner-img img-edit2"  src={`${apiBasePath}/profile/${userinfo[0]?.userdata[0]?.Profileimage}`} alt='' />
+                                    <img className="banner-img img-edit2" src={`${apiBasePath}/profile/${userinfo[0]?.userdata[0]?.Profileimage}`} alt='' />
                                 </div>
                                 <input onChange={handleChange} type="file" id="profile-imgrr" hidden />
                                 <label htmlFor="profile-imgrr" className='iconouterdiv'><CiEdit className='profileedit' /></label>
@@ -185,6 +186,7 @@ export default function Profile() {
                             <button className="nav-link active " id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true"> <div className='d-flex justify-content-start align-items-center'><MdAccountCircle className='profilemanangeicon' />Edit Profile</div></button>
                             <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">  <div className='d-flex justify-content-start align-items-center'><CiLocationOn className='profilemanangeicon' />Track Order </div></button>
                             <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">  <div className='d-flex justify-content-start align-items-center'><AiOutlineHome className='profilemanangeicon' />Address Book </div></button>
+                            <button class="nav-link" id="v-pills-wishlist-tab" data-bs-toggle="pill" data-bs-target="#v-pills-wishlist" type="button" role="tab" aria-controls="v-pills-wishlist" aria-selected="false">  <div className='d-flex justify-content-start align-items-center'><AiTwotoneHeart className='profilemanangeicon' />WishList </div></button>
                             <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">
                                 <div className='d-flex justify-content-start align-items-center' onClick={handleShow}>
                                     <BiLogOut className='profilemanangeicon' />Log Out
@@ -199,6 +201,7 @@ export default function Profile() {
                             <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab"><Editprofile /></div>
                             <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab"><TrackOrder /></div>
                             <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab"><AddressBook /></div>
+                            <div class="tab-pane fade" id="v-pills-wishlist" role="tabpanel" aria-labelledby="v-pills-wishlist-tab"><Wishlistinform /> </div>
                             {/* <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div> */}
                         </div>
                     </div>

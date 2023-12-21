@@ -14,7 +14,7 @@ const Editprofile = () => {
   const dispatch = useDispatch();
   const [profileimgdata, setProfileimgData] = useState("");
   const [selectedthumbnalFile, setselectedthumbnalFile] = useState([]);
-  
+
   const profiledata = useSelector((state) => state?.profileslice?.listdata?.data?.data);
   // const etstadta = useSe
   const loading = useSelector((state) => state?.profileslice?.isLoading);
@@ -76,8 +76,8 @@ const Editprofile = () => {
     if (dataId?.id) {
       const userData = { id: dataId?.id };
       formData.append("userData", JSON.stringify(userData));
-      dispatch(createprofile(formData)).then((res)=>{
-        console.log(res,'fwuioel')
+      dispatch(createprofile(formData)).then((res) => {
+        console.log(res, 'fwuioel')
       });
     }
     // formData.append("image", selectedthumbnalFile);
@@ -204,10 +204,18 @@ const Editprofile = () => {
                         {({ input, meta }) => (
                           <>
                             <input
+                              {...input}
                               disabled={edit !== "number"}
                               className="otherinputalign"
-                              {...input}
                               placeholder="Mobile Number"
+                              type="text"
+                              onChange={(event) => {
+                                if (!/[0-9]/.test(event.key)) {
+                                  const inputValue = event.target.value.replace(/\D/g, '');
+                                  input.onChange(Number(inputValue))
+                                }
+                              }}
+                              maxLength={10}
                             />
                           </>
                         )}

@@ -51,7 +51,7 @@ const Allsubcategory = () => {
   const isLoading = useSelector((state) => state?.getbrandslistdata?.isLoading);
   console.log(getbrandlist, "1111");
 
-  const onSubmit = (values) => {
+  const onSubmit = (values, form) => {
     console.log(values.brand, "dddddddddddd");
 
     let asd = {
@@ -61,7 +61,11 @@ const Allsubcategory = () => {
       brand: values.brand,
     };
 
-    dispatch(addbrands(asd));
+    dispatch(addbrands(asd)).then((res) => {
+      console.log(res, "fdsfdf")
+      toast.success("successful Submited")
+      form.reset()
+    })
   };
   useEffect(() => {
     dispatch(allCategoryList());
@@ -179,6 +183,7 @@ const Allsubcategory = () => {
                       type="text"
                       placeholder="brand"
                       required
+                      maxLength={30}
                     />
                   </div>
                 </div>
