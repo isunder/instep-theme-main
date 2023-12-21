@@ -4,7 +4,7 @@ import { createprofile, getProfileImage } from "../action/profileaction";
 const initialState = {
   isLoading: false,
   listdata: [],
-  imageData:[{}],
+  imageData:[],
   error: "",
 };
 const profileslice = createSlice({
