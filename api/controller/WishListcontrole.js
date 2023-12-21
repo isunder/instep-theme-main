@@ -38,10 +38,6 @@ const Wishlistpost = expressAsyncHandler(async (req, res) => {
         res.status(500).json({ message: err.message });
 
     }
-  } catch (err) {
-    console.error("Error creating Wishlist:", err.message);
-    res.status(500).json({ message: err.message });
-  }
 });
 
 // Endpoint to remove an item from the wishlist
@@ -72,13 +68,7 @@ const wishListdelete = expressAsyncHandler(async (req, res) => {
         res.json({ message: "Item deleted from the wishlist", deletedItem });
     } catch (err) {
         res.status(500).json({ message: err.message });
-
     }
-
-    res.json({ wishlist, success: true }); // Send the updated items array from the wishlist
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
 });
 
 
