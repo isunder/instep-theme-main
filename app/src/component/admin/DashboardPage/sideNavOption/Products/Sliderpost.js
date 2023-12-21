@@ -89,7 +89,7 @@ const Sliderpost = () => {
                     <button
                       className="addcatsubit_button"
                       type="submit"
-                      disabled={submitting}
+                      // disabled={submitting}
                     >
                       Submit
                     </button>

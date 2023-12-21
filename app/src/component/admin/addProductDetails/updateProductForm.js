@@ -353,7 +353,7 @@ function MydModalWithGrid(props) {
                     <button className="update_product_button" type="submit">
                       Update Product
                     </button>
-                    <ToastContainer />
+                    {/* <ToastContainer /> */}
                   </div>
                 </Col>
               </Row>

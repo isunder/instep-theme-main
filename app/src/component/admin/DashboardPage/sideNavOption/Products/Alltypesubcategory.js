@@ -259,7 +259,7 @@ const Alltypesubcategory = () => {
           categoryId={categoryid}
         />
       )}
-      <ToastContainer />
+      {/* <ToastContainer /> */}
     </div>
   );
 };
