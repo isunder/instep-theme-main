@@ -4,6 +4,7 @@ const User = require("../../models/RegisterSchema");
 // const { connect } = require("mongoose");
 const fs = require("fs");
 dotenv.config();
+
 const createProfile = expressAsyncHandler(async (req, res) => {
   try {
     if (req.body && req.body.userData && req.files && req.files.profileimg) {
@@ -35,22 +36,21 @@ const createProfile = expressAsyncHandler(async (req, res) => {
 
       const updatedProfile = await User.findByIdAndUpdate(idUser, profile, {
         new: true,
-        select: '-password',
+        select: "-password",
       });
 
       if (updatedProfile) {
         res.status(200).send({ data: updatedProfile, success: true });
       } else {
-        res.status(400).send({ msg: 'Failed to update user profile' });
+        res.status(400).send({ msg: "Failed to update user profile" });
       }
     } else {
-      res.status(400).send({ msg: 'Invalid request data' });
+      res.status(400).send({ msg: "Invalid request data" });
     }
   } catch (error) {
-    res.status(500).send({ msg: 'Server error', error: error.message });
+    res.status(500).send({ msg: "Server error", error: error.message });
   }
 });
-
 
 const deleteimg = expressAsyncHandler(async (req, res) => {
   try {
