@@ -3,7 +3,7 @@ import { wishlistadd } from "../action/wishlistAction";
 
 const initialState = {
   isLoading: false,
-  listdata: [],
+  listdatas: [],
   error: "",
 };
 const addWishlistData = createSlice({
@@ -17,7 +17,7 @@ const addWishlistData = createSlice({
     });
     bulider.addCase(wishlistadd.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.listdata = action?.payload;
+      state.listdatas = action?.payload;
       state.error = "";
     });
     bulider.addCase(wishlistadd.rejected, (state, action) => {
