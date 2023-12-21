@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { Accordion, Card, Col, Container, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 // import Subcaregoryfilter from "./SubcaregoryMobilefilter";
 // import SubCategoryfilter from "./subCategoryfilter";
 import { BsFillHeartFill } from "react-icons/bs";
@@ -18,10 +18,10 @@ const Wishlistinform = () => {
 
   console.log(userData, "userData");
 
-  const data = useSelector(
+  const datas = useSelector(
     (state) => state?.getwishlisdData?.listdata?.data?.data
   );
-  console.log(data, "dadadadada");
+  console.log(datas, "dadadadada");
 
   const handleWishlistClick = (wishlistId) => {
     console.log(wishlistId, "sdfghjk");
@@ -41,14 +41,14 @@ const Wishlistinform = () => {
   return (
     <>
       <Row>
-        {data &&
-          data?.map((item) => {
+        {datas &&
+          datas?.map((item) => {
             return (
               <>
                 <Link
                   className="carddecorationnone_cat text_edit"
                   reloadDocumen={true}
-                  to={`/productdetail/${item?.items[0]?._id}`}
+                  to={`/productdetail/${item?.products[0]?._id}`}
                 >
                   <div className="subcatkitechenmaindiv row margin_bottom">
                     <Col lg={4} md={4} sm={4}>
@@ -64,11 +64,12 @@ const Wishlistinform = () => {
                           variant="top"
                           // src={item?.image || item?.thumbnail}
                           src={
-                            item.items[0]?.image
-                              ? item.items[0]?.image
-                              : item.items[0]?.thumbnail?.split(":")?.length > 1
-                              ? item.items[0]?.thumbnail
-                              : `http://localhost:5000/uploads/${item?.items[0]?.thumbnail}`
+                            item.products[0]?.image
+                              ? item.products[0]?.image
+                              : item.products[0]?.thumbnail?.split(":")
+                                  ?.length > 1
+                              ? item.products[0]?.thumbnail
+                              : `http://localhost:5000/uploads/${item?.products[0]?.thumbnail}`
                           }
                           alt=""
                         />
@@ -78,20 +79,20 @@ const Wishlistinform = () => {
                       <div className="p-4">
                         <div className="subcatitem_cont">
                           {" "}
-                          {item?.items[0]?.title}aaaaaaa
+                          {item?.products[0]?.title}aaaaaaa
                         </div>
                         <div className="descripmob">
                           {" "}
-                          {item?.items[0]?.description}
+                          {item?.products[0]?.description}
                         </div>
                         <div className="kit_homestarticon">
-                          {item?.items[0]?.rating}
+                          {item?.products[0]?.rating}
                         </div>
                       </div>
                     </Col>
                     <Col lg={2} md={2} sm={2}>
                       <div className="p-4">
-                        <h5> ₹{item?.items[0]?.price}</h5>
+                        <h5> ₹{item?.products[0]?.price}</h5>
                       </div>
                     </Col>
                   </div>
