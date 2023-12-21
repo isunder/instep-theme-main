@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Col, Modal, Row, Table } from 'react-bootstrap'
+import { Button, Col, pic as Image, Modal, Row, Table } from 'react-bootstrap'
 import { AiFillMessage, AiOutlineHome, AiOutlineShopping } from "react-icons/ai"
 import { FcProcess } from 'react-icons/fc'
 import { MdAccountCircle, MdShoppingCartCheckout } from 'react-icons/md'
@@ -15,13 +15,15 @@ import TrackOrder from '../Editprofile/trackOrder'
 import { useNavigate } from 'react-router-dom'
 import AddressBook from '../Editprofile/addressbook'
 import { Getorderdetail } from '../../../Redux/action/orderSummary'
-import { createprofile } from '../../../Redux/action/profileaction'
+import { getProfileImage } from '../../../Redux/action/profileaction'
+import { apiBasePath } from '../../../Redux/config/Config'
 
 export default function Profile() {
     const navigate = useNavigate();
 
     const [show, setShow] = useState(false);
-    const [imgState, setImageState] = useState([])
+    const [file, setFile] = useState(false);
+    const [selectFile, setSelectedFile] = useState(null)
 
     const userData = getUserId();
     console.log(userData, "usr");
@@ -52,38 +54,62 @@ export default function Profile() {
         dispatch(Getorderdetail({ userid: idata }))
     }, [])
 
-
+    console.log(file, "12321adasdasdasd")
 
     const handleShow = () => setShow(true);
     const handleClose = () => setShow(false);
 
-    const handleChange = (e) => {
-        const files = e.target.files;
-        const uniqueId = Date.now();
-        let name = e.target.files[0].name;
-        const filename = uniqueId + "_" + name;
-        let file = new File(files, filename);
-        setImageState(file)
+    // const handleChange = (e) => {
+    //     const files = e.target.files;
+    //     const uniqueId = Date.now();
+    //     let name = e.target.files[0].name;
+    //     const filename = uniqueId + "_" + name;
+    //     let file = new File(files, filename);
+    //     setFile(file)
 
-        let imagesArray = [];
-        for (let i = 0; i < files.length; i++) {
-            const reader = new FileReader();
+    //     let imagesArray = [];
+    //     for (let i = 0; i < files.length; i++) {
+    //         const reader = new FileReader();
+    //         reader.onload = (event) => {
+    //             imagesArray.push(event.target.result);
+    //             if (imagesArray.length === files.length) {
+    //                 setImageState([imagesArray]);
+    //             }
+    //         };
+    //         reader.readAsDataURL(files[i])
+    //     }
+    //     let formData = new FormData();
+
+    //     formData.append("userData", JSON.stringify({ id: getUserId().id }));
+    //     formData.append("profileimg", file)
+
+    //     dispatch(getProfileImage(formData)).then(res => {
+    //         if (res?.payload?.status) {
+    //             setFile(null)
+    //         }
+    //     })
+    // }
+
+    const handleChange = (e) => {
+        const file = e.target.files[0]
+        console.log(file, "werwr234324234")
+        if (file) {
+            const reader = new FileReader()
             reader.onload = (event) => {
-                imagesArray.push(event.target.result);
-                if (imagesArray.length === files.length) {
-                    setImageState ([imagesArray]);
-                }
-            };
-            reader.readAsDataURL(files[i])
+                document.getElementById('imagePreview').src = event.target.result
+            }
+            reader.readAsDataURL(file)
+            setSelectedFile(file)
         }
+
         let formData = new FormData();
 
         formData.append("userData", JSON.stringify({ id: getUserId().id }));
         formData.append("profileimg", file)
 
-        dispatch(createprofile(formData)).then(res => {
+        dispatch(getProfileImage(formData)).then(res => {
             if (res?.payload?.status) {
-                setImageState("")
+                // setFile(null)
             }
         })
     }
@@ -94,15 +120,16 @@ export default function Profile() {
                     {/* <div><button onClick={butClick}>click me</button></div> */}
 
                     <Row >
+                        {console.log(userinfo[0]?.userdata[0]?.Profileimage, 'fjwen')}
                         <Col lg={3} md={3} sm={4}>
                             <div className="d-flex justify-content-center mainiconalign">
+                                {selectFile && <img id='imagePreview' src='' alt='' />}
                                 <div className='mainiconalign'>
-                                    <img className="banner-img img-edit2" src="https://grostore.themetags.com/public/uploads/media/65bad2tYppDLFCZ2JzveKJtJX7NiX6sznq5VmUS1.jpg" alt="" />
+                                    <img className="banner-img img-edit2"  src={`${apiBasePath}/profile/${userinfo[0]?.userdata[0]?.Profileimage}`} alt='' />
                                 </div>
-                                <input onChange={(e) => {
-                                    handleChange(e)
-                                }} type="file" id="profile-imgrr" hidden />
+                                <input onChange={handleChange} type="file" id="profile-imgrr" hidden />
                                 <label htmlFor="profile-imgrr" className='iconouterdiv'><CiEdit className='profileedit' /></label>
+
                             </div>
                         </Col>
                         <Col lg={9} md={9} sm={8}>

@@ -41,6 +41,9 @@ const AddressBook = () => {
       if (res?.payload?.success) {
         dispatch(deliveryGetAction({ "userID": dataId }))
         handleClose();
+        toast.warning("Successfully Deleted !", {
+          position: toast.POSITION.TOP_CENTER,
+        });
       }
     })
   }
@@ -346,7 +349,6 @@ const AddressBook = () => {
 
               )}
             />
-            <ToastContainer />
             <Row>
               {addressdata &&
                 addressdata?.map((e, index) => {

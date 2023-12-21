@@ -158,7 +158,6 @@ const Editprofile = () => {
                           </button>
                         )}
                       </div>
-                      <ToastContainer />
                     </div>
                   </Col>
                   <Col md={12}>
