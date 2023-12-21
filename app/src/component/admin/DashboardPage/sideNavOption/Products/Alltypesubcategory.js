@@ -184,6 +184,7 @@ const Alltypesubcategory = () => {
                     type="text"
                     placeholder="typesubcategory"
                     required
+                    maxLength={40}
                   />
                 </div>
                 <div className="d-flex justify-content-end margin_bottom">
@@ -259,7 +260,7 @@ const Alltypesubcategory = () => {
           categoryId={categoryid}
         />
       )}
-      <ToastContainer />
+      {/* <ToastContainer /> */}
     </div>
   );
 };

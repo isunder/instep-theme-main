@@ -261,7 +261,7 @@ const Trendingproducts = () => {
           onHide={() => setShowModal(false)}
           onConfirm={handleDeleteConfirmation}
         />
-        <ToastContainer />
+        {/* <ToastContainer /> */}
       </div>
     </>
   );

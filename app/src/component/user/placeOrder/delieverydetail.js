@@ -30,6 +30,8 @@ const Delieverydetail = () => {
   const [hidedata, setHidata] = useState("");
   const [razorPaymentId, setRazorPaymentId] = useState("");
   const [qty, setQty] = useState(1);
+  const [numberValue, setNumberValue] = useState('');
+  const [alternateNumberValue, setAlternateNumberValue] = useState('');
   // const [formStateShow,setFormStateShow] = useState(null)
   const data = useSelector((state) => state?.deliveraddress?.listdata);
 
@@ -126,6 +128,7 @@ const Delieverydetail = () => {
       if (res) {
         dispatch(deliveryGetAction(values));
       }
+      setFormVisible(false)
     });
     console.log(values, "values");
   };
@@ -242,26 +245,6 @@ const Delieverydetail = () => {
         image:
           "https://insteptechnologies.com/wp-content/uploads/2022/04/main-logo.png",
         order_id: order?.data?.id,
-        // handler: (res) => {
-        //   console.log(res, "sdfghjdfghj");
-        // },
-
-        // handler: function (res) {
-        //   console.log("Paymentsuccess:", res.razorpay_payment_id);
-
-        //   // Extracting payment details from the response object
-        //   const paymentStatus = res.razorpay_payment_id
-        //     ? "paid-payment"
-        //     : "payment-failed";
-        //   const orderId = res.razorpay_order_id;
-        //   const amount = res.razorpay_payment_amount;
-
-        //   console.log("Paymentstatus:", paymentStatus);
-        //   console.log("OrderID:", orderId);
-        //   console.log("Amount:", amount);
-
-        //   // Here you can dispatch an action or perform further processing with the payment details
-        // },
 
         handler: function (res) {
           console.log("Payment success:", res);
@@ -320,49 +303,6 @@ const Delieverydetail = () => {
   }
   console.log("Paymentdetails:", paymentDetails);
 
-  // useEffect(() => {
-  //   const handlePaymentSuccess = (response) => {
-  //     // Handle the successful payment response from Razorpay
-  //     // Extract necessary information from the response if needed
-
-  //     // Dispatch an action to create an order summary or perform further actions
-  //     const orderSummaryPayload = {
-  //       // Create a payload with necessary information for the order summary
-  //       // This payload might include data from the successful payment response or any other relevant data
-  //       // For example:
-  //       userId: "your_user_id",
-  //       orderId: response.razorpay_order_id,
-  //       amount: response.razorpay_payment_amount,
-  //       // Add more fields as needed
-  //     };
-
-  //     dispatch(Afterorder(orderSummaryPayload));
-  //   };
-
-  //   razorpayInstance.on("payment.success", handlePaymentSuccess);
-  //   return () => {
-  //     razorpayInstance.off("payment.success", handlePaymentSuccess);
-  //   };
-  // }, [dispatch]);
-
-  // const payloads = {
-  //   userid: dataId,
-  //   deliveryAddress: addressdata,
-  //   amount: order?.data?.order?.amount,
-  //   payment: razorPaymentId,
-  //   productID: dData?._id,
-  //   quantity: 1,
-  // };
-  // if (razorPaymentId && payloads) {
-  //   console.log(payloads, "payloads");
-  //   dispatch(Afterorder(payloads));
-  // }
-  // useEffect(() => {
-  //   if (isLoaded) {
-  //     handlePayment();
-  //   }
-  // }, [isLoaded, handlePayment]);
-
   useEffect(() => {
     if (addressdata && addressdata?.length === 1) {
       setactiveKey(2);
@@ -381,7 +321,7 @@ const Delieverydetail = () => {
             disable
             activeKey={activeKey}
             onSelect={(e) => setactiveKey(e)}
-            // defaultActiveKey={useMemo(()=>eventKeyHandle(),[addressdata])}
+          // defaultActiveKey={useMemo(()=>eventKeyHandle(),[addressdata])}
           >
             {/* <Accordion defaultActiveKey={1}> */}
             <Row>
@@ -558,189 +498,219 @@ const Delieverydetail = () => {
                               );
                             })}
                           <button
-                            className="readbuttommore mt-2"
+                            className="readbuttommore mt-2 margin_bottom"
                             onClick={() => deliverClick()}
                           >
                             Delivery Here
                           </button>
                           <form onSubmit={handleSubmitradio}></form>
-                          {isFormVisible && (
-                            <Form
-                              onSubmit={handleSubmit}
-                              validate={validate}
-                              render={({
-                                handleSubmit,
-                                form,
-                                submitting,
-                                pristine,
-                                values,
-                              }) => (
-                                <form onSubmit={handleSubmit}>
-                                  <div className="adsressmaindiv_top margin_bottom">
-                                    <Field name="name">
-                                      {({ input, meta }) => (
-                                        <div className="fields">
-                                          <input
-                                            {...input}
-                                            type="text"
-                                            placeholder="Name"
-                                            className="inputfiels_place"
-                                          />
-                                          {meta.error && meta.touched && (
-                                            <span>{meta.error}</span>
+                          <Row>
+                            <Col lg={10}>
+                              {isFormVisible && (
+                                <Form
+                                  onSubmit={handleSubmit}
+                                  validate={validate}
+                                  render={({
+                                    handleSubmit,
+                                    form,
+                                    submitting,
+                                    pristine,
+                                    values,
+                                  }) => (
+                                    <form onSubmit={handleSubmit}>
+                                      <div className="adsressmaindiv_top margin_bottom">
+                                        <Field name="name">
+                                          {({ input, meta }) => (
+                                            <div className="fields">
+                                              <input
+                                                {...input}
+                                                type="text"
+                                                placeholder="Name"
+                                                className="inputfiels_place"
+                                                maxLength={20}
+                                              />
+                                              {meta.error && meta.touched && (
+                                                <span>{meta.error}</span>
+                                              )}
+                                            </div>
                                           )}
-                                        </div>
-                                      )}
-                                    </Field>
-                                    <Field name="mobilenumber">
-                                      {({ input, meta }) => (
-                                        <div className="fields">
-                                          <input
-                                            {...input}
-                                            type="number"
-                                            placeholder="10-digit mobile number"
-                                            className="inputfiels_place"
-                                          />
-                                          {meta.error && meta.touched && (
-                                            <span>{meta.error}</span>
+                                        </Field>
+                                        <Field name="mobilenumber">
+                                          {({ input, meta }) => (
+                                            <div className="fields">
+                                              <input
+                                                type="text"
+                                                placeholder="10-digit mobile number"
+                                                className="inputfiels_place"
+                                                // value={values.mobilenumber}
+                                                onChange={(event) => {
+                                                  if (!/[0-9]/.test(event.key)) {
+                                                    const inputValue = event.target.value.replace(/\D/g, '');
+                                                    input.onChange(Number(inputValue))
+                                                  }
+                                                }}
+                                                maxLength={10}
+                                              />
+                                              {meta.error && meta.touched && (
+                                                <span>{meta.error}</span>
+                                              )}
+                                            </div>
                                           )}
-                                        </div>
-                                      )}
-                                    </Field>
-                                  </div>
-                                  <div className="adsressmaindiv_top margin_bottom">
-                                    <Field name="pincode">
-                                      {({ input, meta }) => (
-                                        <div className="fields">
-                                          <input
-                                            {...input}
-                                            type="number"
-                                            placeholder="pincode"
-                                            className="inputfiels_place"
-                                          />
-                                          {meta.error && meta.touched && (
-                                            <span>{meta.error}</span>
-                                          )}
-                                        </div>
-                                      )}
-                                    </Field>
-                                    <Field name="Locality">
-                                      {({ input, meta }) => (
-                                        <div className="fields">
-                                          <input
-                                            {...input}
-                                            type="text"
-                                            placeholder="locality"
-                                            className="inputfiels_place"
-                                          />
-                                          {meta.error && meta.touched && (
-                                            <span>{meta.error}</span>
-                                          )}
-                                        </div>
-                                      )}
-                                    </Field>
-                                  </div>
-
-                                  <Field name="address">
-                                    {({ input, meta }) => (
-                                      <div className="addressbottommain margin_bottom">
-                                        <input
-                                          {...input}
-                                          type="text"
-                                          placeholder="address"
-                                          className="addressmaininput"
-                                        />
-                                        {meta.error && meta.touched && (
-                                          <span>{meta.error}</span>
-                                        )}
+                                        </Field>
                                       </div>
-                                    )}
-                                  </Field>
-                                  <div className="adsressmaindiv_top margin_bottom">
-                                    <Field name="state">
-                                      {({ input, meta }) => (
-                                        <div className="fields">
-                                          <input
-                                            {...input}
-                                            type="text"
-                                            placeholder="City/District/Town"
-                                            className="inputfiels_place"
-                                          />
-                                          {meta.error && meta.touched && (
-                                            <span>{meta.error}</span>
+                                      <div className="adsressmaindiv_top margin_bottom">
+                                        <Field name="pincode">
+                                          {({ input, meta }) => (
+                                            <div className="fields">
+                                              <input
+                                                {...input}
+                                                type="text"
+                                                placeholder="pincode"
+                                                className="inputfiels_place"
+                                                onChange={(event) => {
+                                                  if (!/[0-9]/.test(event.key)) {
+                                                    const inputValue = event.target.value.replace(/\D/g, '');
+                                                    input.onChange(Number(inputValue))
+                                                  }
+                                                }}
+                                                maxLength={10}
+                                              />
+                                              {meta.error && meta.touched && (
+                                                <span>{meta.error}</span>
+                                              )}
+                                            </div>
                                           )}
-                                        </div>
-                                      )}
-                                    </Field>
-                                  </div>
-                                  <div className="adsressmaindiv_top margin_bottom">
-                                    <Field name="landmark">
-                                      {({ input, meta }) => (
-                                        <div className="fields">
-                                          <input
-                                            {...input}
-                                            type="text"
-                                            placeholder="landmark"
-                                            className="inputfiels_place"
-                                          />
-                                          {meta.error && meta.touched && (
-                                            <span>{meta.error}</span>
+                                        </Field>
+                                        <Field name="Locality">
+                                          {({ input, meta }) => (
+                                            <div className="fields">
+                                              <input
+                                                {...input}
+                                                type="text"
+                                                placeholder="locality"
+                                                className="inputfiels_place"
+                                                maxLength={20}
+                                              />
+                                              {meta.error && meta.touched && (
+                                                <span>{meta.error}</span>
+                                              )}
+                                            </div>
                                           )}
-                                        </div>
-                                      )}
-                                    </Field>
+                                        </Field>
+                                      </div>
 
-                                    <Field name="AlternateNumber">
-                                      {({ input, meta }) => (
-                                        <div className="fields">
-                                          <input
-                                            {...input}
-                                            type="number"
-                                            placeholder="Alternate phone (optinal)"
-                                            className="inputfiels_place"
-                                          />
-                                          {meta.error && meta.touched && (
-                                            <span>{meta.error}</span>
+                                      <Field name="address">
+                                        {({ input, meta }) => (
+                                          <div className="addressbottommain margin_bottom">
+                                            <input
+                                              {...input}
+                                              type="text"
+                                              placeholder="address"
+                                              className="addressmaininput"
+                                              maxLength={40}
+                                            />
+                                            {meta.error && meta.touched && (
+                                              <span>{meta.error}</span>
+                                            )}
+                                          </div>
+                                        )}
+                                      </Field>
+                                      <div className="adsressmaindiv_top margin_bottom">
+                                        <Field name="state">
+                                          {({ input, meta }) => (
+                                            <div className="fields">
+                                              <input
+                                                {...input}
+                                                type="text"
+                                                placeholder="City/District/Town"
+                                                className="inputfiels_place"
+                                                maxLength={20}
+                                              />
+                                              {meta.error && meta.touched && (
+                                                <span>{meta.error}</span>
+                                              )}
+                                            </div>
                                           )}
-                                        </div>
-                                      )}
-                                    </Field>
-                                  </div>
+                                        </Field>
+                                      </div>
+                                      <div className="adsressmaindiv_top margin_bottom">
+                                        <Field name="landmark">
+                                          {({ input, meta }) => (
+                                            <div className="fields">
+                                              <input
+                                                {...input}
+                                                type="text"
+                                                placeholder="landmark"
+                                                className="inputfiels_place"
+                                                maxLength={30}
+                                              />
+                                              {meta.error && meta.touched && (
+                                                <span>{meta.error}</span>
+                                              )}
+                                            </div>
+                                          )}
+                                        </Field>
 
-                                  <p>Address Type</p>
-                                  <div className="delivery_place margin_bottom">
-                                    <div className="form-check">
-                                      <Field
-                                        name="addresstype"
-                                        type="radio"
-                                        value="Home"
-                                        id="flexRadioDefault1"
-                                        component={RadioInput}
-                                        label="Home (All day delivery)"
-                                      />
-                                    </div>
-                                    <div className="form-check">
-                                      <Field
-                                        name="addresstype"
-                                        type="radio"
-                                        value="Work"
-                                        id="flexRadioDefault2"
-                                        component={RadioInput}
-                                        label="Work (Delivery between 10 AM-5 PM)"
-                                      />
-                                    </div>
-                                  </div>
-                                  <button
-                                    type="submit"
-                                    value="use my current location"
-                                    className="addresslocation"
-                                  >
-                                    SAVE AND DELIVER HERE
-                                  </button>
-                                </form>
+                                        <Field name="AlternateNumber">
+                                          {({ input, meta }) => (
+                                            <div className="fields">
+                                              <input
+                                                type="text"
+                                                placeholder="Alternate phone (optinal)"
+                                                className="inputfiels_place"
+                                                onChange={(event) => {
+                                                  if (!/[0-9]/.test(event.key)) {
+                                                    const inputValue = event.target.value.replace(/\D/g, '');
+                                                    input.onChange(Number(inputValue))
+                                                  }
+                                                }}
+                                                maxLength={10}
+                                              />
+                                              {meta.error && meta.touched && (
+                                                <span>{meta.error}</span>
+                                              )}
+                                            </div>
+                                          )}
+                                        </Field>
+                                      </div>
+
+                                      <p>Address Type</p>
+                                      <div className="delivery_place margin_bottom">
+                                        <div className="form-check">
+                                          <Field
+                                            name="addresstype"
+                                            type="radio"
+                                            value="Home"
+                                            id="flexRadioDefault1"
+                                            component={RadioInput}
+                                            label="Home (All day delivery)"
+                                          />
+                                        </div>
+                                        <div className="form-check">
+                                          <Field
+                                            name="addresstype"
+                                            type="radio"
+                                            value="Work"
+                                            id="flexRadioDefault2"
+                                            component={RadioInput}
+                                            label="Work (Delivery between 10 AM-5 PM)"
+                                          />
+                                        </div>
+                                      </div>
+                                      <button
+                                        type="submit"
+                                        value="use my current location"
+                                        className="addresslocation"
+                                      >
+                                        SAVE AND DELIVER HERE
+                                      </button>
+                                    </form>
+                                  )}
+                                />
                               )}
-                            />
-                          )}
+                            </Col>
+                          </Row>
+
 
                           <Row>
                             <Col>
@@ -797,14 +767,14 @@ const Delieverydetail = () => {
                                   <Card.Title>
                                     <h4>{dData.title}</h4>
                                   </Card.Title>
-                                  <div>
+                                  <div className="buynowquanity">
                                     <button
                                       disabled={qty === 1}
                                       onClick={() => setQty(qty - 1)}
                                     >
                                       -
                                     </button>
-                                    {qty}
+                                    <span>{qty}</span>
                                     <button
                                       disabled={qty >= 10}
                                       onClick={() => setQty(qty + 1)}

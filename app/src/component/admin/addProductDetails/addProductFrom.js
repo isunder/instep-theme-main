@@ -448,6 +448,7 @@ const ProductForm = () => {
                         type="text"
                         placeholder="Title"
                         required
+                        maxLength={200}
                       />
                     </div>
                   </div>
@@ -617,7 +618,7 @@ const ProductForm = () => {
               <Button className="addproduct_button margin_bottom" type="submit">
                 Add product
               </Button>
-              <ToastContainer />
+              {/* <ToastContainer /> */}
             </form>
           );
         }}

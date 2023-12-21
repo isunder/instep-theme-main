@@ -3217,6 +3217,12 @@ input[type="range"]::-moz-range-progress {
     object-fit: contain;
   }
 
+  .wishimage{
+    width: 100%;
+    height: 100px;
+    object-fit: contain;
+  }
+
   .subcatitem_cont{
     font-weight: 700;
   }
@@ -3226,9 +3232,12 @@ input[type="range"]::-moz-range-progress {
    background-color: #4EB529;
    width: 31px;  
    height: 25px;
-   padding-left: 5px;
+   /* padding-left: 5px; */
    color: #fff;
    margin-top: 5px;
+   display: flex;
+  align-items: center;
+  justify-content: center;
   }
 
   .forcatcards_htwd{
@@ -3547,6 +3556,10 @@ color: #FF7C08;
 
 .mainiconalign{
   position: relative;
+  /* border-radius: 100%;
+  width: 100%;
+  object-fit: cover;
+  height: 200px; */
 }
 .img-edit2{
   border-radius: 100%;
@@ -4087,7 +4100,7 @@ width: 70%;
 }
 
 .addresslocation{
-  padding: 10px 30px !important;
+  padding: 10px 21px !important;
 background-color: #FB641B !important;
 color: #fff;
 font-weight: 500;
@@ -4161,7 +4174,7 @@ width: 30% !important;
 
 .adsressmaindiv_top{
   display: flex;
-  width: 80%;
+  /* width: 80%; */
   gap: 20px;
 }
 
@@ -4529,4 +4542,37 @@ justify-content: center;
   height: 40px;
   width: 50px;
   object-fit: contain;
+}
+
+.buynowquanity{
+  border: 1px solid;
+  border-radius: 5px;
+  width: 90px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 5px;
+  margin-bottom: 10px;
+}
+
+.buynowquanity span{
+  padding: 5px;
+}
+.buynowquanity button:nth-child(1){
+  padding: 5px 2px; 
+  border-top-right-radius: 5px;
+  border-right: 1px solid;
+  border-radius: 100%;
+  background-color: #fff;
+  width: 30px;
+  margin-right: 5px;
+}
+.buynowquanity button:nth-child(3){
+  padding: 5px;
+  border-top-left-radius: 5px;
+  border-left: 1px solid;
+  border-radius: 100%;
+  background-color: #fff;
+  width: 30px;
+  margin-left: 5px;
 }

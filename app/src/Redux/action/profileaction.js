@@ -18,9 +18,9 @@ export const createprofile = createAsyncThunk(
 
 
 // get image
-export const getProfileImage =  createAsyncThunk(
+export const getProfileImage = createAsyncThunk(
   "getProfileImage",
   async (payload) => {
-    return axiosInstance.post(`/getProfile`, payload);
+    return axiosInstance.post(`/createProfile`, payload);
   }
 );

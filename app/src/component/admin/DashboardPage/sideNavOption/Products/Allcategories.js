@@ -41,14 +41,12 @@ const Allcategories = () => {
 
   // const [readMoreState, setReadMoreState] = useState(null);
 
-  const onSubmit = (values) => {
+  const onSubmit = (values, form) => {
     var formData = new FormData();
-
     const payload = {
       category: values?.category,
       // images: selectedImagesforpost,
     };
-    console.log(payload, "gggggggggggggggg");
 
     formData.append("images", selectedImagesforpost.file);
     formData.append("userData", JSON.stringify(payload));
@@ -56,15 +54,29 @@ const Allcategories = () => {
     console.log(selectedImagesforpost, "fffff");
     console.log(JSON.parse(formData.getAll("userData")), "data");
 
-    dispatch(addcategory(formData)).then((res) =>
-      console.log(res, "Response from dispatch")
-    );
-
+    dispatch(addcategory(formData)).then((res) => {
+      console.log(res, "Response from dispatch");
+      form.reset();
+      setSelectedImages("")
+      resetFileInput();
+    });
     toast.success("Successfully!", {
       position: toast.POSITION.TOP_RIGHT,
     });
   };
 
+  const resetFileInput = () => {
+    const fileInput = document.querySelector('input[type="file"]');
+    if (fileInput) {
+      const newFileInput = document.createElement("input");
+      newFileInput.type = "file";
+      newFileInput.name = "images";
+      newFileInput.className = "form-control signup_form_input margin_bottom";
+      newFileInput.addEventListener("change", handleImgeFile);
+
+      fileInput.parentNode.replaceChild(newFileInput, fileInput);
+    }
+  };
   const isLoading = useSelector(
     (state) => state?.getcategorylistdata?.isLoading
   );
@@ -72,6 +84,8 @@ const Allcategories = () => {
   useEffect(() => {
     dispatch(allCategoryList({ page: currentPage, perPage: postPerPage }));
   }, [currentPage]);
+
+
   const handleImgeFile = (e) => {
     const files = e.target.files;
     const image = e.target.files[0];
@@ -161,7 +175,7 @@ const Allcategories = () => {
           <div className="categoryadd_new margin_bottom">
             <div className="leftcategory_add">
               <Form
-                onSubmit={onSubmit}
+                onSubmit={(values, form) => onSubmit(values, form)}
                 render={({
                   handleSubmit,
                   form,
@@ -178,6 +192,7 @@ const Allcategories = () => {
                         type="text"
                         placeholder="category"
                         required
+                        maxLength={40}
                       />
                       <div className="buttons"></div>
                     </div>
@@ -187,6 +202,7 @@ const Allcategories = () => {
                         <input
                           name="images"
                           type="file"
+                          // value={selectedImagesforpost && selectedImagesforpost.length > 0 && selectedImagesforpost[0]}
                           className="form-control signup_form_input margin_bottom"
                           onChange={handleImgeFile}
                         />
@@ -287,7 +303,7 @@ const Allcategories = () => {
         show={show}
         categoryId={categoryid}
       />
-      <ToastContainer />
+      {/* <ToastContainer /> */}
     </>
   );
 };

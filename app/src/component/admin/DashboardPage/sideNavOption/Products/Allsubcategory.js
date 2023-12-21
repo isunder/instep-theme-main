@@ -148,6 +148,7 @@ const Allsubcategory = () => {
                     type="text"
                     placeholder="subcategory"
                     required
+                    maxLength={30}
                   />
                 </div>
                 <div className="d-flex justify-content-end margin_bottom">

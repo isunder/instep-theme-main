@@ -41,6 +41,9 @@ const AddressBook = () => {
       if (res?.payload?.success) {
         dispatch(deliveryGetAction({ "userID": dataId }))
         handleClose();
+        toast.warning("Successfully Deleted !", {
+          position: toast.POSITION.TOP_CENTER,
+        });
       }
     })
   }
@@ -179,6 +182,7 @@ const AddressBook = () => {
                                 type="text"
                                 placeholder="Name"
                                 className="inputfiels_place"
+                                maxLength={20}
                               />
                               {meta.error && meta.touched && (
                                 <span>{meta.error}</span>
@@ -190,10 +194,17 @@ const AddressBook = () => {
                           {({ input, meta }) => (
                             <div className="fields">
                               <input
-                                {...input}
-                                type="number"
+                                // {...input}
+                                type="text"
                                 placeholder="10-digit mobile number"
                                 className="inputfiels_place"
+                                onChange={(event) => {
+                                  if (!/[0-9]/.test(event.key)) {
+                                    const inputValue = event.target.value.replace(/\D/g, '');
+                                    input.onChange(Number(inputValue))
+                                  }
+                                }}
+                                maxLength={10}
                               />
                               {meta.error && meta.touched && (
                                 <span>{meta.error}</span>
@@ -207,10 +218,17 @@ const AddressBook = () => {
                           {({ input, meta }) => (
                             <div className="fields">
                               <input
-                                {...input}
-                                type="number"
+                                // {...input}
+                                type="text"
                                 placeholder="pincode"
                                 className="inputfiels_place"
+                                onChange={(event) => {
+                                  if (!/[0-9]/.test(event.key)) {
+                                    const inputValue = event.target.value.replace(/\D/g, '');
+                                    input.onChange(Number(inputValue))
+                                  }
+                                }}
+                                maxLength={6}
                               />
                               {meta.error && meta.touched && (
                                 <span>{meta.error}</span>
@@ -226,6 +244,7 @@ const AddressBook = () => {
                                 type="text"
                                 placeholder="locality"
                                 className="inputfiels_place"
+                                maxLength={20}
                               />
                               {meta.error && meta.touched && (
                                 <span>{meta.error}</span>
@@ -243,6 +262,7 @@ const AddressBook = () => {
                               type="text"
                               placeholder="address"
                               className="addressmaininput"
+                              maxLength={50}
                             />
                             {meta.error && meta.touched && (
                               <span>{meta.error}</span>
@@ -259,6 +279,7 @@ const AddressBook = () => {
                                 type="text"
                                 placeholder="City/District/Town"
                                 className="inputfiels_place"
+                                maxLength={20}
                               />
                               {meta.error && meta.touched && (
                                 <span>{meta.error}</span>
@@ -276,6 +297,7 @@ const AddressBook = () => {
                                 type="text"
                                 placeholder="landmark"
                                 className="inputfiels_place"
+                                maxLength={30}
                               />
                               {meta.error && meta.touched && (
                                 <span>{meta.error}</span>
@@ -288,9 +310,16 @@ const AddressBook = () => {
                             <div className="fields">
                               <input
                                 {...input}
-                                type="number"
+                                type="text"
                                 placeholder="Alternate phone (optinal)"
                                 className="inputfiels_place"
+                                onChange={(event) => {
+                                  if (!/[0-9]/.test(event.key)) {
+                                    const inputValue = event.target.value.replace(/\D/g, '');
+                                    input.onChange(Number(inputValue))
+                                  }
+                                }}
+                                maxLength={10}
                               />
                               {meta.error && meta.touched && (
                                 <span>{meta.error}</span>
@@ -346,7 +375,6 @@ const AddressBook = () => {
 
               )}
             />
-            <ToastContainer />
             <Row>
               {addressdata &&
                 addressdata?.map((e, index) => {

@@ -30,7 +30,7 @@ const Home = () => {
 
   const allcatgorydata = useSelector(
     (state) => state?.getcategorylistdata?.listdata?.data
-  );
+  );  
   console.log(allcatgorydata, "jjjjjjjj");
   const dataslider = useSelector(
     (state) => state?.getsliderdata?.listdata?.data

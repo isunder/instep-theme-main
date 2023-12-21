@@ -64,6 +64,7 @@ const Sliderpost = () => {
                     component="input"
                     type="text"
                     placeholder="Name"
+                    maxLength={10}
                   />
                 </div>
                 <div className="margin_bottom">
@@ -89,7 +90,7 @@ const Sliderpost = () => {
                     <button
                       className="addcatsubit_button"
                       type="submit"
-                      disabled={submitting}
+                    // disabled={submitting}
                     >
                       Submit
                     </button>
