@@ -31,7 +31,7 @@ router.post(
   ]),
   proflie.createProfile
 );
-router.post("/createprofile", proflie.createProfile);
+// router.post("/createprofile", proflie.createProfile);
 router.post("/profileimgdelete", proflie.deleteimg);
 router.post("/getProfile", proflie.findprofile);
 

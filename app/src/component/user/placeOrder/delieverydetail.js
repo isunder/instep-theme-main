@@ -518,10 +518,10 @@ const Delieverydetail = () => {
                                     values,
                                   }) => (
                                     <form onSubmit={handleSubmit}>
-                                      <div className="adsressmaindiv_top margin_bottom">
+                                      <div className=" margin_bottom row">
                                         <Field name="name">
                                           {({ input, meta }) => (
-                                            <div className="fields">
+                                            <div className="fields col-lg-6">
                                               <input
                                                 {...input}
                                                 type="text"
@@ -530,14 +530,14 @@ const Delieverydetail = () => {
                                                 maxLength={20}
                                               />
                                               {meta.error && meta.touched && (
-                                                <span>{meta.error}</span>
+                                                <span className="text-danger">{meta.error}</span>
                                               )}
                                             </div>
                                           )}
                                         </Field>
                                         <Field name="mobilenumber">
                                           {({ input, meta }) => (
-                                            <div className="fields">
+                                            <div className="fields col-lg-6">
                                               <input
                                                 type="text"
                                                 placeholder="10-digit mobile number"
@@ -552,16 +552,16 @@ const Delieverydetail = () => {
                                                 maxLength={10}
                                               />
                                               {meta.error && meta.touched && (
-                                                <span>{meta.error}</span>
+                                                <span className="text-danger">{meta.error}</span>
                                               )}
                                             </div>
                                           )}
                                         </Field>
                                       </div>
-                                      <div className="adsressmaindiv_top margin_bottom">
+                                      <div className=" margin_bottom row">
                                         <Field name="pincode">
                                           {({ input, meta }) => (
-                                            <div className="fields">
+                                            <div className="fields col-lg-6">
                                               <input
                                                 {...input}
                                                 type="text"
@@ -576,14 +576,14 @@ const Delieverydetail = () => {
                                                 maxLength={10}
                                               />
                                               {meta.error && meta.touched && (
-                                                <span>{meta.error}</span>
+                                                <span className="text-danger">{meta.error}</span>
                                               )}
                                             </div>
                                           )}
                                         </Field>
                                         <Field name="Locality">
                                           {({ input, meta }) => (
-                                            <div className="fields">
+                                            <div className="fields col-lg-6">
                                               <input
                                                 {...input}
                                                 type="text"
@@ -592,33 +592,34 @@ const Delieverydetail = () => {
                                                 maxLength={20}
                                               />
                                               {meta.error && meta.touched && (
-                                                <span>{meta.error}</span>
+                                                <span className="text-danger">{meta.error}</span>
                                               )}
                                             </div>
                                           )}
                                         </Field>
                                       </div>
-
-                                      <Field name="address">
-                                        {({ input, meta }) => (
-                                          <div className="addressbottommain margin_bottom">
-                                            <input
-                                              {...input}
-                                              type="text"
-                                              placeholder="address"
-                                              className="addressmaininput"
-                                              maxLength={40}
-                                            />
-                                            {meta.error && meta.touched && (
-                                              <span>{meta.error}</span>
-                                            )}
-                                          </div>
-                                        )}
-                                      </Field>
-                                      <div className="adsressmaindiv_top margin_bottom">
+                                      <div className="row">
+                                        <Field name="address">
+                                          {({ input, meta }) => (
+                                            <div className="addressbottommain margin_bottom col-lg-12">
+                                              <input
+                                                {...input}
+                                                type="text"
+                                                placeholder="address"
+                                                className="addressmaininput"
+                                                maxLength={40}
+                                              />
+                                              {meta.error && meta.touched && (
+                                                <span className="text-danger">{meta.error}</span>
+                                              )}
+                                            </div>
+                                          )}
+                                        </Field>
+                                      </div>
+                                      <div className="adsressmaindiv_top margin_bottom row">
                                         <Field name="state">
                                           {({ input, meta }) => (
-                                            <div className="fields">
+                                            <div className="fields col-lg-6">
                                               <input
                                                 {...input}
                                                 type="text"
@@ -627,16 +628,16 @@ const Delieverydetail = () => {
                                                 maxLength={20}
                                               />
                                               {meta.error && meta.touched && (
-                                                <span>{meta.error}</span>
+                                                <span className="text-danger">{meta.error}</span>
                                               )}
                                             </div>
                                           )}
                                         </Field>
                                       </div>
-                                      <div className="adsressmaindiv_top margin_bottom">
+                                      <div className=" margin_bottom row">
                                         <Field name="landmark">
                                           {({ input, meta }) => (
-                                            <div className="fields">
+                                            <div className="fields col-lg-6">
                                               <input
                                                 {...input}
                                                 type="text"
@@ -645,7 +646,7 @@ const Delieverydetail = () => {
                                                 maxLength={30}
                                               />
                                               {meta.error && meta.touched && (
-                                                <span>{meta.error}</span>
+                                                <span className="text-danger">{meta.error}</span>
                                               )}
                                             </div>
                                           )}
@@ -653,7 +654,7 @@ const Delieverydetail = () => {
 
                                         <Field name="AlternateNumber">
                                           {({ input, meta }) => (
-                                            <div className="fields">
+                                            <div className="fields col-lg-6">
                                               <input
                                                 type="text"
                                                 placeholder="Alternate phone (optinal)"
@@ -667,7 +668,7 @@ const Delieverydetail = () => {
                                                 maxLength={10}
                                               />
                                               {meta.error && meta.touched && (
-                                                <span>{meta.error}</span>
+                                                <span className="text-danger">{meta.error}</span>
                                               )}
                                             </div>
                                           )}

@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import { getUserId } from "../../../../../utils/auth";
 import { AiOutlineMail } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import { Navbar } from "react-bootstrap";
+import { Col, Navbar, Row } from "react-bootstrap";
 
 function Headeradmin() {
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ function Headeradmin() {
   const [SelectedImages, setSelectedImages] = useState([]);
   const getadminid = getUserId();
   console.log(getadminid, "getadminid");
-  const onSubmit = (values) => {
+  const onSubmit = (values, form) => {
     console.log(values);
 
     const payload = {
@@ -53,6 +53,7 @@ function Headeradmin() {
             });
             setSelectedImages("");
             setlogoimage("");
+            form.reset()
           }
         });
       }
@@ -63,16 +64,16 @@ function Headeradmin() {
     let error = {};
 
     if (!values.heading) {
-      error.heading = "required";
+      error.heading = "Required";
     }
     if (!values.heading1) {
-      error.heading1 = "required";
+      error.heading1 = "Required";
     }
     if (!values.Email) {
-      error.Email = "required";
+      error.Email = "Required";
     }
     if (!values.sitename) {
-      error.sitename = "required";
+      error.sitename = "Required";
     }
     return error;
   };
@@ -81,7 +82,7 @@ function Headeradmin() {
     const files = e.target.files;
     const logo = e.target.files[0];
     if (!logo) {
-      console.log("image is required");
+      console.log("image is Required");
       return false;
     }
     if (!logo.name.match(/\.(jpg|jpeg|png|gif)$/)) {
@@ -112,80 +113,107 @@ function Headeradmin() {
   console.log(SelectedImages, logoimage, "teststts");
   return (
     <div>
-      <Form
-        onSubmit={onSubmit}
-        validate={validate}
-        render={({ handleSubmit }) => (
-          <form onSubmit={handleSubmit}>
-            <Field name="heading">
-              {({ input, meta }) => (
-                <div>
-                  <label>heading </label>
-                  <input {...input} type="text" placeholder="heading " />
-                  {meta.error && meta.touched && <span>{meta.error}</span>}
-                </div>
-              )}
-            </Field>
-            <Field name="heading1">
-              {({ input, meta }) => (
-                <div>
-                  <label> other heading </label>
-                  <input {...input} type="text" placeholder="heading " />
-                  {meta.error && meta.touched && <span>{meta.error}</span>}
-                </div>
-              )}
-            </Field>
-            <Field name="Email">
-              {({ input, meta }) => (
-                <div>
-                  <label>Email </label>
-                  <input {...input} type="text" placeholder="Email " />
-                  {meta.error && meta.touched && <span>{meta.error}</span>}
-                </div>
-              )}
-            </Field>
-            <div>
-              <input
-                name="images"
-                type="file"
-                className="form-control signup_form_input margin_bottom"
-                onChange={handleImgeFile}
-              />
-              {SelectedImages?.length > 0 && (
-                <div>
-                  <h4>Selected logo:</h4>
-                  <ul className="row">
-                    {SelectedImages?.map((imageUrl, index) => (
-                      <li key={index} className=" productupload_item col-md-3">
-                        <img
-                          className="productupload_image"
-                          src={imageUrl}
-                          alt={`Image ${index}`}
+      <Row>
+        <div className="admin_toppadding">
+          <Col className="Admin_dashboard" lg={12}>
+            <h3> Add User Navbar Heading & Logo's</h3>
+          </Col>
+        </div>
+      </Row>
+      <Row>
+        <Col lg={6}>
+          <div className="categoryadd_new">
+            <Row>
+              <Form
+                onSubmit={onSubmit}
+                validate={validate}
+                render={({ handleSubmit }) => (
+                  <form onSubmit={handleSubmit}>
+                    <Col lg={12}>
+                      <Field name="heading">
+                        {({ input, meta }) => (
+                          <div className="headaerfields margin_bottom">
+                            <label>Heading </label>
+                            <input {...input} className="ctegorysearc_h" type="text" placeholder="heading " maxLength={40} />
+                            {meta.error && meta.touched && <span className="text-danger">{meta.error}</span>}
+                          </div>
+                        )}
+                      </Field>
+                    </Col>
+                    <Col lg={12}>
+                      <Field name="heading1">
+                        {({ input, meta }) => (
+                          <div className="headaerfields margin_bottom">
+                            <label> Other Heading </label>
+                            <input {...input} className="ctegorysearc_h" type="text" placeholder="Other Heading " maxLength={40} />
+                            {meta.error && meta.touched && <span className="text-danger">{meta.error}</span>}
+                          </div>
+                        )}
+                      </Field>
+                    </Col>
+                    <Col lg={12}>
+                      <Field name="Email">
+                        {({ input, meta }) => (
+                          <div className="headaerfields margin_bottom">
+                            <label>Email </label>
+                            <input {...input} className="ctegorysearc_h" type="text" placeholder="Email " maxLength={40} />
+                            {meta.error && meta.touched && <span className="text-danger">{meta.error}</span>}
+                          </div>
+                        )}
+                      </Field>
+                    </Col>
+                    <Col lg={12}>
+                      <div>
+                        <input
+                          name="images"
+                          type="file"
+                          className="form-control signup_form_input margin_bottom"
+                          onChange={handleImgeFile}
                         />
-                        <p className="addimagecncel_icon"></p>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
+                        {SelectedImages?.length > 0 && (
+                          <div>
+                            <h4>Selected logo:</h4>
+                            <ul className="row">
+                              {SelectedImages?.map((imageUrl, index) => (
+                                <li key={index} className=" productupload_item col-md-3">
+                                  <img
+                                    className="productupload_image"
+                                    src={imageUrl}
+                                    alt={`Image ${index}`}
+                                  />
+                                  <p className="addimagecncel_icon"></p>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    </Col>
+                    <Col lg={12}>
+                      <Field name="sitename">
+                        {({ input, meta }) => (
+                          <div className="headaerfields margin_bottom">
+                            <label>Site Name </label>
+                            <input {...input} className="ctegorysearc_h" type="text" placeholder="sitename " maxLength={40} />
+                            {meta.error && meta.touched && <span className="text-danger">{meta.error}</span>}
+                          </div>
+                        )}
+                      </Field>
+                    </Col>
+                    <div className="buttons d-flex justify-content-end">
+                      <button className="addcatsubit_button" type="submit">
+                        Submit
+                      </button>
+                    </div>
+                  </form>
+                )}
+              />
+            </Row>
+          </div>
+        </Col>
 
-            <Field name="sitename">
-              {({ input, meta }) => (
-                <div>
-                  <label>sitename </label>
-                  <input {...input} type="text" placeholder="sitename " />
-                  {meta.error && meta.touched && <span>{meta.error}</span>}
-                </div>
-              )}
-            </Field>
+      </Row>
 
-            <div className="buttons">
-              <button type="submit">Submit</button>
-            </div>
-          </form>
-        )}
-      />
     </div>
   );
 }
