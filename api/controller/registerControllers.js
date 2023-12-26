@@ -5,14 +5,15 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const UserRegister = expressAsyncHandler(async (req, res) => {
-  const { email, password, username ,number} = req.body;
+  const { email, password, lastname, firstname, number } = req.body;
 
   const role = "user";
   const data = new User({
-    email: req.body.email,
-    password: req.body.password,
-    username: req.body.username,
-    number: req.body.number,
+    email: email,
+    password: password,
+    firstname: firstname,
+    lastname: lastname,
+    number: number,
     role: role,
   });
 

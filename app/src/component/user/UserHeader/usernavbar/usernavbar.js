@@ -143,7 +143,8 @@ const Usernavbar = () => {
                               "asdasdq234234324"
                             )}
                             <img
-                              src={`${apiBasePath}/logo/${header?.logo}`}
+
+                              src={`http://localhost:5000/logo/${header?.logo}`}
                               alt=""
                             />
                           </Link>

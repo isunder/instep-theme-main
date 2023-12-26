@@ -25,8 +25,8 @@ const typesubcategory = require("./router/typeSubcat");
 const razorpay = require("./router/razorpay");
 const address = require("./router/addressroute");
 const profile = require("./router/useres/profilesRoute");
-const wishList =require("./router/wishlistRouter")
-const headerforuser=require("./router/adminRouter")
+const wishList = require("./router/wishlistRouter")
+const headerforuser = require("./router/adminRouter")
 
 dotenv.config();
 
@@ -54,13 +54,15 @@ server.use("/uploads", express.static("uploads"));
 
 // http://localhost:5000/uploads/1693806012738-Capture.PNG
 server.use("/categoryimg", express.static("categoryimg"));
+server.use("/logo", express.static("logo"));
+
 
 server.use("/api", addnewcategory);
 server.use("/api", addnewSubcategory);
 server.use("/api", addnewbrand);
 // addto cart api
 server.use("/api", addtocart);
-server.use("/api", typesubcategory);
+server.use("/api", typesubcategory)
 // /razerpay
 server.use("/api", razorpay);
 // address

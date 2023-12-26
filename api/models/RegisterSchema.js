@@ -24,13 +24,12 @@ const userSchema = new mongoose.Schema({
   },
   firstname: {
     type: String,
-    // required: true,
-    // trim: true,
+    required: true,
+   
   },
   lastname: String,
   role: {
     type: String,
-    // required: true,
   },
 });
 userSchema.set("timestamps", true);
