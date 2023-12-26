@@ -913,6 +913,7 @@ const updateOrderStatus = expressAsyncHandler(async (req, res) => {
 const getorderSummary = expressAsyncHandler(async (req, res) => {
   try {
     const { userid } = req.body; // Assuming userId is passed as a parameter
+    console.log(userid,"userid")
 
     const ordersWithProducts = await SchemaOrder.aggregate([
       { $match: { userid: new mongoose.Types.ObjectId(userid) } },

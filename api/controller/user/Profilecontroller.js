@@ -32,6 +32,7 @@ const createProfile = expressAsyncHandler(async (req, res) => {
         firstname: userData.firstname,
         lastname: userData.lastname,
         number: userData.number,
+       
       };
 
       const updatedProfile = await User.findByIdAndUpdate(idUser, profile, {

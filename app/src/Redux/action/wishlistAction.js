@@ -17,14 +17,14 @@ export const wishlistremove = createAsyncThunk(
 );
 
 export const wishlistadd = createAsyncThunk(
-  "addwishlistdata",
+  "wishlistadd",
   async (payload) => {
     return axiosInstance.post("/wishlist/add", payload);
   }
 );
 
 export const wishlistget = createAsyncThunk(
-  "addwishlistdata",
+  "wishlistget",
   async (payload) => {
     return axiosInstance.post("/wishlist/get", payload);
   }
