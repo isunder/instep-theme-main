@@ -24,3 +24,13 @@ export const getProfileImage = createAsyncThunk(
     return axiosInstance.post(`/getProfile`, payload);
   }
 );
+
+
+// delete profile image
+
+export const deleteProfileImage = createAsyncThunk(
+  "deleteProfileImage",
+  async (payload) => {
+    return axiosInstance.post (`/profileimgdelete`, payload)
+  }
+)

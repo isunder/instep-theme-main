@@ -24,13 +24,13 @@ const Wishlistinform = () => {
   );
   console.log(datas, "dadadadada");
 
-  const handleWishlistClick = (wishlistId) => {
-    console.log(wishlistId, "sdfghjk");
-    if (wishlistId) {
-      //Delete API
-      dispatch(wishlistremove({ tableid: wishlistId }));
-    }
-  };
+  // const handleWishlistClick = (wishlistId) => {
+  //   console.log(wishlistId, "sdfghjk");
+  //   if (wishlistId) {
+  //     //Delete API
+  //     dispatch(wishlistremove({ tableid: wishlistId }));
+  //   }
+  // };
 
   useEffect(
     (e) => {
@@ -39,8 +39,17 @@ const Wishlistinform = () => {
     [""]
   );
 
-  const handleRemoveAddress = (e) => {
 
+  const handleRemoveWish = (productId) => {
+    console.log(productId.items, "productId")
+    dispatch(wishlistremove({
+      userId: userData?.id, itemId: productId.items
+    })).then((res) => {
+      if (res) {
+        dispatch(wishlistget({ userId: userData?.id }))
+        handleClose(false)
+      }
+    })
   }
 
   const [show, setShow] = useState(false);
@@ -58,18 +67,19 @@ const Wishlistinform = () => {
                 <>
                   <div className="subcatkitechenmaindiv row margin_bottom">
 
-                    <Col lg={3} md={4} sm={4}>
+                    <Col lg={2} md={4} sm={4}>
+                      <div className="d-flex justify-content-end mt-2 mx-2">
+                        <BsFillHeartFill
+                          style={{ color: "#FF0000" }}
+                        // onClick={() => handleWishlistClick(item?._id)}
+                        />
+                      </div>
                       <Link
                         className="carddecorationnone_cat text_edit"
                         reloadDocumen={true}
                         to={`/productdetail/${item?.products[0]?._id}`}
                       >
-                        <div className="d-flex justify-content-end mt-2 mx-2">
-                          <BsFillHeartFill
-                            style={{ color: "#FF0000" }}
-                            onClick={() => handleWishlistClick(item?._id)}
-                          />
-                        </div>
+
                         <div>
                           <img
                             className="wishimage"
@@ -88,7 +98,7 @@ const Wishlistinform = () => {
                         </div>
                       </Link>
                     </Col>
-                    <Col lg={6} md={6} sm={6}>
+                    <Col lg={6} md={5} sm={5}>
                       <Link
                         className="carddecorationnone_cat text_edit"
                         reloadDocumen={true}
@@ -99,7 +109,7 @@ const Wishlistinform = () => {
                             {" "}
                             {item?.products[0]?.title}aaaaaaa
                           </div>
-                          <div className="descripmob">
+                          <div className="descripmob crad_text">
                             {" "}
                             {item?.products[0]?.description}
                           </div>
@@ -109,55 +119,55 @@ const Wishlistinform = () => {
                         </div>
                       </Link>
                     </Col>
-                    <Col lg={1} md={2} sm={2}>
+                    <Col lg={2} md={2} sm={2}>
                       <div className="p-4">
                         <h5> ₹{item?.products[0]?.price}</h5>
                       </div>
                     </Col>
-                    <Col lg={2} md={2} sm={2}>
+                    <Col lg={2} md={3} sm={3}>
                       <div className="p-4 d-flex align-items-center justify-content-center">
                         <MdDelete
-                          className="deleteicn_forpro"
+                          className="wishremoveicon"
                           onClick={() => handleShow()}
                         />
                       </div>
                     </Col>
                   </div>
+                  <Modal
+                    className="removerfromcart_modal"
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered
+                    show={show}
+                    onHide={handleClose}
+                  >
+                    <Modal.Header closeButton>
+                      <Modal.Title>Delete Item</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      Are you sure you want to Delete this item
+                      ?
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <Button
+                        className="cancelbut_removecart"
+                        variant="secondary"
+                        onClick={handleClose}
+                      >
+                        CANCEL
+                      </Button>
+                      <Button
+                        className="removebut_cart"
+                        variant="primary"
+                        onClick={() => handleRemoveWish(item)}
+                      >
+                        Delete
+                      </Button>
+                    </Modal.Footer>
+                  </Modal>
                 </>
               );
             })}
         </Row>
-        <Modal
-          className="removerfromcart_modal"
-          aria-labelledby="contained-modal-title-vcenter"
-          centered
-          show={show}
-          onHide={handleClose}
-        >
-          <Modal.Header closeButton>
-            <Modal.Title>Delete Item</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            Are you sure you want to Delete this item
-            ?
-          </Modal.Body>
-          <Modal.Footer>
-            <Button
-              className="cancelbut_removecart"
-              variant="secondary"
-              onClick={handleClose}
-            >
-              CANCEL
-            </Button>
-            <Button
-              className="removebut_cart"
-              variant="primary"
-              onClick={() => handleRemoveAddress()}
-            >
-              Delete
-            </Button>
-          </Modal.Footer>
-        </Modal>
       </div>
     </>
   );

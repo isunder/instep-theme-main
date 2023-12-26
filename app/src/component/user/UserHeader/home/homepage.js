@@ -30,7 +30,7 @@ const Home = () => {
 
   const allcatgorydata = useSelector(
     (state) => state?.getcategorylistdata?.listdata?.data
-  );  
+  );
   console.log(allcatgorydata, "jjjjjjjj");
   const dataslider = useSelector(
     (state) => state?.getsliderdata?.listdata?.data
@@ -293,6 +293,7 @@ const Home = () => {
                       categorydata?.products?.map((item, index) => {
                         if (item?.category?.[0]?.category === "Electronics") {
                           return (
+
                             <SwiperSlide className="shopping_card" key={index}>
                               <Link
                                 className="card_deco"
@@ -308,8 +309,8 @@ const Home = () => {
                                           ? item?.image
                                           : item?.thumbnail?.split(":").length >
                                             1
-                                          ? item?.thumbnail
-                                          : `http://localhost:5000/uploads/${item.thumbnail}`
+                                            ? item?.thumbnail
+                                            : `http://localhost:5000/uploads/${item.thumbnail}`
                                       }
                                     />
                                   </div>
@@ -317,7 +318,6 @@ const Home = () => {
                                     <Card.Title className="crad_text">
                                       {item?.title}
                                     </Card.Title>
-
                                     <Card.Text className="crad_text">
                                       <h6> ₹ {item?.price}</h6>
                                     </Card.Text>
@@ -405,8 +405,8 @@ const Home = () => {
                                       e?.image
                                         ? e?.image
                                         : e?.thumbnail?.split(":").length > 1
-                                        ? e?.thumbnail
-                                        : `http://localhost:5000/uploads/${e.thumbnail}`
+                                          ? e?.thumbnail
+                                          : `http://localhost:5000/uploads/${e.thumbnail}`
                                     }
                                   />
                                 </div>
@@ -485,7 +485,7 @@ const Home = () => {
                       },
                     }}
                   >
-                    {data?.products?.map((e) => {
+                    {data?.products?.map((e, index) => {
                       if (e?.category?.[0]?.category === "Books &More") {
                         return (
                           <SwiperSlide className="shopping_card" key={e?.id}>
@@ -502,8 +502,8 @@ const Home = () => {
                                       e?.image
                                         ? e?.image
                                         : e?.thumbnail?.split(":").length > 1
-                                        ? e?.thumbnail
-                                        : `http://localhost:5000/uploads/${e.thumbnail}`
+                                          ? e?.thumbnail
+                                          : `http://localhost:5000/uploads/${e.thumbnail}`
                                     }
                                   />
                                 </div>
@@ -559,8 +559,8 @@ const Home = () => {
                                       item?.image
                                         ? item?.image
                                         : item?.thumbnail?.split(":").length > 1
-                                        ? item?.thumbnail
-                                        : `http://localhost:5000/uploads/${item.thumbnail}`
+                                          ? item?.thumbnail
+                                          : `http://localhost:5000/uploads/${item.thumbnail}`
                                     }
                                   />
                                   <div className="cloths_detail">
@@ -610,8 +610,8 @@ const Home = () => {
                                       item?.image
                                         ? item?.image
                                         : item?.thumbnail?.split(":").length > 1
-                                        ? item?.thumbnail
-                                        : `http://localhost:5000/uploads/${item.thumbnail}`
+                                          ? item?.thumbnail
+                                          : `http://localhost:5000/uploads/${item.thumbnail}`
                                     }
                                     alt=""
                                   />
