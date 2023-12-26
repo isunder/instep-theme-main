@@ -12,7 +12,7 @@ export const axiosInstance = axios.create({
 export const wishlistremove = createAsyncThunk(
   "deletewishlist",
   async (payload) => {
-    return axiosInstance.post("/wishlist/remove", payload);
+    return axiosInstance.post("/wishlist/remove", payload); 
   }
 );
 
