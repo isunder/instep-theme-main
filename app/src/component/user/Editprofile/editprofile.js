@@ -7,7 +7,7 @@ import { getUserId } from "../../../utils/auth";
 import { getProductAction } from "../../../Redux/action/getProductDetailAction";
 import { singleproduct } from "../../../Redux/action/getsingleProduct";
 import { createprofile } from "../../../Redux/action/profileaction";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import Spinner from "../loader/spinner";
 
 const Editprofile = () => {
@@ -15,15 +15,18 @@ const Editprofile = () => {
   const [profileimgdata, setProfileimgData] = useState("");
   const [selectedthumbnalFile, setselectedthumbnalFile] = useState([]);
 
-  const profiledata = useSelector((state) => state?.profileslice?.listdata?.data?.data);
+  // const profiledata = useSelector((state) => state?.profileslice?.listdata?.data?.data);
   // const etstadta = useSe
   const loading = useSelector((state) => state?.profileslice?.isLoading);
-  console.log(profiledata, "aaaaaaaaaaaaaaaaaaaa");
   const [edit, setEdit] = useState(false);
 
+  const profiledata = useSelector(
+    (state) => state?.profileslice?.imageData?.data?.data
+  );
   // const token = getToken();
   // const tokenD = JSON.parse(token);
 
+  console.log(profiledata, "aaaaaaaaaaaaaaaaaaaa");
   const dataId = getUserId();
   const midata = { id: dataId?.id };
   console.log(midata, "dataId");
@@ -70,18 +73,18 @@ const Editprofile = () => {
 
     return init;
   };
-  useEffect(() => {
-    var formData = new FormData();
-    // Dispatch action to create profile with headers
-    if (dataId?.id) {
-      const userData = { id: dataId?.id };
-      formData.append("userData", JSON.stringify(userData));
-      dispatch(createprofile(formData)).then((res) => {
-        console.log(res, 'fwuioel')
-      });
-    }
-    // formData.append("image", selectedthumbnalFile);
-  }, [""]);
+  // useEffect(() => {
+  //   var formData = new FormData();
+  //   // Dispatch action to create profile with headers
+  //   if (dataId?.id) {
+  //     const userData = { id: dataId?.id };
+  //     formData.append("userData", JSON.stringify(userData));
+  //     dispatch(createprofile(formData)).then((res) => {
+  //       console.log(res, 'fwuioel')
+  //     });
+  //   }
+  //   // formData.append("image", selectedthumbnalFile);
+  // }, [""]);
 
   return (
     <>
@@ -95,7 +98,8 @@ const Editprofile = () => {
               validate={validate}
               render={({ handleSubmit, values }) => (
                 <form onSubmit={handleSubmit}>
-                  <Col md={12}>
+
+                  <Col md={8}>
                     <div className="labelalig_n margin_bottom">
                       <h3> Personal Information</h3>
                       {edit !== "name" ? (
@@ -160,7 +164,7 @@ const Editprofile = () => {
                       </div>
                     </div>
                   </Col>
-                  <Col md={12}>
+                  <Col md={6}>
                     <div className="labelalig_n">
                       <h5>Email Address</h5>
                       {/* <div>Edit</div> */}
@@ -185,7 +189,7 @@ const Editprofile = () => {
                     </div> */}
                     </div>
                   </Col>
-                  <Col md={12}>
+                  <Col md={6}>
                     <div className="labelalig_n">
                       <h5>Mobile Number</h5>
                       {edit !== "number" ? (

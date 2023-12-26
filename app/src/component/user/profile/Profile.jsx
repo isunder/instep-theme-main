@@ -4,9 +4,10 @@ import {
     AiFillMessage,
     AiOutlineHome,
     AiOutlineShopping,
+    AiTwotoneHeart,
 } from "react-icons/ai";
 import { FcProcess } from "react-icons/fc";
-import { MdAccountCircle, MdShoppingCartCheckout } from "react-icons/md";
+import { MdAccountCircle, MdDelete, MdShoppingCartCheckout } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { cartinfo } from "../../../Redux/action/usercartinfo";
 import { RxBorderWidth, RxDashboard } from "react-icons/rx";
@@ -26,8 +27,12 @@ import AddressBook from "../Editprofile/addressbook";
 import { Getorderdetail } from "../../../Redux/action/orderSummary";
 import {
     createprofile,
+    deleteProfileImage,
     getProfileImage,
 } from "../../../Redux/action/profileaction";
+import { toast } from "react-toastify";
+import Wishlistinform from "../wshlistData/wishlistDataInfo";
+import { FaCamera } from "react-icons/fa6";
 
 export default function Profile() {
     const navigate = useNavigate();
@@ -35,11 +40,17 @@ export default function Profile() {
     const [show, setShow] = useState(false);
     const [imgState, setImageState] = useState([]);
 
+    const [isMenuVisible, setIsMenuVisible] = useState(false)
+
     const userData = getUserId();
     console.log(userData, "usr");
     const idata = userData.id;
     console.log(idata, "daa");
     const userLogin = localStorage.getItem("token");
+
+    const handleToggleClick = () => {
+        setIsMenuVisible(!isMenuVisible)
+    };
 
     const dispatch = useDispatch();
 
@@ -73,18 +84,32 @@ export default function Profile() {
     const profilegetdata = useSelector(
         (state) => state?.profileslice?.imageData?.data?.data
     );
-    console.log(profilegetdata, "profilegetdata");
+    console.log(profilegetdata, "h");
 
     const handleShow = () => setShow(true);
     const handleClose = () => setShow(false);
 
     const handleChange = (e) => {
         const files = e.target.files;
+        const image = e.target.files[0];
         const formData = new FormData();
         const imagesArray = [];
 
         formData.append("userData", JSON.stringify({ id: getUserId().id }));
 
+        if (!image.name.match(/\.(jpg|jpeg|png)$/)) {
+            toast.error("upload file in the form of jpg, jpeg or png")
+            setImageState([])
+            e.target.value = null;
+            return false
+        }
+        const maxSizeKB = 50;
+        if (image.size > maxSizeKB * 1024) {
+            toast.error("the maximum file size allowed (50KB)");
+            setImageState([])
+            e.target.value = null;
+            return false;
+        }
         for (let i = 0; i < files.length; i++) {
             const uniqueId = Date.now();
             const name = files[i].name;
@@ -107,31 +132,73 @@ export default function Profile() {
             if (res?.payload?.status) {
                 dispatch(getProfileImage({ id: getUserId().id }));
                 setImageState([]); // Clear image state after successful upload
+                setIsMenuVisible(!isMenuVisible)
             }
         });
     };
+
+    const handleDelteProfile = () => {
+        dispatch(deleteProfileImage({ id: getUserId().id })).then((res) => {
+            if (res) {
+                setIsMenuVisible(!isMenuVisible)
+                dispatch(getProfileImage({ id: getUserId().id }))
+                handleClose(false)
+
+            }
+        })
+
+
+    }
+
+    const imgFound = async (img) => {
+        try {
+            const response = await fetch(img);
+
+            if (!response.ok) {
+                throw new Error(`Network response was not ok: ${response.status}`);
+            }
+
+            const data = await response.blob(); // or response.json() or response.text(), depending on the expected data type
+
+            // Work with the data here
+            return data
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
+            return error
+        }
+    }
 
     return (
         <div className="container">
             <div className=" slider_col margin_bottom">
                 <div className="recent_orders ">
                     {/* <div><button onClick={butClick}>click me</button></div> */}
-
                     <Row>
                         <Col lg={3} md={3} sm={4}>
                             <div className="d-flex justify-content-center mainiconalign">
                                 <div className="mainiconalign">
-                                    <img
-                                        className="banner-img img-edit2"
-                                        src={
-                                            profilegetdata &&
-                                            profilegetdata.Profileimage &&
-                                            `http://localhost:5000/profile/${profilegetdata.Profileimage}`
-                                        }
-                                        alt=""
-                                    />
+                                    {console.log(imgFound(`http://localhost:5000/profile/${profilegetdata?.Profileimage}`), 'goiwjep')}
+                                    {profilegetdata?.Profileimage && imgFound(`http://localhost:5000/profile/${profilegetdata?.Profileimage}`) ? (
+                                        <>
+                                            <img
+                                                crossOrigin="anonymous"
+                                                className="banner-img img-edit2"
+                                                src={
+                                                    profilegetdata &&
+                                                    profilegetdata.Profileimage &&
+                                                    `http://localhost:5000/profile/${profilegetdata.Profileimage}`
+                                                }
+                                                alt="no img found"
+                                            />
+                                        </>
+                                    ) :
+                                        (
+                                            <img className="banner-img img-edit2" src="https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-538.jpg" alt="" />
+                                        )
+                                    }
+
                                 </div>
-                                <input
+                                {/* <input
                                     onChange={(e) => {
                                         handleChange(e);
                                     }}
@@ -141,7 +208,33 @@ export default function Profile() {
                                 />
                                 <label htmlFor="profile-imgrr" className="iconouterdiv">
                                     <CiEdit className="profileedit" />
-                                </label>
+                                </label> */}
+                                <div className="iconouterdiv" onClick={handleToggleClick} id="show"><FaCamera className="profileedit" /></div>
+                            </div>
+                            <div className={`menu ${isMenuVisible ? 'visible' : 'hidden'}`}>
+                                <div className="optionouter_div">
+                                    <div className="editprofileoption">
+                                        <div>
+                                            <input
+                                                onChange={(e) => {
+                                                    handleChange(e);
+                                                }}
+                                                type="file"
+                                                id="profile-imgrr"
+                                                hidden
+                                            />
+                                            <label htmlFor="profile-imgrr">
+                                                <CiEdit className="profileedit" />
+                                            </label>
+                                        </div>
+                                        <div>
+                                            <MdDelete
+                                                onClick={handleShow}
+                                                className="wishremoveicon"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </Col>
                         <Col lg={9} md={9} sm={8}>
@@ -153,14 +246,14 @@ export default function Profile() {
                                     <div className="userprofile_contact">
                                         <div>
                                             <p>
-                                                <AiFillMessage /> {profilegetdata && profilegetdata?.userEmail}
+                                                <AiFillMessage /> {profilegetdata && profilegetdata?.email}
                                             </p>
                                         </div>
                                         <div>
                                             <p>
                                                 {" "}
                                                 <BsTelephoneFill />
-                                                8801235385478
+                                                {profilegetdata && profilegetdata?.number}
                                             </p>
                                         </div>
                                     </div>
@@ -250,10 +343,24 @@ export default function Profile() {
                                 aria-controls="v-pills-messages"
                                 aria-selected="false"
                             >
-                                {" "}
                                 <div className="d-flex justify-content-start align-items-center">
                                     <AiOutlineHome className="profilemanangeicon" />
-                                    Address Book{" "}
+                                    Address Book
+                                </div>
+                            </button>
+                            <button
+                                class="nav-link"
+                                id="v-pills-wishlist-tab"
+                                data-bs-toggle="pill"
+                                data-bs-target="#v-pills-wishlist"
+                                type="button"
+                                role="tab"
+                                aria-controls="v-pills-wishlist"
+                                aria-selected="false"
+                            >
+                                <div className="d-flex justify-content-start align-items-center">
+                                    <AiTwotoneHeart className="profilemanangeicon" />
+                                    WIshlist
                                 </div>
                             </button>
                             <button
@@ -304,6 +411,14 @@ export default function Profile() {
                             >
                                 <AddressBook />
                             </div>
+                            <div
+                                class="tab-pane fade"
+                                id="v-pills-wishlist"
+                                role="tabpanel"
+                                aria-labelledby="v-pills-wishlist-tab"
+                            >
+                                <Wishlistinform />
+                            </div>
                             {/* <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div> */}
                         </div>
                     </div>
@@ -336,6 +451,36 @@ export default function Profile() {
                         onClick={handleLogout}
                     >
                         LOGOUT
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+            <Modal
+                className="removerfromcart_modal"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+                show={show}
+                onHide={handleClose}
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>Logout</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Are you sure you want to Delete profile image?
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button
+                        className="cancelbut_removecart"
+                        variant="secondary"
+                        onClick={handleClose}
+                    >
+                        CANCEL
+                    </Button>
+                    <Button
+                        className="removebut_cart"
+                        variant="primary"
+                        onClick={() => { handleDelteProfile() }}
+                    >
+                        Delete
                     </Button>
                 </Modal.Footer>
             </Modal>

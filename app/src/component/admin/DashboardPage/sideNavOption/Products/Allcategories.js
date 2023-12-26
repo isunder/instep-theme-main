@@ -85,7 +85,6 @@ const Allcategories = () => {
     dispatch(allCategoryList({ page: currentPage, perPage: postPerPage }));
   }, [currentPage]);
 
-
   const handleImgeFile = (e) => {
     const files = e.target.files;
     const image = e.target.files[0];

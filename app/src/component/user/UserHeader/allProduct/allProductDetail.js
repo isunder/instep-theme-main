@@ -366,7 +366,9 @@ const AllProductDetail = () => {
 
   const [wishlist, setWishlist] = useState({});
 
-  const datas = useSelector((state) => state?.getwishlisdData?.listdata?.data);
+  const datas = useSelector(
+    (state) => state?.getwishlisdData?.listdata?.data?.data
+  );
 
   console.log(datas, "datasaasss");
 
@@ -383,7 +385,11 @@ const AllProductDetail = () => {
     console.log(productId, "sdfghjk");
     if (wishliststatus == "delete") {
       //Delete API
-      dispatch(wishlistremove({ userId: userData?.id, itemId: productId }));
+      dispatch(
+        wishlistremove({ userId: userData?.id, itemId: productId })
+      ).then((res) => {
+        dispatch(wishlistget({ userId: userData?.id }));
+      });
     } else if (wishliststatus == "add") {
       //Add API
       dispatch(
@@ -391,13 +397,14 @@ const AllProductDetail = () => {
           userId: userData?.id,
           items: productId,
         })
-      );
+      ).then((res) => {
+        dispatch(wishlistget({ userId: userData?.id }));
+      });
     }
     setWishlist((prevWishlist) => ({
       ...prevWishlist,
       [productId]: !prevWishlist[productId],
     }));
-    dispatch(wishlistget({ userId: userData?.id }));
   };
   return (
     <>
@@ -455,6 +462,8 @@ const AllProductDetail = () => {
                           datas &&
                           datas?.length > 0 &&
                           datas?.find((item) => item?.items === e?._id);
+
+                        console.log(isInwishlist, "fiuwehfr3wre");
                         return (
                           <Col lg={3} md={4}>
                             <div className="d-flex justify-content-end mt-2 mx-2">

@@ -173,10 +173,10 @@ const AddressBook = () => {
                 <>
                   {(isFormVisible || editAddressIndex) && (
                     <form onSubmit={handleSubmit}>
-                      <div className="adsressmaindiv_top margin_bottom">
+                      <div className=" margin_bottom row">
                         <Field name="name">
                           {({ input, meta }) => (
-                            <div className="fields">
+                            <div className=" col-md-6">
                               <input
                                 {...input}
                                 type="text"
@@ -185,14 +185,14 @@ const AddressBook = () => {
                                 maxLength={20}
                               />
                               {meta.error && meta.touched && (
-                                <span>{meta.error}</span>
+                                <span className="text-danger">{meta.error}</span>
                               )}
                             </div>
                           )}
                         </Field>
                         <Field name="mobilenumber">
                           {({ input, meta }) => (
-                            <div className="fields">
+                            <div className=" col-md-6">
                               <input
                                 // {...input}
                                 type="text"
@@ -207,16 +207,16 @@ const AddressBook = () => {
                                 maxLength={10}
                               />
                               {meta.error && meta.touched && (
-                                <span>{meta.error}</span>
+                                <span className="text-danger">{meta.error}</span>
                               )}
                             </div>
                           )}
                         </Field>
                       </div>
-                      <div className="adsressmaindiv_top margin_bottom">
+                      <div className="row margin_bottom">
                         <Field name="pincode">
                           {({ input, meta }) => (
-                            <div className="fields">
+                            <div className="fields col-md-6">
                               <input
                                 // {...input}
                                 type="text"
@@ -231,14 +231,14 @@ const AddressBook = () => {
                                 maxLength={6}
                               />
                               {meta.error && meta.touched && (
-                                <span>{meta.error}</span>
+                                <span className="text-danger">{meta.error}</span>
                               )}
                             </div>
                           )}
                         </Field>
                         <Field name="Locality">
                           {({ input, meta }) => (
-                            <div className="fields">
+                            <div className="fields col-md-6">
                               <input
                                 {...input}
                                 type="text"
@@ -247,7 +247,7 @@ const AddressBook = () => {
                                 maxLength={20}
                               />
                               {meta.error && meta.touched && (
-                                <span>{meta.error}</span>
+                                <span className="text-danger">{meta.error}</span>
                               )}
                             </div>
                           )}
@@ -256,7 +256,7 @@ const AddressBook = () => {
 
                       <Field name="address">
                         {({ input, meta }) => (
-                          <div className="addressbottommain margin_bottom">
+                          <div className="addressbottommain margin_bottom col-md-12">
                             <input
                               {...input}
                               type="text"
@@ -265,15 +265,15 @@ const AddressBook = () => {
                               maxLength={50}
                             />
                             {meta.error && meta.touched && (
-                              <span>{meta.error}</span>
+                              <span className="text-danger">{meta.error}</span>
                             )}
                           </div>
                         )}
                       </Field>
-                      <div className="adsressmaindiv_top margin_bottom">
+                      <div className="adsressmaindiv_top margin_bottom row">
                         <Field name="state">
                           {({ input, meta }) => (
-                            <div className="fields">
+                            <div className="fields col-md-6">
                               <input
                                 {...input}
                                 type="text"
@@ -282,16 +282,16 @@ const AddressBook = () => {
                                 maxLength={20}
                               />
                               {meta.error && meta.touched && (
-                                <span>{meta.error}</span>
+                                <span className="text-danger">{meta.error}</span>
                               )}
                             </div>
                           )}
                         </Field>
                       </div>
-                      <div className="adsressmaindiv_top margin_bottom">
+                      <div className="row margin_bottom">
                         <Field name="landmark">
                           {({ input, meta }) => (
-                            <div className="fields">
+                            <div className="fields col-md-6">
                               <input
                                 {...input}
                                 type="text"
@@ -300,14 +300,14 @@ const AddressBook = () => {
                                 maxLength={30}
                               />
                               {meta.error && meta.touched && (
-                                <span>{meta.error}</span>
+                                <span className="text-danger">{meta.error}</span>
                               )}
                             </div>
                           )}
                         </Field>
                         <Field name="AlternateNumber">
                           {({ input, meta }) => (
-                            <div className="fields">
+                            <div className="fields col-md-6">
                               <input
                                 {...input}
                                 type="text"
@@ -322,7 +322,7 @@ const AddressBook = () => {
                                 maxLength={10}
                               />
                               {meta.error && meta.touched && (
-                                <span>{meta.error}</span>
+                                <span className="text-danger">{meta.error}</span>
                               )}
                             </div>
                           )}
