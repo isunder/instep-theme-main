@@ -22,6 +22,8 @@ const TrackOrder = () => {
     dispatch(Getorderdetail({ userid: idata }));
   }, [""]);
 
+  const handleViewDetails = () => {};
+
   return (
     <div>
       <div className="recent_orders">
@@ -40,7 +42,7 @@ const TrackOrder = () => {
         </thead>
         <tbody>
           {/* Map through orders array to populate table rows */}
-          {orderdata.map((order, index) => (
+          {/* {orderdata.map((order, index) => (
             <tr key={index}>
               <td>{order.orderCode}</td>
               <td>{order.placedOn}</td>
@@ -48,15 +50,18 @@ const TrackOrder = () => {
               <td>{order.total}</td>
               <td>{order.status}</td>
               <td>
-                {/* Action buttons or links for each order */}
-                {/* You can add buttons or links for actions like view details, etc. */}
-                {/* <button onClick={() => handleViewDetails(order.orderCode)}> */}
-                {/* View Details */}
-                {/* </button> */}
-                {/* Add more action buttons or links as needed */}
+                <button onClick={() => handleViewDetails(order.orderCode)}>
+                  View Details
+                </button>
               </td>
             </tr>
-          ))}
+          ))} */}
+          <td>A1</td>
+          <td>A2</td>
+          <td>A3</td>
+          <td>A4</td>
+          <td>A5</td>
+          <td>A6</td>
         </tbody>
       </Table>
     </div>
