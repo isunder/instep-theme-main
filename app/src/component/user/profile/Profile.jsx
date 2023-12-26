@@ -60,6 +60,7 @@ export default function Profile() {
     const orderdetail = useSelector(
         (state) => state?.getallorderdetail?.listdata
     );
+    console.log(orderdetail, "orderdetailorderdetail")
 
     const userinfo = useSelector((state) => state?.cartdetails?.listdata);
     console.log(userinfo, "ordersss");
