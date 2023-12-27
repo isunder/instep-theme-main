@@ -33,7 +33,7 @@ const postproduct = expressAsyncHandler(async (req, res) => {
 
     const taxAmount = (priceAfterDiscount * userData.tax) / 100;
     const finalPrice = priceAfterDiscount + taxAmount;
-    console.log(finalPrice);
+    console.log(finalPrice, "testetstetsstetts");
 
     const productadd = new Userproducts({
       category: userData.category_id,
@@ -775,129 +775,103 @@ const updateProductspecificationpost = expressAsyncHandler(async (req, res) => {
   }
 });
 
-//  after   DELIVERY ADDRESS done
-
-// const orderSummary = expressAsyncHandler(async (req, res) => {
-//   try {
-//     console.log("test orderSummary");
-
-//     const { userid, deliveryAddress, products, payment_id, amount } = req.body;
-
-//     if (userid) {
-//       console.log(products);
-//       // Assuming 'Userproducts' is a mongoose model, use the 'findById' method like this:
-//       const productPromises = products.map(async (item) => {
-//         console.log(item.productID, "Dfdf");
-//         const product = await Userproducts.findById(item.productID);
-//         return product;
-//       });
-
-//       const prices = [];
-//       const pricestotal = [];
-//       Promise.all(productPromises)
-//         .then((products) => {
-//           products.forEach((product) => {
-//             if (product) {
-//               prices.push(product.price);
-//               // console.log(`Price for product ${product._id}: ${product.price}`);
-//             } else {
-//               console.log("Product not found");
-//             }
-//           });
-
-//           const totalPrice = prices.reduce((acc, curr) => acc + curr, 0);
-//           console.log("Total Price: ", totalPrice);
-//           pricestotal.push(totalPrice);
-//         })
-//         .catch((error) => {
-//           console.error("Error fetching products:", error);
-//         });
-
-//       if (!products) {
-//         return res.status(404).json({ message: "Product not found" });
-//       } else {
-//         const order = new SchemaOrder({
-//           userid: userid,
-//           deliveryAddress: deliveryAddress,
-
-//           products: products.map((items) => {
-//             return { productID: items.productID, quantity: items.quantity };
-//           }),
-//         });
-
-//         await order.save();
-
-//         res.status(200).json({
-//           message: "Order created successfully",
-//           order,
-//           costing: prices,
-//           totalrpice: pricestotal,
-//         });
-//       }
-
-//       // Save the order to the database (you need to await this if using async operations):
-//     } else {
-//       res.status(400).json({ message: "userid is missing" });
-//     }
-//   } catch (error) {
-//     res
-//       .status(500)
-//       .json({ message: "An error occurred", error: error.message });
-//   }
-// });
-
 const orderSummary = expressAsyncHandler(async (req, res) => {
   try {
     console.log("test orderSummary");
 
-    const { userid, deliveryAddress, productID, payment_id, amount, quantity, status } = req.body;
-
-    if (!userid) {
-      return res.status(400).send({ message: "User ID is required", success: false });
-    }
-
-    const find = new SchemaOrder({
+    const {
       userid,
       deliveryAddress,
       productID,
       payment_id,
       amount,
       quantity,
-      status
+      status,
+    } = req.body;
 
+    if (!userid || !productID) {
+      return res
+        .status(400)
+        .send({ message: "User ID and Product ID are required", success: false });
+    }
+
+    // Find the product by ID to update stock
+    const findbyid = await Userproducts.findById(productID);
+  
+
+    if (!findbyid) {
+      return res
+        .status(404)
+        .send({ message: "Product not found", success: false });
+    }
+
+    // Calculate new stock after deducting the ordered quantity
+    const newStock = findbyid.stock - quantity;
+
+    if (newStock < 0) {
+      return res
+        .status(400)
+        .send({ message: "Insufficient stock", success: false });
+    }
+    const datastock = newStock == 0 ? "out of stock" : newStock
+
+    // Update the stock
+    findbyid.stock = datastock;
+    await findbyid.save();
+
+    // Create a new order entry
+    const newOrder = new SchemaOrder({
+      userid,
+      deliveryAddress,
+      productID,
+      payment_id,
+      amount,
+      quantity,
+      status,
     });
 
-    await find.save();
-    res.status(200).send({ save: find, success: true });
+    // Save the new order
+    await newOrder.save();
+
+    res.status(200).send({ save: newOrder, success: true });
   } catch (error) {
-    res.status(500).json({ message: "An error occurred", error: error.message });
+    res
+      .status(500)
+      .json({ message: "An error occurred", error: error.message });
   }
 });
-
-
-
-
 const updateOrderStatus = expressAsyncHandler(async (req, res) => {
   try {
     const { orderId, productID, newStatus } = req.body;
 
     // Validate orderId, productID, and newStatus
     if (!orderId || !productID || !newStatus) {
-      return res.status(400).send({ message: "Order ID, product ID, and new status are required", success: false });
+      return res
+        .status(400)
+        .send({
+          message: "Order ID, product ID, and new status are required",
+          success: false,
+        });
     }
 
     // Find the order by orderId
     const order = await SchemaOrder.findById(orderId);
 
     if (!order) {
-      return res.status(404).send({ message: "Order not found", success: false });
+      return res
+        .status(404)
+        .send({ message: "Order not found", success: false });
     }
 
     // Find the product within the order's products array
-    const productToUpdate = order.products.find(product => product.productID.toString() === productID);
+    const productToUpdate = order.products.find(
+      (product) => product.productID.toString() === productID
+    );
 
     if (!productToUpdate) {
-      return res.status(404).send({ message: "Product not found in the order", success: false });
+      return res
+        .status(404)
+        .send({ message: "Product not found in the order", success: false });
     }
 
     // Update the status of the found product
@@ -908,14 +882,15 @@ const updateOrderStatus = expressAsyncHandler(async (req, res) => {
 
     res.status(200).send({ updatedProduct: productToUpdate, success: true });
   } catch (error) {
-    res.status(500).json({ message: "An error occurred", error: error.message });
+    res
+      .status(500)
+      .json({ message: "An error occurred", error: error.message });
   }
 });
-
 const getorderSummary = expressAsyncHandler(async (req, res) => {
   try {
     const { userid } = req.body; // Assuming userId is passed as a parameter
-    console.log(userid, "userid")
+    console.log(userid, "userid");
 
     const ordersWithProducts = await SchemaOrder.aggregate([
       { $match: { userid: new mongoose.Types.ObjectId(userid) } },
@@ -924,21 +899,18 @@ const getorderSummary = expressAsyncHandler(async (req, res) => {
           from: "userproducts",
           localField: "productID", // Accessing the correct nested field
           foreignField: "_id",
-          as: "productID"
-        }
-      }
+          as: "productID",
+        },
+      },
     ]);
-    console.log(ordersWithProducts, "ordersWithProducts")
+    console.log(ordersWithProducts, "ordersWithProducts");
     res.status(200).send({ ordersWithProducts, success: true });
   } catch (error) {
-    res.status(500).json({ message: "An error occurred", error: error.message });
+    res
+      .status(500)
+      .json({ message: "An error occurred", error: error.message });
   }
 });
-
-
-
-
-
 // master filter
 const spacifeaction = expressAsyncHandler(async (req, res) => {
   try {
@@ -951,7 +923,6 @@ const spacifeaction = expressAsyncHandler(async (req, res) => {
       .json({ message: "An error occurred", error: error.message });
   }
 });
-
 const masterTablecreater = expressAsyncHandler(async (req, res) => {
   try {
     const { categoryID, types, name } = req.body; // Assuming these values come from the request body
@@ -989,7 +960,6 @@ const spacifeactionPost = expressAsyncHandler(async (req, res) => {
     res.status(500).send({ error: error.message, success: false });
   }
 });
-
 const spacifeactionget = expressAsyncHandler(async (req, res) => {
   try {
     const getdata = await speccificationsubcatetable.find();
@@ -1017,7 +987,6 @@ const spacifeactiongetbyId = expressAsyncHandler(async (req, res) => {
     res.status(500).send({ error: error, success: false });
   }
 });
-
 const specificationupdate = expressAsyncHandler(async (req, res) => {
   try {
     const { specificationID, ...name } = req.body;
