@@ -143,7 +143,6 @@ const Usernavbar = () => {
                               "asdasdq234234324"
                             )}
                             <img
-
                               src={`http://localhost:5000/logo/${header?.logo}`}
                               alt=""
                             />
@@ -235,7 +234,7 @@ const Usernavbar = () => {
                               <li className="sign_hover">
                                 <Link
                                   className=" carddecorationnone_cat color"
-                                  to="/"
+                                  to="/profile"
                                 >
                                   <BiSolidPurchaseTag className="usericons" />
                                   My Orders

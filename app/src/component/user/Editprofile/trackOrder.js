@@ -43,7 +43,10 @@ const TrackOrder = () => {
           {orderdatasum?.map((e, i) => (
             <tr>
               <td>{i + 1}</td>
+              <td>{e?.quantity}</td>
+              <td>{e?.productID[0]?.title}</td>
               <td>{e?.amount}</td>
+              <td>{e?.status}</td>
             </tr>
             // <tr key={index}>
             //   <td>{order.orderCode}</td>
