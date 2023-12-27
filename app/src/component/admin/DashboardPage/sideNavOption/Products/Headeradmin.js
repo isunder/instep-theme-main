@@ -86,9 +86,20 @@ function Headeradmin() {
       return false;
     }
     if (!logo.name.match(/\.(jpg|jpeg|png|gif)$/)) {
-      console.log("select valid image.");
+      toast.error("upload file in the form of jpg, jpeg or png")
+      setSelectedImages([])
+      e.target.value = null;
       return false;
     }
+
+    const maxSizeKB = 50;
+    if (logo.size > maxSizeKB * 1024) {
+      toast.error("the maximum file size allowed (50KB).");
+      setSelectedImages([])
+      e.target.value = null;
+      return false;
+    }
+
     const uniqueId = Date.now();
     let name = e.target.files[0].name;
 

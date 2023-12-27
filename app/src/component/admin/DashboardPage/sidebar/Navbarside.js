@@ -8,7 +8,7 @@ import {
   AiOutlineDashboard,
 } from "react-icons/ai";
 import { HiDocument, HiOutlineUserGroup } from "react-icons/hi";
-import { MdPermMedia, MdProductionQuantityLimits } from "react-icons/md";
+import { MdOutlineSpaceBar, MdPermMedia, MdProductionQuantityLimits } from "react-icons/md";
 import { BsArrow90DegLeft, BsAwardFill, BsFilePostFill } from "react-icons/bs";
 import { GoDatabase } from "react-icons/go";
 import { FaShoppingCart, FaUserCheck } from "react-icons/fa";
@@ -53,8 +53,8 @@ const SidebarFun = () => {
     <div className="admin_sidebar col_hide">
       <Sidenav
         defaultOpenKeys={["3", "4"]}
-        // show={show}
-        // handleClose={handleClose}
+      // show={show}
+      // handleClose={handleClose}
       >
         <Sidenav.Body>
           <div className="sidebar_deco">
@@ -92,6 +92,15 @@ const SidebarFun = () => {
                 </Nav.Item>
                 <Nav.Item eventKey="2-7">
                   <Link to={"/trending"}>- Trending Products</Link>
+                </Nav.Item>
+              </Nav.Menu>
+              <Nav.Menu
+                eventKey="2"
+                title="User Navbar"
+                icon={<MdOutlineSpaceBar />}
+              >
+                <Nav.Item eventKey="2-1">
+                  <Link to={"/headeradmin"}>- User Navbar</Link>
                 </Nav.Item>
               </Nav.Menu>
               <Nav.Menu
@@ -151,7 +160,7 @@ const SidebarFun = () => {
               <Nav.Menu
                 eventKey="13"
                 title="Newsletters"
-                //  icon={<BsAwardFill />}
+              //  icon={<BsAwardFill />}
               >
                 <Nav.Item eventKey="13-1">
                   <Link to={"/Bulkemails"}>Bulk Email </Link>
@@ -190,7 +199,7 @@ const SidebarFun = () => {
               <Nav.Menu
                 eventKey="19"
                 title="Queries"
-                //  icon={<BsAwardFill />}
+              //  icon={<BsAwardFill />}
               />
               <Nav.Menu eventKey="20" title="Appearance">
                 <Nav.Item eventKey="20-1"> -Home Page</Nav.Item>
