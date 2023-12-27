@@ -30,8 +30,8 @@ const Delieverydetail = () => {
   const [hidedata, setHidata] = useState("");
   const [razorPaymentId, setRazorPaymentId] = useState("");
   const [qty, setQty] = useState(1);
-  const [numberValue, setNumberValue] = useState('');
-  const [alternateNumberValue, setAlternateNumberValue] = useState('');
+  const [numberValue, setNumberValue] = useState("");
+  const [alternateNumberValue, setAlternateNumberValue] = useState("");
   // const [formStateShow,setFormStateShow] = useState(null)
   const data = useSelector((state) => state?.deliveraddress?.listdata);
 
@@ -128,7 +128,7 @@ const Delieverydetail = () => {
       if (res) {
         dispatch(deliveryGetAction(values));
       }
-      setFormVisible(false)
+      setFormVisible(false);
     });
     console.log(values, "values");
   };
@@ -276,7 +276,8 @@ const Delieverydetail = () => {
             // productID: dData?._id,
             // quantity: 1, // You might adjust this depending on your use case
             // ... other order-related details
-            products: [{ productID: dData?._id, quantity: qty }],
+            productID: dData?._id,
+            quantity: qty,
           };
 
           // Dispatch an action to send order details after successful payment
@@ -321,7 +322,7 @@ const Delieverydetail = () => {
             disable
             activeKey={activeKey}
             onSelect={(e) => setactiveKey(e)}
-          // defaultActiveKey={useMemo(()=>eventKeyHandle(),[addressdata])}
+            // defaultActiveKey={useMemo(()=>eventKeyHandle(),[addressdata])}
           >
             {/* <Accordion defaultActiveKey={1}> */}
             <Row>
@@ -530,7 +531,9 @@ const Delieverydetail = () => {
                                                 maxLength={20}
                                               />
                                               {meta.error && meta.touched && (
-                                                <span className="text-danger">{meta.error}</span>
+                                                <span className="text-danger">
+                                                  {meta.error}
+                                                </span>
                                               )}
                                             </div>
                                           )}
@@ -544,15 +547,25 @@ const Delieverydetail = () => {
                                                 className="inputfiels_place"
                                                 // value={values.mobilenumber}
                                                 onChange={(event) => {
-                                                  if (!/[0-9]/.test(event.key)) {
-                                                    const inputValue = event.target.value.replace(/\D/g, '');
-                                                    input.onChange(Number(inputValue))
+                                                  if (
+                                                    !/[0-9]/.test(event.key)
+                                                  ) {
+                                                    const inputValue =
+                                                      event.target.value.replace(
+                                                        /\D/g,
+                                                        ""
+                                                      );
+                                                    input.onChange(
+                                                      Number(inputValue)
+                                                    );
                                                   }
                                                 }}
                                                 maxLength={10}
                                               />
                                               {meta.error && meta.touched && (
-                                                <span className="text-danger">{meta.error}</span>
+                                                <span className="text-danger">
+                                                  {meta.error}
+                                                </span>
                                               )}
                                             </div>
                                           )}
@@ -568,15 +581,25 @@ const Delieverydetail = () => {
                                                 placeholder="pincode"
                                                 className="inputfiels_place"
                                                 onChange={(event) => {
-                                                  if (!/[0-9]/.test(event.key)) {
-                                                    const inputValue = event.target.value.replace(/\D/g, '');
-                                                    input.onChange(Number(inputValue))
+                                                  if (
+                                                    !/[0-9]/.test(event.key)
+                                                  ) {
+                                                    const inputValue =
+                                                      event.target.value.replace(
+                                                        /\D/g,
+                                                        ""
+                                                      );
+                                                    input.onChange(
+                                                      Number(inputValue)
+                                                    );
                                                   }
                                                 }}
                                                 maxLength={10}
                                               />
                                               {meta.error && meta.touched && (
-                                                <span className="text-danger">{meta.error}</span>
+                                                <span className="text-danger">
+                                                  {meta.error}
+                                                </span>
                                               )}
                                             </div>
                                           )}
@@ -592,7 +615,9 @@ const Delieverydetail = () => {
                                                 maxLength={20}
                                               />
                                               {meta.error && meta.touched && (
-                                                <span className="text-danger">{meta.error}</span>
+                                                <span className="text-danger">
+                                                  {meta.error}
+                                                </span>
                                               )}
                                             </div>
                                           )}
@@ -610,7 +635,9 @@ const Delieverydetail = () => {
                                                 maxLength={40}
                                               />
                                               {meta.error && meta.touched && (
-                                                <span className="text-danger">{meta.error}</span>
+                                                <span className="text-danger">
+                                                  {meta.error}
+                                                </span>
                                               )}
                                             </div>
                                           )}
@@ -628,7 +655,9 @@ const Delieverydetail = () => {
                                                 maxLength={20}
                                               />
                                               {meta.error && meta.touched && (
-                                                <span className="text-danger">{meta.error}</span>
+                                                <span className="text-danger">
+                                                  {meta.error}
+                                                </span>
                                               )}
                                             </div>
                                           )}
@@ -646,7 +675,9 @@ const Delieverydetail = () => {
                                                 maxLength={30}
                                               />
                                               {meta.error && meta.touched && (
-                                                <span className="text-danger">{meta.error}</span>
+                                                <span className="text-danger">
+                                                  {meta.error}
+                                                </span>
                                               )}
                                             </div>
                                           )}
@@ -660,15 +691,25 @@ const Delieverydetail = () => {
                                                 placeholder="Alternate phone (optinal)"
                                                 className="inputfiels_place"
                                                 onChange={(event) => {
-                                                  if (!/[0-9]/.test(event.key)) {
-                                                    const inputValue = event.target.value.replace(/\D/g, '');
-                                                    input.onChange(Number(inputValue))
+                                                  if (
+                                                    !/[0-9]/.test(event.key)
+                                                  ) {
+                                                    const inputValue =
+                                                      event.target.value.replace(
+                                                        /\D/g,
+                                                        ""
+                                                      );
+                                                    input.onChange(
+                                                      Number(inputValue)
+                                                    );
                                                   }
                                                 }}
                                                 maxLength={10}
                                               />
                                               {meta.error && meta.touched && (
-                                                <span className="text-danger">{meta.error}</span>
+                                                <span className="text-danger">
+                                                  {meta.error}
+                                                </span>
                                               )}
                                             </div>
                                           )}
@@ -711,7 +752,6 @@ const Delieverydetail = () => {
                               )}
                             </Col>
                           </Row>
-
 
                           <Row>
                             <Col>
