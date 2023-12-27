@@ -7,33 +7,33 @@ dotenv.config();
 
 const createProfile = expressAsyncHandler(async (req, res) => {
   try {
-    if (req.body && req.body.userData && req.files && req.files.profileimg) {
-      const userformData = req.body.userData;
-      const userData = JSON.parse(userformData);
-      const profileimg = req.files.profileimg[0].filename;
+    if (req.body && req.body.userData) {
+      const userData = JSON.parse(req.body.userData);
       const idUser = userData.id;
-
-      const imgupdate = await User.findById(idUser);
-
-      if (imgupdate && imgupdate.Profileimage) {
-        // Delete the existing profile image
-        fs.unlink(`./profile/${imgupdate.Profileimage}`, (err) => {
-          if (err) {
-            console.error(`Error deleting ${imgupdate.Profileimage}:`, err);
-          } else {
-            console.log(`${imgupdate.Profileimage} deleted successfully`);
-          }
-        });
-      }
-
-      const profile = {
+      let profile = {
         username: userData.username,
-        Profileimage: profileimg,
         firstname: userData.firstname,
         lastname: userData.lastname,
         number: userData.number,
-       
       };
+
+      if (req.files && req.files.profileimg && req.files.profileimg[0]) {
+        const profileImg = req.files.profileimg[0].filename;
+        const imgUpdate = await User.findById(idUser);
+
+        if (imgUpdate && imgUpdate.Profileimage) {
+          // Delete the existing profile image
+          fs.unlink(`./profile/${imgUpdate.Profileimage}`, (err) => {
+            if (err) {
+              console.error(`Error deleting ${imgUpdate.Profileimage}:`, err);
+            } else {
+              console.log(`${imgUpdate.Profileimage} deleted successfully`);
+            }
+          });
+        }
+
+        profile.Profileimage = profileImg;
+      }
 
       const updatedProfile = await User.findByIdAndUpdate(idUser, profile, {
         new: true,
@@ -52,6 +52,7 @@ const createProfile = expressAsyncHandler(async (req, res) => {
     res.status(500).send({ msg: "Server error", error: error.message });
   }
 });
+
 
 const deleteimg = expressAsyncHandler(async (req, res) => {
   try {
