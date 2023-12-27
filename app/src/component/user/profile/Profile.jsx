@@ -278,15 +278,15 @@ export default function Profile() {
                                                 className="usernameinput"
                                                 type="text"
                                                 onChange={(e) => handelvaluse(e)}
-                                                value={userName ? userName : profilegetdata?.username}
-                                                maxLength={10}
+                                                value={userName}
+                                                maxLength={20}
                                             />
                                         ) : (
                                             <input
                                                 // className="usernameinput"
                                                 type="text"
                                                 onChange={(e) => handelvaluse(e)}
-                                                value={userName  ?  userName : profilegetdata?.username}
+                                                value={userName}
                                                 maxLength={20}
                                                 style={{ border: '2px solid  #E3E3E3', padding: '5px', fontWeight: "500", width: "100px" }}
                                             />

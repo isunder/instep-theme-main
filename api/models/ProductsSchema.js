@@ -43,20 +43,20 @@ const ProductSchema = new mongoose.Schema({
     required: true,
   },
   stock: {
-    type: Number,
+    type: String,
     required: true,
   },
   rating: {
     type: Number,
     required: true,
   },
-  totalprice:{
-    type:String,
-    require:true
+  totalprice: {
+    type: String,
+    require: true
   },
-  tax :{
-    type:String,
-    require:true
+  tax: {
+    type: String,
+    require: true
   }
 });
 
