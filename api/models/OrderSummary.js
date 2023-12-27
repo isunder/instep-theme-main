@@ -9,23 +9,20 @@ const orderSchema = new mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     required: true,
   },
-  products: [
-    {
-      productID: {
-        type: mongoose.Schema.ObjectId,
-        required: true,
-      },
-      status: {
-        type: String,
-        enum: ["pending", "processing", "shipped", "delivered"],
-        default: "pending",
-      },
-      quantity: {
-        type: Number,
-        required: true,
-      },
-    },
-  ],
+  productID: {
+    type: mongoose.Schema.ObjectId,
+    required: true,
+  },
+  status: {
+    type: String,
+    enum: ["pending", "processing", "shipped", "delivered"],
+    default: "pending",
+  },
+  quantity: {
+    type: Number,
+    required: true,
+  },
+
   payment_id: {
     type: String,
     required: true,
