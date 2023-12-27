@@ -69,7 +69,8 @@ export default function Profile() {
     };
 
     const orderdetail = useSelector(
-        (state) => state?.getallorderdetail?.listdata
+        (state) => state?.getallorderdetail?.listdata?.data?.ordersWithProducts[0]?.amount
+
     );
     console.log(orderdetail, "orderdetailorderdetail")
 
