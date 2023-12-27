@@ -850,7 +850,7 @@ const orderSummary = expressAsyncHandler(async (req, res) => {
   try {
     console.log("test orderSummary");
 
-    const { userid, deliveryAddress, products, payment_id, amount } = req.body;
+    const { userid, deliveryAddress, productID, payment_id, amount, quantity, status } = req.body;
 
     if (!userid) {
       return res.status(400).send({ message: "User ID is required", success: false });
@@ -859,9 +859,11 @@ const orderSummary = expressAsyncHandler(async (req, res) => {
     const find = new SchemaOrder({
       userid,
       deliveryAddress,
-      products,
+      productID,
       payment_id,
       amount,
+      quantity,
+      status
 
     });
 
@@ -913,19 +915,20 @@ const updateOrderStatus = expressAsyncHandler(async (req, res) => {
 const getorderSummary = expressAsyncHandler(async (req, res) => {
   try {
     const { userid } = req.body; // Assuming userId is passed as a parameter
-    console.log(userid,"userid")
+    console.log(userid, "userid")
 
     const ordersWithProducts = await SchemaOrder.aggregate([
       { $match: { userid: new mongoose.Types.ObjectId(userid) } },
       {
         $lookup: {
           from: "userproducts",
-          localField: "products.productID", // Accessing the correct nested field
+          localField: "productID", // Accessing the correct nested field
           foreignField: "_id",
-          as: "products.productID"
+          as: "productID"
         }
       }
     ]);
+    console.log(ordersWithProducts, "ordersWithProducts")
     res.status(200).send({ ordersWithProducts, success: true });
   } catch (error) {
     res.status(500).json({ message: "An error occurred", error: error.message });
