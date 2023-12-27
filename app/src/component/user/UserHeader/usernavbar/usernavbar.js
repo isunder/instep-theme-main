@@ -131,8 +131,20 @@ const Usernavbar = () => {
                     <AiOutlineMail />
                     {header && header.Email}
                   </div>
-                  <i class="fas fa-divide    ">{header && header.sitename}</i>
-                  {/* <div className="onmobiled-show">INSTEPCART hiiiiiiiiiiiii</div> */}
+                  {/* <i class="fas fa-divide    ">{header && header.sitename}</i> */}
+                  <div className="onmobiled-show">
+                    <Link to="/" className="card_deco">
+                      {console.log(
+                        header?.logo?.split("-")[1],
+                        "asdasdq234234324"
+                      )}
+                      <img
+                        src={`http://localhost:5000/logo/${header?.logo}`}
+                        alt=""
+                        style={{ width: "92px" }}
+                      />
+                    </Link>
+                  </div>
                   <div className="subnewbar_content">
                     <div>
                       <div className="navbarhead_prop">
@@ -145,12 +157,29 @@ const Usernavbar = () => {
                             <img
                               src={`http://localhost:5000/logo/${header?.logo}`}
                               alt=""
+                              style={{ width: "92px" }}
                             />
                           </Link>
                         </Navbar.Brand>
                       </div>
                     </div>
-
+                    <div className="alignsearchbar_icon hideonmscree">
+                      <input
+                        className="navsearch_input"
+                        placeholder="search"
+                        value={searchQuery}
+                        onKeyDown={onKeyDownHandler}
+                        onChange={(e) =>
+                          setSearchQuery(e?.target?.value)
+                        }
+                      />
+                      <div>
+                        <BiSearch
+                          className="seachunder_search_icon"
+                          onClick={handleSearch}
+                        />
+                      </div>
+                    </div>
                     <div className="subnewbar_rightcont">
                       <div className="mid_navnewconent desktop_mid_navnewconent">
                         <div className="Nav_link">
@@ -178,12 +207,12 @@ const Usernavbar = () => {
                             </ul>
                           </div>
                         </div>
-                        <Link
+                        {/* <Link
                           className="Nav_link carddecorationnone_cat"
                           to="/"
                         >
                           Home
-                        </Link>
+                        </Link> */}
                         <Link
                           className="Nav_link carddecorationnone_cat"
                           to="/allproduct"
@@ -191,7 +220,7 @@ const Usernavbar = () => {
                           Products
                         </Link>
                       </div>
-                      <div className="Nav_link">
+                      <div className="Nav_link hideoncscreen">
                         <BiSearch className="navbar_new_icon" />
                         <div className="nav_Filter navsearch_alignnew">
                           <ul>

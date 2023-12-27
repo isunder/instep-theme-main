@@ -98,7 +98,6 @@ const Editprofile = () => {
               validate={validate}
               render={({ handleSubmit, values }) => (
                 <form onSubmit={handleSubmit}>
-
                   <Col md={8}>
                     <div className="labelalig_n margin_bottom">
                       <h3> Personal Information</h3>

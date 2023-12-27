@@ -39,6 +39,8 @@ export default function Profile() {
 
     const [show, setShow] = useState(false);
     const [imgState, setImageState] = useState([]);
+    const [userName,setUsserName] = useState('')
+    const [edit, setEdit] = useState(false);
 
     const [isMenuVisible, setIsMenuVisible] = useState(false)
 
@@ -55,10 +57,14 @@ export default function Profile() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getProfileImage({ id: getUserId().id }));
+        dispatch(getProfileImage({ id: getUserId().id })).then(res=>{
+            if(res?.payload?.data?.data?.username){
+                setUsserName(res?.payload?.data?.data?.username)
+            }
+        });
         dispatch(cartinfo({ userid: getUserId() }));
         dispatch(Getorderdetail({ userid: idata }));
-
+        
     }, []);
 
     const handleLogout = () => {
@@ -170,6 +176,30 @@ export default function Profile() {
         }
     }
 
+    const handleEdit = (username) => {
+        setEdit(username)
+
+    }
+
+    const handleSave = (data) => {
+        let payload = {...data,id:profilegetdata?._id}
+        var formData = new FormData();
+        if (profilegetdata?._id && data) {
+            formData.append("userData", JSON.stringify(payload));
+            dispatch(createprofile(formData)).then((res) => {
+                console.log(res, "fwoemkf");
+                toast.success("Successfully Edit !", {
+                    position: toast.POSITION.BOTTOM_CENTER,
+                });
+            });
+        }
+        setEdit(false);
+    };
+
+    const handelvaluse = (e) => {
+        setUsserName(e.target.value)
+    }
+
     return (
         <div className="container">
             <div className=" slider_col margin_bottom">
@@ -242,7 +272,42 @@ export default function Profile() {
                         <Col lg={9} md={9} sm={8}>
                             <Row>
                                 <Col lg={9} md={8}>
-                                    <h3>{profilegetdata && profilegetdata?.username}</h3>
+                                    <div className="d-flex align-items-center">
+                                        {edit !== "username" ? (
+                                            <input
+                                                className="usernameinput"
+                                                type="text"
+                                                onChange={(e) => handelvaluse(e)}
+                                                value={userName ? userName : profilegetdata?.username}
+                                                maxLength={10}
+                                            />
+                                        ) : (
+                                            <input
+                                                // className="usernameinput"
+                                                type="text"
+                                                onChange={(e) => handelvaluse(e)}
+                                                value={userName  ?  userName : profilegetdata?.username}
+                                                maxLength={20}
+                                                style={{ border: '2px solid  #E3E3E3', padding: '5px', fontWeight: "500", width: "100px" }}
+                                            />
+                                        )}
+
+                                        {edit !== "username" ? (<>
+                                            <div onClick={() => { handleEdit("username") }}><CiEdit className="profileedit" /></div></>) : (<>
+                                                <button
+                                                    onClick={() => {
+                                                        handleSave({
+                                                            username: userName
+                                                        });
+                                                    }}
+                                                    className="usrnamesave"
+                                                    type="submit"
+                                                >
+                                                    Save
+                                                </button>
+                                            </>)
+                                        }
+                                    </div>
                                 </Col>
                                 <Col lg={3} md={4}>
                                     <div className="userprofile_contact">

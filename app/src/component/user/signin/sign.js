@@ -92,6 +92,7 @@ const SignIn = () => {
                                 type="text"
                                 placeholder="Username"
                                 className="login_input"
+                                maxLength={20}
                               />
                               {meta.error && meta.touched && (
                                 <span className="star">{meta.error}</span>
@@ -108,6 +109,14 @@ const SignIn = () => {
                                 type="password"
                                 placeholder="Password"
                                 className="login_input"
+                                onChange={(event) => {
+                                  const inputValue = event.target.value;
+                                  const maxLength = 10;
+                                  if (inputValue.length <= maxLength) {
+                                    input.onChange(inputValue);
+                                  }
+                                }}
+                                maxLength={10}
                               />
                               {meta.error && meta.touched && (
                                 <span className="star">{meta.error}</span>

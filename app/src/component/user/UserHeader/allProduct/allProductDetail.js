@@ -344,6 +344,7 @@ import {
   wishlistremove,
 } from "../../../../Redux/action/wishlistAction";
 import { getUserId } from "../../../../utils/auth";
+import Wishlistmaincomponent from "../../wshlistData/wishlistmaincomponent";
 
 const AllProductDetail = () => {
   const dispatch = useDispatch();
@@ -351,7 +352,7 @@ const AllProductDetail = () => {
 
   const userData = getUserId();
   console.log(userData, "userData");
-
+  const item = useSelector((state) => state?.Searchproduct?.listdata);
   const data = useSelector((state) => state?.getproductdata?.listdata);
   const data1 = useSelector(
     (state) => state?.getproductdata?.listdata?.products
@@ -467,6 +468,7 @@ const AllProductDetail = () => {
                         return (
                           <Col lg={3} md={4}>
                             <div className="d-flex justify-content-end mt-2 mx-2">
+                              <Wishlistmaincomponent />
                               {
                                 isInwishlist ? (
                                   <AiFillHeart
@@ -522,8 +524,8 @@ const AllProductDetail = () => {
                                       e?.image
                                         ? e?.image
                                         : e?.thumbnail?.split(":").length > 1
-                                        ? e?.thumbnail
-                                        : `http://localhost:5000/uploads/${e?.thumbnail}`
+                                          ? e?.thumbnail
+                                          : `http://localhost:5000/uploads/${e?.thumbnail}`
                                     }
                                   />
                                 </div>

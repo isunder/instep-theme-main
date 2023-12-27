@@ -103,6 +103,7 @@ const SignUp = () => {
                               {...input}
                               type="text"
                               placeholder="UserName"
+                              maxLength={20}
                             />
                             {meta.error && meta.touched && (
                               <p className="star">{meta.error}</p>
@@ -117,8 +118,15 @@ const SignUp = () => {
                             <input
                               className="login_input"
                               {...input}
-                              type="number"
+                              type="text"
+                              maxLength={10}
                               placeholder="Mobile No."
+                              onKeyPress={(event) => {
+                                if (!/[0-9]/.test(event.key)) {
+                                  event.preventDefault();
+                                }
+                              }}
+
                             />
                             {meta.error && meta.touched && (
                               <p className="star">{meta.error}</p>
@@ -135,6 +143,14 @@ const SignUp = () => {
                               {...input}
                               type="email"
                               placeholder="Email"
+                              onChange={(event) => {
+                                const inputValue = event.target.value;
+                                const maxLength = 25;
+                                if (inputValue.length <= maxLength) {
+                                  input.onChange(inputValue);
+                                }
+                              }}
+                              maxLength={25}
                             />
                             {meta.error && meta.touched && (
                               <p className="star">{meta.error}</p>
@@ -154,6 +170,14 @@ const SignUp = () => {
                               {...input}
                               type="password"
                               placeholder="Password"
+                              onChange={(event) => {
+                                const inputValue = event.target.value;
+                                const maxLength = 10;
+                                if (inputValue.length <= maxLength) {
+                                  input.onChange(inputValue);
+                                }
+                              }}
+                              maxLength={10}
                             />
                             {meta.error && meta.touched && (
                               <p className="star">{meta.error}</p>
@@ -170,6 +194,14 @@ const SignUp = () => {
                               {...input}
                               type="password"
                               placeholder="Confirm Password"
+                              onChange={(event) => {
+                                const inputValue = event.target.value;
+                                const maxLength = 10;
+                                if (inputValue.length <= maxLength) {
+                                  input.onChange(inputValue);
+                                }
+                              }}
+                              maxLength={10}
                             />
                             {meta.error && meta.touched && (
                               <p className="star">{meta.error}</p>

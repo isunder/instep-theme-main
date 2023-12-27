@@ -157,7 +157,7 @@ css * {
   }
 }
 
-@media (max-width:400px){
+@media (max-width:769px){
   .intcrt{
     display: none;
   }
@@ -2727,7 +2727,13 @@ footer ul {
 
 .navsearch_input {
   padding: 10px 15px;
+  height: 46px;
+  border: 1px solid #E3E3E3
   /* opacity: 0.6; */
+}
+
+.navsearch_input:focus-visible{
+  outline: 0 !important;
 }
 
 .price_flex {
@@ -2753,6 +2759,8 @@ footer ul {
 }
 .alignsearchbar_icon {
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .navsearch_alignnew {
@@ -3595,6 +3603,13 @@ color: #FF7C08;
   width: 25px;
   height: 25px;
 }
+
+.usrnamesave{
+  padding: 4px 15px ;
+  color: #fff;
+  background-color: #4EB529;
+  margin-left: 10px
+}
 .profilemanage_account div {
   padding: 10px;
   border: 1px solid #f6f6f6;
@@ -3715,6 +3730,31 @@ color: #4eb529 !important;
 
 .hidden {
   display: none;
+}
+
+.usernameinput{
+  border: none !important;
+  font-weight: 500;
+  font-size: 22px;
+  width: 120px;
+}
+
+.usernameinput:focus-visible{
+  outline: 0px !important;
+}
+
+ .hideoncscreen{
+    display: none;
+  }
+
+@media (max-width:500px){
+  .hideonmscree{
+    display: none;
+  }
+
+  .hideoncscreen{
+    display: block;
+  }
 }
 /* ------------------------------------user profile---------------------------------------------- */
 
