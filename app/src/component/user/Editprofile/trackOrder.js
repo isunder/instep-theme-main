@@ -12,17 +12,16 @@ const TrackOrder = () => {
   const idata = userData.id;
   console.log(idata, "daa");
 
-  const orderdata = useSelector(
-    (state) =>
-      state?.getallorderdetail?.listdata?.data?.ordersWithProducts[0]?.products
+  const orderdatasum = useSelector(
+    (state) => state?.getallorderdetail?.listdata?.data?.ordersWithProducts
   );
-  console.log(orderdata, "dataorder");
+  console.log(orderdatasum, "dataorder");
 
   useEffect(() => {
     dispatch(Getorderdetail({ userid: idata }));
   }, [""]);
 
-  const handleViewDetails = () => {};
+  //   const handleViewDetails = () => {};
 
   return (
     <div>
@@ -32,36 +31,33 @@ const TrackOrder = () => {
       <Table responsive="md" className="main">
         <thead>
           <tr>
-            <th>Order Code</th>
-            <th>Placed On </th>
-            <th>Items</th>
-            <th>Total</th>
+            <th>Sr. No.</th>
+            <th>Quantity</th>
+            <th>Product</th>
+            <th>Price </th>
             <th>Status </th>
-            <th>Action </th>
           </tr>
         </thead>
         <tbody>
           {/* Map through orders array to populate table rows */}
-          {/* {orderdata.map((order, index) => (
-            <tr key={index}>
-              <td>{order.orderCode}</td>
-              <td>{order.placedOn}</td>
-              <td>{order.items}</td>
-              <td>{order.total}</td>
-              <td>{order.status}</td>
-              <td>
-                <button onClick={() => handleViewDetails(order.orderCode)}>
-                  View Details
-                </button>
-              </td>
+          {orderdatasum?.map((e, i) => (
+            <tr>
+              <td>{i + 1}</td>
+              <td>{e?.amount}</td>
             </tr>
-          ))} */}
-          <td>A1</td>
-          <td>A2</td>
-          <td>A3</td>
-          <td>A4</td>
-          <td>A5</td>
-          <td>A6</td>
+            // <tr key={index}>
+            //   <td>{order.orderCode}</td>
+            //   <td>{order.placedOn}</td>
+            //   <td>{order.items}</td>
+            //   <td>{order.total}</td>
+            //   <td>{order.status}</td>
+            //   <td>
+            //     <button onClick={() => handleViewDetails(order.orderCode)}>
+            //       View Details
+            //     </button>
+            //   </td>
+            // </tr>
+          ))}
         </tbody>
       </Table>
     </div>

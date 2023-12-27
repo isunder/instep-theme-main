@@ -12,16 +12,13 @@ export const axiosInstance = axios.create({
 export const wishlistremove = createAsyncThunk(
   "deletewishlist",
   async (payload) => {
-    return axiosInstance.post("/wishlist/remove", payload); 
+    return axiosInstance.post("/wishlist/remove", payload);
   }
 );
 
-export const wishlistadd = createAsyncThunk(
-  "wishlistadd",
-  async (payload) => {
-    return axiosInstance.post("/wishlist/add", payload);
-  }
-);
+export const wishlistadd = createAsyncThunk("wishlistadd", async (payload) => {
+  return axiosInstance.post("/wishlist/add", payload);
+});
 
 export const wishlistget = createAsyncThunk(
   "addwishlistdatass",
