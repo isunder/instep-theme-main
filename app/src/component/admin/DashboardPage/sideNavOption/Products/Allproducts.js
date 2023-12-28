@@ -197,13 +197,14 @@ function Allproducts(params) {
                             {(currentPage - 1) * postPerPage + (index + 1)}
                           </td>
                           <td>
+
                             {product.title.substring(
                               0,
                               readMoreState === product?._id
                                 ? product?.title?.length
                                 : 50
                             )}
-                            {
+                            {product?.title?.length > 50 && (
                               <p
                                 onClick={() => {
                                   if (readMoreState === product?._id) {
@@ -218,7 +219,7 @@ function Allproducts(params) {
                                   ? "Less"
                                   : "More"}
                               </p>
-                            }
+                            )}
                           </td>
                           <td>{product?.brand[0]?.brand}</td>
                           <td>{product?.category[0]?.category}</td>
@@ -228,7 +229,7 @@ function Allproducts(params) {
                               <Dropdown.Toggle
                                 variant=""
                                 id="dropdown-basic"
-                                // className="focusotoggle"
+                              // className="focusotoggle"
                               >
                                 <BiDotsVerticalRounded />
                               </Dropdown.Toggle>

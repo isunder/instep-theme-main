@@ -39,7 +39,7 @@ export default function Profile() {
 
     const [show, setShow] = useState(false);
     const [imgState, setImageState] = useState([]);
-    const [userName,setUsserName] = useState('')
+    const [userName, setUsserName] = useState('')
     const [edit, setEdit] = useState(false);
 
     const [isMenuVisible, setIsMenuVisible] = useState(false)
@@ -57,14 +57,14 @@ export default function Profile() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getProfileImage({ id: getUserId().id })).then(res=>{
-            if(res?.payload?.data?.data?.username){
+        dispatch(getProfileImage({ id: getUserId().id })).then(res => {
+            if (res?.payload?.data?.data?.username) {
                 setUsserName(res?.payload?.data?.data?.username)
             }
         });
         dispatch(cartinfo({ userid: getUserId() }));
         dispatch(Getorderdetail({ userid: idata }));
-        
+
     }, []);
 
     const handleLogout = () => {
@@ -182,7 +182,7 @@ export default function Profile() {
     }
 
     const handleSave = (data) => {
-        let payload = {...data,id:profilegetdata?._id}
+        let payload = { ...data, id: profilegetdata?._id }
         var formData = new FormData();
         if (profilegetdata?._id && data) {
             formData.append("userData", JSON.stringify(payload));
@@ -278,17 +278,18 @@ export default function Profile() {
                                                 className="usernameinput"
                                                 type="text"
                                                 onChange={(e) => handelvaluse(e)}
-                                                value={userName}
-                                                maxLength={20}
+                                                value={userName ? userName : profilegetdata?.username}
+                                                maxLength={6}
+
                                             />
                                         ) : (
                                             <input
                                                 // className="usernameinput"
                                                 type="text"
                                                 onChange={(e) => handelvaluse(e)}
-                                                value={userName}
-                                                maxLength={20}
-                                                style={{ border: '2px solid  #E3E3E3', padding: '5px', fontWeight: "500", width: "100px" }}
+                                                value={userName ? userName : profilegetdata?.username}
+                                                maxLength={6}
+                                                style={{ border: '2px solid  #E3E3E3', padding: '5px', fontWeight: "500" }}
                                             />
                                         )}
 
