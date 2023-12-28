@@ -1516,10 +1516,12 @@ p {
 .text_edit:hover{
 color: #000;
 }
+
 .Nav_link {
   padding: 20px !important;
   color: #000 !important;
   position: relative;
+  cursor: pointer;
 }
 .search_user {
   display: none;
@@ -2727,9 +2729,9 @@ footer ul {
 
 .navsearch_input {
   padding: 10px 15px;
-  height: 46px;
-  border: 1px solid #E3E3E3
-  /* opacity: 0.6; */
+  height: 39px;
+  border: 1px solid #E3E3E3;
+  width: 400px;
 }
 
 .navsearch_input:focus-visible{
@@ -2746,8 +2748,8 @@ footer ul {
   padding: 10px 30px !important;
 }
 .seachunder_search_icon {
-  width: 40px;
-  height: 46px;
+  width: 38px;
+  height: 39px;
   color: #fff;
   background-color: #ff7c08;
   border-top-right-radius: 5px;
@@ -2810,6 +2812,19 @@ border-radius: 100%;
     margin-left: auto;
 }
 }
+
+@media (max-width:1200px){
+  .navsearch_input{
+    width: 100%;
+  }
+}
+
+@media (max-width:417px){
+  .navsearch_input{
+    width: 100px;
+  }
+}
+
 /* ---------------------------------product detail------------------------------------------- */
 
 .mainrowdata {
@@ -3736,7 +3751,7 @@ color: #4eb529 !important;
   border: none !important;
   font-weight: 500;
   font-size: 22px;
-  width: 120px;
+  width: 86px;
 }
 
 .usernameinput:focus-visible{
@@ -3756,6 +3771,8 @@ color: #4eb529 !important;
     display: block;
   }
 }
+
+
 /* ------------------------------------user profile---------------------------------------------- */
 
 /* ------------------------------------admin delivery status report----------------------------- */

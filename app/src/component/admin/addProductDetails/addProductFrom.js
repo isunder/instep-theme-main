@@ -38,6 +38,26 @@ const ProductForm = () => {
 
   const handlethumbnalfile = (e) => {
     const files = e.target.files;
+    const image = e.target.files[0];
+
+    if (!image) {
+      return false;
+    }
+
+    if (!image.name.match(/\.(jpg|jpeg|png)$/)) {
+      toast.error("Upload file in the form of jpg, jpeg or png")
+      setSelectedImages([])
+      e.target.value = null;
+      return false
+    }
+
+    const maxSize = 50;
+    if (image.size > maxSize * 1024) {
+      toast.error("The amximum file size allowed (50KB)")
+      setSelectedImages([])
+      e.target.value = null;
+      return false;
+    }
     const uniqueId = Date.now();
     let name = e.target.files[0].name;
     const filename = uniqueId + "_" + name;
@@ -63,6 +83,26 @@ const ProductForm = () => {
 
   const handleImgeFile = (e) => {
     const files = e.target.files;
+    const image = e.target.files[0];
+
+    if (!image) {
+      return false;
+    }
+
+    if (!image.name.match(/\.(jpg|jpeg|png)$/)) {
+      toast.error("Upload file in the form of jpg, jpeg or png")
+      setSelectedImages([])
+      e.target.value = null;
+      return false;
+    }
+    const maxSize = 50;
+    if (image.size > maxSize * 1024) {
+      toast.error("The amximum file size allowed (50KB)")
+      setSelectedImages([])
+      e.target.value = null;
+      return false;
+    }
+
     const uniqueId = Date.now();
     let name = e.target.files[0].name;
     const filename = uniqueId + "_" + name;
@@ -121,6 +161,7 @@ const ProductForm = () => {
         setselectedImagesforpost("");
         setthumbnail("");
         setselectedthumbnalFile("");
+        resetFileInput("")
         // handleImgeFile("")
       }
       console.log(res?.payload?.data?.product?._id, "Response");
@@ -132,6 +173,19 @@ const ProductForm = () => {
       //   );
       // }
     });
+  };
+
+  const resetFileInput = () => {
+    const fileInput = document.querySelector('input[type="file"]');
+    if (fileInput) {
+      const newFileInput = document.createElement("input");
+      newFileInput.type = "file";
+      newFileInput.name = "images";
+      newFileInput.className = "form-control signup_form_input margin_bottom";
+      newFileInput.addEventListener("change", handleImgeFile);
+
+      fileInput.parentNode.replaceChild(newFileInput, fileInput);
+    }
   };
 
   const deleteimage = (index) => {
@@ -545,10 +599,17 @@ const ProductForm = () => {
                                 className="descirption_box price_flex"
                                 name="price"
                                 component="input"
-                                type="number"
                                 step="0.01"
                                 placeholder="₹"
+                                type="text"
+                                maxLength={20}
                                 required
+                                onKeyPress={(event) => {
+                                  if (!/[0-9]/.test(event.key)) {
+                                    event.preventDefault();
+                                  }
+                                }}
+
                               />
                             </Col>
                             <Col lg={4} md={6} sm={6}>
@@ -557,9 +618,15 @@ const ProductForm = () => {
                                 className="descirption_box price_flex"
                                 name="stock"
                                 component="input"
-                                type="number"
                                 placeholder="Avalaible stocks"
                                 required
+                                type="text"
+                                maxLength={20}
+                                onKeyPress={(event) => {
+                                  if (!/[0-9]/.test(event.key)) {
+                                    event.preventDefault();
+                                  }
+                                }}
                               />
                             </Col>
                             <Col lg={4} md={6} sm={6}>
@@ -568,9 +635,15 @@ const ProductForm = () => {
                                 className="descirption_box price_flex"
                                 name="rating"
                                 component="input"
-                                type="number"
+                                type="text"
                                 placeholder="Rating:"
                                 required
+                                maxLength={4}
+                                onKeyPress={(event) => {
+                                  if (!/[0-9]/.test(event.key)) {
+                                    event.preventDefault();
+                                  }
+                                }}
                               />
                             </Col>
                             <Col lg={4} md={6} sm={6}>
@@ -582,6 +655,12 @@ const ProductForm = () => {
                                 type="text"
                                 placeholder="discount percentage"
                                 required
+                                maxLength={4}
+                                onKeyPress={(event) => {
+                                  if (!/[0-9]/.test(event.key)) {
+                                    event.preventDefault();
+                                  }
+                                }}
                               />
                             </Col>
                             <Col lg={4} md={6} sm={6}>
@@ -593,6 +672,12 @@ const ProductForm = () => {
                                 type="text"
                                 placeholder="  "
                                 required
+                                maxLength={4}
+                                onKeyPress={(event) => {
+                                  if (!/[0-9]/.test(event.key)) {
+                                    event.preventDefault();
+                                  }
+                                }}
                               />
                             </Col>
                           </Row>

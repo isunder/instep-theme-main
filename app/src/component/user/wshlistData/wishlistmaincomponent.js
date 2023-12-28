@@ -4,91 +4,83 @@ import { wishlistadd, wishlistget, wishlistremove } from '../../../Redux/action/
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserId } from '../../../utils/auth';
 
-const Wishlistmaincomponent = () => {
-
+const Wishlistmaincomponent = (props) => {
+    const { data } = props
+    console.log(data, "sgsgs")
     const dispatch = useDispatch();
-
-    const userData = getUserId();
-    console.log(userData, "userData");
-    const data = useSelector((state) => state?.getproductdata?.listdata);
-
-    const [wishlist, setWishlist] = useState({});
-
     const datas = useSelector(
         (state) => state?.getwishlisdData?.listdata?.data?.data
     );
-
+    console.log(datas, "hhjdhfgdfdgfd")
+    const userData = getUserId();
+    console.log(userData, "userData");
     useEffect(() => {
         dispatch(wishlistget({ userId: userData?.id }));
     }, []);
 
-    const handleWishlistClick = (productId, wishliststatus) => {
-        console.log(productId, "sdfghjk");
-        if (wishliststatus == "delete") {
-            //Delete API
-            dispatch(
-                wishlistremove({ userId: userData?.id, itemId: productId })
-            ).then((res) => {
-                dispatch(wishlistget({ userId: userData?.id }));
-            });
-        } else if (wishliststatus == "add") {
-            //Add API
-            dispatch(
-                wishlistadd({
-                    userId: userData?.id,
-                    items: productId,
-                })
-            ).then((res) => {
-                dispatch(wishlistget({ userId: userData?.id }));
-            });
+    const handleWishlistClick = () => { }
+    const isInWishlist = []
+    const w = data?.products?.map((e) => {
+        if (e.image) {
+            // Do something with the product that has an image
+
+            // Check if the product is in the wishlist
+            isInWishlist =
+                datas &&
+                datas.length > 0 &&
+                datas.find((item) => item.items === e._id);
+
+            // Now you can use the value of isInWishlist
+            if (isInWishlist) {
+                // The product is in the wishlist
+                console.log(`${e._id} is in the wishlist.`);
+            } else {
+                // The product is not in the wishlist
+                console.log(`${e._id} is not in the wishlist.`);
+            }
         }
-        setWishlist((prevWishlist) => ({
-            ...prevWishlist,
-            [productId]: !prevWishlist[productId],
-        }));
-    };
+    });
+
+
+
+
+
     return (
         <>
-            {data &&
-                data?.products?.map((e) => {
-                    if (e.image) {
-                    }
-                    let isInwishlist =
-                        datas &&
-                        datas?.length > 0 &&
-                        datas?.find((item) => item?.items === e?._id);
 
-                    <div>
-                        {
-                            isInwishlist ? (
-                                <AiFillHeart
-                                    style={{
-                                        color: "#FF0000", // Change to your desired color
-                                        width: "23px",
-                                        height: "23px",
-                                        cursor: "pointer",
-                                    }}
-                                    onClick={() =>
-                                        handleWishlistClick(e?._id, "delete")
-                                    }
-                                />
-                            ) : (
-                                <AiOutlineHeart
-                                    style={{
-                                        color: "#808080",
-                                        width: "23px",
-                                        height: "23px",
-                                        cursor: "pointer",
-                                    }}
-                                    onClick={() =>
-                                        handleWishlistClick(e._id, "add")
-                                    }
-                                />
-                            )
-                            // )
-                        }
-                    </div>
-                })}
+
+            <div >
+                {
+                    isInWishlist ? (
+                        <AiFillHeart
+                            style={{
+                                color: "#FF0000", // Change to your desired color
+                                width: "23px",
+                                height: "23px",
+                                cursor: "pointer",
+                            }}
+                            onClick={() =>
+                                handleWishlistClick(data?._id, "delete")
+                            }
+                        />
+                    ) : (
+
+                        <AiOutlineHeart
+                            style={{
+                                color: "#808080",
+                                width: "23px",
+                                height: "23px",
+                                cursor: "pointer",
+                            }}
+                            onClick={() =>
+                                handleWishlistClick(data._id, "add")
+                            }
+                        />
+                    )
+
+                }
+            </div>
+
         </>
     )
 }
