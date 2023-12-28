@@ -280,6 +280,7 @@ export default function Profile() {
                                                 onChange={(e) => handelvaluse(e)}
                                                 value={userName ? userName : profilegetdata?.username}
                                                 maxLength={6}
+
                                             />
                                         ) : (
                                             <input
