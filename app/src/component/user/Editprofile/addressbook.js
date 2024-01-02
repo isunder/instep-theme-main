@@ -10,6 +10,7 @@ import { LuEdit3 } from 'react-icons/lu';
 import { AiOutlineDelete } from 'react-icons/ai';
 import { BiDotsVerticalRounded } from 'react-icons/bi';
 import { ToastContainer, toast } from 'react-toastify';
+import { CiLight } from 'react-icons/ci';
 
 
 const AddressBook = () => {
@@ -49,35 +50,39 @@ const AddressBook = () => {
   }
 
   const handleSubmit = (values, form) => {
-    console.log(values, "handel")
-    values.userID = dataId;
-    if (editAddressIndex) {
-      console.log(values, "in if ")
-      //update
-      dispatch(updateAddress(values)).then((res) => {
-        if (res) {
-          dispatch(deliveryGetAction(values));
-          form.reset();
-          toast.success("Successfully Edit !", {
-            position: toast.POSITION.TOP_CENTER,
-          });
-        }
-      })
-      setEditAddressIndex(null)
+    console.log(values.mobilenumber, "fdsfdfdgsfdgs")
+    console.log(values.AlternateNumber, "fdsfdfdgsfdgs")
+    if ((values.mobilenumber && ((values.mobilenumber).toString().length !== 10)) || (values.AlternateNumber && ((values.AlternateNumber).toString().length !== 10))) {
+      toast.error("Please check your mobile number")
     } else {
-      //add
-      dispatch(deliveryaddress(values)).then((res) => {
-        if (res) {
-          setFormVisible(false,)
-          dispatch(deliveryGetAction(values));
-          form.reset();
-          toast.success("Successfully Added !", {
-            position: toast.POSITION.TOP_CENTER,
-          });
-        }
-      });
+      values.userID = dataId;
+      if (editAddressIndex) {
+        console.log(values, "in if ")
+        //update
+        dispatch(updateAddress(values)).then((res) => {
+          if (res) {
+            dispatch(deliveryGetAction(values));
+            form.reset();
+            toast.success("Successfully Edit !", {
+              position: toast.POSITION.TOP_CENTER,
+            });
+          }
+        })
+        setEditAddressIndex(null)
+      } else {
+        //add
+        dispatch(deliveryaddress(values)).then((res) => {
+          if (res) {
+            setFormVisible(false,)
+            dispatch(deliveryGetAction(values));
+            form.reset();
+            toast.success("Successfully Added !", {
+              position: toast.POSITION.TOP_CENTER,
+            });
+          }
+        });
+      }
     }
-
   };
 
   const validate = (values) => {
@@ -194,7 +199,7 @@ const AddressBook = () => {
                           {({ input, meta }) => (
                             <div className=" col-md-6">
                               <input
-                                // {...input}
+                                {...input}
                                 type="text"
                                 placeholder="10-digit mobile number"
                                 className="inputfiels_place"
@@ -218,7 +223,7 @@ const AddressBook = () => {
                           {({ input, meta }) => (
                             <div className="fields col-md-6">
                               <input
-                                // {...input}
+                                {...input}
                                 type="text"
                                 placeholder="pincode"
                                 className="inputfiels_place"
