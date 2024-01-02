@@ -30,17 +30,31 @@ const Editprofile = () => {
   const dataId = getUserId();
   const midata = { id: dataId?.id };
   console.log(midata, "dataId");
-  const onSubmit = (values) => {
-    console.log(values, "jdhdbuscdskjvcs");
-    var formData = new FormData();
-  };
+  // const onSubmit = (values) => {
+  //   console.log(values, "jdhdbuscdskjvcs");
+  //   var formData = new FormData();
+  // };
   // console.log("userData ab", userData);
   useEffect(() => { }, [""]);
 
   const handleEdit = (name) => {
     setEdit(name);
   };
-  const handleSave = (values) => {
+  const onSubmit = (values) => {
+    var formData = new FormData();
+    if (values?.id) {
+      formData.append("userData", JSON.stringify(values));
+      dispatch(createprofile(formData)).then((res) => {
+        console.log(res, "fwoemkf");
+        toast.success("Successfully Edit !", {
+          position: toast.POSITION.BOTTOM_CENTER,
+        });
+      });
+    }
+    setEdit(false);
+  };
+
+  const onSubmitNumber = (values) => {
     var formData = new FormData();
     if (values?.id) {
       formData.append("userData", JSON.stringify(values));
@@ -56,7 +70,15 @@ const Editprofile = () => {
 
   const validate = (values) => {
     let errors = {};
-
+    if (!values.firstname) {
+      errors.firstname = "Required"
+    }
+    if (!values.lastname) {
+      errors.lastname = "Required"
+    }
+    if (!values.number) {
+      errors.number = "Required"
+    }
     return errors;
   };
 
@@ -96,7 +118,7 @@ const Editprofile = () => {
               onSubmit={onSubmit}
               initialValues={useMemo(() => initialValues(), [profiledata])}
               validate={validate}
-              render={({ handleSubmit, values }) => (
+              render={({ handleSubmit, values, form }) => (
                 <form onSubmit={handleSubmit}>
                   <Col md={8}>
                     <div className="labelalig_n margin_bottom">
@@ -112,7 +134,12 @@ const Editprofile = () => {
                       ) : (
                         <p
                           className="editfrpf_cancel"
-                          onClick={() => setEdit(false)}
+                          onClick={() => {
+                            setEdit(false);
+                            form.change("firstname", profiledata?.firstname)
+                            form.change("lastname", profiledata?.lastname)
+                          }}
+
                         >
                           Cancel
                         </p>
@@ -123,37 +150,45 @@ const Editprofile = () => {
                       <Field name="firstname">
                         {({ input, meta }) => (
                           <>
-                            <input
-                              disabled={edit !== "name"}
-                              className="firstname"
-                              {...input}
-                              placeholder="first name"
-                            />
+                            <div className="alignprofileinputs">
+                              <input
+                                disabled={edit !== "name"}
+                                className="firstname"
+                                {...input}
+                                placeholder="first name"
+                                maxLength={10}
+                              />
+                              {meta.error && meta.touched && <span className="text-danger">{meta.error}</span>}
+                            </div>
                           </>
                         )}
                       </Field>
                       <Field name="lastname">
                         {({ input, meta }) => (
                           <>
-                            <input
-                              disabled={edit !== "name"}
-                              className="lastname"
-                              {...input}
-                              placeholder="last name"
-                            />
+                            <div className="alignprofileinputs">
+                              <input
+                                disabled={edit !== "name"}
+                                className="lastname"
+                                {...input}
+                                placeholder="last name"
+                                maxLength={10}
+                              />
+                              {meta.error && meta.touched && <span className="text-danger">{meta.error}</span>}
+                            </div>
                           </>
                         )}
                       </Field>
                       <div>
                         {edit === "name" && (
                           <button
-                            onClick={() => {
-                              handleSave({
-                                firstname: values.firstname,
-                                lastname: values.lastname,
-                                id: values?.id,
-                              });
-                            }}
+                            // onClick={() => {
+                            //   handleSave({
+                            //     firstname: values.firstname,
+                            //     lastname: values.lastname,
+                            //     id: values?.id,
+                            //   });
+                            // }}
                             className="personalinfo_button"
                             type="submit"
                           >
@@ -188,6 +223,17 @@ const Editprofile = () => {
                     </div> */}
                     </div>
                   </Col>
+                </form>
+              )}
+            />
+          </Row>
+          <Row>
+            <Form
+              onSubmit={onSubmitNumber}
+              initialValues={useMemo(() => initialValues(), [profiledata])}
+              validate={validate}
+              render={({ handleSubmit, values, form  }) => (
+                <form onSubmit={handleSubmit}>
                   <Col md={6}>
                     <div className="labelalig_n">
                       <h5>Mobile Number</h5>
@@ -196,7 +242,10 @@ const Editprofile = () => {
                       ) : (
                         <p
                           className="editfrpf_cancel"
-                          onClick={() => setEdit(false)}
+                          onClick={() => {
+                            setEdit(false);
+                            form.change("number", profiledata?.number)
+                          }}
                         >
                           cancel
                         </p>
@@ -206,20 +255,23 @@ const Editprofile = () => {
                       <Field name="number">
                         {({ input, meta }) => (
                           <>
-                            <input
-                              {...input}
-                              disabled={edit !== "number"}
-                              className="otherinputalign"
-                              placeholder="Mobile Number"
-                              type="text"
-                              onChange={(event) => {
-                                if (!/[0-9]/.test(event.key)) {
-                                  const inputValue = event.target.value.replace(/\D/g, '');
-                                  input.onChange(Number(inputValue))
-                                }
-                              }}
-                              maxLength={10}
-                            />
+                            <div className="alignprofileinputs">
+                              <input
+                                {...input}
+                                disabled={edit !== "number"}
+                                className="otherinputalign"
+                                placeholder="Mobile Number"
+                                type="text"
+                                onChange={(event) => {
+                                  if (!/[0-9]/.test(event.key)) {
+                                    const inputValue = event.target.value.replace(/\D/g, '');
+                                    input.onChange(Number(inputValue))
+                                  }
+                                }}
+                                maxLength={10}
+                              />
+                              {meta.error && meta.touched && <span className="text-danger">{meta.error}</span>}
+                            </div>
                           </>
                         )}
                       </Field>
@@ -227,12 +279,12 @@ const Editprofile = () => {
                         {edit === "number" && (
                           <button
                             className="personalinfo_button"
-                            onClick={() => {
-                              handleSave({
-                                number: values.number,
-                                id: values?.id,
-                              });
-                            }}
+                          // onClick={() => {
+                          //   handleSave({
+                          //     number: values.number,
+                          //     id: values?.id,
+                          //   });
+                          // }}
                           >
                             Save
                           </button>
@@ -240,24 +292,6 @@ const Editprofile = () => {
                       </div>
                     </div>
                   </Col>
-                  {/* <Col md={12}>
-                  <div className="labelalig_n">
-                    <h5>Profile Image</h5> <div>Edit</div>
-                  </div>
-                  <div className="personalotherinput ">
-                    <input
-                      name="profileimg"
-                      className="form-control signup_form_input margin_bottom  w-50"
-                      type="file"
-                    />
-
-                    <div>
-                      <button className="personalinfo_button" type="submit">
-                        Upload
-                      </button>
-                    </div>
-                  </div>
-                </Col> */}
                 </form>
               )}
             />

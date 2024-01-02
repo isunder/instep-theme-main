@@ -182,18 +182,22 @@ export default function Profile() {
     }
 
     const handleSave = (data) => {
-        let payload = { ...data, id: profilegetdata?._id }
-        var formData = new FormData();
-        if (profilegetdata?._id && data) {
-            formData.append("userData", JSON.stringify(payload));
-            dispatch(createprofile(formData)).then((res) => {
-                console.log(res, "fwoemkf");
-                toast.success("Successfully Edit !", {
-                    position: toast.POSITION.BOTTOM_CENTER,
+        if (userName?.length < 5) {
+            toast.error("User name is Required")
+        } else {
+            let payload = { ...data, id: profilegetdata?._id }
+            var formData = new FormData();
+            if (profilegetdata?._id && data) {
+                formData.append("userData", JSON.stringify(payload));
+                dispatch(createprofile(formData)).then((res) => {
+                    console.log(res, "fwoemkf");
+                    toast.success("Successfully Edit !", {
+                        position: toast.POSITION.BOTTOM_CENTER,
+                    });
                 });
-            });
+            }
+            setEdit(false);
         }
-        setEdit(false);
     };
 
     const handelvaluse = (e) => {
@@ -278,8 +282,8 @@ export default function Profile() {
                                                 className="usernameinput"
                                                 type="text"
                                                 onChange={(e) => handelvaluse(e)}
-                                                value={userName ? userName : profilegetdata?.username}
-                                                maxLength={6}
+                                                value={userName}
+                                                maxLength={8}
 
                                             />
                                         ) : (
@@ -287,8 +291,8 @@ export default function Profile() {
                                                 // className="usernameinput"
                                                 type="text"
                                                 onChange={(e) => handelvaluse(e)}
-                                                value={userName ? userName : profilegetdata?.username}
-                                                maxLength={6}
+                                                value={userName}
+                                                maxLength={8}
                                                 style={{ border: '2px solid  #E3E3E3', padding: '5px', fontWeight: "500" }}
                                             />
                                         )}

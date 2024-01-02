@@ -21,10 +21,11 @@ import { paymentOrder } from "../../../Redux/action/paymentOrderAction";
 // import { options } from "../../../../../api/router/razorpay";
 import useRazorpay from "react-razorpay";
 import { Afterorder } from "../../../Redux/action/orderSummary";
+import { toast } from "react-toastify";
 
 const Delieverydetail = () => {
   const [isFormVisible, setFormVisible] = useState(false);
-  const [showCol, setShowCol] = useState("login");
+  const [showCol, setShowCol] = useState("initial");
   const [imageState, setImageState] = useState();
   const [activeKey, setactiveKey] = useState(0);
   const [hidedata, setHidata] = useState("");
@@ -119,18 +120,26 @@ const Delieverydetail = () => {
     });
   }, [dataId]);
 
-  const [addressEventKey, setEventKey] = useState(null);
+  const [addressEventKey, setEventKey] = useState(0);
+
+  const showDeliveryAddress = (eventKey) => {
+    setEventKey(eventKey);
+  }
 
   const handleSubmit = (values) => {
-    values.userID = dataId;
+    if ((values.mobilenumber && ((values.mobilenumber).toString().length !== 10)) || (values.AlternateNumber && ((values.AlternateNumber).toString().length !== 10))) {
+      toast.error("Please check the mobile number")
+    } else {
+      values.userID = dataId;
 
-    dispatch(deliveryaddress(values)).then((res) => {
-      if (res) {
-        dispatch(deliveryGetAction(values));
-      }
-      setFormVisible(false);
-    });
-    console.log(values, "values");
+      dispatch(deliveryaddress(values)).then((res) => {
+        if (res) {
+          dispatch(deliveryGetAction(values));
+        }
+        setFormVisible(false);
+      });
+      console.log(values, "values");
+    }
   };
 
   const validate = (values) => {
@@ -195,11 +204,15 @@ const Delieverydetail = () => {
     dispatch(singleproduct({ _id }));
   }, [_id]);
 
-  const deliverClick = (e) => {
-    if (addressdata) {
-      setactiveKey(2);
-    } else if (!addressdata) {
-      setactiveKey();
+  const deliverClick = (address) => {
+    if (!address) {
+      toast.error(" Please select the address")
+    } else {
+      if (addressdata) {
+        setactiveKey(2);
+      } else if (!addressdata) {
+        setactiveKey();
+      }
     }
   };
 
@@ -322,7 +335,7 @@ const Delieverydetail = () => {
             disable
             activeKey={activeKey}
             onSelect={(e) => setactiveKey(e)}
-            // defaultActiveKey={useMemo(()=>eventKeyHandle(),[addressdata])}
+          // defaultActiveKey={useMemo(()=>eventKeyHandle(),[addressdata])}
           >
             {/* <Accordion defaultActiveKey={1}> */}
             <Row>
@@ -365,7 +378,7 @@ const Delieverydetail = () => {
                             <button
                               value="continue checkout"
                               className="logincont"
-                              onClick={() => setShowCol("delivery")}
+                              onClick={() => showDeliveryAddress(1)}
                             >
                               CONTINUE CHECKOUT
                             </button>
@@ -397,11 +410,13 @@ const Delieverydetail = () => {
                 <Row>
                   <Col lg={12}>
                     <div className="margin_bottom">
+                      {/* {showCol === "setEventKey(2)" && ( */}
                       <Accordion.Item
+                        activeKey={addressEventKey}
                         eventKey={1}
-                        onClick={() => {
-                          setEventKey(2);
-                        }}
+                      // onClick={() => {
+                      //   setEventKey(2);
+                      // }}
                       >
                         <Accordion.Header>
                           <div className="loginmain_align">
@@ -414,19 +429,6 @@ const Delieverydetail = () => {
                           </div>
                         </Accordion.Header>
                         <Accordion.Body>
-                          {/* <div className="formalign"> */}
-                          {/* <div className="d-flex  margin_bottom">
-                              <MdRadioButtonChecked className="logindetail_icon" />
-                              <p>ADD A NEW ADDRESS</p>
-                            </div>
-                            <div className=" margin_bottom">
-                              <button
-                                value="use my current location"
-                                className="addresslocation"
-                              >
-                                use my current location
-                              </button>
-                            </div> */}
                           {addressdata &&
                             addressdata?.map((e) => {
                               console.log(e, "mnsdnsfnsj");
@@ -459,51 +461,19 @@ const Delieverydetail = () => {
                                       </div>
                                     </div>
                                   </div>
-                                  {/* <div className="form-check">
-                                    <input
-                                      className="form-check-input"
-                                      type="radio"
-                                      name="addresstype"
-                                      value="Home"
-                                      id="flexRadioDefault1"
-                                      checked={selectedAddressType === "Home"}
-                                      onChange={handleRadioChange}
-                                    />
-                                    <label
-                                      className="form-check-label"
-                                      htmlFor="flexRadioDefault1"
-                                    >
-                                      Home (All day delivery)
-                                    </label>
-                                  </div>
-                                  <div className="form-check">
-                                    <input
-                                      className="form-check-input"
-                                      type="radio"
-                                      name="addresstype"
-                                      value="Work"
-                                      id="flexRadioDefault2"
-                                      checked={selectedAddressType === "Work"}
-                                      onChange={handleRadioChange}
-                                    />
-                                    <label
-                                      className="form-check-label"
-                                      htmlFor="flexRadioDefault2"
-                                    >
-                                      Work (Delivery between 10 AM-5 PM)
-                                    </label>
-                                    <span>hlo baby</span>
-                                  </div>
-                                  <button type="submit">Submit</button> */}
                                 </>
                               );
                             })}
-                          <button
-                            className="readbuttommore mt-2 margin_bottom"
-                            onClick={() => deliverClick()}
-                          >
-                            Delivery Here
-                          </button>
+                          {addressdata &&
+                            (
+                              <button
+                                className="readbuttommore mt-2 margin_bottom"
+                                onClick={() => deliverClick(address)}
+                              >
+                                Delivery Here
+                              </button>
+                            )}
+
                           <form onSubmit={handleSubmitradio}></form>
                           <Row>
                             <Col lg={10}>
@@ -594,7 +564,7 @@ const Delieverydetail = () => {
                                                     );
                                                   }
                                                 }}
-                                                maxLength={10}
+                                                maxLength={6}
                                               />
                                               {meta.error && meta.touched && (
                                                 <span className="text-danger">
@@ -746,6 +716,15 @@ const Delieverydetail = () => {
                                       >
                                         SAVE AND DELIVER HERE
                                       </button>
+                                      <button
+                                        type="cancel"
+                                        value="use my current location"
+                                        className="addresslocation cancel_button"
+                                        onClick={() => {
+                                          setFormVisible(false)
+                                        }}
+                                      >Cancel
+                                      </button>
                                     </form>
                                   )}
                                 />
@@ -770,6 +749,7 @@ const Delieverydetail = () => {
                           </Row>
                         </Accordion.Body>
                       </Accordion.Item>
+                      {/* )} */}
                     </div>
                     <div className=" margin_bottom">
                       <Accordion.Item
