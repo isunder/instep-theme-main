@@ -293,7 +293,6 @@ const Home = () => {
                       categorydata?.products?.map((item, index) => {
                         if (item?.category?.[0]?.category === "Electronics") {
                           return (
-
                             <SwiperSlide className="shopping_card" key={index}>
                               <Link
                                 className="card_deco"
@@ -309,8 +308,8 @@ const Home = () => {
                                           ? item?.image
                                           : item?.thumbnail?.split(":").length >
                                             1
-                                            ? item?.thumbnail
-                                            : `http://localhost:5000/uploads/${item.thumbnail}`
+                                          ? item?.thumbnail
+                                          : `http://localhost:5000/uploads/${item.thumbnail}`
                                       }
                                     />
                                   </div>
@@ -405,8 +404,8 @@ const Home = () => {
                                       e?.image
                                         ? e?.image
                                         : e?.thumbnail?.split(":").length > 1
-                                          ? e?.thumbnail
-                                          : `http://localhost:5000/uploads/${e.thumbnail}`
+                                        ? e?.thumbnail
+                                        : `http://localhost:5000/uploads/${e.thumbnail}`
                                     }
                                   />
                                 </div>
@@ -502,8 +501,8 @@ const Home = () => {
                                       e?.image
                                         ? e?.image
                                         : e?.thumbnail?.split(":").length > 1
-                                          ? e?.thumbnail
-                                          : `http://localhost:5000/uploads/${e.thumbnail}`
+                                        ? e?.thumbnail
+                                        : `http://localhost:5000/uploads/${e.thumbnail}`
                                     }
                                   />
                                 </div>
@@ -559,8 +558,8 @@ const Home = () => {
                                       item?.image
                                         ? item?.image
                                         : item?.thumbnail?.split(":").length > 1
-                                          ? item?.thumbnail
-                                          : `http://localhost:5000/uploads/${item.thumbnail}`
+                                        ? item?.thumbnail
+                                        : `http://localhost:5000/uploads/${item.thumbnail}`
                                     }
                                   />
                                   <div className="cloths_detail">
@@ -610,8 +609,8 @@ const Home = () => {
                                       item?.image
                                         ? item?.image
                                         : item?.thumbnail?.split(":").length > 1
-                                          ? item?.thumbnail
-                                          : `http://localhost:5000/uploads/${item.thumbnail}`
+                                        ? item?.thumbnail
+                                        : `http://localhost:5000/uploads/${item.thumbnail}`
                                     }
                                     alt=""
                                   />
