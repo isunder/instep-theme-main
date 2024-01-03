@@ -35,6 +35,8 @@ const AllProductDetail = () => {
 
   const loading = useSelector((state) => state?.getproductdata?.isLoading);
 
+  console.log(loading, "loadingss")
+
   const [wishlist, setWishlist] = useState({});
 
   const datas = useSelector(

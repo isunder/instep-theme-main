@@ -52,6 +52,7 @@ import SliderPages from "../component/user/UserHeader/sliderPages/sliderPages";
 import Headeradmin from "../component/admin/dashboardPage/sideNavOption/Products/Headeradmin";
 import Onlymobile from "../component/user/Products/sliderSubcategory";
 import Wishlistinform from "../component/user/wshlistData/wishlistDataInfo";
+import SubCategoryfilter from "../component/user/filterbyCategory/subCategoryfilter";
 
 const role = getUserId() ? getUserId()?.userRole : null;
 // console.log(role, "aaasdfgfds");
@@ -84,6 +85,7 @@ const protects = {
         { path: "/salespage", element: <SliderPages /> },
         { path: "/slidersubcategory", element: <Onlymobile /> },
         { path: "/wishlist", element: <Wishlistinform /> },
+        { path: "/filterbycategory", element: < SubCategoryfilter /> },
         { path: "*", element: "NO PAGE FOUND" },
       ],
     },
@@ -146,6 +148,7 @@ const protects = {
         { path: "/payment", element: <Payments /> },
         { path: "/salespage", element: <SliderPages /> },
         { path: "/onlymobile", element: <Onlymobile /> },
+        { path: "/filterbycategory", element: < SubCategoryfilter /> },
         { path: "*", element: "NO PAGE FOUND" },
       ],
     },
