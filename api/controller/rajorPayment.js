@@ -2,16 +2,18 @@ require("dotenv").config();
 const express = require("express");
 const expressAsyncHandler = require("express-async-handler");
 const Razorpay = require("razorpay");
+const Usercart = require("../models/CartSchema");
+
 
 const razorpayorders = expressAsyncHandler(async (req, res) => {
-  console.log("test", req.body.amount);
+  // console.log("test", req.body);
   try {
     const instance = new Razorpay({
       key_id: process.env.RAZORPAY_KEY_ID,
       key_secret: process.env.RAZORPAY_SECRET,
     });
-    console.log(instance, "first");
-    console.log("first");
+    // console.log(instance, "first");
+    // console.log("first");
 
     const options = {
       amount: Number(req.body.amount * 100),
@@ -24,11 +26,27 @@ const razorpayorders = expressAsyncHandler(async (req, res) => {
     if (!order)
       return res.status(400).send({ success: true, msg: "Some error occured" });
 
+    addCardDelete(req.body.productIDs)
     res.status(200).send({ success: true, order });
   } catch (error) {
     res.status(500).send(error);
   }
 });
+
+const addCardDelete = ((allId) => {
+  try {
+    allId.map(async(item) => {
+      console.log(item, "item")
+      await Usercart.findOneAndDelete({
+        // userid: userId,
+        _id: item,
+      });
+    })
+
+  } catch (error) {
+    res.status(500).send(error);
+  }
+})
 
 const captures = expressAsyncHandler(async (req, res) => {
   try {

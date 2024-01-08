@@ -79,7 +79,7 @@ const protects = {
         { path: "/paymentsecurity", element: <Security /> },
         { path: "/privacypolicy", element: <Privacy /> },
         { path: "/payment", element: <Payments /> },
-        { path: "/orderconfirmation", element: <OrderConfirmation /> },
+        { path: "/orderconfirmation/:_id", element: <OrderConfirmation /> },
         { path: "/editprofile", element: <Editprofile /> },
         { path: "/salespage", element: <SliderPages /> },
         { path: "/slidersubcategory", element: <Onlymobile /> },

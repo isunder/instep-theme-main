@@ -10,10 +10,7 @@ import { BsColumnsGap, BsPlusCircleFill, BsTags } from "react-icons/bs";
 import Card from "react-bootstrap/Card";
 import { useDispatch, useSelector } from "react-redux";
 import { Form, Field } from "react-final-form";
-import {
-  deliveryGetAction,
-  deliveryaddress,
-} from "../../../Redux/action/deliveryAddress";
+import { deliveryGetAction, deliveryaddress, } from "../../../Redux/action/deliveryAddress";
 import RadioInput from "./radioButton";
 import { singleproduct } from "../../../Redux/action/getsingleProduct";
 import { CiLocationOn } from "react-icons/ci";
@@ -22,6 +19,7 @@ import { paymentOrder } from "../../../Redux/action/paymentOrderAction";
 import useRazorpay from "react-razorpay";
 import { Afterorder } from "../../../Redux/action/orderSummary";
 import { toast } from "react-toastify";
+import { useHistory } from 'react-router-dom';
 
 const Delieverydetail = () => {
   const [isFormVisible, setFormVisible] = useState(false);
@@ -33,24 +31,20 @@ const Delieverydetail = () => {
   const [qty, setQty] = useState(1);
   const [numberValue, setNumberValue] = useState("");
   const [alternateNumberValue, setAlternateNumberValue] = useState("");
-  // const [formStateShow,setFormStateShow] = useState(null)
   const data = useSelector((state) => state?.deliveraddress?.listdata);
 
-  // const addressClick = (e) => {
-  //   dispatch(deliveryaddress());
-  //   console.log(e, "addressClick");
-  // };
 
+  // const history = useHistory()
   const navigate = useNavigate();
   const userLogin = getUserId();
   console.log(userLogin, "userLogin");
   const dataId = userLogin.id;
   console.log(dataId, "dataId");
 
-  const { _id } = useParams();
+  const { productid, _id } = useParams();
   const dispatch = useDispatch();
   const myCartL = useSelector((state) => state?.cartdetails.listdata);
-  console.log(_id, "gggggg");
+  console.log(myCartL, "dafdfdsfdas")
 
   const addressdata = useSelector(
     (state) => state?.deliveryaddressget?.listdata?.data
@@ -127,7 +121,7 @@ const Delieverydetail = () => {
   }
 
   const handleSubmit = (values) => {
-    if ((values.mobilenumber && ((values.mobilenumber).toString().length !== 10)) || (values.AlternateNumber && ((values.AlternateNumber).toString().length !== 10))) {
+    if ((values?.mobilenumber && ((values?.mobilenumber)?.toString()?.length !== 10)) || (values?.AlternateNumber && ((values?.AlternateNumber)?.toString()?.length !== 10))) {
       toast.error("Please check the mobile number")
     } else {
       values.userID = dataId;
@@ -236,42 +230,54 @@ const Delieverydetail = () => {
 
   const handlePayment = useCallback(() => {
     console.log("callertettt");
-    const load = { amount: dData?.price * qty };
-    // console.log(load, "load");
-    dispatch(paymentOrder({ ...load, currency: "INR" })).then((res) => {
-      console.log(res, "paymentid");
-      const paymentes = res.razorpay_payment_id;
-      console.log(paymentes, "paymentes");
-      setOrderHit(true);
-    });
-  }, [dispatch, order, dData, qty]);
+
+    const calculateLoadAmount = () => {
+      const baseAmount = (dData?.price) * qty || (getTotalPrice() - getTotalDiscount()?.toFixed(0));
+      return { amount: baseAmount }; // Multiplying by 100 as Razorpay expects amount in paise
+    };
+
+    const load = calculateLoadAmount();
+
+
+    dispatch(paymentOrder({ ...load, currency: "INR", productIDs: myCartL?.map(item => item?._id) }))
+      .then((res) => {
+        console.log(res, "paymentid");
+        const paymentes = res.razorpay_payment_id;
+        console.log(paymentes, "paymentes");
+        setOrderHit(true);
+      })
+      .catch((error) => {
+        console.error("Payment error:", error);
+        // Handle payment error if needed
+      });
+  }, [dispatch, order, dData, qty, getTotalPrice, getTotalDiscount, setOrderHit]);
 
   if (order && orderHit) {
-    const orderAmount = order?.data?.order?.amount * qty;
+    const orderAmount = ((dData.price) - ((dData?.price) * (dData?.discountpercentage) / (100))?.toFixed(0)) * 100 ? ((dData.price) - ((dData?.price) * (dData?.discountpercentage) / (100))?.toFixed(0)) * 100 : (getTotalPrice() - getTotalDiscount()?.toFixed(0));
+
     if (orderAmount) {
       const options = {
         key: "rzp_test_Nfb5anftyihnMA",
-        amount: orderAmount,
+        amount: orderAmount, // Multiplying by 100 as Razorpay expects amount in paise
         currency: "INR",
         name: "Instep Cart",
         description: "Test Transaction",
-        image:
-          "https://insteptechnologies.com/wp-content/uploads/2022/04/main-logo.png",
+        image: "https://insteptechnologies.com/wp-content/uploads/2022/04/main-logo.png",
         order_id: order?.data?.id,
-
+        productIDs: myCartL.map(item => item._id),
         handler: function (res) {
-          console.log("Payment success:", res);
+          console.log("Payment-success:", res);
+
           const orderid = res?.razorpay_payment_id;
           console.log(orderid, "orderidorderid");
           setRazorPaymentId(orderid);
 
+
           // Storing payment details in the paymentDetails variable
-          paymentDetails = {
-            paymentStatus: res.razorpay_payment_id
-              ? "paid-payment"
-              : "payment-failed",
+          const paymentDetails = {
+            paymentStatus: res.razorpay_payment_id ? "paid-payment" : "payment-failed",
             orderId: res.razorpay_order_id,
-            amount: res.razorpay_payment_amount,
+            amount: res.razorpay_payment_amount, // Converting back to rupees
             // ... add other details as needed
           };
 
@@ -280,23 +286,26 @@ const Delieverydetail = () => {
           console.log("Amount:", paymentDetails.amount);
 
           // Here you can dispatch an action or perform further processing with the payment details
-
           const payloads = {
             userid: dataId,
             deliveryAddress: addressdata[0]?._id,
-            amount: dData?.price * qty,
+            amount: dData?.price,
             payment_id: res?.razorpay_payment_id, // Using the Razorpay order ID as payment reference
-            // productID: dData?._id,
-            // quantity: 1, // You might adjust this depending on your use case
-            // ... other order-related details
             productID: dData?._id,
             quantity: qty,
+            // ... other order-related details
           };
 
           // Dispatch an action to send order details after successful payment
-          dispatch(Afterorder(payloads));
+          dispatch(Afterorder(payloads))
+            .then(response => {
+              console.log(response, 'resssss')
+              navigate(`/orderconfirmation/${response.payload.data.save._id}`)
+              window.location.reload()
+            })
+          // history.push("/orderconfirmation")
+          // navigate("/orderconfirmation")
         },
-
         prefill: {
           name: "Amit",
           email: "amit71instep@gmail.com",
@@ -306,16 +315,24 @@ const Delieverydetail = () => {
           address: "Razorpay Corporate Office",
         },
         theme: {
-          color: "#3399cc",
+          color: "#4eb529",
         },
       };
 
       const rzpay = new Razorpay(options);
       rzpay.open();
     }
+
     setOrderHit(false);
   }
+
   console.log("Paymentdetails:", paymentDetails);
+
+  const handleMoveToSignIn = () => {
+    localStorage.removeItem("token");
+    navigate("/signin");
+    window.location.reload();
+  }
 
   useEffect(() => {
     if (addressdata && addressdata?.length === 1) {
@@ -353,8 +370,8 @@ const Delieverydetail = () => {
                             </p>
                           </div>
                           <div className="individual_info">
-                            <p>{userLogin.username}</p>
-                            <p>Contact No.</p>
+                            <p className="fw-bold">{userLogin?.username}</p>
+                            <p className="fw-bold">{myCartL?.length > 0 && myCartL[0]?.userdata?.length > 0 && myCartL[0]?.userdata[0]?.number?.length > 0 && myCartL[0]?.userdata[0]?.number[0]}</p>
                           </div>
                         </div>
                         {/* <div>
@@ -371,10 +388,10 @@ const Delieverydetail = () => {
                     <Accordion.Body>
                       <Row>
                         <Col lg={6}>
-                          <div className="individual_info login_contalign ">
-                            <Link className="loginandsignout" to="./..">
-                              Logout & Sign in to another account
-                            </Link>
+                          <div className="individual_info login_contalign" onClick={() => handleMoveToSignIn()}>
+                            {/* <Link className="loginandsignout" to="/signin"> */}
+                            Logout & Sign in to another account
+                            {/* </Link> */}
                             <button
                               value="continue checkout"
                               className="logincont"
@@ -766,108 +783,171 @@ const Delieverydetail = () => {
                             </div>
                           </div>
                         </Accordion.Header>
-
                         <Accordion.Body>
-                          <Row>
-                            <Col lg={4}>
-                              <img
-                                className="subcatkitchen_image"
-                                variant="top"
-                                // src={item?.image || item?.thumbnail}
-                                src={
-                                  dData.thumbnail
-                                    ? `http://localhost:5000/uploads/${dData.thumbnail}`
-                                    : ""
-                                }
-                                alt=""
-                              />
-                            </Col>
-                            <Col lg={8}>
-                              <Card className="shoppingcard_bor">
-                                <Card.Body>
-                                  <Card.Title>
-                                    <h4>{dData.title}</h4>
-                                  </Card.Title>
-                                  <div className="buynowquanity">
-                                    <button
-                                      disabled={qty === 1}
-                                      onClick={() => setQty(qty - 1)}
-                                    >
-                                      -
-                                    </button>
-                                    <span>{qty}</span>
-                                    <button
-                                      disabled={qty >= 10}
-                                      onClick={() => setQty(qty + 1)}
-                                    >
-                                      +
-                                    </button>
-                                  </div>
-                                  <Card.Subtitle className="mb-2 text-muted">
-                                    <h5>
-                                      Extra ₹ {dData.discountPercentage}..Off
-                                    </h5>
-                                  </Card.Subtitle>
-                                  <Card.Subtitle className="mb-2">
-                                    <h1>₹ {dData.price}</h1>
-                                  </Card.Subtitle>
-                                  {/* <Card.Subtitle className="mb-2 discriptionoffers_product text-muted">
-                                    <h6> Available offers</h6>
-                                    <p>
-                                      {" "}
-                                      <BsTags className="validpffers_icon" />
-                                      <span>Bank Offer10%</span> off on Axis
-                                      Bank Credit Card and EMI Transactions, up
-                                      to ₹1000, on orders of ₹5,000 and above
-                                      <span>T&C</span>
-                                    </p>
-                                    <p>
-                                      {" "}
-                                      <BsTags className="validpffers_icon" />
-                                      <span>Special Price</span>Get extra ₹15901
-                                      off (price inclusive of cashback/coupon)
-                                      <span>T&C</span>
-                                    </p>
-                                    <p>View 10 more offers</p>
-                                  </Card.Subtitle> */}
-                                  {/* <div className="delivery_code margin_bottom">
-                                    <h5>Delivery</h5>
-                                    <div>
-                                      <CiLocationOn className="deliverylocationcode" />
-                                      <input
-                                        type="text"
-                                        placeholder="Enter Delivery Pincode"
-                                        className="pincode_bar"
-                                      />
-                                    </div>
-                                  </div> */}
-                                  <Card.Text>
-                                    <div className="d-flex ">
-                                      <h6 className=" ">Description:</h6>
-                                      <p className="mainpro_rightdescrip margin_bottom">
-                                        {dData.description}
-                                      </p>
-                                    </div>
-                                  </Card.Text>
-                                  <div className="d-flex ">
-                                    <h6>Highlights</h6>
-                                    <div className="d-flex px-5">
-                                      <ul className="specification">
-                                        <td>{dData?.brand?.[0]?.brand}</td>
-                                        <td>
-                                          {dData?.category?.[0]?.category}
-                                        </td>
-                                        <td>
-                                          {dData?.subcategory?.[0]?.subcategory}
-                                        </td>
-                                        <li>{dData.title}</li>
-                                      </ul>
-                                    </div>
-                                  </div>
-                                </Card.Body>
-                              </Card>
-                            </Col>
-                          </Row>
+                          {(_id && _id !== 'id') ? (
+                            <>
+                              <Row>
+                                <Col lg={4}>
+                                  <img
+                                    className="subcatkitchen_image"
+                                    variant="top"
+                                    // src={item?.image || item?.thumbnail}
+                                    src={
+                                      dData.thumbnail
+                                        ? `http://localhost:5000/uploads/${dData.thumbnail}`
+                                        : ""
+                                    }
+                                    alt=""
+                                  />
+                                </Col>
+                                <Col lg={8}>
+                                  <Card className="shoppingcard_bor">
+                                    <Card.Body>
+                                      <Card.Title>
+                                        <h4>{dData.title}</h4>
+                                      </Card.Title>
+                                      {/* <div className="buynowquanity">
+                                        <button
+                                          disabled={qty === 1}
+                                          onClick={() => setQty(qty - 1)}
+                                        >
+                                          -
+                                        </button>
+                                        <span>{qty}</span>
+                                        <button
+                                          disabled={qty >= 10}
+                                          onClick={() => setQty(qty + 1)}
+                                        >
+                                          +
+                                        </button>
+                                      </div> */}
+                                      <Card.Subtitle className="mb-2 text-muted">
+                                        <h5>
+                                          {/* Extra ₹ {dData.discountPercentage}..Off */}
+                                        </h5>
+                                      </Card.Subtitle>
+                                      <Card.Subtitle className="mb-2">
+                                        <h1>₹ {dData.price}</h1>
+                                      </Card.Subtitle>
+                                      <Card.Text>
+                                        <div className="d-flex ">
+                                          <h6 className=" ">Description:</h6>
+                                          <p className="mainpro_rightdescrip margin_bottom">
+                                            {dData.description}
+                                          </p>
+                                        </div>
+                                      </Card.Text>
+                                      <div className="d-flex ">
+                                        <h6>Highlights</h6>
+                                        <div className="d-flex px-5">
+                                          <ul className="specification">
+                                            <td>{dData?.brand?.[0]?.brand}</td>
+                                            <td>
+                                              {dData?.category?.[0]?.category}
+                                            </td>
+                                            <td>
+                                              {dData?.subcategory?.[0]?.subcategory}
+                                            </td>
+                                            <li>{dData.title}</li>
+                                          </ul>
+                                        </div>
+                                      </div>
+                                    </Card.Body>
+                                  </Card>
+                                </Col>
+                              </Row>
+                            </>
+                          ) : (
+                            <>
+                              <Row>
+                                {myCartL &&
+                                  myCartL?.map((e, index) => {
+                                    return (
+                                      <>
+                                        <Col lg={4} key={index}>
+                                          <div className="margin_bottom">
+                                            <img
+                                              className="ordersummaryima_Ge"
+                                              variant="top"
+                                              // src={item?.image || item?.thumbnail}
+
+                                              src={
+                                                e?.productDetails[0]?.image
+                                                  ? e?.productDetails[0]?.image
+                                                  : e?.productDetails[0]?.thumbnail?.split(
+                                                    ":"
+                                                  ).length > 1
+                                                    ? e?.productDetails[0]?.thumbnail
+                                                    : `http://localhost:5000/uploads/${e?.productDetails[0]?.thumbnail}`
+                                              }
+                                              alt=""
+                                            />
+                                          </div>
+                                        </Col>
+                                        <Col lg={8} key={index}>
+                                          <div className="margin_bottom">
+                                            <Card className="shoppingcard_bor ">
+                                              <Card.Body>
+                                                <Card.Title>
+                                                  <h4 className="description_title">{e?.productDetails[0]?.title}</h4>
+                                                </Card.Title>
+                                                {/* <div className="buynowquanity">
+                                                <button
+                                                  disabled={qty === 1}
+                                                  onClick={() => setQty(qty - 1)}
+                                                >
+                                                  -
+                                                </button>
+                                                <span>{qty}</span>
+                                                <button
+                                                  disabled={qty >= 10}
+                                                  onClick={() => setQty(qty + 1)}
+                                                >
+                                                  +
+                                                </button>
+                                              </div> */}
+                                                <Card.Subtitle className="mb-2 text-muted">
+                                                  <h5>
+                                                    {/* Extra ₹ {e?.productDetails[0]?.discountpercentage}..Off */}
+                                                  </h5>
+                                                </Card.Subtitle>
+                                                <Card.Subtitle className="mb-2">
+                                                  <h4 className="py-2 mb-0" >₹ {(e?.productDetails[0]?.price) * (e?.quantity)}</h4>
+                                                </Card.Subtitle>
+                                                <Card.Text>
+                                                  <div className="d-flex flex-column ">
+                                                    <h6 className="discription_text">Description:</h6>
+                                                    <p className="mainpro_rightdescrip margin_bottom">
+                                                      {e?.productDetails[0]?.description}
+                                                    </p>
+                                                  </div>
+                                                </Card.Text>
+                                                {/* <div className="d-flex ">
+                                                  <h6>Highlights</h6>
+                                                  <div className="d-flex px-5">
+                                                    <ul className="specification">
+                                                      <td>{e?.brand?.[0]?.brand}</td>
+                                                      <td>
+                                                        {e?.category?.[0]?.category}
+                                                      </td>
+                                                      <td>
+                                                        {e?.subcategory?.[0]?.subcategory}
+                                                      </td>
+                                                      <li>{e.title}</li>
+                                                    </ul>
+                                                  </div>
+                                                </div> */}
+                                              </Card.Body>
+                                            </Card>
+                                          </div>
+                                        </Col>
+                                      </>
+                                    )
+                                  })}
+
+                              </Row>
+                            </>
+                          )}
                         </Accordion.Body>
                       </Accordion.Item>
                     </div>
@@ -908,45 +988,75 @@ const Delieverydetail = () => {
                 </Row>
               </Col>
               <Col lg={3}>
-                <div className="rightpricedetail margin_bottom">
-                  <div className="addcartpricede_tail margin_bottom ">
-                    <h5>PRICE DETAIL</h5>
-                  </div>
-                  <div className="d-flex justify-content-between  margin_bottom">
-                    <p className="totalamountright_">Price</p>
-                    <p>₹{getTotalPrice()}</p>
-                  </div>
-                  <div className="d-flex justify-content-between margin_bottom">
-                    <p className="totalamountright_">Discount</p>
-                    <span className="discountpercentage_">
-                      {getDiscountPercentage()?.toFixed(0)}%
-                    </span>
-                  </div>
-                  <div className="d-flex justify-content-between margin_bottom addcart_delivery">
-                    <p className="totalamountright_">Delivery Charges</p>
-                    <p>-----------</p>
-                  </div>
-                  <div className="d-flex justify-content-between margin_bottom addcart_delivery">
-                    <h5>Total Amount</h5>
-                    <p>₹{getTotalPrice() - getTotalDiscount()?.toFixed(0)}</p>
-                  </div>
-                  <h6 className="discountpercentage_">
-                    Your Will save ₹{getTotalDiscount()?.toFixed(0)} on this
-                    order
-                  </h6>
-                  <div></div>
-                  {/* <div className="securityline">
-                <SiSpringsecurity className="securepayment_icon" />
-                <div>
-                  Safe and Secure Payments.Easy returns.100% Authentic products.
-                </div>
-              </div> */}
-                </div>
+                {(_id && _id !== 'id') ? (
+                  <>
+                    <div className="rightpricedetail margin_bottom">
+                      <div className="addcartpricede_tail margin_bottom ">
+                        <h5>PRICE DETAIL</h5>
+                      </div>
+                      <div className="d-flex justify-content-between  margin_bottom">
+                        <p className="totalamountright_">Price</p>
+                        <p>₹{dData?.price}</p>
+                      </div>
+                      <div className="d-flex justify-content-between margin_bottom">
+                        <p className="totalamountright_">Discount</p>
+                        <span className="discountpercentage_">
+                          {(dData?.discountpercentage)}%
+                        </span>
+                      </div>
+                      <div className="d-flex justify-content-between margin_bottom addcart_delivery">
+                        <p className="totalamountright_">Delivery Charges</p>
+                        <p>-----------</p>
+                      </div>
+                      <div className="d-flex justify-content-between margin_bottom addcart_delivery">
+                        <h5>Total Amount</h5>
+                        <p>₹{(dData.price) - ((dData?.price) * (dData?.discountpercentage) / (100))?.toFixed(0)}</p>
+                      </div>
+                      <h6 className="discountpercentage_">
+                        Your Will save ₹{(dData?.price) - ((dData?.price) - ((dData?.price) * (dData?.discountpercentage) / (100))?.toFixed(0))} on this
+                        order
+                      </h6>
+                    </div>
+                  </>)
+                  :
+                  (
+                    <>
+                      <div className="rightpricedetail margin_bottom">
+                        <div className="addcartpricede_tail margin_bottom ">
+                          <h5>PRICE DETAIL</h5>
+                        </div>
+                        <div className="d-flex justify-content-between  margin_bottom">
+                          <p className="totalamountright_">Price</p>
+                          <p>₹{getTotalPrice()}</p>
+                        </div>
+                        <div className="d-flex justify-content-between margin_bottom">
+                          <p className="totalamountright_">Discount</p>
+                          <span className="discountpercentage_">
+                            {getDiscountPercentage()?.toFixed(0)}%
+                          </span>
+                        </div>
+                        <div className="d-flex justify-content-between margin_bottom addcart_delivery">
+                          <p className="totalamountright_">Delivery Charges</p>
+                          <p>-----------</p>
+                        </div>
+                        <div className="d-flex justify-content-between margin_bottom addcart_delivery">
+                          <h5>Total Amount</h5>
+                          <p>₹{getTotalPrice() - getTotalDiscount()?.toFixed(0)}</p>
+                        </div>
+                        <h6 className="discountpercentage_">
+                          Your Will save ₹{getTotalDiscount()?.toFixed(0)} on this
+                          order
+                        </h6>
+                      </div>
+
+                    </>
+                  )}
+
               </Col>
             </Row>
           </Accordion>
-        </div>
-      </div>
+        </div >
+      </div >
     </>
   );
 };

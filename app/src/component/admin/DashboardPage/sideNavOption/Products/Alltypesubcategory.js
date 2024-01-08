@@ -78,7 +78,7 @@ const Alltypesubcategory = () => {
     selectedCategoryId
   );
 
-  const onSubmittype = (value) => {
+  const onSubmittype = (value, form) => {
     console.log(value, "dssdsdsS");
 
     let typesub = {
@@ -89,6 +89,8 @@ const Alltypesubcategory = () => {
     dispatch(typesubcategorypost(typesub)).then((res) => {
       if (res.payload.data.sucess) {
         dispatch(typesubcategoryget());
+        toast.success("Successfuly added")
+        form.reset()
       }
     });
   };

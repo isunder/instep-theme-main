@@ -165,10 +165,7 @@ export default function Profile() {
             if (!response.ok) {
                 throw new Error(`Network response was not ok: ${response.status}`);
             }
-
-            const data = await response.blob(); // or response.json() or response.text(), depending on the expected data type
-
-            // Work with the data here
+            const data = await response.blob(); 
             return data
         } catch (error) {
             console.error('There was a problem with the fetch operation:', error);
@@ -204,6 +201,12 @@ export default function Profile() {
         setUsserName(e.target.value)
     }
 
+    const onKeyDownHandler = (e) => {
+        if (e.keyCode === 13) {
+            handleSave();
+        }
+    };
+
     return (
         <div className="container">
             <div className=" slider_col margin_bottom">
@@ -234,17 +237,6 @@ export default function Profile() {
                                     }
 
                                 </div>
-                                {/* <input
-                                    onChange={(e) => {
-                                        handleChange(e);
-                                    }}
-                                    type="file"
-                                    id="profile-imgrr"
-                                    hidden
-                                />
-                                <label htmlFor="profile-imgrr" className="iconouterdiv">
-                                    <CiEdit className="profileedit" />
-                                </label> */}
                                 <div className="iconouterdiv" onClick={handleToggleClick} id="show"><FaCamera className="profileedit" /></div>
                             </div>
                             <div className={`menu ${isMenuVisible ? 'visible' : 'hidden'}`}>
@@ -252,6 +244,7 @@ export default function Profile() {
                                     <div className="editprofileoption">
                                         <div>
                                             <input
+                                                
                                                 onChange={(e) => {
                                                     handleChange(e);
                                                 }}
@@ -281,6 +274,7 @@ export default function Profile() {
                                             <input
                                                 className="usernameinput"
                                                 type="text"
+                                                onKeyDown={onKeyDownHandler}
                                                 onChange={(e) => handelvaluse(e)}
                                                 value={userName}
                                                 maxLength={8}
@@ -290,6 +284,7 @@ export default function Profile() {
                                             <input
                                                 // className="usernameinput"
                                                 type="text"
+                                                onKeyDown={onKeyDownHandler}
                                                 onChange={(e) => handelvaluse(e)}
                                                 value={userName}
                                                 maxLength={8}

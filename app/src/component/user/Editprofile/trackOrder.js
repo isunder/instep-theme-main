@@ -3,9 +3,11 @@ import { Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Getorderdetail } from "../../../Redux/action/orderSummary";
 import { getUserId } from "../../../utils/auth";
+import { useNavigate } from "react-router-dom";
 
 const TrackOrder = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   const userData = getUserId();
   console.log(userData, "usr");
@@ -22,6 +24,11 @@ const TrackOrder = () => {
   }, [""]);
 
   //   const handleViewDetails = () => {};
+
+  const handleOrder = (e) => {
+    console.log(e, "fafdfafadfdas")
+    // navigate(`/orderconfirmation/${e?.productID[0]?._id}`)
+  }
 
   return (
     <div>
@@ -41,7 +48,7 @@ const TrackOrder = () => {
         <tbody>
           {/* Map through orders array to populate table rows */}
           {orderdatasum?.map((e, i) => (
-            <tr>
+            <tr onClick={() => handleOrder(e)}>
               <td>{i + 1}</td>
               <td>{e?.quantity}</td>
               <td>{e?.productID[0]?.title}</td>

@@ -63,7 +63,7 @@ const AddressBook = () => {
           if (res) {
             dispatch(deliveryGetAction(values));
             form.reset();
-            toast.success("Successfully Edit !", {
+            toast.success("Successfully Edited !", {
               position: toast.POSITION.TOP_CENTER,
             });
           }
