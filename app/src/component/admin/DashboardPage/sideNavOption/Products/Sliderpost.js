@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Field } from "react-final-form";
 import { useDispatch, useSelector } from "react-redux";
 import { adminPostslider } from "../../../../../Redux/action/postSliderAction";
 import { Col, Row } from "react-bootstrap";
+import { adminGetSlider } from "../../../../../Redux/action/getSliderAction";
 
 const Sliderpost = () => {
   const dispatch = useDispatch();
@@ -28,6 +29,17 @@ const Sliderpost = () => {
       console.log(res, "Response from dispatch")
     );
   };
+
+  const dataslider = useSelector(
+    (state) => state?.getsliderdata?.listdata?.data
+  );
+  console.log(dataslider, "sliderimgs");
+
+  useEffect(() => {
+    dispatch(adminGetSlider());
+  }, []);
+
+
   const validate = (values) => {
     const errors = {};
     if (!values.name) {
@@ -99,6 +111,24 @@ const Sliderpost = () => {
               </form>
             )}
           />
+        </Col>
+      </Row>
+      <Row>
+        <Col lg={12}>
+          {dataslider &&
+            dataslider?.map((item, index) => {
+              return (
+                <>
+                  <div className="margin_bottom">
+                      <img
+                        className="slide_img"
+                        src={`http://localhost:5000/slider/${item?.images[0]}`}
+                        alt="Second sslide"
+                      />
+                  </div>
+                </>
+              )
+            })}
         </Col>
       </Row>
     </>

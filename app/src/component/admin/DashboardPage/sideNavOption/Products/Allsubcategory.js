@@ -12,6 +12,7 @@ import Allpagination from "../../../Pagination/pagination";
 import { MdDelete } from "react-icons/md";
 import Delete from "../../../deleteModel/delete";
 import { allCategoryList } from "../../../../../Redux/action/getCategoryAction";
+import { toast } from "react-toastify";
 
 const Allsubcategory = () => {
   const dispatch = useDispatch();
@@ -48,7 +49,7 @@ const Allsubcategory = () => {
   );
   console.log(typesubcatgory, "typesubcatgory");
 
-  const onSubmit = (values) => {
+  const onSubmit = (values, form) => {
     console.log(values.subcategory, "dddddddddddd");
 
     let asd = {
@@ -61,6 +62,8 @@ const Allsubcategory = () => {
     };
 
     dispatch(addsubcategory(asd));
+    toast.success("Successfuly added")
+    form.reset();
   };
 
   useEffect(() => {
