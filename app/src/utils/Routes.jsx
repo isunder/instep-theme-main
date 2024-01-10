@@ -53,6 +53,9 @@ import Headeradmin from "../component/admin/dashboardPage/sideNavOption/Products
 import Onlymobile from "../component/user/Products/sliderSubcategory";
 import Wishlistinform from "../component/user/wshlistData/wishlistDataInfo";
 import SubCategoryfilter from "../component/user/filterbyCategory/subCategoryfilter";
+import Careers from "../component/user/Careers/Careers";
+import GrievanceRedressal from "../component/user/Grievance Redressal/GrievanceRedressal";
+import ContactUs from "../component/user/contactUs/contactUs";
 
 const role = getUserId() ? getUserId()?.userRole : null;
 // console.log(role, "aaasdfgfds");
@@ -80,6 +83,9 @@ const protects = {
         { path: "/paymentsecurity", element: <Security /> },
         { path: "/privacypolicy", element: <Privacy /> },
         { path: "/payment", element: <Payments /> },
+        {path:"/contactus",element:<ContactUs />},
+        {path:"Careers",element:<Careers/>},
+        {path :"grievanceRedressal",element:<GrievanceRedressal/>},
         { path: "/orderconfirmation", element: <OrderConfirmation /> },
         { path: "/editprofile", element: <Editprofile /> },
         { path: "/salespage", element: <SliderPages /> },
@@ -148,6 +154,9 @@ const protects = {
         { path: "/payment", element: <Payments /> },
         { path: "/salespage", element: <SliderPages /> },
         { path: "/onlymobile", element: <Onlymobile /> },
+        {path:"/contactus",element:<ContactUs/>},
+        {path:"careers",element:<Careers/>},
+        {path :"GrievanceRedressal",element:<GrievanceRedressal/>},
         { path: "/filterbycategory", element: < SubCategoryfilter /> },
         { path: "*", element: "NO PAGE FOUND" },
       ],

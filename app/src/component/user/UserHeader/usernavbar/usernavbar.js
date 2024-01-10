@@ -370,12 +370,13 @@ const Usernavbar = () => {
                         </ul>
                         <ul>
                           <h5> Registered Office Address:</h5>
-                          <p>
-                            Tricity Plaza, Office No. 14
-                            <br />
-                            Ground, Peer Muchalla <br />
-                            Zirakpur, Punjab 140603
-                          </p>
+                          <a href="https://www.google.com/maps/place/InStep+Technologies+Private+Limited/@30.6603992,76.8579138,17z/data=!3m1!4b1!4m6!3m5!1s0x390f93449bb5d4b3:0x914dd5a1fe28cc76!8m2!3d30.6603946!4d76.8604887!16s%2Fg%2F11csqwp2_w?entry=ttu" target="_blank" rel="noreferrer">
+                            <p>
+                              Tricity Plaza, Office No. 14
+                              <br />
+                              Ground, Peer Muchalla <br />
+                              Zirakpur, Punjab 140603
+                            </p></a>
                           <p className="tele">
                             Telephone: <span>000-000-0000</span>
                           </p>
