@@ -6,7 +6,7 @@ import {
   removeFromBrand,
 } from "../../../../../Redux/action/createNewBrandsAction";
 import { allSubCategoryList } from "../../../../../Redux/action/getSubcategoryAction";
-import { Col, Row, Spinner, Table } from "react-bootstrap";
+import { Button, Col, Row, Spinner, Table } from "react-bootstrap";
 import { allBrandsList } from "../../../../../Redux/action/getAllBrandListAction";
 import { allCategoryList } from "../../../../../Redux/action/getCategoryAction";
 import Allpagination from "../../../Pagination/pagination";
@@ -14,12 +14,15 @@ import { MdDelete } from "react-icons/md";
 import Delete from "../../../deleteModel/delete";
 import { typesubcategoryget } from "../../../../../Redux/action/typesubcatpost";
 import { ToastContainer, toast } from 'react-toastify';
+import { FiSearch } from "react-icons/fi";
+import { AiOutlineSearch } from "react-icons/ai";
 
 const Allsubcategory = () => {
   const dispatch = useDispatch();
   const [selectedSubcategoryId, setSelectedSubcategoryId] = useState("");
   const [selectedCategoryId, setSelectedCategoryId] = useState("");
   const [typeSubCategory, SetTypeSubCategory] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const getAllTypeSub = useSelector(
     (State) => State?.typesubcategory?.listdata.data
@@ -34,7 +37,7 @@ const Allsubcategory = () => {
   );
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [postPerPage, setPostPerPage] = useState(5);
+  const [postPerPage, setPostPerPage] = useState(10);
   const typesubcatgory = useSelector(
     (state) => state?.typesubcategory?.typesublist?.data?.data
   );
@@ -71,8 +74,8 @@ const Allsubcategory = () => {
     dispatch(allCategoryList());
     dispatch(allSubCategoryList());
     dispatch(typesubcategoryget());
-    dispatch(allBrandsList({ page: currentPage, perPage: postPerPage }));
-  }, [currentPage]);
+    dispatch(allBrandsList({ search: searchQuery, page: currentPage, perPage: postPerPage }));
+  }, [currentPage, searchQuery]);
 
   var selectedId;
   const handleCategoryChangeCat = (e) => {
@@ -105,7 +108,7 @@ const Allsubcategory = () => {
 
   const handleDelete = (id) => {
     dispatch(removeFromBrand({ _id: id })).then((res) => {
-      dispatch(allBrandsList({ page: currentPage, perPage: postPerPage }));
+      dispatch(allBrandsList({ search: searchQuery, page: currentPage, perPage: postPerPage }));
       if (res?.data?.success) {
       }
       handleClose();
@@ -119,6 +122,20 @@ const Allsubcategory = () => {
   const handleShow = (id) => {
     setCategoryid(id);
     setShow(true);
+  };
+
+  const handleSearch = () => {
+    if (searchQuery) {
+      dispatch(allBrandsList({ search: searchQuery }));
+    } else {
+      dispatch(allBrandsList({ search: '', page: currentPage, perPage: postPerPage }));
+    }
+  };
+
+  const onKeyDownHandler = (e) => {
+    if (e.keyCode === 13) {
+      handleSearch();
+    }
   };
   return (
     <>
@@ -200,6 +217,21 @@ const Allsubcategory = () => {
       <Row>
         <Col lg={8}>
           <div className="categoryadd_new margin_bottom">
+            <div className="form_control_or_btngroup">
+              <div className="all_product_search ">
+                <FiSearch className="allproduct_searchicon " />
+                <input type="search" className=" mr-sm-2 adminsearch_bar" value={searchQuery}
+                  onKeyDown={onKeyDownHandler}
+                  onChange={(e) =>
+                    setSearchQuery(e?.target?.value)
+                  } />
+              </div>
+              {/* <div className="btngroup">
+                <Button className="select_button " type="submit" onClick={handleSearch}>
+                  <AiOutlineSearch /> search
+                </Button>
+              </div> */}
+            </div>
             <Table responsive="md">
               <thead>
                 <tr>
@@ -241,15 +273,21 @@ const Allsubcategory = () => {
                 )}
               </tbody>
             </Table>
-            <div className="d-flex justify-content-end">
-              <Allpagination
-                currentPage={currentPage}
-                postPerPage={postPerPage}
-                setPostPerPage={setPostPerPage}
-                setCurrentPage={setCurrentPage}
-                listCount={listCount}
-              />
-            </div>
+            {searchQuery && searchQuery.length !== 10 ? (
+              <div className="d-flex justify-content-end">
+              </div>
+            ) :
+              (
+                <div className="d-flex justify-content-end">
+                  <Allpagination
+                    currentPage={currentPage}
+                    postPerPage={postPerPage}
+                    setPostPerPage={setPostPerPage}
+                    setCurrentPage={setCurrentPage}
+                    listCount={listCount}
+                  />
+                </div>
+              )}
           </div>
         </Col>
       </Row>

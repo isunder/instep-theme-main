@@ -232,7 +232,7 @@ const Delieverydetail = () => {
     console.log("callertettt");
 
     const calculateLoadAmount = () => {
-      const baseAmount = (dData?.price) * qty || (getTotalPrice() - getTotalDiscount()?.toFixed(0));
+      const baseAmount = ((dData.price) - ((dData?.price) * (dData?.discountpercentage) / (100))?.toFixed(0)) * 100 || (getTotalPrice() - getTotalDiscount()?.toFixed(0));
       return { amount: baseAmount }; // Multiplying by 100 as Razorpay expects amount in paise
     };
 
@@ -300,7 +300,7 @@ const Delieverydetail = () => {
           dispatch(Afterorder(payloads))
             .then(response => {
               console.log(response, 'resssss')
-              navigate(`/orderconfirmation/${response.payload.data.save._id}`)
+              navigate(`/orderconfirmation/${response?.payload?.data?.save?._id}`)
               window.location.reload()
             })
           // history.push("/orderconfirmation")
@@ -748,7 +748,6 @@ const Delieverydetail = () => {
                               )}
                             </Col>
                           </Row>
-
                           <Row>
                             <Col>
                               <div

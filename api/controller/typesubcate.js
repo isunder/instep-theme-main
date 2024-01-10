@@ -52,7 +52,11 @@ const get_typesubcategory = async (req, res) => {
       const perPage = parseInt(req.body.perPage); // Default to 10 items per page
       const skip = (page - 1) * perPage;
 
-      const query = typeofsubcategorytable.find();
+      const query = typeofsubcategorytable.find({
+        $or: [
+          { typesubcategory: { $regex: req.body.search, $options: "i" } },
+        ],
+      });
       const totalDocs = await typeofsubcategorytable.countDocuments(); // Count total documents
 
       if (page && perPage) {

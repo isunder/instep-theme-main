@@ -108,13 +108,17 @@ const SidebarFun = () => {
                 title="Pos System"
                 icon={<BsFilePostFill />}
               ></Nav.Menu>
-              <Nav.Menu eventKey="4" title="Order" icon={<HiDocument />} />
+              <Nav.Menu eventKey="4" title="Order" icon={<HiDocument />}>
+                <Nav.Item eventKey="2-1">
+                  <Link to={"/trackorder"}>- Orders</Link>
+                </Nav.Item>
+              </Nav.Menu>
               <Nav.Menu eventKey="5" title="Stock" icon={<GoDatabase />}>
                 <Nav.Item eventKey="5-1">
                   <Link to={"/Addstock"}>- Add Stock </Link>
                 </Nav.Item>
                 <Nav.Item eventKey="5-2">
-                  <Link to={"/Allloation"}>- All Location</Link>
+                  <Link to={"/Allloation"}>- All Stock</Link>
                 </Nav.Item>
               </Nav.Menu>
               <Nav.Menu

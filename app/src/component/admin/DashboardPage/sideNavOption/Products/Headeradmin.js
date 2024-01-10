@@ -3,24 +3,18 @@ import { Form, Field, useForm } from "react-final-form";
 import {
   adminPostheading,
   admingetheading,
+  headingDelete,
 } from "../../../../../Redux/action/adminheader";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { getUserId } from "../../../../../utils/auth";
 import { AiOutlineMail } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import { Col, Navbar, Row } from "react-bootstrap";
+import { Button, Col, Dropdown, Modal, Navbar, Row, Spinner, Table } from "react-bootstrap";
+import { MdDelete } from "react-icons/md";
 
 function Headeradmin() {
   const dispatch = useDispatch();
-
-  const header = useSelector(
-    (state) => state?.adminheading?.listdata?.data?.data
-  );
-  console.log(header, "header");
-  useEffect(() => {
-    dispatch(admingetheading({ adminID: "64b8ccde661f313c3be26a41" }));
-  }, []);
   const [logoimage, setlogoimage] = useState([]);
   const [SelectedImages, setSelectedImages] = useState([]);
   const getadminid = getUserId();
@@ -122,6 +116,31 @@ function Headeradmin() {
   };
 
   console.log(SelectedImages, logoimage, "teststts");
+
+  const headings = useSelector(
+    (state) => state?.adminheading?.listdata?.data?.data
+  );
+
+  console.log(headings, "header");
+
+  const handleHeadingDelete = (_id) => {
+    dispatch(headingDelete({ tableid: _id })).then((res) => {
+      console.log(res, "vvvvvvvvv")
+      if (res?.payload?.data?.success) {
+        handleClose(false)
+      }
+    })
+  }
+
+  useEffect(() => {
+    dispatch(admingetheading({ adminID: "64b8ccde661f313c3be26a41" }));
+  }, []);
+
+  const [show, setShow] = useState(false);
+
+  const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false);
+
   return (
     <div>
       <Row>
@@ -132,8 +151,8 @@ function Headeradmin() {
         </div>
       </Row>
       <Row>
-        <Col lg={6}>
-          <div className="categoryadd_new">
+        <Col lg={8}>
+          <div className="categoryadd_new margin_bottom">
             <Row>
               <Form
                 onSubmit={onSubmit}
@@ -175,6 +194,7 @@ function Headeradmin() {
                     </Col>
                     <Col lg={12}>
                       <div>
+                        <h4>Logo</h4>
                         <input
                           name="images"
                           type="file"
@@ -219,13 +239,96 @@ function Headeradmin() {
                   </form>
                 )}
               />
+
             </Row>
           </div>
         </Col>
+      </Row>
+      <Row>
+        <Col lg={8}>
+          <div className="categoryadd_new">
+            <Table responsive="lg" className="position-relative">
+              <thead>
+                <tr>
+                  <th>Heading</th>
+                  <th>Logo</th>
+                  <th>Email</th>
+                  <th className="d-flex justify-content-end">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {/* {isLoading ? ( */}
+                {/* <div className="table_Spinner productspinner">
+                      <Spinner animation="border" variant="dark" />
+                    </div> */}
+                {/* ) : ( */}
 
+                <tr>
+                  <td>
+                    {headings && headings?.heading}
+                  </td>
+                  <td>
+                    <img
+                      src={`http://localhost:5000/logo/${headings?.logo}`}
+                      alt=""
+                      style={{ width: "92px" }}
+                    />
+                  </td>
+                  <td>{headings && headings?.Email}</td>
+                  <td>
+                    {headings && headings && (
+                      <div className="d-flex justify-content-end">
+                        <MdDelete
+                          className="deleteicn_forpro"
+                          onClick={() => handleShow()}
+                        />
+                      </div>
+                    )}
+                    <Modal
+                      className="removerfromcart_modal"
+                      aria-labelledby="contained-modal-title-vcenter"
+                      centered
+                      show={show}
+                      onHide={handleClose}
+                    >
+                      <Modal.Header closeButton>
+                        <Modal.Title>Delete Item</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>
+                        Are you sure you want to Delete this item
+                        ?
+                      </Modal.Body>
+                      <Modal.Footer>
+                        <Button
+                          className="cancelbut_removecart"
+                          variant="secondary"
+                          onClick={handleClose}
+                        >
+                          CANCEL
+                        </Button>
+                        <Button
+                          className="removebut_cart"
+                          variant="primary"
+                          onClick={() => handleHeadingDelete(headings?._id)}
+                        >
+                          Delete
+                        </Button>
+                      </Modal.Footer>
+                    </Modal>
+                  </td>
+                </tr>
+
+                {/* </> */}
+                {/* ); */}
+                {/* }) */}
+                {/* )} */}
+              </tbody>
+            </Table>
+          </div>
+        </Col>
       </Row>
 
-    </div>
+    </div >
   );
 }
 

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Form, Field } from "react-final-form";
 import { useDispatch, useSelector } from "react-redux";
 import { allCategoryList } from "../../../../../Redux/action/getCategoryAction";
-import { Col, Row, Spinner, Table } from "react-bootstrap";
+import { Button, Col, Row, Spinner, Table } from "react-bootstrap";
 import { allSubCategoryList } from "../../../../../Redux/action/getSubcategoryAction";
 import {
   removeFromTypeSubcategory,
@@ -14,11 +14,14 @@ import Allpagination from "../../../Pagination/pagination";
 import { MdDelete } from "react-icons/md";
 import Delete from "../../../deleteModel/delete";
 import { ToastContainer, toast } from "react-toastify";
+import { FiSearch } from "react-icons/fi";
+import { AiOutlineSearch } from "react-icons/ai";
 const Alltypesubcategory = () => {
   const dispatch = useDispatch();
   const [selectedsubCategoryId, setselectedsubCategoryId] = useState("");
   const [selectedCategoryId, setSelectedCategoryId] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(""); // State to store the selected category
+  const [searchQuery, setSearchQuery] = useState("");
 
   console.log(selectedCategoryId, "cdcdcd");
   const listCount = useSelector(
@@ -52,8 +55,8 @@ const Alltypesubcategory = () => {
     }
     dispatch(allSubCategoryList());
 
-    dispatch(typesubcategoryget({ page: currentPage, perPage: postPerPage }));
-  }, [currentPage]);
+    dispatch(typesubcategoryget({ search: searchQuery, page: currentPage, perPage: postPerPage }));
+  }, [currentPage, searchQuery]);
 
   console.log(selectedCategoryId, "selectedCategoryId");
   const handleCategoryChange = (event) => {
@@ -102,7 +105,7 @@ const Alltypesubcategory = () => {
       (res) => {
         if (res?.payload?.data?.success) {
           dispatch(
-            typesubcategoryget({ page: currentPage, perPage: postPerPage })
+            typesubcategoryget({ search: searchQuery, page: currentPage, perPage: postPerPage })
           );
         }
         handleClose();
@@ -118,6 +121,20 @@ const Alltypesubcategory = () => {
   const handleShow = (id) => {
     setCategoryid(id);
     setShow(true);
+  };
+
+  const handleSearch = () => {
+    if (searchQuery) {
+      dispatch(typesubcategoryget({ search: searchQuery }));
+    } else {
+      dispatch(typesubcategoryget({ search: '', page: currentPage, perPage: postPerPage }));
+    }
+  };
+
+  const onKeyDownHandler = (e) => {
+    if (e.keyCode === 13) {
+      handleSearch();
+    }
   };
   return (
     <div>
@@ -202,6 +219,21 @@ const Alltypesubcategory = () => {
       <Row>
         <Col lg={8}>
           <div className="categoryadd_new margin_bottom">
+            <div className="form_control_or_btngroup">
+              <div className="all_product_search ">
+                <FiSearch className="allproduct_searchicon " />
+                <input type="search" className=" mr-sm-2 adminsearch_bar" value={searchQuery}
+                  onKeyDown={onKeyDownHandler}
+                  onChange={(e) =>
+                    setSearchQuery(e?.target?.value)
+                  } />
+              </div>
+              {/* <div className="btngroup">
+                <Button className="select_button " type="submit" onClick={handleSearch}>
+                  <AiOutlineSearch /> search
+                </Button>
+              </div> */}
+            </div>
             <Table responsive="md">
               <thead>
                 <tr>

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { adminPostslider } from "../../../../../Redux/action/postSliderAction";
 import { Col, Row } from "react-bootstrap";
 import { adminGetSlider } from "../../../../../Redux/action/getSliderAction";
+import { MdDelete } from "react-icons/md";
 
 const Sliderpost = () => {
   const dispatch = useDispatch();
@@ -26,8 +27,9 @@ const Sliderpost = () => {
 
     // Dispatch the action with the FormData object
     dispatch(adminPostslider(formData)).then((res) =>
-      console.log(res, "Response from dispatch")
+      console.log(res, "Responsefromdispatch")
     );
+
   };
 
   const dataslider = useSelector(
@@ -111,24 +113,34 @@ const Sliderpost = () => {
               </form>
             )}
           />
-        </Col>
-      </Row>
-      <Row>
-        <Col lg={12}>
-          {dataslider &&
-            dataslider?.map((item, index) => {
-              return (
-                <>
-                  <div className="margin_bottom">
-                      <img
-                        className="slide_img"
-                        src={`http://localhost:5000/slider/${item?.images[0]}`}
-                        alt="Second sslide"
-                      />
-                  </div>
-                </>
-              )
-            })}
+          <Row>
+            {dataslider &&
+              dataslider?.map((item, index) => {
+                return (
+                  <>
+                    <Col lg={10}>
+                      <div className="margin_bottom">
+                        <img
+                          className="slide_img"
+                          src={`http://localhost:5000/slider/${item?.images[0]}`}
+                          alt="Second sslide"
+                        />
+                      </div>
+                    </Col>
+                    <Col lg={2}>
+                      <div className="d-flex justify-content-end">
+                        <MdDelete
+                          className="deleteicn_forpro"
+                        // onClick={() => {
+                        //   handleShow(e?._id);
+                        // }}
+                        />
+                      </div>
+                    </Col>
+                  </>
+                )
+              })}
+          </Row>
         </Col>
       </Row>
     </>

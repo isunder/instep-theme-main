@@ -81,16 +81,16 @@ const ProductDetails = () => {
                       {...{
                         smallImage: {
                           alt: "Wristwatch by Ted Baker London",
-                          width: 400,
-                          height: 400,
                           src: imageState
                             ? imageState?.split("http").length > 1
                               ? imageState
                               : `http://localhost:5000/uploads/${imageState}`
                             : productDetail?.images?.length > 0 &&
-                              (productDetail?.images[0].split("http").length > 1
-                                ? productDetail?.images[0]
-                                : `http://localhost:5000/uploads/${productDetail?.images[0]}`),
+                            (productDetail?.images[0].split("http").length > 1
+                              ? productDetail?.images[0]
+                              : `http://localhost:5000/uploads/${productDetail?.images[0]}`),
+                          // width: 400,
+                          // height: 400,
                         },
                         largeImage: {
                           src: imageState
@@ -98,9 +98,9 @@ const ProductDetails = () => {
                               ? imageState
                               : `http://localhost:5000/uploads/${imageState}`
                             : productDetail?.images?.length > 0 &&
-                              (productDetail?.images[0].split("http").length > 1
-                                ? productDetail?.images[0]
-                                : `http://localhost:5000/uploads/${productDetail?.images[0]}`),
+                            (productDetail?.images[0].split("http").length > 1
+                              ? productDetail?.images[0]
+                              : `http://localhost:5000/uploads/${productDetail?.images[0]}`),
                           width: 1800,
                           height: 1800,
                         },
@@ -155,7 +155,7 @@ const ProductDetails = () => {
                             </div>
                           </Button>
                         </div>
-                        {}
+                        { }
                         <div className="twobuttondiv">
                           {/* <Link to={"/deliverydetail"}>
                         <Button className="bynow_button">
@@ -185,11 +185,12 @@ const ProductDetails = () => {
                     <Card.Title>
                       <h4>{productDetail.title}</h4>
                     </Card.Title>
-                    <Card.Subtitle className="mb-2 text-muted">
-                      <h5>Extra ₹ {productDetail.discountPercentage}..Off</h5>
-                    </Card.Subtitle>
                     <Card.Subtitle className="mb-2">
-                      <h1>₹ {productDetail.price}</h1>
+                      <h1>₹ {productDetail?.totalprice}</h1>
+                    </Card.Subtitle>
+                    <Card.Subtitle className="mb-2 text-muted underline_position">
+                      <h5> ₹{productDetail?.price}  <span>{productDetail?.discountpercentage}%Off</span></h5>
+                      <div className="underline_discount"></div>
                     </Card.Subtitle>
                     <Card.Subtitle className="mb-2 discriptionoffers_product text-muted">
                       <h6> Available offers</h6>

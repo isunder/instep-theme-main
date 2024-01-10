@@ -19,3 +19,10 @@ export const admingetheading = createAsyncThunk(
     return axiosInstance.post(`/headerget`, payload);
   }
 );
+
+export const headingDelete = createAsyncThunk(
+  "deleteHeading",
+  async (payload) => {
+    return axiosInstance.post(`/headerdelete`, payload);
+  }
+);
