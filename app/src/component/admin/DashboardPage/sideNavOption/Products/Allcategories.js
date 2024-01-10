@@ -19,10 +19,13 @@ import { allCategoryList } from "../../../../../Redux/action/getCategoryAction";
 import { ToastContainer, toast } from "react-toastify";
 import Allpagination from "../../../Pagination/pagination";
 import Delete from "../../../deleteModel/delete";
+import { AiOutlineSearch } from "react-icons/ai";
+import { FiSearch } from "react-icons/fi";
 
 const Allcategories = () => {
   const [selectedImagesforpost, setselectedImagesforpost] = useState();
   const [selectedImages, setSelectedImages] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const dispatch = useDispatch();
 
@@ -82,8 +85,8 @@ const Allcategories = () => {
   );
 
   useEffect(() => {
-    dispatch(allCategoryList({ page: currentPage, perPage: postPerPage }));
-  }, [currentPage]);
+    dispatch(allCategoryList({ search: searchQuery, page: currentPage, perPage: postPerPage }));
+  }, [currentPage, searchQuery]);
 
   const handleImgeFile = (e) => {
     const files = e.target.files;
@@ -145,7 +148,7 @@ const Allcategories = () => {
   const handleDelete = (id) => {
     dispatch(removeFromCategory({ categoryid: id })).then((res) => {
       if (res?.payload?.data?.success) {
-        dispatch(allCategoryList({ page: currentPage, perPage: postPerPage }));
+        dispatch(allCategoryList({ search: searchQuery, page: currentPage, perPage: postPerPage }));
       }
       handleClose();
       toast.warning("Successfully Deleted !", {
@@ -159,6 +162,21 @@ const Allcategories = () => {
   const handleShow = (id) => {
     setCategoryid(id);
     setShow(true);
+  };
+
+  const handleSearch = () => {
+    if (searchQuery) {
+      dispatch(allCategoryList({ search: searchQuery, page: currentPage, perPage: postPerPage }));
+    }
+    else {
+      dispatch(allCategoryList({ search: "", page: currentPage, perPage: postPerPage }))
+    }
+  };
+
+  const onKeyDownHandler = (e) => {
+    if (e.keyCode === 13) {
+      handleSearch();
+    }
   };
   return (
     <>
@@ -243,6 +261,21 @@ const Allcategories = () => {
       <Row>
         <Col lg={8}>
           <div className="categoryadd_new">
+            <div className="form_control_or_btngroup">
+              <div className="all_product_search ">
+                <FiSearch className="allproduct_searchicon " />
+                <input type="search" className=" mr-sm-2 adminsearch_bar" value={searchQuery}
+                  onKeyDown={onKeyDownHandler}
+                  onChange={(e) =>
+                    setSearchQuery(e?.target?.value)
+                  } />
+              </div>
+              {/* <div className="btngroup">
+                <Button className="select_button " type="submit" onClick={handleSearch}>
+                  <AiOutlineSearch /> search
+                </Button>
+              </div> */}
+            </div>
             <Table responsive="md">
               <thead>
                 <tr>
@@ -259,7 +292,7 @@ const Allcategories = () => {
                   </div>
                 ) : (
                   data &&
-                  data.map((e, index) => {
+                  data?.map((e, index) => {
                     console.log(e, "fiorjei");
                     return (
                       <tr>
@@ -284,15 +317,20 @@ const Allcategories = () => {
                 )}
               </tbody>
             </Table>
-            <div className="d-flex justify-content-end">
-              <Allpagination
-                currentPage={currentPage}
-                postPerPage={postPerPage}
-                setPostPerPage={setPostPerPage}
-                setCurrentPage={setCurrentPage}
-                listCount={listCount}
-              />
-            </div>
+            {searchQuery && searchQuery?.length !== 10 ? (
+              <div className="d-flex justify-content-end">
+              </div>
+            ) : (
+              <div className="d-flex justify-content-end">
+                <Allpagination
+                  currentPage={currentPage}
+                  postPerPage={postPerPage}
+                  setPostPerPage={setPostPerPage}
+                  setCurrentPage={setCurrentPage}
+                  listCount={listCount}
+                />
+              </div>
+            )}
           </div>
         </Col>
       </Row>

@@ -116,13 +116,17 @@ const OrderConfirmation = () => {
                               </Col>
                               <Col lg={2}>
                                 <div className="quanityconfirmation">
-                                  <h4>Quantity</h4>
-                                  <p>{item?.quantity}</p>
-                                  <div>Price</div>
-                                  <div> {item?.productID[0]?.price}</div>
+                                  <div>
+                                    <h6>Quantity</h6>
+                                    <p>{item?.quantity}</p>
+                                  </div>
+                                  <div>
+                                    <h6>Price</h6>
+                                    <div className="priceconfirmation"> {item?.productID[0]?.price}</div>
+                                  </div>
                                 </div>
-                                <div className="price_confirmation">
-                                </div>{" "}
+                                {/* <div className="price_confirmation">
+                                </div>{" "} */}
                               </Col>
                               <Col lg={2} className="right_border">
                                 {/* <div className="customermain_div">

@@ -27,24 +27,29 @@ const create_subcategory = async (req, res) => {
 };
 
 const subcategorydata = async (req, res) => {
-  if(req.body.category_id){
+  if (req.body.category_id) {
 
-    const data = await SUBCATEGORY.find({category_id:req?.body?.category_id})
+    const data = await SUBCATEGORY.find({
+      category_id: req?.body?.category_id,
+    });
 
-    res.send({ data: data,sucess:true });
+    res.send({ data: data, sucess: true });
 
-  }else{
+  } else {
     try {
-      const page = parseInt(req.body.page) ; // Default to page 1
-      const perPage = parseInt(req.body.perPage) ; // Default to 10 items per page
+      const page = parseInt(req.body.page); // Default to page 1
+      const perPage = parseInt(req.body.perPage); // Default to 10 items per page
       const skip = (page - 1) * perPage;
-  
-      const query = SUBCATEGORY.find();
+
+      const query = SUBCATEGORY.find({
+        $or: [{ subcategory: { $regex: req.body.search, $options: "i" } }],
+
+      });
       const totalDocs = await SUBCATEGORY.countDocuments(); // Count total documents
-  
+
       if (perPage && page) {
         const getdata = await query.skip(skip).limit(perPage).exec();
-  
+
         if (getdata.length > 0) {
           res.send({ data: getdata, totalDocs: totalDocs });
         } else {
@@ -52,7 +57,7 @@ const subcategorydata = async (req, res) => {
         }
       } else {
         const getdata = await query.exec();
-  
+
         if (getdata.length > 0) {
           res.send({ data: getdata, totalDocs: totalDocs });
         } else {
@@ -63,7 +68,7 @@ const subcategorydata = async (req, res) => {
       res.status(400).send({ success: false, msg: error.message });
     }
   }
- 
+
 };
 
 

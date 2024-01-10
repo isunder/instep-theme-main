@@ -53,6 +53,7 @@ import Headeradmin from "../component/admin/dashboardPage/sideNavOption/Products
 import Onlymobile from "../component/user/Products/sliderSubcategory";
 import Wishlistinform from "../component/user/wshlistData/wishlistDataInfo";
 import SubCategoryfilter from "../component/user/filterbyCategory/subCategoryfilter";
+import OrderReport from "../component/admin/dashboardPage/sideNavOption/orders/orderReport";
 
 const role = getUserId() ? getUserId()?.userRole : null;
 // console.log(role, "aaasdfgfds");
@@ -108,6 +109,7 @@ const protects = {
         // { path: "/allunit", element: <Allunit /> },
         // { path: "/alltaxes", element: <Alltaxes /> },
         { path: "/orderreport", element: <Orderreport /> },
+        { path: "/trackorder", element: <OrderReport /> },
         { path: "/categorywise", element: <Categorywise /> },
         { path: "/bulkemails", element: <Bulkemails /> },
         { path: "/productsale", element: <Productsale /> },

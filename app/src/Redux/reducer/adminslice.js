@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { adminPostheading, admingetheading } from "../action/adminheader";
+import { adminPostheading, admingetheading, headingDelete } from "../action/adminheader";
 
 
 
@@ -27,6 +27,7 @@ const Postadminheading = createSlice({
       state.isLoading = false;
     });
 
+
     bulider.addCase(admingetheading.pending, (state, action) => {
       state.isLoading = true;
       state.error = null;
@@ -37,6 +38,21 @@ const Postadminheading = createSlice({
       state.error = "";
     });
     bulider.addCase(admingetheading.rejected, (state, action) => {
+      state.error = "";
+      state.isLoading = false;
+    });
+    
+
+    bulider.addCase(headingDelete.pending, (state, action) => {
+      state.isLoading = true;
+      state.error = null;
+    });
+    bulider.addCase(headingDelete.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.listdata = action?.payload;
+      state.error = "";
+    });
+    bulider.addCase(headingDelete.rejected, (state, action) => {
       state.error = "";
       state.isLoading = false;
     });
