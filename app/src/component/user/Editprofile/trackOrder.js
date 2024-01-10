@@ -5,12 +5,13 @@ import { Getorderdetail } from "../../../Redux/action/orderSummary";
 import { getUserId } from "../../../utils/auth";
 import Allpagination from "../../admin/Pagination/pagination";
 import { allAdminProductList } from "../../../Redux/action/getAllProductListing";
-
+import { useNavigate } from "react-router-dom";
 
 const TrackOrder = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage, setPostPerPage] = useState(10);
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   const listCount = useSelector(
     (state) => state?.getallorderdetail?.listdata?.data?.Count
@@ -30,6 +31,11 @@ const TrackOrder = () => {
     dispatch(Getorderdetail({ userid: idata, pageNo: currentPage, pageSize: postPerPage }));
   }, [currentPage]);
   //   const handleViewDetails = () => {};
+
+  const handleOrder = (e) => {
+    console.log(e, "fafdfafadfdas")
+    // navigate(`/orderconfirmation/${e?.productID[0]?._id}`)
+  }
 
   return (
     <div>
@@ -51,6 +57,8 @@ const TrackOrder = () => {
           {orderdatasum?.map((e, i) => (
             <tr>
               <td>{(currentPage - 1) * postPerPage + (i + 1)}</td>
+//             <tr onClick={() => handleOrder(e)}>
+              <td>{i + 1}</td>
               <td>{e?.quantity}</td>
               <td>{e?.productID[0]?.title}</td>
               <td>{e?.amount}</td>

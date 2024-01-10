@@ -7,10 +7,7 @@ import { cartinfo } from "../../../Redux/action/usercartinfo";
 import { AiOutlinePlus } from "react-icons/ai";
 import { RiDeleteBin6Line, RiSubtractFill } from "react-icons/ri";
 import { SiSpringsecurity } from "react-icons/si";
-import {
-  addToCartAction,
-  removeFromCart,
-} from "../../../Redux/action/addToCartAction";
+import { addToCartAction, removeFromCart } from "../../../Redux/action/addToCartAction";
 import Modal from "react-bootstrap/Modal";
 import Spinner from "../loader/spinner";
 import MoonLoader from "react-spinners/MoonLoader";
@@ -33,7 +30,11 @@ const AddToCartProduct = () => {
     if (userData && userData.id) dispatch(cartinfo({ userid: userData.id }));
   }, []);
 
-  const onHandleClickPlus = (id) => {
+  const onHandleClickPlus = (id,) => {
+    // const totalQuantity = e?.quantity + (quantity[e?.productid] || 0);
+    // if (totalQuantity >= 10) {
+    //   alert("Items cannot exceed 10")
+    // } else {
     let apiObject = {
       productid: id,
       userid: userData?.id,
@@ -46,6 +47,7 @@ const AddToCartProduct = () => {
       }
     });
   };
+  // };
 
   const onHandleClickMinus = (id) => {
     // setLoadingState(false);
@@ -387,9 +389,12 @@ const AddToCartProduct = () => {
               </Col>
             </Row>
             <div className="plceorderbutton_cart col-lg-9">
-              <Link to="/deliverydetail/id">
-                <button className="placeorder_butcart">Place Order</button>
-              </Link>
+              {myCartL && myCartL?.length >= 1 && (
+                <Link to="/deliverydetail/id">
+                  <button className="placeorder_butcart">Place Order</button>
+                </Link>
+              )}
+
             </div>
           </div>
         </>

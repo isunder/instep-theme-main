@@ -56,6 +56,7 @@ import SubCategoryfilter from "../component/user/filterbyCategory/subCategoryfil
 import Careers from "../component/user/Careers/Careers";
 import GrievanceRedressal from "../component/user/Grievance Redressal/GrievanceRedressal";
 import ContactUs from "../component/user/contactUs/contactUs";
+import OrderReport from "../component/admin/dashboardPage/sideNavOption/orders/orderReport";
 
 const role = getUserId() ? getUserId()?.userRole : null;
 // console.log(role, "aaasdfgfds");
@@ -86,7 +87,7 @@ const protects = {
         {path:"/contactus",element:<ContactUs />},
         {path:"Careers",element:<Careers/>},
         {path :"grievanceRedressal",element:<GrievanceRedressal/>},
-        { path: "/orderconfirmation", element: <OrderConfirmation /> },
+        { path: "/orderconfirmation/:_id", element: <OrderConfirmation /> },
         { path: "/editprofile", element: <Editprofile /> },
         { path: "/salespage", element: <SliderPages /> },
         { path: "/slidersubcategory", element: <Onlymobile /> },
@@ -114,6 +115,7 @@ const protects = {
         // { path: "/allunit", element: <Allunit /> },
         // { path: "/alltaxes", element: <Alltaxes /> },
         { path: "/orderreport", element: <Orderreport /> },
+        { path: "/trackorder", element: <OrderReport /> },
         { path: "/categorywise", element: <Categorywise /> },
         { path: "/bulkemails", element: <Bulkemails /> },
         { path: "/productsale", element: <Productsale /> },

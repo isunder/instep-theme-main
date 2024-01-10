@@ -15,26 +15,19 @@ const Editprofile = () => {
   const [profileimgdata, setProfileimgData] = useState("");
   const [selectedthumbnalFile, setselectedthumbnalFile] = useState([]);
 
-  // const profiledata = useSelector((state) => state?.profileslice?.listdata?.data?.data);
-  // const etstadta = useSe
   const loading = useSelector((state) => state?.profileslice?.isLoading);
   const [edit, setEdit] = useState(false);
 
   const profiledata = useSelector(
     (state) => state?.profileslice?.imageData?.data?.data
   );
-  // const token = getToken();
-  // const tokenD = JSON.parse(token);
+
 
   console.log(profiledata, "aaaaaaaaaaaaaaaaaaaa");
   const dataId = getUserId();
   const midata = { id: dataId?.id };
   console.log(midata, "dataId");
-  // const onSubmit = (values) => {
-  //   console.log(values, "jdhdbuscdskjvcs");
-  //   var formData = new FormData();
-  // };
-  // console.log("userData ab", userData);
+
   useEffect(() => { }, [""]);
 
   const handleEdit = (name) => {
@@ -46,7 +39,7 @@ const Editprofile = () => {
       formData.append("userData", JSON.stringify(values));
       dispatch(createprofile(formData)).then((res) => {
         console.log(res, "fwoemkf");
-        toast.success("Successfully Edit !", {
+        toast.success("Successfully Edited !", {
           position: toast.POSITION.BOTTOM_CENTER,
         });
       });
@@ -55,17 +48,21 @@ const Editprofile = () => {
   };
 
   const onSubmitNumber = (values) => {
-    var formData = new FormData();
-    if (values?.id) {
-      formData.append("userData", JSON.stringify(values));
-      dispatch(createprofile(formData)).then((res) => {
-        console.log(res, "fwoemkf");
-        toast.success("Successfully Edit !", {
-          position: toast.POSITION.BOTTOM_CENTER,
+    if ((values?.number && ((values?.number)?.toString()?.length !== 10))) {
+      toast.error("Please check the mobile number")
+    } else {
+      var formData = new FormData();
+      if (values?.id) {
+        formData.append("userData", JSON.stringify(values));
+        dispatch(createprofile(formData)).then((res) => {
+          console.log(res, "fwoemkf");
+          toast.success("Successfully Edited !", {
+            position: toast.POSITION.BOTTOM_CENTER,
+          });
         });
-      });
+      }
+      setEdit(false);
     }
-    setEdit(false);
   };
 
   const validate = (values) => {
@@ -86,7 +83,6 @@ const Editprofile = () => {
     let init = {
       firstname: profiledata?.firstname,
       lastname: profiledata?.lastname,
-      // number: profiledata?.number,
       number: profiledata?.number,
       profileimg: profileimgdata,
       email: profiledata?.email,
@@ -95,18 +91,6 @@ const Editprofile = () => {
 
     return init;
   };
-  // useEffect(() => {
-  //   var formData = new FormData();
-  //   // Dispatch action to create profile with headers
-  //   if (dataId?.id) {
-  //     const userData = { id: dataId?.id };
-  //     formData.append("userData", JSON.stringify(userData));
-  //     dispatch(createprofile(formData)).then((res) => {
-  //       console.log(res, 'fwuioel')
-  //     });
-  //   }
-  //   // formData.append("image", selectedthumbnalFile);
-  // }, [""]);
 
   return (
     <>
@@ -232,7 +216,7 @@ const Editprofile = () => {
               onSubmit={onSubmitNumber}
               initialValues={useMemo(() => initialValues(), [profiledata])}
               validate={validate}
-              render={({ handleSubmit, values, form  }) => (
+              render={({ handleSubmit, values, form }) => (
                 <form onSubmit={handleSubmit}>
                   <Col md={6}>
                     <div className="labelalig_n">
