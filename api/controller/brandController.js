@@ -51,7 +51,11 @@ const brandgetdata = async (req, res) => {
     const perPage = parseInt(req.body.perPage); // Default to 10 items per page
     const skip = (page - 1) * perPage;
 
-    const query = brands.find();
+    const query = brands.find({
+      $or: [
+        { brand: { $regex: req.body.search, $options: "i" } },
+      ],
+    });
     const totalDocs = await brands.countDocuments(); // Count total documents
 
     if (page && perPage) {

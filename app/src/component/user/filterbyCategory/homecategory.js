@@ -101,18 +101,19 @@ const Homecategory = () => {
                       console.log(item, "mkmkkm");
                       return (
                         <>
-                          <Link
-                            className="carddecorationnone_cat text_edit"
-                            reloadDocumen={true}
-                            to={`/productdetail/${item._id}`}
-                          >
-                            <div className="subcatkitechenmaindiv row margin_bottom">
-                              <Col lg={4} md={4} sm={4}>
-                                <div className="d-flex justify-content-end mt-2 mx-2">
-                                  <BsFillHeartFill
-                                    style={{ color: "#808080" }}
-                                  />
-                                </div>
+
+                          <div className="subcatkitechenmaindiv row margin_bottom">
+                            <Col lg={4} md={4} sm={4}>
+                              <div className="d-flex justify-content-end mt-2 mx-2">
+                                <BsFillHeartFill
+                                  style={{ color: "#808080" }}
+                                />
+                              </div>
+                              <Link
+                                className="carddecorationnone_cat text_edit"
+                                reloadDocumen={true}
+                                to={`/productdetail/${item._id}`}
+                              >
                                 <div>
                                   <img
                                     className="subcatkitchen_image"
@@ -122,14 +123,20 @@ const Homecategory = () => {
                                       item?.image
                                         ? item?.image
                                         : item?.thumbnail?.split(":").length > 1
-                                        ? item?.thumbnail
-                                        : `http://localhost:5000/uploads/${item.thumbnail}`
+                                          ? item?.thumbnail
+                                          : `http://localhost:5000/uploads/${item.thumbnail}`
                                     }
                                     alt=""
                                   />
                                 </div>
-                              </Col>
-                              <Col lg={6} md={6} sm={6}>
+                              </Link>
+                            </Col>
+                            <Col lg={6} md={6} sm={6}>
+                              <Link
+                                className="carddecorationnone_cat text_edit"
+                                reloadDocumen={true}
+                                to={`/productdetail/${item?._id}`}
+                              >
                                 <div className="p-4">
                                   <div className="subcatitem_cont">
                                     {" "}
@@ -145,14 +152,20 @@ const Homecategory = () => {
                                     {item?.rating}
                                   </div>
                                 </div>
-                              </Col>
-                              <Col lg={2} md={2} sm={2}>
-                                <div className="p-4">
-                                  <h5> ₹{item?.price}</h5>
-                                </div>
-                              </Col>
-                            </div>
-                          </Link>
+                              </Link>
+                            </Col>
+                            <Col lg={2} md={2} sm={2}>
+                            <Link
+                                className="carddecorationnone_cat text_edit"
+                                reloadDocumen={true}
+                                to={`/productdetail/${item?._id}`}
+                              >
+                              <div className="p-4">
+                                <h5> ₹{item?.price}</h5>
+                              </div>
+                              </Link>
+                            </Col>
+                          </div>
                         </>
                       );
                     })}

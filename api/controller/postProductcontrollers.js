@@ -33,6 +33,7 @@ const postproduct = expressAsyncHandler(async (req, res) => {
 
     // const taxAmount = (priceAfterDiscount * userData.tax) / 100;
     // const finalPrice = priceAfterDiscount;
+    // const finalPrice = priceAfterDiscount + taxAmount;
     // console.log(finalPrice, "testetstetsstetts");
 
     const productadd = new Userproducts({
@@ -69,6 +70,7 @@ const getproduct = expressAsyncHandler(async (req, res) => {
     const page = parseInt(req.body.page); // Default to page 1
     const perPage = parseInt(req.body.perPage); // Default to 10 items per page
 
+    console.log(req.body.search, "search")
     const skip = (page - 1) * perPage;
 
     if (page && perPage) {
@@ -79,6 +81,11 @@ const getproduct = expressAsyncHandler(async (req, res) => {
       ];
 
       const productsQuery = [
+        {
+          $match: {
+            title: { $regex: req.body.search, $options: 'i' } // Case-insensitive search
+          }
+        },
         {
           $lookup: {
             from: "categorytables",
@@ -119,7 +126,7 @@ const getproduct = expressAsyncHandler(async (req, res) => {
       const totalCount = countResult.length > 0 ? countResult[0].totalCount : 0;
 
       // Log the products to inspect the results
-      console.log("Products:", JSON.stringify(productsResult, null, 2));
+      // console.log("Products:", JSON.stringify(productsResult, null, 2));
 
       if (productsResult.length > 0) {
         res.status(200).json({ products: productsResult, count: totalCount });
@@ -127,6 +134,7 @@ const getproduct = expressAsyncHandler(async (req, res) => {
         res.status(404).json({ result: "No products found" });
       }
     } else {
+      console.log("elseeeeeeeeeeeeeeeee")
       const products = await Userproducts.aggregate([
         {
           $lookup: {
@@ -152,13 +160,14 @@ const getproduct = expressAsyncHandler(async (req, res) => {
             as: "brand",
           },
         },
+
       ]);
 
       // Log the products to inspect the results
       const count = products.length; // Get the count of products
 
       // Log the products to inspect the results
-      console.log("Products:", JSON.stringify(products, null, 2));
+      // console.log("Products:", JSON.stringify(products, null, 2));
 
       if (count > 0) {
         res.status(200).json({ products, count });
@@ -175,8 +184,9 @@ const getproduct = expressAsyncHandler(async (req, res) => {
 
 const updateproduct = expressAsyncHandler(async (req, res) => {
   try {
+    console.log("aaaaaa", req.body)
     const userData = JSON.parse(req.body.userData);
-    const product = userData?.id;
+    const product = userData.id;
     const dataproduct = await Userproducts.find({ _id: product }).exec();
     const updateFields = {};
 
@@ -185,11 +195,11 @@ const updateproduct = expressAsyncHandler(async (req, res) => {
         req.files &&
         req.files["images"] &&
         req.files["images"].map((file) => file.filename);
-      console.log(updateImages, "updateImages");
+      // console.log(updateImages, "updateImages");
 
       const updateThumbnail =
         req.files && req.files.thumbnail && req.files.thumbnail[0]?.filename;
-      console.log(updateThumbnail, "updateThumbnail");
+      // console.log(updateThumbnail, "updateThumbnail");
       // console.log(dataproduct[0]?.images, "dataproduct?.images")
       // console.log(dataproduct[0]?.thumbnail, "dataproduct?.thumbnail")
 
@@ -243,7 +253,7 @@ const updateproduct = expressAsyncHandler(async (req, res) => {
       updateFields,
       { new: true }
     );
-    console.log(findbyid, "findbyid");
+    console.log(findbyid, "pppppppppppppppppp");
     res.status(200).send({ data: findbyid, success: true });
   } catch (error) {
     res.status(400).send({ message: error.message });
@@ -797,7 +807,7 @@ const orderSummary = expressAsyncHandler(async (req, res) => {
 
     // Find the product by ID to update stock
     const findbyid = await Userproducts.findById(productID);
-  
+
 
     if (!findbyid) {
       return res
@@ -889,11 +899,13 @@ const updateOrderStatus = expressAsyncHandler(async (req, res) => {
 });
 const getorderSummary = expressAsyncHandler(async (req, res) => {
   try {
-    const { userid } = req.body; // Assuming userId is passed as a parameter
-    console.log(userid, "userid");
+    const pageNo = req.body.pageNo ? req.body.pageNo : 1;
+    const size = req.body.pageSize ? req.body.pageSize : 10;
+    // const { userid } = req.body; // Assuming userId is passed as a parameter
+    // console.log(userid, "userid");
 
     const ordersWithProducts = await SchemaOrder.aggregate([
-      { $match: { userid: new mongoose.Types.ObjectId(userid) } },
+      { $match: { userid: new mongoose.Types.ObjectId(req.body.userid) } },
       {
         $lookup: {
           from: "userproducts",
@@ -902,9 +914,19 @@ const getorderSummary = expressAsyncHandler(async (req, res) => {
           as: "productID",
         },
       },
+      { $skip: (pageNo - 1) * size },
+
+      {
+        $sort: {
+          createdAt: -1,
+        }
+      },
+      { $limit: size },
     ]);
-    console.log(ordersWithProducts, "ordersWithProducts");
-    res.status(200).send({ ordersWithProducts, success: true });
+
+    const Count = await SchemaOrder.find().countDocuments({ userid: new mongoose.Types.ObjectId(req.body.userid) })
+
+    res.status(200).send({ ordersWithProducts, Count, success: true });
   } catch (error) {
     res
       .status(500)

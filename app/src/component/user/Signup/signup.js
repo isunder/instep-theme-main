@@ -26,8 +26,8 @@ const SignUp = () => {
 
     dispatch(registerAction(values)).then((res) => {
       console.log(res, "asdasdasdasdas");
-      if (res.payload.msg) {
-        alert(res.payload.msg);
+      if (res?.payload?.msg) {
+        alert(res?.payload?.msg);
       } else navigate("/signin");
     });
     // }
@@ -35,6 +35,12 @@ const SignUp = () => {
   // navigate("/signin");
   const validates = (values) => {
     const errors = {};
+    if (!values.firstname) {
+      errors.firstname = "Required"
+    }
+    if (!values.lastname) {
+      errors.lastname = "Required"
+    }
     if (!values.username) {
       errors.username = "Required";
     }
@@ -57,6 +63,8 @@ const SignUp = () => {
   };
 
   const initialValues = {
+    firstname: "",
+    lastname: "",
     username: "",
     number: "",
     email: "",
@@ -94,6 +102,42 @@ const SignUp = () => {
                     values,
                   }) => (
                     <form onSubmit={handleSubmit}>
+                      <div className="uppernamealign row">
+                        <Field name="firstname">
+                          {({ input, meta }) => (
+                            <div className="mb-4 col-lg-6 col-sm-12">
+                              {/* <label>Your name</label> */}
+                              <input
+                                className="login_input"
+                                {...input}
+                                type="text"
+                                placeholder="First Name"
+                                maxLength={20}
+                              />
+                              {meta.error && meta.touched && (
+                                <p className="star">{meta.error}</p>
+                              )}
+                            </div>
+                          )}
+                        </Field>
+                        <Field name="lastname">
+                          {({ input, meta }) => (
+                            <div className="mb-4 col-lg-6 col-sm-12">
+                              {/* <label>Your name</label> */}
+                              <input
+                                className="login_input"
+                                {...input}
+                                type="text"
+                                placeholder="Last Name"
+                                maxLength={20}
+                              />
+                              {meta.error && meta.touched && (
+                                <p className="star">{meta.error}</p>
+                              )}
+                            </div>
+                          )}
+                        </Field>
+                      </div>
                       <Field name="username">
                         {({ input, meta }) => (
                           <div className="mb-4">

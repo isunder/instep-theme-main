@@ -24,11 +24,14 @@ import { updateProduct } from "../../../../../Redux/action/updateProductAction";
 import { allAdminProductList } from "../../../../../Redux/action/getAllProductListing";
 import { deleteProduct } from "../../../../../Redux/action/deleteProductAction";
 import Allpagination from "../../../Pagination/pagination";
+import { searchAction } from "../../../../../Redux/action/searchProductAction";
 
 function Allproducts(params) {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [selectedProductId, setSelectedProductId] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  // const [showlist, setShowList] = useState(false);
   const [show, setShow] = useState(false);
   const data = useSelector(
     (state) => state?.GetAdminProductAllListData?.listdata
@@ -41,7 +44,15 @@ function Allproducts(params) {
     (state) => state?.GetAdminProductAllListData?.listdata?.count
   );
 
-  // console.log(data?.products[0]?.category[0]?.category, "fwkenfljn");
+  console.log(searchQuery, "fwkenfljn");
+
+  const handleSearch = () => {
+    if (searchQuery) {
+      dispatch(allAdminProductList({ search: searchQuery, page: currentPage, perPage: postPerPage }));
+    } else {
+      dispatch(allAdminProductList({ search: '', page: currentPage, perPage: postPerPage }));
+    }
+  };
 
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage, setPostPerPage] = useState(10);
@@ -51,8 +62,10 @@ function Allproducts(params) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(allAdminProductList({ page: currentPage, perPage: postPerPage }));
-  }, [currentPage]);
+    dispatch(allAdminProductList({ search: searchQuery, page: currentPage, perPage: postPerPage }));
+    // dispatch(searchAction({ name: searchQuery }));
+
+  }, [currentPage,searchQuery]);
   const handleProduct = () => {
     navigate("/product");
   };
@@ -98,6 +111,11 @@ function Allproducts(params) {
   };
   const handleClose = () => setShow(false);
 
+  const onKeyDownHandler = (e) => {
+    if (e.keyCode === 13) {
+      handleSearch();
+    }
+  };
   return (
     <>
       <div className="admin_toppadding ">
@@ -125,49 +143,18 @@ function Allproducts(params) {
                   type="text"
                   placeholder="Search"
                   className=" mr-sm-2 adminsearch_bar"
+                  value={searchQuery}
+                  onKeyDown={onKeyDownHandler}
+                  onChange={(e) =>
+                    setSearchQuery(e?.target?.value)
+                  }
                 />
               </div>
-              <div className="btngroup">
-                {/* <Dropdown>
-                  <Dropdown.Toggle
-                    className="select_button"
-                    variant="success"
-                    id="dropdown-basic"
-                  >
-                    Select Brand
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">
-                      Another action
-                    </Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">
-                      Something else
-                    </Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-                <Dropdown>
-                  <Dropdown.Toggle
-                    className="select_button"
-                    variant="success"
-                    id="dropdown-basic"
-                  >
-                    Select Status
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">
-                      Another action
-                    </Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">
-                      Something else
-                    </Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown> */}
-                <Button className="select_button " type="submit">
+              {/* <div className="btngroup">
+                <Button className="select_button " type="submit" onClick={handleSearch}>
                   <AiOutlineSearch /> search
                 </Button>
-              </div>
+              </div> */}
             </div>
             <Table responsive="lg" className="position-relative">
               <thead>
@@ -259,18 +246,23 @@ function Allproducts(params) {
                 )}
               </tbody>
             </Table>
-            <div className="d-flex justify-content-end">
-              <Allpagination
-                currentPage={currentPage}
-                postPerPage={postPerPage}
-                setPostPerPage={setPostPerPage}
-                setCurrentPage={setCurrentPage}
-                listCount={listCount}
-              />
-            </div>
+            {searchQuery && searchQuery?.length !== 10 ? (
+              <div className="d-flex justify-content-end">
+              </div>
+            ) : (
+              <div className="d-flex justify-content-end">
+                <Allpagination
+                  currentPage={currentPage}
+                  postPerPage={postPerPage}
+                  setPostPerPage={setPostPerPage}
+                  setCurrentPage={setCurrentPage}
+                  listCount={listCount}
+                />
+              </div>
+            )}
           </Col>
         </Row>
-        <MydModalWithGrid show={show} handleClose={handleClose} />
+        <MydModalWithGrid show={show} handleClose={handleClose} productId={editClick} />
         <ConfirmationModal
           show={showModal}
           onHide={() => setShowModal(false)}
