@@ -41,7 +41,7 @@ function Allproducts(params) {
     (state) => state?.GetAdminProductAllListData?.listdata?.count
   );
 
-  console.log(data, "fwkenfljn");
+  // console.log(data?.products[0]?.category[0]?.category, "fwkenfljn");
 
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage, setPostPerPage] = useState(10);
@@ -197,7 +197,6 @@ function Allproducts(params) {
                             {(currentPage - 1) * postPerPage + (index + 1)}
                           </td>
                           <td>
-
                             {product.title.substring(
                               0,
                               readMoreState === product?._id
@@ -229,7 +228,7 @@ function Allproducts(params) {
                               <Dropdown.Toggle
                                 variant=""
                                 id="dropdown-basic"
-                              // className="focusotoggle"
+                                // className="focusotoggle"
                               >
                                 <BiDotsVerticalRounded />
                               </Dropdown.Toggle>

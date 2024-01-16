@@ -11,23 +11,43 @@ import { BsFillHeartFill } from "react-icons/bs";
 import Spinner from "../loader/spinner";
 
 const Homecategory = () => {
+  // const { subcategoryid } = props;
+  // console.log(subcategoryid, "propsid");
+
   const dispatch = useDispatch();
-  const data = useSelector((state) => state.homecategory.listdata);
-  const { categoryName } = useParams();
+
+  const { categoryName, subcategoryName } = useParams();
+
+  console.log(categoryName, "ddasasasasas");
 
   const loading = useSelector((state) => state?.homecategory?.isLoading);
 
   const filterbyPrice = useSelector(
-    (state) => state?.filterationalltype?.listdata
+    (state) => state?.filterationalltype?.listdata?.data
   );
   console.log(filterbyPrice, "filterbyPrice");
 
+  // const filterbyPrice1 = useSelector(
+  //   (state) =>
+  //     state?.filterationalltype?.listdata?.data[0]?.category[0]?.category
+  // );
+
+  // console.log(filterbyPrice1, "filterbyPriceasasa");
+
+  const data = useSelector((state) => state?.homecategory?.listdata);
+  console.log(data, "dassssssss");
+
   useEffect(() => {
     dispatch(homecategory(categoryName));
-    dispatch(AllFilterationData());
+    dispatch(
+      AllFilterationData({
+        category: categoryName,
+        subcategoryId: subcategoryName,
+      })
+    );
   }, [categoryName]);
-  console.log(data, "goapl");
-  console.log(categoryName);
+
+  console.log(categoryName, "categoryNamemm");
 
   return (
     <>
@@ -67,7 +87,6 @@ const Homecategory = () => {
                       Ipsum.
                     </p>
                   </div>
-                  <div></div>
                   <div className="righthome_filter">
                     <h4>Sort By</h4>
                     <h4>Popularity</h4>
@@ -77,8 +96,9 @@ const Homecategory = () => {
                   </div>
                 </div>
                 <Row>
-                  {data &&
-                    data?.map((item) => {
+                  {filterbyPrice &&
+                    filterbyPrice?.map((item) => {
+                      console.log(item, "mkmkkm");
                       return (
                         <>
                           <Link
@@ -120,6 +140,8 @@ const Homecategory = () => {
                                     {item?.description}
                                   </div>
                                   <div className="kit_homestarticon">
+                                    Rating
+                                    <br />
                                     {item?.rating}
                                   </div>
                                 </div>

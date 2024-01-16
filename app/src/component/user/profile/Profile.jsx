@@ -56,6 +56,11 @@ export default function Profile() {
 
     const dispatch = useDispatch();
 
+    const orderdatasum = useSelector(
+        (state) => state?.getallorderdetail?.listdata?.data?.ordersWithProducts);
+
+    console.log(orderdatasum, "orderdatasumss")
+
     useEffect(() => {
         dispatch(getProfileImage({ id: getUserId().id })).then(res => {
             if (res?.payload?.data?.data?.username) {
@@ -354,7 +359,7 @@ export default function Profile() {
                                     <div className="userhistory_icons">
                                         <MdShoppingCartCheckout className="historyneworder_icon" />
                                         <div className="history_detail">
-                                            <h3>16</h3>
+                                            <h3>{orderdatasum?.length}</h3>
                                             <p>New Orders</p>
                                         </div>
                                     </div>
