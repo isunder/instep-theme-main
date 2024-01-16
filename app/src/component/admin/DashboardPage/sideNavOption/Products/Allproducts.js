@@ -184,7 +184,6 @@ function Allproducts(params) {
                             {(currentPage - 1) * postPerPage + (index + 1)}
                           </td>
                           <td>
-
                             {product.title.substring(
                               0,
                               readMoreState === product?._id
@@ -216,7 +215,7 @@ function Allproducts(params) {
                               <Dropdown.Toggle
                                 variant=""
                                 id="dropdown-basic"
-                              // className="focusotoggle"
+                                // className="focusotoggle"
                               >
                                 <BiDotsVerticalRounded />
                               </Dropdown.Toggle>

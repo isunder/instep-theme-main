@@ -18,7 +18,6 @@ import { getUserId } from "../../../../utils/auth";
 
 const AllProductDetail = () => {
   const dispatch = useDispatch();
-  // const userData = getUserId();  
 
   const userData = getUserId();
   console.log(userData, "userData");
@@ -35,7 +34,7 @@ const AllProductDetail = () => {
 
   const loading = useSelector((state) => state?.getproductdata?.isLoading);
 
-  console.log(loading, "loadingss")
+  console.log(loading, "loadingss");
 
   const [wishlist, setWishlist] = useState({});
 
@@ -127,9 +126,8 @@ const AllProductDetail = () => {
                 </div>
                 <div className="margin_bottom">
                   <Row>
-
                     {data &&
-                      data?.products?.map((e) => {
+                      data?.products?.map((e, i) => {
                         if (e.image) {
                         }
                         let isInwishlist =
@@ -141,7 +139,6 @@ const AllProductDetail = () => {
                         return (
                           <Col lg={3} md={4}>
                             <div className="d-flex justify-content-end mt-2 mx-2">
-
                               {/* <Wishlistmaincomponent data={e} /> */}
                               {
                                 isInwishlist ? (
@@ -198,15 +195,15 @@ const AllProductDetail = () => {
                                       e?.image
                                         ? e?.image
                                         : e?.thumbnail?.split(":").length > 1
-                                          ? e?.thumbnail
-                                          : `http://localhost:5000/uploads/${e?.thumbnail}`
+                                        ? e?.thumbnail
+                                        : `http://localhost:5000/uploads/${e?.thumbnail}`
                                     }
                                   />
                                 </div>
                                 <Card.Body>
                                   <div className="item_rating">
                                     <p className="homerating_cat">
-                                      {e?.category[0]?.category}
+                                      {e?.category[i]?.category}
                                     </p>
                                   </div>
                                   <Card.Title className="crad_text">
