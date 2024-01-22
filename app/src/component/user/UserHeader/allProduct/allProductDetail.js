@@ -14,11 +14,12 @@ import {
   wishlistremove,
 } from "../../../../Redux/action/wishlistAction";
 import { getUserId } from "../../../../utils/auth";
+import Scrolltotopbutton from "../../ScoolToTop/scrolltotopbutton";
 // import Wishlistmaincomponent from "../../wshlistData/wishlistmaincomponent"
 
 const AllProductDetail = () => {
   const dispatch = useDispatch();
-  // const userData = getUserId();  
+  // const userData = getUserId();
 
   const userData = getUserId();
   console.log(userData, "userData");
@@ -35,7 +36,7 @@ const AllProductDetail = () => {
 
   const loading = useSelector((state) => state?.getproductdata?.isLoading);
 
-  console.log(loading, "loadingss")
+  console.log(loading, "loadingss");
 
   const [wishlist, setWishlist] = useState({});
 
@@ -127,7 +128,6 @@ const AllProductDetail = () => {
                 </div>
                 <div className="margin_bottom">
                   <Row>
-
                     {data &&
                       data?.products?.map((e) => {
                         if (e.image) {
@@ -140,57 +140,56 @@ const AllProductDetail = () => {
                         console.log(isInwishlist, "fiuwehfr3wre");
                         return (
                           <Col lg={3} md={4}>
-                            <div className="d-flex justify-content-end mt-2 mx-2">
-
-                              {/* <Wishlistmaincomponent data={e} /> */}
-                              {
-                                isInwishlist ? (
-                                  <AiFillHeart
-                                    style={{
-                                      color: "#FF0000", // Change to your desired color
-                                      width: "23px",
-                                      height: "23px",
-                                      cursor: "pointer",
-                                    }}
-                                    onClick={() =>
-                                      handleWishlistClick(e?._id, "delete")
-                                    }
-                                  />
-                                ) : (
-                                  // wishlist[e._id] ? (
-                                  //   <AiFillHeart
-                                  //     style={{
-                                  //       color: "#FF0000", // Change to your desired color
-                                  //       width: "23px",
-                                  //       height: "23px",
-                                  //       cursor: "pointer",
-                                  //     }}
-                                  //     onClick={() =>
-                                  //       handleWishlistClick(e?._id, "delete")
-                                  //     }
-                                  //   />
-                                  // ) : (
-                                  <AiOutlineHeart
-                                    style={{
-                                      color: "#808080",
-                                      width: "23px",
-                                      height: "23px",
-                                      cursor: "pointer",
-                                    }}
-                                    onClick={() =>
-                                      handleWishlistClick(e._id, "add")
-                                    }
-                                  />
-                                )
-                                // )
-                              }
-                            </div>
-                            <Link
-                              className="card_deco"
-                              to={`/productdetail/${e._id}`}
-                              onClick={() => productClick(e?._id)}
-                            >
-                              <Card className=" forcatcards_htwd ">
+                            <Card className=" forcatcards_htwd ">
+                              <div className="d-flex justify-content-end mt-2 mx-2">
+                                {/* <Wishlistmaincomponent data={e} /> */}
+                                {
+                                  isInwishlist ? (
+                                    <AiFillHeart
+                                      style={{
+                                        color: "#FF0000", // Change to your desired color
+                                        width: "23px",
+                                        height: "23px",
+                                        cursor: "pointer",
+                                      }}
+                                      onClick={() =>
+                                        handleWishlistClick(e?._id, "delete")
+                                      }
+                                    />
+                                  ) : (
+                                    // wishlist[e._id] ? (
+                                    //   <AiFillHeart
+                                    //     style={{
+                                    //       color: "#FF0000", // Change to your desired color
+                                    //       width: "23px",
+                                    //       height: "23px",
+                                    //       cursor: "pointer",
+                                    //     }}
+                                    //     onClick={() =>
+                                    //       handleWishlistClick(e?._id, "delete")
+                                    //     }
+                                    //   />
+                                    // ) : (
+                                    <AiOutlineHeart
+                                      style={{
+                                        color: "#808080",
+                                        width: "23px",
+                                        height: "23px",
+                                        cursor: "pointer",
+                                      }}
+                                      onClick={() =>
+                                        handleWishlistClick(e._id, "add")
+                                      }
+                                    />
+                                  )
+                                  // )
+                                }
+                              </div>
+                              <Link
+                                className="card_deco"
+                                to={`/productdetail/${e._id}`}
+                                onClick={() => productClick(e?._id)}
+                              >
                                 <div className="img_div">
                                   <Card.Img
                                     variant="top"
@@ -198,8 +197,8 @@ const AllProductDetail = () => {
                                       e?.image
                                         ? e?.image
                                         : e?.thumbnail?.split(":").length > 1
-                                          ? e?.thumbnail
-                                          : `http://localhost:5000/uploads/${e?.thumbnail}`
+                                        ? e?.thumbnail
+                                        : `http://localhost:5000/uploads/${e?.thumbnail}`
                                     }
                                   />
                                 </div>
@@ -217,8 +216,8 @@ const AllProductDetail = () => {
                                     <h5> ₹ {e?.price}</h5>
                                   </Card.Text>
                                 </Card.Body>
-                              </Card>
-                            </Link>
+                              </Link>
+                            </Card>
                           </Col>
                         );
                       })}
@@ -226,6 +225,7 @@ const AllProductDetail = () => {
                 </div>
               </Col>
             </Row>
+            <Scrolltotopbutton />
           </div>
         </>
       )}
