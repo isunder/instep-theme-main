@@ -72,6 +72,7 @@ const postproduct = expressAsyncHandler(async (req, res) => {
       tax: userData.tax,
       totalprice: priceAfterDiscount,
     })
+    
 
 
 
